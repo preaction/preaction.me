@@ -35,12 +35,14 @@ site:
             main:
                 - title: Blog
                   href: /index.html
+                - title: Resume
+                  href: /resume
+                - title: Talks
+                  href: /talks
                 - title: Statocles
                   href: /Statocles
                 - title: Yertl
                   href: /ETL-Yertl
-                - title: Talks
-                  href: /talks
                 - title: Food
                   href: http://indiepalate.com
         deploy: 
