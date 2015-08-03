@@ -6,9 +6,9 @@ links:
 ---
 
 <div markdown="1" class="pull-right">
-* Chicago, IL
-* (312) 241-8518
-* [madcityzen@gmail.com](mailto:madcityzen@gmail.com)
+Chicago, IL  
+(312) 241-8518  
+<madcityzen@gmail.com>  
 </div>
 
 # Doug Bell
@@ -23,8 +23,9 @@ links:
 
 ### Bank of America
 
-Senior Developer / Architect. Quantitative Analysis and Research (QAR)
-group, Core Data team. October 2011 - Present
+Senior Developer / Architect  
+Quantitative Analysis and Research (QAR) group, Core Data team  
+October 2011 - Present  
 
 #### Responsibilities and accomplishments
 
@@ -56,7 +57,8 @@ group, Core Data team. October 2011 - Present
 
 ### Double Cluepon Software Corp.
 
-CTO / Technical Director / Senior Developer. October 2009 - June 2014
+CTO / Technical Director / Senior Developer  
+October 2009 - June 2014  
 
 #### Responsibilities and accomplishments
 
@@ -84,8 +86,8 @@ CTO / Technical Director / Senior Developer. October 2009 - June 2014
 
 ### Plain Black Corp.
 
-Senior Developer / Project Manager / Systems Administrator. November
-2005 - August 2011.
+Senior Developer / Project Manager / Systems Administrator  
+November 2005 - August 2011  
 
 #### Responsibilities and accomplishments
 
