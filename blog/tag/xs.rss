@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.github.io/blog/tag/xs/</link>
+        <atom:link href="http://preaction.github.io/blog/tag/xs.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.054</generator>
+        <item>
+            <title>Adventures in Debugging C/XS 2: Debugging Boogaloo</title>
+            <link>http://preaction.github.io/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html</link>
+            <guid>http://preaction.github.io/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html</guid>
+            <description><![CDATA[
+                <p>... or &quot;Ask Not To Whom The Pointer Points, It Points To Thee.&quot;</p>
+
+<p>TL;DR: A pointer is not a reference. A pointer knows nothing about the data
+being pointed to. Returning multiple values requires actual work.</p>
+
+<p>Everything went wrong when I wanted a string with a <code>NUL</code> character inside it.
+C strings are not Perl scalars, they don&#39;t know how long they are. So to mark
+the end of a string, C uses the <code>NUL</code> character, <code>\0</code>. The <code>strcpy</code> function will
+copy to your destination until the first <code>\0</code> from your source. When you want to
+have a string with a <code>\0</code> inside of it that does not mark the end of the string,
+you need to know exactly how long the string is. This is not difficult to do,
+but you also have to return that length from the function that creates your
+string.</p>
+
+<p>C functions do not have more than one return value.</p>
+
+<pre><code>(char* buffer, int bufferSize) = get_string_with_nuls();
+// You thought it could be that easy?
+</code></pre>
+
+<p>So in order for your function to result in more than one value, you have to
+pass in references to be used to fill in with actual values.</p>
+
+<pre><code>char* buffer;
+int bufferSize = get_string_with_nuls( buffer );
+// C programmers will already know what I did wrong here
+</code></pre>
+
+<p>Thinking like a Perl programmer, I thought I could just pass in the pointer to
+the function and the function could fill it with data. Two problems:</p>
+
+<ol>
+<li>I passed in the pointer itself, not a reference to the pointer: <code>&amp;buffer</code></li>
+<li>I did not initialize the pointer to anything.</li>
+</ol>
+
+<p>A more correct way would be:</p>
+
+<pre><code>char* buffer = malloc( 128 * sizeof( char ) );
+int bufferSize = get_string_with_nuls( &amp;buffer );
+</code></pre>
+
+<p>But this suffers from another problem: I have to know beforehand how big my
+string is going to be and allocate that much memory beforehand.</p>
+
+<p>The way I ended up succeeding was:</p>
+
+<pre><code>int bufferSize;
+char* buffer = get_string_with_nuls( &amp;bufferSize );
+</code></pre>
+
+<p>This way, <code>get_string_with_nuls</code> can handle the <code>malloc</code> with exactly the correct
+size and give it to me. I don&#39;t have to guess at a size beforehand.</p>
+
+<p>Of course, a struct could do this better, or since I&#39;m actually in C++, an
+object. I&#39;ll be planning a new API as soon as I confirm this one actually
+works and has proper tests (written in Perl, of course).</p>
+
+                    <p><a href="http://preaction.github.io/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="/blog/tag/xs/">xs</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Tue, 20 Mar 2012 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Adventures in Debugging C/XS</title>
+            <link>http://preaction.github.io/blog/2011/11/16/adventures-in-debugging-c-xs.html</link>
+            <guid>http://preaction.github.io/blog/2011/11/16/adventures-in-debugging-c-xs.html</guid>
+            <description><![CDATA[
+                <p>... or Why A Good Perl Developer Is Not Automatically A Good C Developer, the
+Story of C Programming via Google.</p>
+
+<p>My tests failed, but only sometimes. I was building an XS module to interface
+with a C wrapper around a C++ library (wrapper unnecessary? probably). <code>make
+test</code> was failing with exit code 11. Some quick searching revealed that I had
+an intermittent segfault. Calling a function <code>as_xml</code> would fail with a SEGV in
+<code>strlen()</code>. This only happened in perl after <code>as_xml</code> when perl was making a SV
+out of the return value. This also only mainly happened during <code>make test</code>.
+Doing <code>prove</code> myself would succeed 19 times out of 20, where make test would
+fail 19 times out of 20. Worse, my C test program would never fail at all.</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2011/11/adventures-in-debugging-cxs.html">
+                            Continue reading <em>Adventures in Debugging C/XS</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2011/11/16/adventures-in-debugging-c-xs.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/xs/">xs</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Wed, 16 Nov 2011 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

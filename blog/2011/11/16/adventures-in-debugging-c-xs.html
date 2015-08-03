@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>preaction</title>
+        <meta content="Statocles 0.054" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/Statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/ETL-Yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Adventures in Debugging C/XS</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/xs/" rel="tag">xs</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2011-11-16">
+                        Posted on 2011-11-16
+                    </time>
+                        by preaction
+                    </p>
+                </aside>
+
+                <p>Originally posted as:
+                        <a href="http://blogs.perl.org/users/preaction/2011/11/adventures-in-debugging-cxs.html">
+                            <em>Adventures in Debugging C/XS</em> on blogs.perl.org.
+                        </a>
+                </p>
+
+            </header>
+            <section id="section-1">
+                <p>... or Why A Good Perl Developer Is Not Automatically A Good C Developer, the
+Story of C Programming via Google.</p>
+
+<p>My tests failed, but only sometimes. I was building an XS module to interface
+with a C wrapper around a C++ library (wrapper unnecessary? probably). <code>make
+test</code> was failing with exit code 11. Some quick searching revealed that I had
+an intermittent segfault. Calling a function <code>as_xml</code> would fail with a SEGV in
+<code>strlen()</code>. This only happened in perl after <code>as_xml</code> when perl was making a SV
+out of the return value. This also only mainly happened during <code>make test</code>.
+Doing <code>prove</code> myself would succeed 19 times out of 20, where make test would
+fail 19 times out of 20. Worse, my C test program would never fail at all.</p>
+
+            </section>
+            <section id="section-2">
+                <p>I changed everything I could think of: Using a debugging perl and keeping debug
+symbols in my C library and XS module made the failures happen less frequently
+(making debugging ever more frustrating). perlbrew was a big help here, letting
+me switch between different versions of perl, debugging perl, threaded perl,
+and combinations thereof.</p>
+
+<p>After playing with GDB (once again succeeding 19 times out of 20), I gave up
+and searched the web. I found <a href="http://bit.ly/vwnMbb">the same mailing list
+thread</a> multiple times, and read it multiple times, not
+coming up with anything that was relevant to my situation.</p>
+
+<p>Until I read the thread again after another frustrating half-hour with GDB: I
+had forgotten to put a prototype in the .h file, causing the char* pointer
+being returned to be treated as an int. On my 64-bit system, this causes
+segfaults. The compiler was warning me of this, &quot;<tt>warning: initialization
+makes pointer from integer without a cast</tt>&quot;, but I didn&#39;t understand the
+warning (and the web was not helpful on that one).</p>
+
+<p>Adding the function prototype to the C wrapper header and recompiling fixed the
+problem.</p>
+
+<p>And that is why I need to learn a lot more about C. Function prototypes?
+Header files? Why are those necessary (I&#39;m asking rhetorically, of course)?
+Heap and stack? Might as well be herp and derp.</p>
+
+<p>Lesson reinforced: Depth of knowledge does not equal breadth of knowledge.</p>
+
+<p>Also, having IRC at work might have saved me a few hours of hassle.</p>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="three columns sidebar">
+        
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/chicago.pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/pdl/">pdl</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Modern Web Apps with Mojolicious, Angular, and Bootstrap</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="../remark/remark.js" type="text/javascript">
+        {
+            "highlightStyle": "solarized_light",
+            "highlightLanguage": "no-highlight"
+        }
+    </script>
+    <style type="text/css" media="screen">
+/*
+SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
+--------- ------- ---- -------  ----------- ---------- ----------- -----------
+base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
+base02    #073642  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
+base01    #586e75 10/7 brgreen  240 #585858 45 -07 -07  88 110 117 194  25  46
+base00    #657b83 11/7 bryellow 241 #626262 50 -07 -07 101 123 131 195  23  51
+base0     #839496 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
+base1     #93a1a1 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
+base2     #eee8d5  7/7 white    254 #e4e4e4 92 -00  10 238 232 213  44  11  93
+base3     #fdf6e3 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
+yellow    #b58900  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
+orange    #cb4b16  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
+red       #dc322f  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
+magenta   #d33682  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
+violet    #6c71c4 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
+blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
+cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
+green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
+*/
+
+body {
+    font-size:        1.3em;
+}
+
+.remark-slide .inverse {
+    color:            #839496; /* base0  */
+    background-color: #002b36; /* base03 */
+}
+
+.remark-slide {
+    color:            #657b83; /* base00 */
+    background-color: #fdf6e3; /* base3 */
+}
+
+.remark-slide pre, .remark-slide code {
+    color:            #586e75; /* base01 */
+    background-color: #eee8d5; /* base2 */
+}
+
+.remark-slide .inverse pre, .remark-slide .inverse code {
+    color:            #93a1a1; /* base1 */
+    background-color: #073642; /* base02 */
+}
+
+a:link, a:visited, a:hover, a:active {
+    color:            #268bd2; /* blue */
+}
+
+.footnote {
+    position: absolute;
+    bottom: 3em;
+    right: 3em;
+}
+.code {
+    font-family: Monaco, monospace;
+}
+.constrain img {
+    margin: 0 auto;
+    width: 90%;
+}
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: inverse center middle
+# Modern Web Apps
+### Mojolicious; MongoDB; Angular.js; Bootstrap
+---
+class: center middle
+# Prologue
+## A user database longs for an app
+---
+class: inverse center middle
+# Getting Started
+## The Mojolicious Part
+---
+class: middle
+.center[
+# The Minimum App
+]
+```perl
+#!/usr/bin/env perl
+
+use Mojolicious::Lite;
+
+app-&gt;start;
+```
+.footnote[
+[app-01.pl](Mojo-Angular/app-01.pl.html)
+]
+---
+class: middle
+.center[
+# An index page
+## Our application
+]
+```perl
+#!/usr/bin/env perl
+
+use Mojolicious::Lite;
+
+get '/' =&gt; sub {
+    my ( $self ) = @_;
+    $self-&gt;render( 'index' );
+};
+
+app-&gt;start;
+__DATA__
+@@ index.html.ep
+&lt;h1&gt;It works!&lt;/h1&gt;
+```
+.footnote[
+[app-02.pl](Mojo-Angular/app-02.pl.html)
+]
+---
+class: inverse center middle
+# Database APIs
+## The MongoDB Part
+---
+class: middle
+.center[
+# All Users JSON
+]
+```perl
+use Mango;
+my $mango = Mango->new;
+$mango->default_db( 'jade_kingdom' );
+
+get '/api/user' => sub {
+    my ( $self ) = @_;
+    $self->render(
+        json => $mango->db->collection('user')->find->all,
+    );
+};
+```
+.footnote[
+[app-03.pl](Mojo-Angular/app-03.pl.html)
+]
+---
+class: inverse center middle
+# Bring In Angular
+## The Fun Part Begins
+---
+class: middle
+.center[
+# Some Basic HTML
+]
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;body&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;E-mail&lt;/th&gt;
+                &lt;th&gt;Created&lt;/th&gt;
+                &lt;th&gt;Last Seen&lt;/th&gt;
+                &lt;th&gt;Can Play&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+        &lt;script src="/js/angular.min.js"&gt;&lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+```
+.footnote[
+[app-04.pl](Mojo-Angular/app-04.pl.html)
+]
+---
+class: middle
+.center[
+# Get The Users
+]
+```html
+        &lt;script src="/js/angular.min.js"&gt;&lt;/script&gt;
+        &lt;script src="/js/angular-resource.min.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+            angular.module( 'MyApp', [ 'ngResource' ] )
+            .factory( 'User', [ '$resource',
+                    function ( $resource ) {
+                        return $resource( '/api/user/:id', { id: '@_id' } );
+                    }
+                ]
+            )
+            .controller( 'UserCtrl', [ '$scope', 'User',
+                    function ( $scope, User ) {
+                        $scope.users = User.query();
+                    }
+                ]
+            )
+            ;
+        &lt;/script&gt;
+```
+.footnote[
+[app-05.pl](Mojo-Angular/app-05.pl.html)
+]
+---
+class: middle
+.center[
+# Integrate Angular
+]
+```html
+&lt;!DOCTYPE html&gt;
+&lt;html id="ng-app" ng-app="MyApp"&gt;
+    &lt;body ng-controller="UserCtrl"&gt;
+        &lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;E-mail&lt;/th&gt;
+                &lt;th&gt;Created&lt;/th&gt;
+                &lt;th&gt;Last Seen&lt;/th&gt;
+                &lt;th&gt;Can Play&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr ng-repeat="user in users"&gt;
+                &lt;td&gt;{{user.email}}&lt;/td&gt;
+                &lt;td&gt;{{user.date_created}}&lt;/td&gt;
+                &lt;td&gt;{{user.date_last_seen}}&lt;/td&gt;
+                &lt;td&gt;{{user.can_play}}&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+```
+.footnote[
+[app-06.pl](Mojo-Angular/app-06.pl.html)
+]
+---
+class: inverse center middle
+# Make It Pretty
+## The Bootstrap Part
+---
+class: middle
+.center[
+# Add Bootstrap Classes
+]
+```html
+    &lt;head&gt;
+        &lt;link rel="stylesheet" href="/css/bootstrap.min.css" /&gt;
+    &lt;/head&gt;
+    &lt;body ng-controller="UserCtrl" class="container"&gt;
+        &lt;table class="table table-striped"&gt;
+```
+.footnote[
+[app-07.pl](Mojo-Angular/app-07.pl.html)
+]
+---
+class: middle
+.center[
+# Format the dates
+]
+```html
+            &lt;tr ng-repeat="user in users"&gt;
+                &lt;td&gt;{{user.email}}&lt;/td&gt;
+                &lt;td&gt;{{format_date(user.date_created)}}&lt;/td&gt;
+                &lt;td&gt;{{format_date(user.date_last_seen)}}&lt;/td&gt;
+                &lt;td&gt;{{user.can_play}}&lt;/td&gt;
+            &lt;/tr&gt;
+```
+```js
+            .controller( 'UserCtrl', [ '$scope', 'User',
+                    function ( $scope, User ) {
+                        $scope.users = User.query();
+                        $scope.format_date = function ( epoch ) {
+                            if ( !epoch ) return;
+                            return moment( epoch ).calendar();
+                        };
+                    }
+                ]
+            )
+```
+.footnote[
+[app-08.pl](Mojo-Angular/app-08.pl.html)
+]
+---
+class: inverse center middle
+# Edit the users
+---
+# POST an update
+```perl
+post '/api/user/:id' =&gt; sub {
+    my ( $self ) = @_;
+    my $id = $self-&gt;stash( 'id' );
+    my $update = Mojo::JSON-&gt;new-&gt;decode( $self-&gt;req-&gt;body );
+    $update-&gt;{_id} = bson_oid $update-&gt;{_id};
+    $mango-&gt;db-&gt;collection('user')-&gt;save( $update );
+    return $self-&gt;redirect_to( 
+        url_for('apiuserid', id =&gt; $id, method =&gt; 'GET' ) 
+    );
+};
+
+get '/api/user/:id' =&gt; sub {
+    my ( $self ) = @_;
+    my $id = bson_oid $self-&gt;stash( 'id' );
+    $self-&gt;render(
+        json =&gt; $mango-&gt;db-&gt;collection('user')
+            -&gt;find_one({ _id =&gt; $id }) || {},
+    );
+};
+```
+```html
+                &lt;td&gt;&lt;input type="checkbox" ng-model="user.can_play" 
+                    ng-change="user.$save()" /&gt;&lt;/td&gt;
+```
+.footnote[
+[app-09.pl](Mojo-Angular/app-09.pl.html)
+]
+---
+class: middle center inverse
+# Questions?
+---
+class: 
+.center[
+# It's over!
+]
+
+* [Modern Perl Web Apps presentation slides: <br> http://preaction.github.io/Perl/Mojo-Angular.html](http://preaction.github.io/Perl/Mojo-Angular.html)
+
+    </textarea>
+    <div id="slideshow"></div>
+    <script type="text/javascript">
+        var slideshow = remark.create();
+    </script>
+  </body>
+</html>

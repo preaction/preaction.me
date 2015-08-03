@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>preaction</title>
+        <meta content="Statocles 0.054" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/Statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/ETL-Yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Using MooseX::Types to Inflate Config Values</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/moose/" rel="tag">moose</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2012-10-22">
+                        Posted on 2012-10-22
+                    </time>
+                        by preaction
+                    </p>
+                </aside>
+
+                <p>Originally posted as:
+                        <a href="http://blogs.perl.org/users/preaction/2012/10/using-moosextypes-to-inflate-config-values.html">
+                            <em>Using MooseX::Types to Inflate Config Values</em> on blogs.perl.org.
+                        </a>
+                </p>
+
+            </header>
+            <section id="section-1">
+                <p>For a large application, configuration files become a necessity. They help
+flexible code be used in multiple instances across multiple modules. But they
+are, for the most part, only data structures, which can be a problem if the
+configured object is expecting another configured object.</p>
+
+            </section>
+            <section id="section-2">
+                <p>package FakeRepository;</p>
+
+<pre><code>use Moose;
+use TimeSeries;
+has timeseries =&gt; (
+        is =&gt; &#39;rw&#39;,
+        isa =&gt; &#39;TimeSeries&#39;,
+        required =&gt; 1,
+);
+
+package TimeSeries;
+
+use Moose;
+has dates =&gt; (
+        is =&gt; &#39;rw&#39;,
+        isa =&gt; &#39;HashRef[Number]&#39;, # Date =&gt; Value pairs
+        default =&gt; sub { {} },
+);
+</code></pre>
+
+<p>Here we have a FakeRepository that requires a TimeSeries object. Certainly,
+this is where a Dependency Injection framework could step in and inject the
+required TimeSeries. The drawback is the indirection: The two configured
+objects are completely separate, joined only by the reference, like so:</p>
+
+<pre><code># dependency.yml
+- service:
+        name: &#39;test_repo&#39;
+        class: &#39;FakeRepository&#39;
+        constructor_args:
+                timeseries: { ref: test_data }
+
+- service:
+        name: &#39;test_data&#39;
+        class: &#39;TimeSeries&#39;
+        constructor_args:
+                dates:
+                        2012-01-01: 1.56
+                        2012-01-02: 1.69
+                        2012-01-03: 1.45
+</code></pre>
+
+<p>So here, we define two services (objects), test_repo and test_data, and
+test_repo uses test_data to fill its timeseries attribute. test_data fills
+in its dates attribute directly from the configuration file.</p>
+
+<p>This works great if test_data is needed by more than just test_repo. It also
+works fine as-is, the dependency injection framework does the work. But what if
+we wanted to specify the timeseries value directly, instead of indirectly?</p>
+
+<p>Moose&#39;s typing system allows us to do just that. By creating a custom type with
+a coercion from the data structure in our configuration file, we can create the
+dependency that our test_repo needs.</p>
+
+<pre><code>package My::Types;
+
+use MooseX::Types qw( HashRef Number );
+use TimeSeries;
+
+# declare our TimeSeries class as a type
+class_type TimeSeriesType;
+# coerce a TimeSeries from a hash of date =&gt; value pairs
+coerce TimeSeriesType, from HashRef[Number], via sub {
+        # coercions put the value to be coerce in $_
+        return TimeSeries-&gt;new( data =&gt; $_ );
+};
+</code></pre>
+
+<p>Once we have our new custom types, we must use them in our package.</p>
+
+<pre><code>package FakeRepository;
+
+use Moose;
+use My::Types qw( TimeSeriesType );
+
+has timeseries =&gt; qw(
+        is =&gt; &#39;rw&#39;,
+        isa =&gt; TimeSeriesType,  # Not quoted!
+        coerce =&gt; 1,                    # Activate coercion powers!
+        required =&gt; 1,
+);
+</code></pre>
+
+<p>Now, we can configure our TimeSeries directly from our configuration file,
+without indirection.</p>
+
+<pre><code># dependency.yml
+- service:
+        name: &#39;test_repo&#39;
+        class: &#39;FakeRepository&#39;
+        constructor_args:
+                timeseries:
+                        2012-01-01: 1.56
+                        2012-01-02: 1.69
+                        2012-01-03: 1.45
+</code></pre>
+
+<p>Moose will create the object for us using our defined coercion.</p>
+
+<p>There are other ways to solve this: Enhance the Dependency Injection framework
+to allow anonymous objects (instead of providing a ref: to an object, provide a
+full object definition with class: and constructor_args:), but having these
+coercions in place also helps when writing test code:</p>
+
+<pre><code>use Test::More;
+use FakeRepository;
+my $repo = FakeRepository-&gt;new(
+        timeseries =&gt; {
+                &#39;2012-01-01&#39; =&gt; 1.56,
+                &#39;2012-01-02&#39; =&gt; 1.69,
+                &#39;2012-01-03&#39; =&gt; 1.45,
+        },
+);
+</code></pre>
+
+<p>No need to increase the apparent coverage of the test by including the
+TimeSeries class, we never have to refer to it at all. No need to lock the
+interface to a specific TimeSeries class (if that&#39;s a desired goal of the
+project), the coercion takes care of creating the actual object used.</p>
+
+<p>Coercions are a powerful feature. I&#39;ve used them to build complicated trees
+from arrays of arrays (more on that later), and I&#39;ve used them to simply
+force-uppercase a string so that Log4perl would do its job. Coercions are one
+more very useful tool in a robust toolbox.</p>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="three columns sidebar">
+        
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/chicago.pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/pdl/">pdl</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

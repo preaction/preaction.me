@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Git::ReleaseRepo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="../remark/remark.js" type="text/javascript">
+        {
+            "highlightStyle": "solarized_light",
+            "highlightLanguage": "no-highlight"
+        }
+    </script>
+    <style type="text/css" media="screen">
+/*
+SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
+--------- ------- ---- -------  ----------- ---------- ----------- -----------
+base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
+base02    #073642  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
+base01    #586e75 10/7 brgreen  240 #585858 45 -07 -07  88 110 117 194  25  46
+base00    #657b83 11/7 bryellow 241 #626262 50 -07 -07 101 123 131 195  23  51
+base0     #839496 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
+base1     #93a1a1 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
+base2     #eee8d5  7/7 white    254 #e4e4e4 92 -00  10 238 232 213  44  11  93
+base3     #fdf6e3 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
+yellow    #b58900  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
+orange    #cb4b16  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
+red       #dc322f  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
+magenta   #d33682  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
+violet    #6c71c4 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
+blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
+cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
+green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
+*/
+
+body {
+    font-size:        1.3em;
+}
+
+.remark-slide .inverse {
+    color:            #839496; /* base0  */
+    background-color: #002b36; /* base03 */
+}
+
+.remark-slide {
+    color:            #657b83; /* base00 */
+    background-color: #fdf6e3; /* base3 */
+}
+
+.remark-slide pre, .remark-slide code {
+    color:            #586e75; /* base01 */
+    background-color: #eee8d5; /* base2 */
+}
+
+.remark-slide .inverse pre, .remark-slide .inverse code {
+    color:            #93a1a1; /* base1 */
+    background-color: #073642; /* base02 */
+}
+
+a:link, a:visited, a:hover, a:active {
+    color:            #268bd2; /* blue */
+}
+
+.footnote {
+    position: absolute;
+    bottom: 3em;
+}
+.footnote.right {
+    right: 3em;
+}
+.code {
+    font-family: Monaco, monospace;
+}
+.constrain img {
+    margin: 0 auto;
+    width: 90%;
+}
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: inverse center middle
+# Git::ReleaseRepo
+### The epic journey of a group of repositories with a common goal
+---
+# Two Friends
+.constrain[
+![Two Friends](Git-ReleaseRepo/1-the-modules.svg)
+]
+---
+class: middle
+.center[
+# Initializing a Release Repository
+]
+```
+$ mkdir Release
+$ cd Release
+$ git init
+$ git release init --version_prefix v
+```
+---
+class: center middle
+# .code[git release init]
+Initializes and configures the release repository
+---
+class: center middle
+# .code[--version_prefix &lt;prefix&gt;]
+Prepends a string to every version number.
+
+Lets you share submodules with other release repositories.
+---
+# Form a Party
+.constrain[
+![Form a Party](Git-ReleaseRepo/2-the-release-repo.svg)
+]
+---
+class: middle
+.center[
+# The first release
+]
+```
+$ git release add Foo /path/to/Foo
+$ git release add Bar /path/to/Bar
+$ git release commit
+```
+---
+class: center middle
+# .code[git release add]
+Add a brand-new module to the release
+---
+class: center middle
+# .code[git release commit]
+Commit this release and give it a version number
+---
+# Starting Their Journey
+.constrain[
+![Starting their Journey](Git-ReleaseRepo/4-first-release.svg)
+]
+---
+class: center middle
+# Branches
+A branch for each minor or major release
+
+v0.1, v0.2, v1.0
+---
+class: center middle
+# Tags
+A tag for each bugfix release
+
+v0.1.0, v0.1.1, v1.0.0
+---
+# Keeping a Journal
+.constrain[
+![Keeping a Journal](Git-ReleaseRepo/5-first-tag.svg)
+]
+---
+# Life Goes On
+.constrain[
+![Life Goes On](Git-ReleaseRepo/6-life-goes-on.svg)
+]
+---
+class: center middle
+# Commit to Modules
+Nothing is released until desired
+---
+# Life Requires Bugfixes
+.constrain[
+![Life Requires Bugfixes](Git-ReleaseRepo/7-life-requires-bugfixes.svg)
+]
+---
+class: middle
+.center[
+# Add a Bugfix
+]
+```
+$ git release checkout --bugfix
+$ git release status
+Bar (can update)
+$ git release update Bar
+$ git release status
+Bar changed
+$ git release commit
+```
+---
+# Squash The Bugs
+.constrain[
+![Squash The Bugs](Git-ReleaseRepo/8-bugfix-release.svg)
+]
+---
+# Life Goes On
+.constrain[
+![Life Goes On](Git-ReleaseRepo/9-life-goes-on.svg)
+]
+---
+class: middle
+.center[
+# A regular release
+]
+```
+$ git release checkout master
+$ git release status
+Bar (can update)
+Foo (can update)
+$ git release update -a
+$ git release status
+Bar changed
+Foo changed
+$ git release commit
+```
+---
+# A New Beginning
+.constrain[
+![A New Beginning](Git-ReleaseRepo/10-new-release.svg)
+]
+---
+class: inverse middle center
+# Deploy a release
+---
+class: middle
+.center[
+# Deploy a release
+]
+```
+$ git release deploy /path/to/Release --version_prefix v
+$ cd Release-v0.2
+$ git release status
+On release v0.2.0
+```
+---
+class: middle
+.center[
+# Update a deployed release
+]
+```
+$ cd Release-v0.2
+$ git release status
+On release v0.2.0 (can update to v0.2.1)
+$ git release pull
+```
+---
+class: inverse middle center
+# Clone a Release Repo
+---
+class: middle
+.center[
+# Clone a Release Repo
+]
+```
+$ git release clone /path/to/Release --version_prefix v
+$ cd Release
+```
+---
+class: middle
+.center[
+# Push changes to Origin
+]
+```
+$ git release update ...
+$ git release commit
+$ git release push
+```
+---
+class: middle center inverse
+# Cheat Sheets
+---
+class: middle
+.center[
+# Start a new release repo
+]
+```
+$ git release init --version_prefix v
+```
+.center[
+# Clone a release repo
+]
+```
+$ git release clone ssh://user@host/release.git --version_prefix v
+```
+---
+class: middle
+.center[
+# Perform a regular release
+]
+```
+$ git release checkout master       # Check out the master branch
+$ git release add [module] [url]    # Add a new module
+$ git release update [module]       # Update an existing module
+$ git release update -a             # Update all existing modules
+$ git release commit                # Commit the release
+$ git release push                  # Push the release out
+```
+---
+class: middle
+.center[
+# Perform a bugfix release
+]
+```
+$ git release checkout --bugfix     # Check out the bugfix branch
+$ git release add [module] [url]    # Add a new module
+$ git release update [module]       # Update an existing module
+$ git release update -a             # Update all existing modules
+$ git release commit                # Commit the release
+$ git release push                  # Push the release out
+```
+---
+class: middle center inverse
+# Questions?
+---
+class: middle
+.center[
+# It's over!
+]
+
+* [Git::ReleaseRepo presentation slides: <br> http://preaction.github.io/Perl/Git-ReleaseRepo.html](http://preaction.github.io/Perl/Git-ReleaseRepo.html)
+* [Git::ReleaseRepo on metacpan](https://metacpan.org/module/Git::ReleaseRepo)
+
+    </textarea>
+    <div id="slideshow"></div>
+    <script type="text/javascript">
+        var slideshow = remark.create();
+    </script>
+  </body>
+</html>

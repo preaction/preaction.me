@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>preaction</title>
+        <meta content="Statocles 0.054" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/Statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/ETL-Yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>I Bless You in the Name of the Stringified Object</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/error/" rel="tag">error</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2013-04-15">
+                        Posted on 2013-04-15
+                    </time>
+                        by preaction
+                    </p>
+                </aside>
+
+                <p>Originally posted as:
+                        <a href="http://blogs.perl.org/users/preaction/2013/04/i-bless-you-in-the-name-of-the-stringified-object.html">
+                            <em>I Bless You in the Name of the Stringified Object</em> on blogs.perl.org.
+                        </a>
+                </p>
+
+            </header>
+            <section id="section-1">
+                <p>A co-worker came to me today with a curious error message:</p>
+
+<pre><code>use DateTime;
+my $date = DateTime-&gt;new( year =&gt; 2013, month =&gt; 4, day =&gt; 15 );
+$date-&gt;set_time_zone(&quot;Australia/Sydney&quot;);
+print $date-&gt;today;&#39;
+</code></pre>
+
+<p>This code gives the error <code>Can&#39;t locate object method &quot;_normalize_nanoseconds&quot;
+via package &quot;2013-04-15T00:00:00&quot; at
+/usr2/local/perlbrew/perls/perl-5.16.3/lib/site_perl/5.16.3/x86_64-linux-thread-multi/DateTime.pm
+line 252.</code></p>
+
+<p>The package &quot;2013-04-15T00:00:00&quot; is the curious part: It looks like a
+stringified DateTime, but who could possibly be stringifying a DateTime object
+and then using that as a package name?</p>
+
+            </section>
+            <section id="section-2">
+                <p>It turns out the problem is at <code>$date-&gt;today</code>. <code>today()</code> is a constructor,
+constructors are class methods, constructors inevitably call <code>bless</code> on the
+class they are invoked with. But, we called this constructor with an object
+instance (a blessed reference), not a class.</p>
+
+<p>In an object without overloads, this fails (as expected) with an error message:
+<code>Attempt to bless into a reference</code>. But DateTime overloads stringification. So
+instead of trying to use an object as a package name, the object gets
+stringified and that string gets used as a package name.</p>
+
+<p>This problem could be mitigated by checking for refs in the constructor, dying
+as a result. I&#39;m not sure if it would be a good idea to disallow
+stringification during a call to <code>bless</code>, for historical reasons (it&#39;s not a
+bug if it&#39;s working as expected, it is a bug if a change breaks code).</p>
+
+<p>Here&#39;s some sample code to play around with the problem. Enable/disable the
+overload (comment out the <code>use overload (...)</code>) and see what changes:</p>
+
+<pre><code>use strict;
+use warnings;
+
+package Foo;
+
+use overload (
+    q{&quot;&quot;} =&gt; sub { return &quot;Bar&quot; },
+);
+
+sub new {
+    my ( $class ) = @_;
+    return bless {}, $class;
+}
+
+sub greet {
+    print &quot;Hello, World!\n&quot;;
+}
+
+package main;
+
+my $obj = Foo-&gt;new;
+$obj-&gt;greet;
+
+my $clone = $obj-&gt;new;
+$clone-&gt;greet;
+</code></pre>
+
+            </section>
+        </main>
+    </div>
+
+    <div class="three columns sidebar">
+        
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/chicago.pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/pdl/">pdl</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

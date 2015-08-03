@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.github.io/blog/tag/software/</link>
+        <atom:link href="http://preaction.github.io/blog/tag/software.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.054</generator>
+        <item>
+            <title>Consuming Chaos</title>
+            <link>http://preaction.github.io/blog/2015/03/08/consuming-chaos/</link>
+            <guid>http://preaction.github.io/blog/2015/03/08/consuming-chaos/</guid>
+            <description><![CDATA[
+                <p><img class="u-pull-left" src="http://preaction.github.io/images/blog/chaos.jpg" style="width: 40%"></p>
+
+<p>For what seems hours, you scan the board. The colors are sharp against the
+simple background. Some movement catches your eye, but it doesn&#39;t feel right,
+so you ignore it. Time stretches on.</p>
+
+<p>There! The perfect move. Leaving the perfect next move. A quick flick. A match.
+The pieces fall into place. Another match. Another. Another. A special piece.
+Another special piece. It fires, triggering more. Chaos consumes.</p>
+
+<p>The board is in ruins. Your carefully planned next move is lost in the
+destruction. You&#39;re back to scanning the board to try to find where you belong
+in this new world.</p>
+
+<p>Is this a game, or is it your development strategy?</p>
+
+<p>Software development is chaos. Either you work to managing chaos, consuming it,
+or it works on consuming you. There are too many possibilities, too much input,
+to brute-force your way to completion (how much software do you know of that
+can be considered complete?).</p>
+
+<p>In the face of these possibilities, a rigid development plan will fail. Vague
+goals are better. Goals written in terms of a problem are best. Problems don&#39;t
+change, once you find their roots.</p>
+
+<p>I didn&#39;t know this post was going to be about Agile, but there it is.</p>
+
+<p>Exact is for computers. We are not computers. We are human. We are chaos.</p>
+
+                    <p><a href="http://preaction.github.io/blog/2015/03/08/consuming-chaos/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/software/">software</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 08 Mar 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Leaving Crumb Trails -- Talking to Myself</title>
+            <link>http://preaction.github.io/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</link>
+            <guid>http://preaction.github.io/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</guid>
+            <description><![CDATA[
+                <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
+(postaction?) had ideas, hopes, and dreams and developed some of them into
+software that I and others use. Unfortunately, that asshole left bugs all
+through the code for me to fix.</p>
+
+<p>I can&#39;t blame him. Nobody&#39;s perfect, not even idealized/demonized copies of my
+past self. But I do have to fix them, and deal with the messes he left.</p>
+
+<p>Lucky for me, while he was writing buggy software, he left extensive notes for
+me to use...</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
+                            Continue reading <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/software/">software</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Tue, 23 Dec 2014 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Testing is a Feature of Your Service</title>
+            <link>http://preaction.github.io/blog/2012/11/04/testing-is-a-feature-of-your-service.html</link>
+            <guid>http://preaction.github.io/blog/2012/11/04/testing-is-a-feature-of-your-service.html</guid>
+            <description><![CDATA[
+                <p>My job at Bank of America consists largely of data collection and storage. To
+collect data in Perl, I have to write XS modules to interface with the
+vendor-supplied native libraries. Because I want to know my code works, my XS
+modules come with robust test suites, testing that everything works correctly.</p>
+
+<p>Since the XS module was intended to be used by other, larger systems, I decided
+to help those larger systems test their dependency on my module: I included a
+<a href="http://search.cpan.org/perldoc?Test::MockObject">Test::MockObject</a> that mocked
+my module&#39;s interface. By using my test module, the tests can try some data and
+see if their code works.</p>
+
+<p>But the hardest part to test is always the failures. How do they test if the
+news service goes down in the middle of a data pull? How about if it goes down
+between data pulls but still inside the same process? How do they test if the
+user has input an invalid ID for data?</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2012/11/testing-is-a-feature-of-your-service.html">
+                            Continue reading <em>Testing is a Feature of Your Service</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2012/11/04/testing-is-a-feature-of-your-service.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/software/">software</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 04 Nov 2012 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Chicago.PM - Beyond grep - Expanding the Programmer Toolset</title>
+            <link>http://preaction.github.io/blog/2012/09/23/plan-software-to-live-forever.html</link>
+            <guid>http://preaction.github.io/blog/2012/09/23/plan-software-to-live-forever.html</guid>
+            <description><![CDATA[
+                <p>How often have I told myself, &quot;I&#39;ll kludge this now and rewrite it later&quot;? And
+how many times did I actually go back and rewrite that kludgy bit? &quot;Too often&quot;
+and &quot;not enough&quot;. Many job postings include the phrase &quot;update legacy
+applications,&quot; as a euphemism for &quot;rewrite poorly-designed spaghetti.&quot; The Y2K
+problem was a huge exercise in code out-living the developer&#39;s plan, with a
+healthy dose of cargo-culting thrown in. Lately, I&#39;ve been learning to plan for
+a likely possibility: My code will survive to haunt my bug lists and my resume
+for a long time.</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2012/09/plan-software-to-live-forever.html">
+                            Continue reading <em>Chicago.PM - Beyond grep - Expanding the Programmer Toolset</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2012/09/23/plan-software-to-live-forever.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/software/">software</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 23 Sep 2012 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

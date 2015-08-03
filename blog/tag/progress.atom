@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.github.io/blog/tag/progress/</id>
+    <title>preaction</title>
+    <updated>2015-08-02T22:51:57Z</updated>
+    <link href="http://preaction.github.io/blog/tag/progress.atom" rel="self" />
+    <link href="http://preaction.github.io/blog/tag/progress/" rel="alternate" />
+    <generator version="0.054">Statocles</generator>
+    <entry>
+        <id>http://preaction.github.io/blog/2015/01/07/be-it-resolved-in-2015.html</id>
+        <title>Be It Resolved in 2015</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.github.io/blog/2015/01/07/be-it-resolved-in-2015.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>This year, I resolve to:</p>
+
+<h2>1) Blog more</h2>
+
+<p>I&#39;ve got dozens of blog posts waiting to be published. Time to publish them.
+I&#39;ve got dozens of ideas for blog posts waiting to be written.  Time to write
+them. I&#39;ve got monthly column ideas. Time to implement them.</p>
+
+<h2>2) Cook more, and blog about it</h2>
+
+<p>Two birds with one stone! I need to try new things in food, no matter how
+popular they are. I have trouble talking about things that interest me, because
+I take criticism too personally, and I have an intense need to be liked and
+praised.</p>
+
+<h2>3) Make a video game</h2>
+
+<p>Playing the new Soda Crush Saga game reminded me of why I want to create video
+games. There is no substitute for actually building things. Ideas must be
+tested. Implementing ideas leads to new ideas. Ideas are cheap.</p>
+
+<h2>4) Open up</h2>
+
+<p>(i.e. blog about personal things). I&#39;m back to my old, completely-closed-off
+self. I stare at the ground when walking from place to place to avoid eye
+contact with anyone. I don&#39;t share my feelings with anyone, especially when I&#39;m
+upset. I bury everything, because I have this idea that nobody wants to hear
+about the things I&#39;m upset about. It turns out, those people aren&#39;t my friends.
+I was right about that.</p>
+
+<h2>5) Exercise</h2>
+
+<p>I haven&#39;t been to the gym I&#39;m paying for in 6 weeks. Time to fix that. Time to
+make my dream of a lean 180 a reality.</p>
+
+<p>Writing blog posts satisfies my desire to do one thing on Github every day.
+Making a video game will also satisfy that condition.</p>
+
+<p>To make this all happen, I need to do a little every day.</p>
+
+                <p><a href="http://preaction.github.io/blog/2015/01/07/be-it-resolved-in-2015.html#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/personal/">personal</a>
+                <a href="/blog/tag/progress/">progress</a>
+            </p>
+        ]]></content>
+        <updated>2015-01-07T00:00:00Z</updated>
+        <category term="personal" />
+        <category term="progress" />
+    </entry>
+</feed>
+

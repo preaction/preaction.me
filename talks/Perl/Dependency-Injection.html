@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dependency Injection with Perl</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="../remark/remark.js" type="text/javascript">
+        {
+            "highlightStyle": "solarized_light",
+            "highlightLanguage": "no-highlight"
+        }
+    </script>
+    <style type="text/css" media="screen">
+/*
+SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
+--------- ------- ---- -------  ----------- ---------- ----------- -----------
+base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
+base02    #073642  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
+base01    #586e75 10/7 brgreen  240 #585858 45 -07 -07  88 110 117 194  25  46
+base00    #657b83 11/7 bryellow 241 #626262 50 -07 -07 101 123 131 195  23  51
+base0     #839496 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
+base1     #93a1a1 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
+base2     #eee8d5  7/7 white    254 #e4e4e4 92 -00  10 238 232 213  44  11  93
+base3     #fdf6e3 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
+yellow    #b58900  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
+orange    #cb4b16  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
+red       #dc322f  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
+magenta   #d33682  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
+violet    #6c71c4 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
+blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
+cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
+green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
+*/
+
+body {
+    font-size:        1.3em;
+}
+
+.remark-slide .inverse {
+    color:            #839496; /* base0  */
+    background-color: #002b36; /* base03 */
+}
+
+.remark-slide {
+    color:            #657b83; /* base00 */
+    background-color: #fdf6e3; /* base3 */
+}
+
+.remark-slide pre, .remark-slide code {
+    color:            #586e75; /* base01 */
+    background-color: #eee8d5; /* base2 */
+}
+
+.remark-slide .inverse pre, .remark-slide .inverse code {
+    color:            #93a1a1; /* base1 */
+    background-color: #073642; /* base02 */
+}
+
+a:link, a:visited, a:hover, a:active {
+    color:            #268bd2; /* blue */
+}
+
+.footnote {
+    position: absolute;
+    bottom: 3em;
+}
+.footnote.right {
+    right: 3em;
+}
+.code {
+    font-family: Monaco, monospace;
+}
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: inverse center middle
+# Dependency Injection
+## Also Introducing: Beam::Wire
+
+Doug Bell
+Chicago.PM (03/28/2013)
+---
+class: center middle
+# The Setup
+---
+class: middle
+.center[
+# Two Classes in Search of DBI
+]
+```perl
+package Foo;
+use Moo;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+);
+```
+```perl
+package Bar;
+use Moo;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+);
+```
+---
+class: middle
+.center[
+# To Each Their Own
+]
+```perl
+package Foo;
+use Moo;
+use DBI;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    DBI-&gt;connect( 'dbi:SQLite:data.db' );
+  },
+);
+```
+```perl
+package Bar;
+use Moo;
+use DBI;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    DBI-&gt;connect( 'dbi:SQLite:data.db' );
+  },
+);
+```
+---
+class: middle
+.center[
+# Role Traversal
+]
+```perl
+package Role::DBI;
+use Moo::Role;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    DBI-&gt;connect( 'dbi:SQLite:data.db' );
+  },
+);
+```
+```perl
+package Foo;
+use Moo;
+use Role::DBI;
+```
+```perl
+package Bar;
+use Moo;
+use Role::DBI;
+```
+
+---
+class: middle
+.center[
+# Singleton
+]
+```perl
+package Role::DBI;
+use Moo::Role;
+my $dbh;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    $dbh ||= DBI-&gt;connect( 'dbi:SQLite:data.db' );
+  },
+);
+```
+```perl
+package Foo;
+use Moo;
+use Role::DBI;
+```
+```perl
+package Bar;
+use Moo;
+use Role::DBI;
+```
+
+
+---
+class: middle
+.center[
+# Singleton Override
+]
+```perl
+package Role::DBI;
+use Moo::Role;
+my $dbh;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    $dbh ||= DBI-&gt;connect( 'dbi:SQLite:data.db' );
+  },
+);
+
+package Foo;
+use Moo;
+use Role::DBI;
+
+package Bar;
+use Moo;
+use Role::DBI;
+
+package main;
+use DBI;
+my $dbh = DBI-&gt;connect( '...' );
+my $foo = Foo-&gt;new( dbh =&gt; $dbh );
+my $bar = Bar-&gt;new( dbh =&gt; $dbh );
+```
+
+
+---
+class: middle
+.center[
+# Configuration File
+]
+```perl
+# config.yml
+dsn: 'dbi:SQLite:data.db'
+```
+```perl
+# script.pl
+use DBI;
+my $cfg = LoadFile( 'config.yml' )
+my $dsn = $cfg-&gt;{dsn};
+my $dbh = DBI-&gt;connect( $dsn );
+my $foo = Foo-&gt;new( dbh =&gt; $dbh );
+my $bar = Bar-&gt;new( dbh =&gt; $dbh );
+```
+
+
+---
+class: middle
+.center[
+# Singleton Config
+]
+```perl
+package Role::DBI;
+use Moo::Role;
+use YAML::Any qw( LoadFile );
+my $dbh;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    return $dbh if $dbh;
+    my $cfg = LoadFile( 'config.yml' )
+    my $dsn = $cfg-&gt;{dsn};
+    return $dbh = DBI-&gt;connect( $dsn );
+  },
+);
+```
+
+---
+class: middle
+.center[
+# Config Override
+]
+```perl
+package Role::DBI;
+use Moo::Role;
+use YAML::Any qw( LoadFile );
+my $cfg;
+
+has cfg_fn =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; 'config.yml'
+);
+
+has cfg =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub { $cfg ||= LoadFile( $_[0]-&gt;cfg_fn ) },
+);
+my $dbh;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    return $dbh if $dbh;
+    my ( $self ) = @_;
+    return $dbh = DBI-&gt;connect( $self-&gt;cfg-&gt;{dsn} );
+  },
+);
+```
+
+
+---
+class: middle
+.center[
+# Repeat Ad Nauseum
+]
+
+* DBI
+* Caching
+* ORM
+* Messaging
+
+
+---
+class: inverse center middle
+# It Gets Complicated
+
+
+---
+class: inverse center middle
+# Give Up!
+
+
+---
+class: inverse center middle
+# Inversion of Control
+
+
+---
+class: center middle
+# "Give Up Control" Pattern
+
+
+---
+class: center middle
+# Dependency Injection
+
+
+---
+class: middle
+.center[
+# Container
+]
+
+* Java
+    * Spring
+    * Google Guice
+* Perl
+    * IoC
+    * Bread::Board
+    * Beam::Wire
+
+---
+class: center middle
+# Container Builds Objects (Services)
+
+
+---
+class: center middle
+# Container Builds Objects' Dependencies
+
+
+---
+class: center middle
+# You Get The Result
+
+
+---
+class: center middle
+# Lazily Evaluated
+
+
+---
+class: center middle
+# Configuration File
+
+
+---
+class: middle
+.center[
+# Our Classes with DI
+]
+```perl
+package Foo;
+use Moo;
+has dbh =&gt; (
+  is       =&gt; 'ro',
+  required =&gt; 1,
+);
+```
+```perl
+package Bar;
+use Moo;
+has dbh =&gt; (
+  is       =&gt; 'ro',
+  required =&gt; 1,
+);
+```
+
+
+---
+class: middle
+.center[
+# IOC
+]
+```perl
+use IOC;
+
+my $container = IOC::Container-&gt;new();
+$container-&gt;register(
+  IOC::Service-&gt;new('dbh' =&gt; sub {
+    return DBI-&gt;connect( 'dbi:SQLite:data.db' );
+  })
+);
+$container-&gt;register(
+  IOC::Service-&gt;new('foo' =&gt; sub {
+    my $c = shift;
+    return Foo-&gt;new( dbh =&gt; $c-&gt;get('dbh') );
+  })
+);
+$container-&gt;register(
+  IOC::Service-&gt;new('bar' =&gt; sub {
+    my $c = shift;
+    return Bar-&gt;new( dbh =&gt; $c-&gt;get('dbh') );
+  })
+);
+```
+
+
+---
+class: middle
+.center[
+# Bread::Board
+]
+```perl
+use Bread::Board;
+my $c = container 'MyApp' =&gt; as {
+  service dbh =&gt; (
+    lifecycle =&gt; 'Singleton',
+    block =&gt; sub {
+      require DBI;
+      DBI-&gt;connect( 'dbi:SQLite:data.db' );
+    },
+  );
+  service foo =&gt; (
+    class =&gt; 'Foo',
+    dependencies =&gt; {
+      dbh =&gt; depends_on('dbh'),
+    },
+  );
+  service bar =&gt; (
+    class =&gt; 'Bar',
+    dependencies =&gt; {
+      dbh =&gt; depends_on('dbh'),
+    },
+  );
+};
+```
+
+---
+class: middle
+.center[
+# Beam::Wire
+]
+```perl
+# wire.yml
+dbh:
+  class: DBI
+  method: connect
+  args:
+    - 'dbi:SQLite:data.db'
+foo:
+  class: Foo
+  args:
+    dbh: { $ref: dbh }
+bar:
+  class: Bar
+  args:
+    dbh: { $ref: dbh }
+```
+```perl
+use Beam::Wire;
+my $wire = Beam::Wire-&gt;new(
+  file =&gt; 'wire.yml'
+);
+```
+
+
+---
+class: center middle
+# Why DI?
+
+
+---
+class: center middle
+# Write Less Code!
+
+
+---
+class: center middle
+# Don't Repeat Yourself!
+
+
+---
+class: center middle
+# Develop to Interfaces
+
+
+---
+class: middle
+.center[
+# Roles as <span style="font-size:50%">(cheap)</span> Perl Interfaces
+]
+```perl
+package DAOInterface;
+requires qw( get set find delete );
+```
+```perl
+package Foo;
+use Moo;
+has dao =&gt; (
+  is =&gt; 'ro',
+  isa =&gt; sub {
+    $_[0]-&gt;does('DAOInterface');
+  },
+);
+```
+
+
+---
+class: center middle
+# Loose Coupling
+
+
+---
+class: center middle
+# More Re-use
+
+
+---
+class: center middle
+# Easier Testing
+
+
+---
+class: center middle
+# Less Boilerplate
+
+
+---
+class: middle
+.center[
+# BeamX::Service::AnyEvent <span style="font-size: 50%">(upcoming)</span>
+]
+```perl
+# wire.yml
+ping:
+  class: BeamX::Service::AnyEvent::Ping
+slow_ping:
+  class: BeamX::Service::AnyEvent::Ping
+  args:
+    interval: 5
+```
+```perl
+$ beam-ae wire.yml ping slow_ping
+```
+
+
+---
+class: middle
+.center[
+# BeamX::Service::MXRunnable <span style="font-size: 50%">(upcoming)</span>
+]
+```perl
+package PrintTable;
+use Moose;
+with 'MooseX::Runnable', 'MooseX::Getopt';
+has dbh =&gt; (
+  is =&gt; 'ro',
+  traits =&gt; [qw(NoGetopt)]
+);
+has table =&gt; (
+  is =&gt; 'ro',
+);
+sub run {
+  my ( $self ) = @_;
+  print $self-&gt;dbh-&gt;selectall_hashref(
+    "SELECT * FROM " . $self-&gt;table
+  );
+}
+```
+
+
+---
+class: middle
+.center[
+# BeamX::Service::MXRunnable <span style="font-size: 50%">(upcoming)</span>
+]
+```perl
+# wire.yml
+dbh:
+  class: DBI
+  method: connect
+  args:
+    - 'dbi:SQLite:data.db'
+print_table:
+  class: PrintTable
+  args:
+    dbh: { ref: dbh }
+```
+```perl
+$ beam-mxr wire.yml print_table --table "my_table"
+```
+
+
+---
+class: middle
+.center[
+# Manually
+]
+```perl
+use Beam::Wire;
+use Moose;
+has container_file =&gt; (
+  is =&gt; 'ro',
+  isa =&gt; 'Str',
+  default =&gt; 'container.yml',
+);
+
+has container =&gt; (
+  is =&gt; 'ro',
+  isa =&gt; 'Beam::Wire',
+  default =&gt; sub {
+    my ( $self ) = @_;
+    return Beam::Wire-&gt;new( file =&gt; $self-&gt;container_file );
+  },
+);
+
+sub execute {
+  my ( $self, $opts, $args ) = @_;
+  my $service_name = shift @$args;
+  my $service = $self-&gt;container-&gt;get( $service_name );
+  $service-&gt;execute( $opts, $args );
+}
+```
+
+
+---
+class: center middle
+# Wrapping
+
+
+---
+class: middle
+.center[
+# BeamX::Service::Log4perl <span style="font-size: 50%">(upcoming?)</span>
+]
+```perl
+# wire.yml
+syslog_appender:
+  class: BeamX::Service::Log4perl::Syslog
+  args:
+    host: 'localhost'
+    port: 1514
+email_appender:
+  class: BeamX::Service::Log4perl::Email
+  args:
+    level: FATAL
+    email: root@localhost
+logger:
+  class: BeamX::Service::Log4perl
+  args:
+    appenders:
+      - { ref: syslog_appender }
+      - { ref: email_appender }
+```
+
+
+---
+class: middle
+.center[
+# BeamX::Service::Log4perl <span style="font-size: 50%">(upcoming?)</span>
+]
+
+```perl
+package LoggableRunner;
+use Moose;
+with 'MooseX::Runnable', 'MooseX::Getopt';
+use Beam::Wire;
+
+has container_file =&gt; (
+  is =&gt; 'ro',
+  isa =&gt; 'Str',
+  default =&gt; 'wire.yml',
+);
+
+has container =&gt; (
+  is =&gt; 'ro',
+  isa =&gt; 'Beam::Wire',
+  lazy =&gt; 1,
+  default =&gt; sub {
+    Beam::Wire-&gt;new( file =&gt; $_[0]-&gt;container_file );
+  },
+);
+```
+
+
+---
+class: middle
+.center[
+# BeamX::Service::Log4perl <span style="font-size: 50%">(upcoming?)</span>
+]
+
+```perl
+has logger_name =&gt; (
+  is =&gt; 'ro',
+  isa =&gt; 'Str',
+  default =&gt; 'logger',
+);
+
+has logger =&gt; (
+  is =&gt; 'ro',
+  lazy =&gt; 1,
+  default =&gt; sub {
+    my ( $self ) = @_;
+    $self-&gt;container-&gt;get( $self-&gt;logger_name );
+  },
+);
+```
+
+
+---
+class: middle
+.center[
+# BeamX::Service::Log4perl <span style="font-size: 50%">(upcoming?)</span>
+]
+
+```perl
+sub BUILD {
+  my ( $self ) = @_;
+  $self-&gt;logger; # initialize logger
+}
+
+sub run {
+  my ( $self ) = @_;
+  # Do stuff, with logging!
+}
+```
+
+
+---
+class: center middle
+# Voila! Integration
+
+
+---
+class: center middle
+# Use Beam::Wire. Get Logging.
+
+
+---
+class: center middle
+# You're already using DI!
+
+
+---
+class: middle
+.center[
+# Ha-ha! Fooled You!
+]
+```perl
+package Foo;
+use Moo;
+use DBI;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    DBI-&gt;connect(
+      'dbi:SQLite:data.db'
+    );
+  },
+);
+```
+```perl
+package Bar;
+use Moo;
+use DBI;
+has dbh =&gt; (
+  is  =&gt; 'ro',
+  default =&gt; sub {
+    DBI-&gt;connect(
+      'dbi:SQLite:data.db'
+    );
+  },
+);
+```
+
+
+---
+class: center middle
+# Use Inversion of Control!
+
+
+---
+class: middle
+.center[
+# It's Over!
+]
+
+* Slides: [http://preaction.github.com/Perl/Dependency-Injection.html](http://preaction.github.com/Perl/Dependency-Injection.html)
+* Beam::Wire: [Beam::Wire on metacpan.org](http://metacpan.org/module/Beam::Wire)
+
+    </textarea>
+    <div id="slideshow"></div>
+    <script type="text/javascript">
+        var slideshow = remark.create();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.github.io/blog/tag/error/</id>
+    <title>preaction</title>
+    <updated>2015-08-02T22:51:52Z</updated>
+    <link href="http://preaction.github.io/blog/tag/error.atom" rel="self" />
+    <link href="http://preaction.github.io/blog/tag/error/" rel="alternate" />
+    <generator version="0.054">Statocles</generator>
+    <entry>
+        <id>http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</id>
+        <title>I Bless You in the Name of the Stringified Object</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>A co-worker came to me today with a curious error message:</p>
+
+<pre><code>use DateTime;
+my $date = DateTime-&gt;new( year =&gt; 2013, month =&gt; 4, day =&gt; 15 );
+$date-&gt;set_time_zone(&quot;Australia/Sydney&quot;);
+print $date-&gt;today;&#39;
+</code></pre>
+
+<p>This code gives the error <code>Can&#39;t locate object method &quot;_normalize_nanoseconds&quot;
+via package &quot;2013-04-15T00:00:00&quot; at
+/usr2/local/perlbrew/perls/perl-5.16.3/lib/site_perl/5.16.3/x86_64-linux-thread-multi/DateTime.pm
+line 252.</code></p>
+
+<p>The package &quot;2013-04-15T00:00:00&quot; is the curious part: It looks like a
+stringified DateTime, but who could possibly be stringifying a DateTime object
+and then using that as a package name?</p>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2013/04/i-bless-you-in-the-name-of-the-stringified-object.html">
+                        Continue reading <em>I Bless You in the Name of the Stringified Object</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="/blog/tag/error/">error</a>
+            </p>
+        ]]></content>
+        <updated>2013-04-15T00:00:00Z</updated>
+        <category term="error" />
+    </entry>
+</feed>
+

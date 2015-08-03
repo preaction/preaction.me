@@ -1,0 +1,60 @@
+blog_app:
+    class: Statocles::App::Blog
+    args:
+        store: 'blog'
+        url_root: /blog
+        index_tags: [ '-personal' ]
+
+static_app:
+    class: Statocles::App::Static
+    args:
+        store: '.'
+        url_root: '/'
+
+plain_app:
+    class: Statocles::App::Plain
+    args:
+        store: '.'
+        url_root: '/'
+
+site:
+    class: Statocles::Site
+    on:
+        - build:
+            $class: Statocles::Plugin::LinkCheck
+            $args:
+                ignore:
+                    - '/Statocles'
+                    - '/ETL-Yertl'
+            $sub: check_pages
+    args:
+        title: preaction
+        base_url: http://preaction.github.io
+        theme: 'theme'
+        nav:
+            main:
+                - title: Blog
+                  href: /index.html
+                - title: Statocles
+                  href: /Statocles
+                - title: Yertl
+                  href: /ETL-Yertl
+                - title: Talks
+                  href: /talks
+                - title: Food
+                  href: http://indiepalate.com
+        deploy: 
+            $class: Statocles::Deploy::Git
+            $args:
+                branch: deploy
+                remote: deploy
+        index: blog
+        apps:
+            blog:
+                $ref: blog_app
+            static:
+                $ref: static_app
+            plain:
+                $ref: plain_app
+        data:
+            google_analytics_id: 'UA-61295159-2'

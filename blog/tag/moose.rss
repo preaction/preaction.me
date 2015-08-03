@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.github.io/blog/tag/moose/</link>
+        <atom:link href="http://preaction.github.io/blog/tag/moose.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.054</generator>
+        <item>
+            <title>Using MooseX::Types to Inflate Config Values</title>
+            <link>http://preaction.github.io/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html</link>
+            <guid>http://preaction.github.io/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html</guid>
+            <description><![CDATA[
+                <p>For a large application, configuration files become a necessity. They help
+flexible code be used in multiple instances across multiple modules. But they
+are, for the most part, only data structures, which can be a problem if the
+configured object is expecting another configured object.</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2012/10/using-moosextypes-to-inflate-config-values.html">
+                            Continue reading <em>Using MooseX::Types to Inflate Config Values</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/moose/">moose</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Mon, 22 Oct 2012 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Run-time Class Composition With Moose</title>
+            <link>http://preaction.github.io/blog/2012/10/07/run-time-class-composition-with-moose.html</link>
+            <guid>http://preaction.github.io/blog/2012/10/07/run-time-class-composition-with-moose.html</guid>
+            <description><![CDATA[
+                <p>Moose is great! At its very basic, it simplifies the boilerplate required to
+create Perl objects immensely, providing attributes with type constraints,
+method modifiers for semantic enhancement, and role-based class composition for
+better code re-use.</p>
+
+<p>Moose is built on top of Class::MOP. MOP stands for Meta-Object Protocol. A
+meta-object is an object that describes an object. So, each attribute and
+method in your class has a corresponding entry in the meta-object describing
+it. The meta-object is where you can find out what type constraints are on an
+attribute, or what methods a class has available.</p>
+
+<p>Since the meta-object is a Plain Old Perl Object, we can call methods on it at
+runtime. Using those meta-object methods to add an attribute would modify our
+object, adding that attribute to the object. Using Class::MOP, we can compose
+classes at runtime!</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2012/10/run-time-class-composition-with-moose.html">
+                            Continue reading <em>Run-time Class Composition With Moose</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2012/10/07/run-time-class-composition-with-moose.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/moose/">moose</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 07 Oct 2012 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

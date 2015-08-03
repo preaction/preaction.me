@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.github.io/blog/tag/rants/</link>
+        <atom:link href="http://preaction.github.io/blog/tag/rants.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.054</generator>
+        <item>
+            <title>Between Learning and Doing</title>
+            <link>http://preaction.github.io/blog/2014/07/19/between-learning-and-doing.html</link>
+            <guid>http://preaction.github.io/blog/2014/07/19/between-learning-and-doing.html</guid>
+            <description><![CDATA[
+                <p><img alt="I&#39;ve made a huge mistake" src="http://preaction.github.io/images/blog/ive-made-a-huge-mistake.gif"></p>
+
+<p>A long time ago, when I started building my first video game server for
+<a href="http://doublecluepon.com">Double Cluepon</a>, my video game company, I did a bad
+thing. I looked at the AMF library for Perl and Python and decided that
+Python&#39;s looked better. I had always meant to learn Python, and this felt like
+the perfect opportunity. It had cooperative multitasking (Twisted) and it had
+an ORM (SQLAlchemy), so along with the messaging format (PyAMF), I had
+everything I needed to build a server for a Flash MMO (later migrated to AIR).</p>
+
+<p>Let me reiterate my mistake: While under time constraints, I chose to learn a
+new programming language. I didn&#39;t realize my mistake until it was too late.</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2014/07/between-learning-and-doing.html">
+                            Continue reading <em>Between Learning and Doing</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2014/07/19/between-learning-and-doing.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/rants/">rants</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 19 Jul 2014 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
+            <title>Thoughts while changing the API of a massive framework...</title>
+            <link>http://preaction.github.io/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html</link>
+            <guid>http://preaction.github.io/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html</guid>
+            <description><![CDATA[
+                <p>At the Bank we have a home-grown ETL framework that we&#39;ve been using for quite
+some time. We recently completed a total rewrite, but unfortunately we left out
+a few changes. Had I gotten those changes in 5 months ago, I would have only
+had to break the API of about 10 modules. Today, in order to make those
+changes, I have to break the API of 122 modules.</p>
+
+<p>What follows is an account of this ordeal, provided for entertainment value
+only. There will be a future post that explains some of the things I did to
+make this task surmountable.</p>
+
+                    <ul>
+                        <li><a href="http://blogs.perl.org/users/preaction/2013/04/thoughts-while-changing-the-api-of-a-massive-framework.html">
+                            Continue reading <em>Thoughts while changing the API of a massive framework...</em> on blogs.perl.org...
+                        </a></li>
+                        <li><a href="http://preaction.github.io/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html#section-2">
+                            Continue reading on preaction
+                        </a></li>
+                    </ul>
+                <p>Tags:
+                    <a href="/blog/tag/rants/">rants</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Thu, 11 Apr 2013 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+
