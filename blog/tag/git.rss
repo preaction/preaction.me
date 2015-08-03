@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/git/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/git.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/git/</link>
+        <atom:link href="http://preaction.me/blog/tag/git.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Conflict Resolution: local::lib and git&#39;s Perl</title>
-            <link>http://preaction.github.io/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</link>
-            <guid>http://preaction.github.io/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</guid>
+            <link>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</link>
+            <guid>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</guid>
             <description><![CDATA[
                 <p>I ran into a frustrating problem the other day:</p>
 
@@ -24,7 +24,7 @@ able to execute it. Maybe git-add--interactive is broken?
                         <li><a href="http://blogs.perl.org/users/preaction/2014/06/conflict-resolution-locallib-and-gits-perl.html">
                             Continue reading <em>Conflict Resolution: local::lib and git's Perl</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#section-2">
+                        <li><a href="http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>

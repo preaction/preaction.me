@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/progress/</id>
+    <id>http://preaction.me/blog/tag/progress/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:40Z</updated>
-    <link href="http://preaction.github.io/blog/tag/progress.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/progress/" rel="alternate" />
+    <updated>2015-08-02T23:10:19Z</updated>
+    <link href="http://preaction.me/blog/tag/progress.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/progress/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2015/01/07/be-it-resolved-in-2015.html</id>
+        <id>http://preaction.me/blog/2015/01/07/be-it-resolved-in-2015.html</id>
         <title>Be It Resolved in 2015</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2015/01/07/be-it-resolved-in-2015.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2015/01/07/be-it-resolved-in-2015.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>This year, I resolve to:</p>
 
@@ -52,7 +52,7 @@ Making a video game will also satisfy that condition.</p>
 
 <p>To make this all happen, I need to do a little every day.</p>
 
-                <p><a href="http://preaction.github.io/blog/2015/01/07/be-it-resolved-in-2015.html#section-2">Continue reading...</a></p>
+                <p><a href="http://preaction.me/blog/2015/01/07/be-it-resolved-in-2015.html#section-2">Continue reading...</a></p>
             <p>Tags:
                 <a href="/blog/tag/personal/">personal</a>
                 <a href="/blog/tag/progress/">progress</a>

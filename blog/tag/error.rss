@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/error/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/error.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/error/</link>
+        <atom:link href="http://preaction.me/blog/tag/error.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>I Bless You in the Name of the Stringified Object</title>
-            <link>http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</link>
-            <guid>http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</guid>
+            <link>http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</link>
+            <guid>http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</guid>
             <description><![CDATA[
                 <p>A co-worker came to me today with a curious error message:</p>
 
@@ -32,7 +32,7 @@ and then using that as a package name?</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2013/04/i-bless-you-in-the-name-of-the-stringified-object.html">
                             Continue reading <em>I Bless You in the Name of the Stringified Object</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#section-2">
+                        <li><a href="http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>

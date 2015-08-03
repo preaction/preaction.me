@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/rants/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/rants.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/rants/</link>
+        <atom:link href="http://preaction.me/blog/tag/rants.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Between Learning and Doing</title>
-            <link>http://preaction.github.io/blog/2014/07/19/between-learning-and-doing.html</link>
-            <guid>http://preaction.github.io/blog/2014/07/19/between-learning-and-doing.html</guid>
+            <link>http://preaction.me/blog/2014/07/19/between-learning-and-doing.html</link>
+            <guid>http://preaction.me/blog/2014/07/19/between-learning-and-doing.html</guid>
             <description><![CDATA[
-                <p><img alt="I&#39;ve made a huge mistake" src="http://preaction.github.io/images/blog/ive-made-a-huge-mistake.gif"></p>
+                <p><img alt="I&#39;ve made a huge mistake" src="http://preaction.me/images/blog/ive-made-a-huge-mistake.gif"></p>
 
 <p>A long time ago, when I started building my first video game server for
 <a href="http://doublecluepon.com">Double Cluepon</a>, my video game company, I did a bad
@@ -28,7 +28,7 @@ new programming language. I didn&#39;t realize my mistake until it was too late.
                         <li><a href="http://blogs.perl.org/users/preaction/2014/07/between-learning-and-doing.html">
                             Continue reading <em>Between Learning and Doing</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2014/07/19/between-learning-and-doing.html#section-2">
+                        <li><a href="http://preaction.me/blog/2014/07/19/between-learning-and-doing.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>
@@ -42,8 +42,8 @@ new programming language. I didn&#39;t realize my mistake until it was too late.
         </item>
         <item>
             <title>Thoughts while changing the API of a massive framework...</title>
-            <link>http://preaction.github.io/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html</link>
-            <guid>http://preaction.github.io/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html</guid>
+            <link>http://preaction.me/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html</link>
+            <guid>http://preaction.me/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html</guid>
             <description><![CDATA[
                 <p>At the Bank we have a home-grown ETL framework that we&#39;ve been using for quite
 some time. We recently completed a total rewrite, but unfortunately we left out
@@ -59,7 +59,7 @@ make this task surmountable.</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2013/04/thoughts-while-changing-the-api-of-a-massive-framework.html">
                             Continue reading <em>Thoughts while changing the API of a massive framework...</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html#section-2">
+                        <li><a href="http://preaction.me/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>

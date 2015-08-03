@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/mysql/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/mysql.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/mysql/</link>
+        <atom:link href="http://preaction.me/blog/tag/mysql.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>CHI Saves The Day</title>
-            <link>http://preaction.github.io/blog/2011/03/09/chi-saves-the-day.html</link>
-            <guid>http://preaction.github.io/blog/2011/03/09/chi-saves-the-day.html</guid>
+            <link>http://preaction.me/blog/2011/03/09/chi-saves-the-day.html</link>
+            <guid>http://preaction.me/blog/2011/03/09/chi-saves-the-day.html</guid>
             <description><![CDATA[
                 <h2>The Server Is Down</h2>
 
@@ -41,7 +41,7 @@ I poll mysql for its process list.</p>
 
 <p>A pattern emerges: The load spikes and server goes unresponsive when this happens:</p>
 
-<p><img alt="" src="http://preaction.github.io/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.43.37%20PM.png"></p>
+<p><img alt="" src="http://preaction.me/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.43.37%20PM.png"></p>
 
 <p>This table shows 12 different processes are trying to update the same cache
 location (process ID 2-3, 5-8, 10, 12-13, 18, 23, and 26). Because of MyISAM&#39;s
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `chi__CHI_METACACHE` (
 
 <h2>Results</h2>
 
-<p><img alt="" src="http://preaction.github.io/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.20.55%20PM.png"></p>
+<p><img alt="" src="http://preaction.me/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.20.55%20PM.png"></p>
 
 <p>The server is stable again! Spikes do not turn into out-of-control loads and
 unresponsive server. We&#39;ll see how things go tomorrow during normal business
@@ -160,7 +160,7 @@ the day!</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2011/03/chi-saves-the-day.html">
                             Continue reading <em>CHI Saves The Day</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2011/03/09/chi-saves-the-day.html#section-2">
+                        <li><a href="http://preaction.me/blog/2011/03/09/chi-saves-the-day.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>

@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/scripts/</id>
+    <id>http://preaction.me/blog/tag/scripts/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:36Z</updated>
-    <link href="http://preaction.github.io/blog/tag/scripts.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/scripts/" rel="alternate" />
+    <updated>2015-08-02T23:10:14Z</updated>
+    <link href="http://preaction.me/blog/tag/scripts.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/scripts/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html</id>
+        <id>http://preaction.me/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html</id>
         <title>perlsloc - Count Perl Source Lines with Perl::Tidy</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>While spending some time putting together my own <a href="https://github.com/preaction/dot-files/blob/master/perltidyrc">perltidyrc
 file</a>, I became
@@ -47,7 +47,7 @@ has 50% more test lines than source lines:</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2014/06/perlsloc---count-perl-source-lines-with-perltidy.html">
                         Continue reading <em>perlsloc - Count Perl Source Lines with Perl::Tidy</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html#section-2">
+                    <li><a href="http://preaction.me/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>

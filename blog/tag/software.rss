@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/software/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/software.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/software/</link>
+        <atom:link href="http://preaction.me/blog/tag/software.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Consuming Chaos</title>
-            <link>http://preaction.github.io/blog/2015/03/08/consuming-chaos/</link>
-            <guid>http://preaction.github.io/blog/2015/03/08/consuming-chaos/</guid>
+            <link>http://preaction.me/blog/2015/03/08/consuming-chaos/</link>
+            <guid>http://preaction.me/blog/2015/03/08/consuming-chaos/</guid>
             <description><![CDATA[
-                <p><img class="u-pull-left" src="http://preaction.github.io/images/blog/chaos.jpg" style="width: 40%"></p>
+                <p><img class="u-pull-left" src="http://preaction.me/images/blog/chaos.jpg" style="width: 40%"></p>
 
 <p>For what seems hours, you scan the board. The colors are sharp against the
 simple background. Some movement catches your eye, but it doesn&#39;t feel right,
@@ -40,7 +40,7 @@ change, once you find their roots.</p>
 
 <p>Exact is for computers. We are not computers. We are human. We are chaos.</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/03/08/consuming-chaos/#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/03/08/consuming-chaos/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/software/">software</a>
                 </p>
@@ -51,8 +51,8 @@ change, once you find their roots.</p>
         </item>
         <item>
             <title>Leaving Crumb Trails -- Talking to Myself</title>
-            <link>http://preaction.github.io/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</link>
-            <guid>http://preaction.github.io/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</guid>
+            <link>http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</link>
+            <guid>http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</guid>
             <description><![CDATA[
                 <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
 (postaction?) had ideas, hopes, and dreams and developed some of them into
@@ -69,7 +69,7 @@ me to use...</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
                             Continue reading <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">
+                        <li><a href="http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>
@@ -83,8 +83,8 @@ me to use...</p>
         </item>
         <item>
             <title>Testing is a Feature of Your Service</title>
-            <link>http://preaction.github.io/blog/2012/11/04/testing-is-a-feature-of-your-service.html</link>
-            <guid>http://preaction.github.io/blog/2012/11/04/testing-is-a-feature-of-your-service.html</guid>
+            <link>http://preaction.me/blog/2012/11/04/testing-is-a-feature-of-your-service.html</link>
+            <guid>http://preaction.me/blog/2012/11/04/testing-is-a-feature-of-your-service.html</guid>
             <description><![CDATA[
                 <p>My job at Bank of America consists largely of data collection and storage. To
 collect data in Perl, I have to write XS modules to interface with the
@@ -106,7 +106,7 @@ user has input an invalid ID for data?</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2012/11/testing-is-a-feature-of-your-service.html">
                             Continue reading <em>Testing is a Feature of Your Service</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2012/11/04/testing-is-a-feature-of-your-service.html#section-2">
+                        <li><a href="http://preaction.me/blog/2012/11/04/testing-is-a-feature-of-your-service.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>
@@ -120,8 +120,8 @@ user has input an invalid ID for data?</p>
         </item>
         <item>
             <title>Chicago.PM - Beyond grep - Expanding the Programmer Toolset</title>
-            <link>http://preaction.github.io/blog/2012/09/23/plan-software-to-live-forever.html</link>
-            <guid>http://preaction.github.io/blog/2012/09/23/plan-software-to-live-forever.html</guid>
+            <link>http://preaction.me/blog/2012/09/23/plan-software-to-live-forever.html</link>
+            <guid>http://preaction.me/blog/2012/09/23/plan-software-to-live-forever.html</guid>
             <description><![CDATA[
                 <p>How often have I told myself, &quot;I&#39;ll kludge this now and rewrite it later&quot;? And
 how many times did I actually go back and rewrite that kludgy bit? &quot;Too often&quot;
@@ -136,7 +136,7 @@ for a long time.</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2012/09/plan-software-to-live-forever.html">
                             Continue reading <em>Chicago.PM - Beyond grep - Expanding the Programmer Toolset</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2012/09/23/plan-software-to-live-forever.html#section-2">
+                        <li><a href="http://preaction.me/blog/2012/09/23/plan-software-to-live-forever.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>

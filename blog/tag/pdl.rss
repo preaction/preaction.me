@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/pdl/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/pdl.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/pdl/</link>
+        <atom:link href="http://preaction.me/blog/tag/pdl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Validating Financial Data with PDL</title>
-            <link>http://preaction.github.io/blog/2015/05/13/new-post/</link>
-            <guid>http://preaction.github.io/blog/2015/05/13/new-post/</guid>
+            <link>http://preaction.me/blog/2015/05/13/new-post/</link>
+            <guid>http://preaction.me/blog/2015/05/13/new-post/</guid>
             <description><![CDATA[
                 <p>My job involves financial market data. A lot of financial market data. I take
 the market data from various sources and store it in a database for later
@@ -69,7 +69,7 @@ week. So let&#39;s check for flatness by using stddev.</p>
 <p>PDL and TAlib make this all incredibly simple, so I can get on with my real
 work (fragging lamers in Quake)</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/05/13/new-post/#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/05/13/new-post/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
                     <a href="/blog/tag/pdl/">pdl</a>

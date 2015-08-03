@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/statocles/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/statocles.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/statocles/</link>
+        <atom:link href="http://preaction.me/blog/tag/statocles.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Announcing Statocles</title>
-            <link>http://preaction.github.io/blog/2015/03/02/announcing-statocles/</link>
-            <guid>http://preaction.github.io/blog/2015/03/02/announcing-statocles/</guid>
+            <link>http://preaction.me/blog/2015/03/02/announcing-statocles/</link>
+            <guid>http://preaction.me/blog/2015/03/02/announcing-statocles/</guid>
             <description><![CDATA[
                 <p><a href="http://staticsitegenerators.net">Static site generators</a> are popular these
 days. For small sites, the ability to quickly author content using simple tools
@@ -31,7 +31,7 @@ blogging engine built on Jekyll. It&#39;s through using Octopress that I decided
 write my own static site generator,
 <a href="http://preaction.github.io/Statocles">Statocles</a>.</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/03/02/announcing-statocles/#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/03/02/announcing-statocles/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
                     <a href="/blog/tag/statocles/">statocles</a>

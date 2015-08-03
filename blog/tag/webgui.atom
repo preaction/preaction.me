@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/webgui/</id>
+    <id>http://preaction.me/blog/tag/webgui/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:37Z</updated>
-    <link href="http://preaction.github.io/blog/tag/webgui.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/webgui/" rel="alternate" />
+    <updated>2015-08-02T23:10:17Z</updated>
+    <link href="http://preaction.me/blog/tag/webgui.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/webgui/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2011/05/20/webgui-8-status-report.html</id>
+        <id>http://preaction.me/blog/2011/05/20/webgui-8-status-report.html</id>
         <title>WebGUI 8 Status Report</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2011/05/20/webgui-8-status-report.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2011/05/20/webgui-8-status-report.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>A major milestone in WebGUI 8 development was reached this week: A dry-run of
 the WebGUI 8 upgrade was successfully run against the plainblack.com database.
@@ -40,7 +40,7 @@ presentations, and they&#39;re served by a nice, fast, free host.</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2011/05/webgui-8-status-report.html">
                         Continue reading <em>WebGUI 8 Status Report</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2011/05/20/webgui-8-status-report.html#section-2">
+                    <li><a href="http://preaction.me/blog/2011/05/20/webgui-8-status-report.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>
@@ -52,10 +52,10 @@ presentations, and they&#39;re served by a nice, fast, free host.</p>
         <category term="webgui" />
     </entry>
     <entry>
-        <id>http://preaction.github.io/blog/2011/03/09/chi-saves-the-day.html</id>
+        <id>http://preaction.me/blog/2011/03/09/chi-saves-the-day.html</id>
         <title>CHI Saves The Day</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2011/03/09/chi-saves-the-day.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2011/03/09/chi-saves-the-day.html" rel="alternate" />
         <content type="html"><![CDATA[
             <h2>The Server Is Down</h2>
 
@@ -87,7 +87,7 @@ I poll mysql for its process list.</p>
 
 <p>A pattern emerges: The load spikes and server goes unresponsive when this happens:</p>
 
-<p><img alt="" src="http://preaction.github.io/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.43.37%20PM.png"></p>
+<p><img alt="" src="http://preaction.me/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.43.37%20PM.png"></p>
 
 <p>This table shows 12 different processes are trying to update the same cache
 location (process ID 2-3, 5-8, 10, 12-13, 18, 23, and 26). Because of MyISAM&#39;s
@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `chi__CHI_METACACHE` (
 
 <h2>Results</h2>
 
-<p><img alt="" src="http://preaction.github.io/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.20.55%20PM.png"></p>
+<p><img alt="" src="http://preaction.me/images/blog/chi-saves-the-day/Screen%20shot%202011-03-08%20at%2010.20.55%20PM.png"></p>
 
 <p>The server is stable again! Spikes do not turn into out-of-control loads and
 unresponsive server. We&#39;ll see how things go tomorrow during normal business
@@ -206,7 +206,7 @@ the day!</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2011/03/chi-saves-the-day.html">
                         Continue reading <em>CHI Saves The Day</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2011/03/09/chi-saves-the-day.html#section-2">
+                    <li><a href="http://preaction.me/blog/2011/03/09/chi-saves-the-day.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>
@@ -220,10 +220,10 @@ the day!</p>
         <category term="mysql" />
     </entry>
     <entry>
-        <id>http://preaction.github.io/blog/2011/03/05/whats-new-in-webgui-8.0-5-asset-helpers.html</id>
+        <id>http://preaction.me/blog/2011/03/05/whats-new-in-webgui-8.0-5-asset-helpers.html</id>
         <title>What&#39;s New in WebGUI 8.0 #5 - Asset Helpers</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2011/03/05/whats-new-in-webgui-8.0-5-asset-helpers.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2011/03/05/whats-new-in-webgui-8.0-5-asset-helpers.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>By far the biggest change we&#39;ve made in WebGUI 8 is the new Admin Console.
 Though parts of it may look familiar, it has been completely rewritten from
@@ -237,7 +237,7 @@ why you would read this blog, so instead I&#39;m going to talk about how you can
                     <li><a href="http://blogs.perl.org/users/preaction/2011/03/whats-new-in-webgui-80-5---asset-helpers.html">
                         Continue reading <em>What's New in WebGUI 8.0 #5 - Asset Helpers</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2011/03/05/whats-new-in-webgui-8.0-5-asset-helpers.html#section-2">
+                    <li><a href="http://preaction.me/blog/2011/03/05/whats-new-in-webgui-8.0-5-asset-helpers.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>
@@ -249,10 +249,10 @@ why you would read this blog, so instead I&#39;m going to talk about how you can
         <category term="webgui" />
     </entry>
     <entry>
-        <id>http://preaction.github.io/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html</id>
+        <id>http://preaction.me/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html</id>
         <title>What&#39;s New in WebGUI 8.0 #4 -- CHI Cache</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Caching is a tricky business. Having just one kind of cache won&#39;t work, because
 the production environment will greatly determine the most efficient caching
@@ -344,7 +344,7 @@ pretty and screenshots!</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2011/02/whats-new-in-webgui-80-4----chi-cache.html">
                         Continue reading <em>What's New in WebGUI 8.0 #4 -- CHI Cache</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html#section-2">
+                    <li><a href="http://preaction.me/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>
@@ -356,10 +356,10 @@ pretty and screenshots!</p>
         <category term="webgui" />
     </entry>
     <entry>
-        <id>http://preaction.github.io/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html</id>
+        <id>http://preaction.me/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html</id>
         <title>What&#39;s New in WebGUI 8.0 #3: Upgrade System</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html" rel="alternate" />
         <content type="html"><![CDATA[
             <h2>Following The Path</h2>
 
@@ -533,7 +533,7 @@ it easier to evolve with it.</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2011/02/whats-new-in-webgui-80-3-upgrade-system.html">
                         Continue reading <em>What's New in WebGUI 8.0 #3: Upgrade System</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html#section-2">
+                    <li><a href="http://preaction.me/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>

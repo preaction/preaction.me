@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/scripts/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/scripts.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/scripts/</link>
+        <atom:link href="http://preaction.me/blog/tag/scripts.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>perlsloc - Count Perl Source Lines with Perl::Tidy</title>
-            <link>http://preaction.github.io/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html</link>
-            <guid>http://preaction.github.io/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html</guid>
+            <link>http://preaction.me/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html</link>
+            <guid>http://preaction.me/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html</guid>
             <description><![CDATA[
                 <p>While spending some time putting together my own <a href="https://github.com/preaction/dot-files/blob/master/perltidyrc">perltidyrc
 file</a>, I became
@@ -46,7 +46,7 @@ has 50% more test lines than source lines:</p>
                         <li><a href="http://blogs.perl.org/users/preaction/2014/06/perlsloc---count-perl-source-lines-with-perltidy.html">
                             Continue reading <em>perlsloc - Count Perl Source Lines with Perl::Tidy</em> on blogs.perl.org...
                         </a></li>
-                        <li><a href="http://preaction.github.io/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html#section-2">
+                        <li><a href="http://preaction.me/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html#section-2">
                             Continue reading on preaction
                         </a></li>
                     </ul>

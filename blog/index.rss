@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/</link>
-        <atom:link href="http://preaction.github.io/blog/index.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/</link>
+        <atom:link href="http://preaction.me/blog/index.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Validating Financial Data with PDL</title>
-            <link>http://preaction.github.io/blog/2015/05/13/new-post/</link>
-            <guid>http://preaction.github.io/blog/2015/05/13/new-post/</guid>
+            <link>http://preaction.me/blog/2015/05/13/new-post/</link>
+            <guid>http://preaction.me/blog/2015/05/13/new-post/</guid>
             <description><![CDATA[
                 <p>My job involves financial market data. A lot of financial market data. I take
 the market data from various sources and store it in a database for later
@@ -69,7 +69,7 @@ week. So let&#39;s check for flatness by using stddev.</p>
 <p>PDL and TAlib make this all incredibly simple, so I can get on with my real
 work (fragging lamers in Quake)</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/05/13/new-post/#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/05/13/new-post/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
                     <a href="/blog/tag/pdl/">pdl</a>
@@ -81,10 +81,10 @@ work (fragging lamers in Quake)</p>
         </item>
         <item>
             <title>Consuming Chaos</title>
-            <link>http://preaction.github.io/blog/2015/03/08/consuming-chaos/</link>
-            <guid>http://preaction.github.io/blog/2015/03/08/consuming-chaos/</guid>
+            <link>http://preaction.me/blog/2015/03/08/consuming-chaos/</link>
+            <guid>http://preaction.me/blog/2015/03/08/consuming-chaos/</guid>
             <description><![CDATA[
-                <p><img class="u-pull-left" src="http://preaction.github.io/images/blog/chaos.jpg" style="width: 40%"></p>
+                <p><img class="u-pull-left" src="http://preaction.me/images/blog/chaos.jpg" style="width: 40%"></p>
 
 <p>For what seems hours, you scan the board. The colors are sharp against the
 simple background. Some movement catches your eye, but it doesn&#39;t feel right,
@@ -113,7 +113,7 @@ change, once you find their roots.</p>
 
 <p>Exact is for computers. We are not computers. We are human. We are chaos.</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/03/08/consuming-chaos/#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/03/08/consuming-chaos/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/software/">software</a>
                 </p>
@@ -124,8 +124,8 @@ change, once you find their roots.</p>
         </item>
         <item>
             <title>Announcing Statocles</title>
-            <link>http://preaction.github.io/blog/2015/03/02/announcing-statocles/</link>
-            <guid>http://preaction.github.io/blog/2015/03/02/announcing-statocles/</guid>
+            <link>http://preaction.me/blog/2015/03/02/announcing-statocles/</link>
+            <guid>http://preaction.me/blog/2015/03/02/announcing-statocles/</guid>
             <description><![CDATA[
                 <p><a href="http://staticsitegenerators.net">Static site generators</a> are popular these
 days. For small sites, the ability to quickly author content using simple tools
@@ -147,7 +147,7 @@ blogging engine built on Jekyll. It&#39;s through using Octopress that I decided
 write my own static site generator,
 <a href="http://preaction.github.io/Statocles">Statocles</a>.</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/03/02/announcing-statocles/#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/03/02/announcing-statocles/#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
                     <a href="/blog/tag/statocles/">statocles</a>
@@ -159,8 +159,8 @@ write my own static site generator,
         </item>
         <item>
             <title>Mojolicious Triumphs Over Legacy Code</title>
-            <link>http://preaction.github.io/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</link>
-            <guid>http://preaction.github.io/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</guid>
+            <link>http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</link>
+            <guid>http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</guid>
             <description><![CDATA[
                 <p>I got a text at 8:00am:</p>
 
@@ -176,7 +176,7 @@ person to enter the conference. Tone.</p>
   <p>&quot;The app is down, and trading has stopped.&quot;</p>
 </blockquote>
 
-                    <p><a href="http://preaction.github.io/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/mojolicious/">mojolicious</a>
                     <a href="/blog/tag/perl/">perl</a>
@@ -188,8 +188,8 @@ person to enter the conference. Tone.</p>
         </item>
         <item>
             <title>Managing SQL Data with Yertl</title>
-            <link>http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html</link>
-            <guid>http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html</guid>
+            <link>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</link>
+            <guid>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</guid>
             <description><![CDATA[
                 <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
 Yertl</a></p>
@@ -210,7 +210,7 @@ framework. It&#39;s under development (as is all software), but included already
 a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
 with SQL databases easy.</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
                     <a href="/blog/tag/sql/">sql</a>

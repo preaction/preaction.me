@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/xs/</id>
+    <id>http://preaction.me/blog/tag/xs/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:35Z</updated>
-    <link href="http://preaction.github.io/blog/tag/xs.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/xs/" rel="alternate" />
+    <updated>2015-08-02T23:10:19Z</updated>
+    <link href="http://preaction.me/blog/tag/xs.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/xs/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html</id>
+        <id>http://preaction.me/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html</id>
         <title>Adventures in Debugging C/XS 2: Debugging Boogaloo</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>... or &quot;Ask Not To Whom The Pointer Points, It Points To Thee.&quot;</p>
 
@@ -70,7 +70,7 @@ size and give it to me. I don&#39;t have to guess at a size beforehand.</p>
 object. I&#39;ll be planning a new API as soon as I confirm this one actually
 works and has proper tests (written in Perl, of course).</p>
 
-                <p><a href="http://preaction.github.io/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html#section-2">Continue reading...</a></p>
+                <p><a href="http://preaction.me/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html#section-2">Continue reading...</a></p>
             <p>Tags:
                 <a href="/blog/tag/perl/">perl</a>
                 <a href="/blog/tag/xs/">xs</a>
@@ -81,10 +81,10 @@ works and has proper tests (written in Perl, of course).</p>
         <category term="xs" />
     </entry>
     <entry>
-        <id>http://preaction.github.io/blog/2011/11/16/adventures-in-debugging-c-xs.html</id>
+        <id>http://preaction.me/blog/2011/11/16/adventures-in-debugging-c-xs.html</id>
         <title>Adventures in Debugging C/XS</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2011/11/16/adventures-in-debugging-c-xs.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2011/11/16/adventures-in-debugging-c-xs.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>... or Why A Good Perl Developer Is Not Automatically A Good C Developer, the
 Story of C Programming via Google.</p>
@@ -102,7 +102,7 @@ fail 19 times out of 20. Worse, my C test program would never fail at all.</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2011/11/adventures-in-debugging-cxs.html">
                         Continue reading <em>Adventures in Debugging C/XS</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2011/11/16/adventures-in-debugging-c-xs.html#section-2">
+                    <li><a href="http://preaction.me/blog/2011/11/16/adventures-in-debugging-c-xs.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>

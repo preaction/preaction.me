@@ -1,4 +1,4 @@
-Sitemap: http://preaction.github.io/sitemap.xml
+Sitemap: http://preaction.me/sitemap.xml
 User-Agent: *
 Disallow:
 

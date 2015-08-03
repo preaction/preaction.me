@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>preaction</title>
-        <link>http://preaction.github.io/blog/tag/yertl/</link>
-        <atom:link href="http://preaction.github.io/blog/tag/yertl.rss" rel="self" type="application/rss+xml" />
+        <link>http://preaction.me/blog/tag/yertl/</link>
+        <atom:link href="http://preaction.me/blog/tag/yertl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.054</generator>
         <item>
             <title>Managing SQL Data with Yertl</title>
-            <link>http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html</link>
-            <guid>http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html</guid>
+            <link>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</link>
+            <guid>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</guid>
             <description><![CDATA[
                 <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
 Yertl</a></p>
@@ -30,7 +30,7 @@ framework. It&#39;s under development (as is all software), but included already
 a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
 with SQL databases easy.</p>
 
-                    <p><a href="http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
+                    <p><a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
                 <p>Tags:
                     <a href="/blog/tag/perl/">perl</a>
                     <a href="/blog/tag/sql/">sql</a>

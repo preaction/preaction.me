@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/sql/</id>
+    <id>http://preaction.me/blog/tag/sql/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:41Z</updated>
-    <link href="http://preaction.github.io/blog/tag/sql.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/sql/" rel="alternate" />
+    <updated>2015-08-02T23:10:18Z</updated>
+    <link href="http://preaction.me/blog/tag/sql.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/sql/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html</id>
+        <id>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</id>
         <title>Managing SQL Data with Yertl</title>
-        <link href="http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
 Yertl</a></p>
@@ -30,7 +30,7 @@ framework. It&#39;s under development (as is all software), but included already
 a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
 with SQL databases easy.</p>
 
-                <p><a href="http://preaction.github.io/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
+                <p><a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
             <p>Tags:
                 <a href="/blog/tag/perl/">perl</a>
                 <a href="/blog/tag/sql/">sql</a>

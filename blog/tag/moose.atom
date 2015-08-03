@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/moose/</id>
+    <id>http://preaction.me/blog/tag/moose/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:37Z</updated>
-    <link href="http://preaction.github.io/blog/tag/moose.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/moose/" rel="alternate" />
+    <updated>2015-08-02T23:10:17Z</updated>
+    <link href="http://preaction.me/blog/tag/moose.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/moose/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html</id>
+        <id>http://preaction.me/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html</id>
         <title>Using MooseX::Types to Inflate Config Values</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>For a large application, configuration files become a necessity. They help
 flexible code be used in multiple instances across multiple modules. But they
@@ -21,7 +21,7 @@ configured object is expecting another configured object.</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2012/10/using-moosextypes-to-inflate-config-values.html">
                         Continue reading <em>Using MooseX::Types to Inflate Config Values</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html#section-2">
+                    <li><a href="http://preaction.me/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>
@@ -33,10 +33,10 @@ configured object is expecting another configured object.</p>
         <category term="moose" />
     </entry>
     <entry>
-        <id>http://preaction.github.io/blog/2012/10/07/run-time-class-composition-with-moose.html</id>
+        <id>http://preaction.me/blog/2012/10/07/run-time-class-composition-with-moose.html</id>
         <title>Run-time Class Composition With Moose</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2012/10/07/run-time-class-composition-with-moose.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2012/10/07/run-time-class-composition-with-moose.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>Moose is great! At its very basic, it simplifies the boilerplate required to
 create Perl objects immensely, providing attributes with type constraints,
@@ -58,7 +58,7 @@ classes at runtime!</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2012/10/run-time-class-composition-with-moose.html">
                         Continue reading <em>Run-time Class Composition With Moose</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2012/10/07/run-time-class-composition-with-moose.html#section-2">
+                    <li><a href="http://preaction.me/blog/2012/10/07/run-time-class-composition-with-moose.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>

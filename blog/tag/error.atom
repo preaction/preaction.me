@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.github.io/blog/tag/error/</id>
+    <id>http://preaction.me/blog/tag/error/</id>
     <title>preaction</title>
-    <updated>2015-08-02T23:09:37Z</updated>
-    <link href="http://preaction.github.io/blog/tag/error.atom" rel="self" />
-    <link href="http://preaction.github.io/blog/tag/error/" rel="alternate" />
+    <updated>2015-08-02T23:10:16Z</updated>
+    <link href="http://preaction.me/blog/tag/error.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/error/" rel="alternate" />
     <generator version="0.054">Statocles</generator>
     <entry>
-        <id>http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</id>
+        <id>http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</id>
         <title>I Bless You in the Name of the Stringified Object</title>
         <author><name>preaction</name></author>
-        <link href="http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html" rel="alternate" />
+        <link href="http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html" rel="alternate" />
         <content type="html"><![CDATA[
             <p>A co-worker came to me today with a curious error message:</p>
 
@@ -33,7 +33,7 @@ and then using that as a package name?</p>
                     <li><a href="http://blogs.perl.org/users/preaction/2013/04/i-bless-you-in-the-name-of-the-stringified-object.html">
                         Continue reading <em>I Bless You in the Name of the Stringified Object</em> on blogs.perl.org...
                     </a></li>
-                    <li><a href="http://preaction.github.io/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#section-2">
+                    <li><a href="http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#section-2">
                         Continue reading on preaction
                     </a></li>
                 </ul>
