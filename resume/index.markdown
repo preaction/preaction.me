@@ -15,7 +15,7 @@ links:
 
 ## Summary
 
-* Software developer in Perl and JavaScript
+* Software developer. Expert in Perl and JavaScript
 * Mentor, team leader, and project manager
 * System administrator and operations in Unix and Linux
 
