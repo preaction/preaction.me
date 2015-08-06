@@ -54,6 +54,7 @@ October 2011 - Present
   API using ZeroMQ and [Protobuf](https://developers.google.com/protocol-buffers/)
 * Automated releases, deployment and environment setup using
   Git and [Rex](http://rexify.org)
+* Built fully-automated dev deployment using Perl and Jenkins
 
 ### Double Cluepon Software Corp.
 
