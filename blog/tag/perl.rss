@@ -5,7 +5,22 @@
         <link>http://preaction.me/blog/tag/perl/</link>
         <atom:link href="http://preaction.me/blog/tag/perl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
-        <generator>Statocles 0.054</generator>
+        <generator>Statocles 0.056</generator>
+        <item>
+            <title>List::Slice - Slice operations for lists</title>
+            <link>http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/</link>
+            <guid>http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/</guid>
+            <description><![CDATA[
+                
+                    <p><a href="http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/perl/">perl</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Mon, 12 Oct 2015 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>Announcing Statocles</title>
             <link>http://preaction.me/blog/2015/03/02/announcing-statocles/</link>
@@ -139,37 +154,6 @@ lines everywhere.</p>
             ]]></description>
             <pubDate>
                 Sun, 26 Oct 2014 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Conflict Resolution: local::lib and git&#39;s Perl</title>
-            <link>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</link>
-            <guid>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</guid>
-            <description><![CDATA[
-                <p>I ran into a frustrating problem the other day:</p>
-
-<pre><code>$ git add -i
-/usr/bin/perl: symbol lookup error: ~/perl5/lib/perl5/x86_64-linux-thread-multi/auto/List/Util/Util.so:
-undefined symbol: Perl_xs_apiversion_bootcheck
-fatal: &#39;add--interactive&#39; appears to be a git command, but we were not
-able to execute it. Maybe git-add--interactive is broken?
-</code></pre>
-
-                    <ul>
-                        <li><a href="http://blogs.perl.org/users/preaction/2014/06/conflict-resolution-locallib-and-gits-perl.html">
-                            Continue reading <em>Conflict Resolution: local::lib and git's Perl</em> on blogs.perl.org...
-                        </a></li>
-                        <li><a href="http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#section-2">
-                            Continue reading on preaction
-                        </a></li>
-                    </ul>
-                <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/git/">git</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 14 Jun 2014 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

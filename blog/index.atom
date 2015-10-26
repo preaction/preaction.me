@@ -2,10 +2,24 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2015-08-05T23:22:22Z</updated>
+    <updated>2015-10-25T19:52:47Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
-    <generator version="0.054">Statocles</generator>
+    <generator version="0.056">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/</id>
+        <title>List::Slice - Slice operations for lists</title>
+        <link href="http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/" rel="alternate" />
+        <content type="html"><![CDATA[
+            
+                <p><a href="http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/perl/">perl</a>
+            </p>
+        ]]></content>
+        <updated>2015-10-12T00:00:00Z</updated>
+        <category term="perl" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2015/03/08/consuming-chaos/</id>
         <title>Consuming Chaos</title>
@@ -149,38 +163,6 @@ with SQL databases easy.</p>
         <category term="sql" />
         <category term="etl" />
         <category term="yertl" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</id>
-        <title>Leaving Crumb Trails -- Talking to Myself</title>
-        <author><name>preaction</name></author>
-        <link href="http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
-(postaction?) had ideas, hopes, and dreams and developed some of them into
-software that I and others use. Unfortunately, that asshole left bugs all
-through the code for me to fix.</p>
-
-<p>I can&#39;t blame him. Nobody&#39;s perfect, not even idealized/demonized copies of my
-past self. But I do have to fix them, and deal with the messes he left.</p>
-
-<p>Lucky for me, while he was writing buggy software, he left extensive notes for
-me to use...</p>
-
-                <ul>
-                    <li><a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
-                        Continue reading <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org...
-                    </a></li>
-                    <li><a href="http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">
-                        Continue reading on preaction
-                    </a></li>
-                </ul>
-            <p>Tags:
-                <a href="/blog/tag/software/">software</a>
-            </p>
-        ]]></content>
-        <updated>2014-12-23T00:00:00Z</updated>
-        <category term="software" />
     </entry>
 </feed>
 

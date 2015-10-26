@@ -40,9 +40,9 @@ site:
                 - title: Talks
                   href: /talks
                 - title: Statocles
-                  href: /Statocles
+                  href: /statocles
                 - title: Yertl
-                  href: /ETL-Yertl
+                  href: /yertl
                 - title: Food
                   href: http://indiepalate.com
         deploy: 

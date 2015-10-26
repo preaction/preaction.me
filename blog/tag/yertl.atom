@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/yertl/</id>
     <title>preaction</title>
-    <updated>2015-08-05T23:22:24Z</updated>
+    <updated>2015-10-25T19:52:50Z</updated>
     <link href="http://preaction.me/blog/tag/yertl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/yertl/" rel="alternate" />
-    <generator version="0.054">Statocles</generator>
+    <generator version="0.056">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</id>
         <title>Managing SQL Data with Yertl</title>
