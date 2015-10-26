@@ -24,8 +24,8 @@ site:
             $class: Statocles::Plugin::LinkCheck
             $args:
                 ignore:
-                    - '/Statocles'
-                    - '/ETL-Yertl'
+                    - '/statocles'
+                    - '/yertl'
             $sub: check_pages
     args:
         title: preaction
@@ -40,9 +40,9 @@ site:
                 - title: Talks
                   href: /talks
                 - title: Statocles
-                  href: /Statocles
+                  href: /statocles
                 - title: Yertl
-                  href: /ETL-Yertl
+                  href: /yertl
                 - title: Food
                   href: http://indiepalate.com
         deploy: 
