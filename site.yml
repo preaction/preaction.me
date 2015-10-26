@@ -24,8 +24,8 @@ site:
             $class: Statocles::Plugin::LinkCheck
             $args:
                 ignore:
-                    - '/statocles'
-                    - '/yertl'
+                    - '/Statocles'
+                    - '/ETL-Yertl'
             $sub: check_pages
     args:
         title: preaction

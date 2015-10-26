@@ -2,24 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/perl/</id>
     <title>preaction</title>
-    <updated>2015-10-25T19:53:18Z</updated>
+    <updated>2015-10-25T19:53:50Z</updated>
     <link href="http://preaction.me/blog/tag/perl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/perl/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
-    <entry>
-        <id>http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/</id>
-        <title>List::Slice - Slice operations for lists</title>
-        <link href="http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/" rel="alternate" />
-        <content type="html"><![CDATA[
-            
-                <p><a href="http://preaction.me/blog/2015/10/12/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="/blog/tag/perl/">perl</a>
-            </p>
-        ]]></content>
-        <updated>2015-10-12T00:00:00Z</updated>
-        <category term="perl" />
-    </entry>
     <entry>
         <id>http://preaction.me/blog/2015/03/02/announcing-statocles/</id>
         <title>Announcing Statocles</title>
@@ -156,6 +142,38 @@ lines everywhere.</p>
         ]]></content>
         <updated>2014-10-26T00:00:00Z</updated>
         <category term="perl" />
+    </entry>
+    <entry>
+        <id>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</id>
+        <title>Conflict Resolution: local::lib and git&#39;s Perl</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>I ran into a frustrating problem the other day:</p>
+
+<pre><code>$ git add -i
+/usr/bin/perl: symbol lookup error: ~/perl5/lib/perl5/x86_64-linux-thread-multi/auto/List/Util/Util.so:
+undefined symbol: Perl_xs_apiversion_bootcheck
+fatal: &#39;add--interactive&#39; appears to be a git command, but we were not
+able to execute it. Maybe git-add--interactive is broken?
+</code></pre>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2014/06/conflict-resolution-locallib-and-gits-perl.html">
+                        Continue reading <em>Conflict Resolution: local::lib and git's Perl</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/git/">git</a>
+            </p>
+        ]]></content>
+        <updated>2014-06-14T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="git" />
     </entry>
 </feed>
 
