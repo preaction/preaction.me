@@ -7,6 +7,56 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.056</generator>
         <item>
+            <title>List::Slice - Slice operations for lists</title>
+            <link>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</link>
+            <guid>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</guid>
+            <description><![CDATA[
+                <p>How many times have you needed to do this?</p>
+
+<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
+my @topfive = @found_names[0..4];
+</code></pre>
+
+<p>Or worse, this.</p>
+
+<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
+</code></pre>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
+
+<p>Or this.</p>
+
+<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
+</code></pre>
+
+<p>Or this.</p>
+
+<pre><code>my @names
+        = map { $_-&gt;[0] }
+        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
+        grep { $_-&gt;[1] &gt; $now }
+        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
+        @all_users;
+my @topfive = @names[0..4];
+</code></pre>
+
+<p>There&#39;s got to be a better way!</p>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
+
+<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
+
+                    <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="/blog/tag/cpan/">cpan</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Mon, 26 Oct 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Announcing Statocles</title>
             <link>http://preaction.me/blog/2015/03/02/announcing-statocles/</link>
             <guid>http://preaction.me/blog/2015/03/02/announcing-statocles/</guid>
@@ -139,37 +189,6 @@ lines everywhere.</p>
             ]]></description>
             <pubDate>
                 Sun, 26 Oct 2014 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Conflict Resolution: local::lib and git&#39;s Perl</title>
-            <link>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</link>
-            <guid>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</guid>
-            <description><![CDATA[
-                <p>I ran into a frustrating problem the other day:</p>
-
-<pre><code>$ git add -i
-/usr/bin/perl: symbol lookup error: ~/perl5/lib/perl5/x86_64-linux-thread-multi/auto/List/Util/Util.so:
-undefined symbol: Perl_xs_apiversion_bootcheck
-fatal: &#39;add--interactive&#39; appears to be a git command, but we were not
-able to execute it. Maybe git-add--interactive is broken?
-</code></pre>
-
-                    <ul>
-                        <li><a href="http://blogs.perl.org/users/preaction/2014/06/conflict-resolution-locallib-and-gits-perl.html">
-                            Continue reading <em>Conflict Resolution: local::lib and git's Perl</em> on blogs.perl.org...
-                        </a></li>
-                        <li><a href="http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#section-2">
-                            Continue reading on preaction
-                        </a></li>
-                    </ul>
-                <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/git/">git</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 14 Jun 2014 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

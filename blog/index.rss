@@ -7,6 +7,56 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.056</generator>
         <item>
+            <title>List::Slice - Slice operations for lists</title>
+            <link>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</link>
+            <guid>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</guid>
+            <description><![CDATA[
+                <p>How many times have you needed to do this?</p>
+
+<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
+my @topfive = @found_names[0..4];
+</code></pre>
+
+<p>Or worse, this.</p>
+
+<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
+</code></pre>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
+
+<p>Or this.</p>
+
+<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
+</code></pre>
+
+<p>Or this.</p>
+
+<pre><code>my @names
+        = map { $_-&gt;[0] }
+        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
+        grep { $_-&gt;[1] &gt; $now }
+        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
+        @all_users;
+my @topfive = @names[0..4];
+</code></pre>
+
+<p>There&#39;s got to be a better way!</p>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
+
+<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
+
+                    <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="/blog/tag/cpan/">cpan</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Mon, 26 Oct 2015 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Consuming Chaos</title>
             <link>http://preaction.me/blog/2015/03/08/consuming-chaos/</link>
             <guid>http://preaction.me/blog/2015/03/08/consuming-chaos/</guid>
@@ -147,38 +197,6 @@ with SQL databases easy.</p>
             ]]></description>
             <pubDate>
                 Wed, 21 Jan 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Leaving Crumb Trails -- Talking to Myself</title>
-            <link>http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</link>
-            <guid>http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</guid>
-            <description><![CDATA[
-                <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
-(postaction?) had ideas, hopes, and dreams and developed some of them into
-software that I and others use. Unfortunately, that asshole left bugs all
-through the code for me to fix.</p>
-
-<p>I can&#39;t blame him. Nobody&#39;s perfect, not even idealized/demonized copies of my
-past self. But I do have to fix them, and deal with the messes he left.</p>
-
-<p>Lucky for me, while he was writing buggy software, he left extensive notes for
-me to use...</p>
-
-                    <ul>
-                        <li><a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
-                            Continue reading <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org...
-                        </a></li>
-                        <li><a href="http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">
-                            Continue reading on preaction
-                        </a></li>
-                    </ul>
-                <p>Tags:
-                    <a href="/blog/tag/software/">software</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Tue, 23 Dec 2014 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

@@ -2,10 +2,60 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2015-10-25T19:53:50Z</updated>
+    <updated>2015-10-27T00:01:44Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</id>
+        <title>List::Slice - Slice operations for lists</title>
+        <link href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>How many times have you needed to do this?</p>
+
+<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
+my @topfive = @found_names[0..4];
+</code></pre>
+
+<p>Or worse, this.</p>
+
+<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
+</code></pre>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
+
+<p>Or this.</p>
+
+<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
+</code></pre>
+
+<p>Or this.</p>
+
+<pre><code>my @names
+        = map { $_-&gt;[0] }
+        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
+        grep { $_-&gt;[1] &gt; $now }
+        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
+        @all_users;
+my @topfive = @names[0..4];
+</code></pre>
+
+<p>There&#39;s got to be a better way!</p>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
+
+<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
+
+                <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/cpan/">cpan</a>
+            </p>
+        ]]></content>
+        <updated>2015-10-26T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpan" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2015/03/08/consuming-chaos/</id>
         <title>Consuming Chaos</title>
@@ -149,38 +199,6 @@ with SQL databases easy.</p>
         <category term="sql" />
         <category term="etl" />
         <category term="yertl" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html</id>
-        <title>Leaving Crumb Trails -- Talking to Myself</title>
-        <author><name>preaction</name></author>
-        <link href="http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
-(postaction?) had ideas, hopes, and dreams and developed some of them into
-software that I and others use. Unfortunately, that asshole left bugs all
-through the code for me to fix.</p>
-
-<p>I can&#39;t blame him. Nobody&#39;s perfect, not even idealized/demonized copies of my
-past self. But I do have to fix them, and deal with the messes he left.</p>
-
-<p>Lucky for me, while he was writing buggy software, he left extensive notes for
-me to use...</p>
-
-                <ul>
-                    <li><a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
-                        Continue reading <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org...
-                    </a></li>
-                    <li><a href="http://preaction.me/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">
-                        Continue reading on preaction
-                    </a></li>
-                </ul>
-            <p>Tags:
-                <a href="/blog/tag/software/">software</a>
-            </p>
-        ]]></content>
-        <updated>2014-12-23T00:00:00Z</updated>
-        <category term="software" />
     </entry>
 </feed>
 

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/cpan/</id>
+    <title>preaction</title>
+    <updated>2015-10-27T00:01:43Z</updated>
+    <link href="http://preaction.me/blog/tag/cpan.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/cpan/" rel="alternate" />
+    <generator version="0.056">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</id>
+        <title>List::Slice - Slice operations for lists</title>
+        <link href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>How many times have you needed to do this?</p>
+
+<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
+my @topfive = @found_names[0..4];
+</code></pre>
+
+<p>Or worse, this.</p>
+
+<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
+</code></pre>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
+
+<p>Or this.</p>
+
+<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
+</code></pre>
+
+<p>Or this.</p>
+
+<pre><code>my @names
+        = map { $_-&gt;[0] }
+        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
+        grep { $_-&gt;[1] &gt; $now }
+        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
+        @all_users;
+my @topfive = @names[0..4];
+</code></pre>
+
+<p>There&#39;s got to be a better way!</p>
+
+<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
+
+<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
+
+                <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="/blog/tag/perl/">perl</a>
+                <a href="/blog/tag/cpan/">cpan</a>
+            </p>
+        ]]></content>
+        <updated>2015-10-26T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpan" />
+    </entry>
+</feed>
+
