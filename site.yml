@@ -53,3 +53,5 @@ site:
                 $ref: basic_app
         data:
             google_analytics_id: 'UA-61295159-2'
+            disqus:
+                shortname: preaction
