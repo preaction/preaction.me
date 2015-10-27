@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/software/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:01:43Z</updated>
+    <updated>2015-10-27T00:14:57Z</updated>
     <link href="http://preaction.me/blog/tag/software.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/software/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
@@ -42,7 +42,7 @@ change, once you find their roots.</p>
 
                 <p><a href="http://preaction.me/blog/2015/03/08/consuming-chaos/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/software/">software</a>
+                <a href="http://preaction.me/blog/tag/software/">software</a>
             </p>
         ]]></content>
         <updated>2015-03-08T00:00:00Z</updated>
@@ -74,7 +74,7 @@ me to use...</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/software/">software</a>
+                <a href="http://preaction.me/blog/tag/software/">software</a>
             </p>
         ]]></content>
         <updated>2014-12-23T00:00:00Z</updated>
@@ -111,7 +111,7 @@ user has input an invalid ID for data?</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/software/">software</a>
+                <a href="http://preaction.me/blog/tag/software/">software</a>
             </p>
         ]]></content>
         <updated>2012-11-04T00:00:00Z</updated>
@@ -141,7 +141,7 @@ for a long time.</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/software/">software</a>
+                <a href="http://preaction.me/blog/tag/software/">software</a>
             </p>
         ]]></content>
         <updated>2012-09-23T00:00:00Z</updated>

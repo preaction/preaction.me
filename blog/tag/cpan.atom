@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/cpan/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:01:43Z</updated>
+    <updated>2015-10-27T00:15:00Z</updated>
     <link href="http://preaction.me/blog/tag/cpan.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/cpan/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
@@ -48,8 +48,8 @@ my @topfive = @names[0..4];
 
                 <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/perl/">perl</a>
-                <a href="/blog/tag/cpan/">cpan</a>
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
             </p>
         ]]></content>
         <updated>2015-10-26T00:00:00Z</updated>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/xs/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:01:44Z</updated>
+    <updated>2015-10-27T00:14:58Z</updated>
     <link href="http://preaction.me/blog/tag/xs.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/xs/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
@@ -72,8 +72,8 @@ works and has proper tests (written in Perl, of course).</p>
 
                 <p><a href="http://preaction.me/blog/2012/03/20/adventures-in-debugging-c-xs-2-debugging-boogaloo.html#section-2">Continue reading...</a></p>
             <p>Tags:
-                <a href="/blog/tag/perl/">perl</a>
-                <a href="/blog/tag/xs/">xs</a>
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/xs/">xs</a>
             </p>
         ]]></content>
         <updated>2012-03-20T00:00:00Z</updated>
@@ -107,7 +107,7 @@ fail 19 times out of 20. Worse, my C test program would never fail at all.</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/xs/">xs</a>
+                <a href="http://preaction.me/blog/tag/xs/">xs</a>
             </p>
         ]]></content>
         <updated>2011-11-16T00:00:00Z</updated>

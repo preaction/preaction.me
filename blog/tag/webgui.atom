@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/webgui/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:01:43Z</updated>
+    <updated>2015-10-27T00:14:58Z</updated>
     <link href="http://preaction.me/blog/tag/webgui.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/webgui/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
@@ -45,7 +45,7 @@ presentations, and they&#39;re served by a nice, fast, free host.</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/webgui/">webgui</a>
+                <a href="http://preaction.me/blog/tag/webgui/">webgui</a>
             </p>
         ]]></content>
         <updated>2011-05-20T00:00:00Z</updated>
@@ -211,8 +211,8 @@ the day!</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/webgui/">webgui</a>
-                <a href="/blog/tag/mysql/">mysql</a>
+                <a href="http://preaction.me/blog/tag/webgui/">webgui</a>
+                <a href="http://preaction.me/blog/tag/mysql/">mysql</a>
             </p>
         ]]></content>
         <updated>2011-03-09T00:00:00Z</updated>
@@ -242,7 +242,7 @@ why you would read this blog, so instead I&#39;m going to talk about how you can
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/webgui/">webgui</a>
+                <a href="http://preaction.me/blog/tag/webgui/">webgui</a>
             </p>
         ]]></content>
         <updated>2011-03-05T00:00:00Z</updated>
@@ -349,7 +349,7 @@ pretty and screenshots!</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/webgui/">webgui</a>
+                <a href="http://preaction.me/blog/tag/webgui/">webgui</a>
             </p>
         ]]></content>
         <updated>2011-02-18T00:00:00Z</updated>
@@ -538,7 +538,7 @@ it easier to evolve with it.</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/webgui/">webgui</a>
+                <a href="http://preaction.me/blog/tag/webgui/">webgui</a>
             </p>
         ]]></content>
         <updated>2011-02-04T00:00:00Z</updated>

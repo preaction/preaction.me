@@ -48,8 +48,8 @@ my @topfive = @names[0..4];
 
                     <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/cpan/">cpan</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -83,8 +83,8 @@ write my own static site generator,
 
                     <p><a href="http://preaction.me/blog/2015/03/02/announcing-statocles/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/statocles/">statocles</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/statocles/">statocles</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -112,8 +112,8 @@ person to enter the conference. Tone.</p>
 
                     <p><a href="http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/mojolicious/">mojolicious</a>
-                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/mojolicious/">mojolicious</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -146,10 +146,10 @@ with SQL databases easy.</p>
 
                     <p><a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/sql/">sql</a>
-                    <a href="/blog/tag/etl/">etl</a>
-                    <a href="/blog/tag/yertl/">yertl</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/sql/">sql</a>
+                    <a href="http://preaction.me/blog/tag/etl/">etl</a>
+                    <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
                 </p>
             ]]></description>
             <pubDate>
@@ -184,7 +184,7 @@ lines everywhere.</p>
                         </a></li>
                     </ul>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
                 </p>
             ]]></description>
             <pubDate>

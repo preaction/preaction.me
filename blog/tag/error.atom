@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/error/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:01:45Z</updated>
+    <updated>2015-10-27T00:15:00Z</updated>
     <link href="http://preaction.me/blog/tag/error.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/error/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
@@ -38,7 +38,7 @@ and then using that as a package name?</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/error/">error</a>
+                <a href="http://preaction.me/blog/tag/error/">error</a>
             </p>
         ]]></content>
         <updated>2013-04-15T00:00:00Z</updated>

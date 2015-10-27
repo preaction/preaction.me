@@ -5,14 +5,8 @@ blog_app:
         url_root: /blog
         index_tags: [ '-personal' ]
 
-static_app:
-    class: Statocles::App::Static
-    args:
-        store: '.'
-        url_root: '/'
-
-plain_app:
-    class: Statocles::App::Plain
+basic_app:
+    class: Statocles::App::Basic
     args:
         store: '.'
         url_root: '/'
@@ -55,9 +49,9 @@ site:
         apps:
             blog:
                 $ref: blog_app
-            static:
-                $ref: static_app
-            plain:
-                $ref: plain_app
+            basic:
+                $ref: basic_app
         data:
             google_analytics_id: 'UA-61295159-2'
+            disqus:
+                shortname: preaction

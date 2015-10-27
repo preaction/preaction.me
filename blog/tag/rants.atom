@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/rants/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:01:44Z</updated>
+    <updated>2015-10-27T00:14:56Z</updated>
     <link href="http://preaction.me/blog/tag/rants.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/rants/" rel="alternate" />
     <generator version="0.056">Statocles</generator>
@@ -34,7 +34,7 @@ new programming language. I didn&#39;t realize my mistake until it was too late.
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/rants/">rants</a>
+                <a href="http://preaction.me/blog/tag/rants/">rants</a>
             </p>
         ]]></content>
         <updated>2014-07-19T00:00:00Z</updated>
@@ -65,7 +65,7 @@ make this task surmountable.</p>
                     </a></li>
                 </ul>
             <p>Tags:
-                <a href="/blog/tag/rants/">rants</a>
+                <a href="http://preaction.me/blog/tag/rants/">rants</a>
             </p>
         ]]></content>
         <updated>2013-04-11T00:00:00Z</updated>

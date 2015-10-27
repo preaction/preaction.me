@@ -48,8 +48,8 @@ my @topfive = @names[0..4];
 
                     <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
                 <p>Tags:
-                    <a href="/blog/tag/perl/">perl</a>
-                    <a href="/blog/tag/cpan/">cpan</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
                 </p>
             ]]></description>
             <pubDate>
