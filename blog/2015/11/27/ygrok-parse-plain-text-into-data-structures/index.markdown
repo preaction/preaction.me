@@ -121,20 +121,6 @@ Now we can open our processed output and see all the proxy and common
 attacks people are throwing at our server. The web is a dark and
 dangerous place indeed...
 
-Here's someone trying to attack a PHPMyAdmin instance. But, for some
-reason, with a full URL in the GET request, as though my server is a
-proxy.
-
-    http://208.86.227.106:80/sql/phpMyAdmin2/:
-    - path: http://208.86.227.106:80/sql/phpMyAdmin2/
-      referer: '-'
-    - path: http://208.86.227.106:80/sql/phpMyAdmin2/
-      referer: '-'
-    - path: http://208.86.227.106:80/sql/phpMyAdmin2/
-      referer: '-'
-    - path: http://208.86.227.106:80/sql/phpMyAdmin2/
-      referer: '-'
-
 Here's some people assuming I'm an incompetent administrator. Not that I
 blame them, there are lots of those out on the web. They're looking for
 the phpmyadmin setup files, which should not be open to users after the
