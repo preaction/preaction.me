@@ -25,8 +25,8 @@ then parse.
 In [my previous post about
 ysql](/blog/2015/01/21/managing-sql-data-with-yertl.html), I showed how
 to use the `ysql` utility to read/write YAML documents to SQL databases.
-Now, [Yertl](http://preaction.me/yertl) has a `ygrok` utility to parse
-plain text into YAML documents.
+Now, [Yertl](http://preaction.me/yertl) has a [`ygrok`
+utility](/yertl/pod/ygrok) to parse plain text into YAML documents.
 
 ---
 
@@ -67,8 +67,8 @@ come out:
     user_agent: Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2
 
 Okay, there's a lot of data here, so how about we look at just the 404
-codes? For that, we can use the `yq` utility to select only those lines
-that have a `status` of `404`:
+codes? For that, we can use [the `yq` utility](/yertl/pod/yq) to select
+only those lines that have a `status` of `404`:
 
     $ ygrok '%{LOG.HTTP_COMBINED}' indiepalate.com.access.log | \
         yq 'select( .status == 404 )'
@@ -87,8 +87,8 @@ that have a `status` of `404`:
 
 Good! But there's still a lot of output here: A bunch of fields we're
 not interested in. How about we only show the paths and referrers for
-those 404s? The `ymask` utility can prune our document to only the
-essentials.
+those 404s? [The `ymask` utility](/yertl/pod/ymask) can prune our document to
+only the essentials.
 
     $ ygrok '%{LOG.HTTP_COMBINED}' indiepalate.com.access.log | \
         yq 'select( .status == 404 )' | ymask 'path,referer'
@@ -206,7 +206,7 @@ using the `%{POSIX.PSU}` pattern.
     vsz: '2514172'
 
 For monitoring purposes, I want to keep track of processes running every
-minute. So let's use [ysql](http://metacpan.org/pod/ysql) to build a
+minute. So let's use [ysql](/yertl/pod/ysql) to build a
 database to hold the information from `ps`:
 
     $ ysql --config psdb --dsn dbi:SQLite:ps.db
