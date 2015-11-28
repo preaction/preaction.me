@@ -3,6 +3,10 @@ tags:
   - yertl
   - perl
 title: 'ygrok - Parse plain text into data structures'
+links:
+    canonical:
+        href: http://blogs.perl.org/users/preaction/2015/11/ygrok---parse-plain-text-into-data-structures.html
+        title: blogs.perl.org
 ---
 
 As a data warehouse, a significant part of my job involves log analysis.
