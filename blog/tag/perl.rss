@@ -5,7 +5,45 @@
         <link>http://preaction.me/blog/tag/perl/</link>
         <atom:link href="http://preaction.me/blog/tag/perl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
-        <generator>Statocles 0.056</generator>
+        <generator>Statocles 0.060</generator>
+        <item>
+            <title>ygrok - Parse plain text into data structures</title>
+            <link>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</link>
+            <guid>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</guid>
+            <description><![CDATA[
+                <p>As a data warehouse, a significant part of my job involves log analysis.
+Besides the standard root cause analysis, I need to verify database
+writes, diagnose user access issues, and look for under-used (and
+over-used) data sets. Additionally, my boss needs quarterly and yearly
+reports for client billing, and some of our clients need usage reports
+to identify data they might be paying for but not using (which we can
+then shut off to reduce costs). This has recently become a popular space
+for new solutions.</p>
+
+<p>On the other side, as a sysadmin, I need to get other reports like how
+all the machine&#39;s resources (CPU, memory, disk, network) are being used,
+what processes are running on the machine and how those processes used
+resources over time. This is basic monitoring, and there are lots of
+solutions here, too. In the true Unix philosophy, there are command-line
+programs to query every one of these, which write out text that I can
+then parse.</p>
+
+<p>In <a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
+ysql</a>, I showed how
+to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
+Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="http://preaction.me/yertl/pod/ygrok"><code>ygrok</code>
+utility</a> to parse plain text into YAML documents.</p>
+
+                    <p><a href="http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 27 Nov 2015 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>List::Slice - Slice operations for lists</title>
             <link>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</link>
@@ -154,41 +192,6 @@ with SQL databases easy.</p>
             ]]></description>
             <pubDate>
                 Wed, 21 Jan 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Manage Boilerplate with Import::Base</title>
-            <link>http://preaction.me/blog/2014/10/26/managing-boilerplate-with-import-base.html</link>
-            <guid>http://preaction.me/blog/2014/10/26/managing-boilerplate-with-import-base.html</guid>
-            <description><![CDATA[
-                <p>Boilerplate is everything I hate about programming:</p>
-
-<ul>
-<li>Doing the same thing more than once</li>
-<li>Leaving clutter in every file</li>
-<li>Making it harder to change things in the future</li>
-<li>Eventually blindly copying without understanding (cargo-cult programming)</li>
-</ul>
-
-<p>In an effort to reduce some of my boilerplate, I wrote
-<a href="https://metacpan.org/pod/Import::Base">Import::Base</a>, a module to collect and
-import useful bundles of modules, removing the need for long lists of <code>use ...</code>
-lines everywhere.</p>
-
-                    <ul>
-                        <li><a href="http://blogs.perl.org/users/preaction/2014/10/managing-boilerplate-with-importbase.html">
-                            Continue reading <em>Manage Boilerplate with Import::Base</em> on blogs.perl.org...
-                        </a></li>
-                        <li><a href="http://preaction.me/blog/2014/10/26/managing-boilerplate-with-import-base.html#section-2">
-                            Continue reading on preaction
-                        </a></li>
-                    </ul>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sun, 26 Oct 2014 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

@@ -5,7 +5,45 @@
         <link>http://preaction.me/blog/</link>
         <atom:link href="http://preaction.me/blog/index.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
-        <generator>Statocles 0.056</generator>
+        <generator>Statocles 0.060</generator>
+        <item>
+            <title>ygrok - Parse plain text into data structures</title>
+            <link>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</link>
+            <guid>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</guid>
+            <description><![CDATA[
+                <p>As a data warehouse, a significant part of my job involves log analysis.
+Besides the standard root cause analysis, I need to verify database
+writes, diagnose user access issues, and look for under-used (and
+over-used) data sets. Additionally, my boss needs quarterly and yearly
+reports for client billing, and some of our clients need usage reports
+to identify data they might be paying for but not using (which we can
+then shut off to reduce costs). This has recently become a popular space
+for new solutions.</p>
+
+<p>On the other side, as a sysadmin, I need to get other reports like how
+all the machine&#39;s resources (CPU, memory, disk, network) are being used,
+what processes are running on the machine and how those processes used
+resources over time. This is basic monitoring, and there are lots of
+solutions here, too. In the true Unix philosophy, there are command-line
+programs to query every one of these, which write out text that I can
+then parse.</p>
+
+<p>In <a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
+ysql</a>, I showed how
+to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
+Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="http://preaction.me/yertl/pod/ygrok"><code>ygrok</code>
+utility</a> to parse plain text into YAML documents.</p>
+
+                    <p><a href="http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 27 Nov 2015 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>List::Slice - Slice operations for lists</title>
             <link>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</link>
@@ -161,42 +199,6 @@ person to enter the conference. Tone.</p>
             ]]></description>
             <pubDate>
                 Fri, 13 Feb 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Managing SQL Data with Yertl</title>
-            <link>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</link>
-            <guid>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</guid>
-            <description><![CDATA[
-                <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
-Yertl</a></p>
-
-<p>Every week, I work with about a dozen SQL databases. Some are Sybase, some
-MySQL, some SQLite. Some have different versions in dev, staging, and
-production. All of them need data extracted, transformed, and loaded.</p>
-
-<p>DBI is the clear choice for dealing with SQL databases in Perl, but there are a
-dozen lines of Perl code in between me and the operation that I want. Sure,
-I&#39;ve got modules and web applications and ad-hoc commands and scripts that
-perform certain individual tasks on my databases, but sometimes those things
-don&#39;t quite do what I need right now, and I just want something that will let
-me execute whatever SQL I can come up with.</p>
-
-<p><a href="http://metacpan.org/pod/ETL::Yertl">Yertl (ETL::Yertl)</a> is a shell-based ETL
-framework. It&#39;s under development (as is all software), but included already is
-a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
-with SQL databases easy.</p>
-
-                    <p><a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                    <a href="http://preaction.me/blog/tag/sql/">sql</a>
-                    <a href="http://preaction.me/blog/tag/etl/">etl</a>
-                    <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Wed, 21 Jan 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

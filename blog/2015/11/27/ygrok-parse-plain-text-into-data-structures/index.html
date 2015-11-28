@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>ygrok - Parse plain text into data structures - preaction</title>
+        <meta content="Statocles 0.060" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>ygrok - Parse plain text into data structures</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/yertl/" rel="tag">yertl</a>
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2015-11-27">
+                        Posted on 2015-11-27
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>As a data warehouse, a significant part of my job involves log analysis.
+Besides the standard root cause analysis, I need to verify database
+writes, diagnose user access issues, and look for under-used (and
+over-used) data sets. Additionally, my boss needs quarterly and yearly
+reports for client billing, and some of our clients need usage reports
+to identify data they might be paying for but not using (which we can
+then shut off to reduce costs). This has recently become a popular space
+for new solutions.</p>
+
+<p>On the other side, as a sysadmin, I need to get other reports like how
+all the machine&#39;s resources (CPU, memory, disk, network) are being used,
+what processes are running on the machine and how those processes used
+resources over time. This is basic monitoring, and there are lots of
+solutions here, too. In the true Unix philosophy, there are command-line
+programs to query every one of these, which write out text that I can
+then parse.</p>
+
+<p>In <a href="/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
+ysql</a>, I showed how
+to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
+Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="/yertl/pod/ygrok"><code>ygrok</code>
+utility</a> to parse plain text into YAML documents.</p>
+
+            </section>
+            <section id="section-2">
+                <h2>Parsing HTTP Logs</h2>
+
+<p>We provide websites for our users to use, so we&#39;ve got a lot of HTTP
+logs to analyze. The ygrok utility parses lines of plain text using
+patterns. Since HTTP is such a common thing, <code>ygrok</code> has a built-in
+pattern to parse HTTP logs: <code>%{LOG.HTTP_COMBINED}</code>.</p>
+
+<p>So let&#39;s parse our access log. Lines of text come in, and YAML documents
+come out:</p>
+
+<pre><code>$ ygrok &#39;%{LOG.HTTP_COMBINED}&#39; indiepalate.com.access.log
+---
+content_length: &#39;711&#39;
+http_version: &#39;1.1&#39;
+ident: &#39;-&#39;
+method: GET
+path: /site.yml
+referer: &#39;-&#39;
+remote_addr: 73.8.132.101
+status: &#39;200&#39;
+timestamp: 25/Feb/2015:21:59:29 -0500
+user: &#39;-&#39;
+user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18
+---
+content_length: &#39;162&#39;
+http_version: &#39;1.1&#39;
+ident: &#39;-&#39;
+method: GET
+path: /
+referer: &#39;-&#39;
+remote_addr: 123.125.71.49
+status: &#39;403&#39;
+timestamp: 25/Feb/2015:22:30:25 -0500
+user: &#39;-&#39;
+user_agent: Mozilla/5.0 (Windows NT 5.1; rv:6.0.2) Gecko/20100101 Firefox/6.0.2
+</code></pre>
+
+<p>Okay, there&#39;s a lot of data here, so how about we look at just the 404
+codes? For that, we can use <a href="/yertl/pod/yq">the <code>yq</code> utility</a> to select
+only those lines that have a <code>status</code> of <code>404</code>:</p>
+
+<pre><code>$ ygrok &#39;%{LOG.HTTP_COMBINED}&#39; indiepalate.com.access.log |         yq &#39;select( .status == 404 )&#39;
+---
+content_length: &#39;162&#39;
+http_version: &#39;1.1&#39;
+ident: &#39;-&#39;
+method: GET
+path: /favicon.ico
+referer: http://preaction.me/
+remote_addr: 73.8.132.101
+status: &#39;404&#39;
+timestamp: 25/Feb/2015:22:52:53 -0500
+user: &#39;-&#39;
+user_agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/600.3.18 (KHTML, like Gecko) Version/8.0.3 Safari/600.3.18
+</code></pre>
+
+<p>Good! But there&#39;s still a lot of output here: A bunch of fields we&#39;re
+not interested in. How about we only show the paths and referrers for
+those 404s? <a href="/yertl/pod/ymask">The <code>ymask</code> utility</a> can prune our document to
+only the essentials.</p>
+
+<pre><code>$ ygrok &#39;%{LOG.HTTP_COMBINED}&#39; indiepalate.com.access.log |         yq &#39;select( .status == 404 )&#39; | ymask &#39;path,referer&#39;
+---
+path: /favicon.ico
+referer: http://preaction.me/
+---
+path: /favicon.ico
+referer: http://indiepalate.com/
+---
+path: /favicon.ico
+referer: &#39;-&#39;
+---
+path: /cart/4e73ae84869760656b002b83
+referer: &#39;-&#39;
+---
+path: /cart/4eea6ed38697600553000544
+referer: &#39;-&#39;
+</code></pre>
+
+<p>Better! But we&#39;ve got a lot of duplicate paths, it&#39;d be nice to group
+the results by the missing path. We can use the <code>yq</code> utility again to
+group our results by the path.</p>
+
+<pre><code>$ ygrok &#39;%{LOG.HTTP_COMBINED}&#39; indiepalate.com.access.log |         yq &#39;select( .status == 404 )&#39; | ymask &#39;path,referer&#39; |         yq &#39;group_by( .path )&#39;         &gt;404.yml
+</code></pre>
+
+<p>Now we can open our processed output and see all the proxy and common
+attacks people are throwing at our server. The web is a dark and
+dangerous place indeed...</p>
+
+<p>Here&#39;s some people assuming I&#39;m an incompetent administrator. Not that I
+blame them, there are lots of those out on the web. They&#39;re looking for
+the phpmyadmin setup files, which should not be open to users after the
+initial setup is complete (I hope...).</p>
+
+<pre><code>/admin/phpmyadmin/scripts/setup.php:
+- path: /admin/phpmyadmin/scripts/setup.php
+  referer: &#39;-&#39;
+- path: /admin/phpmyadmin/scripts/setup.php
+  referer: &#39;-&#39;
+/admin/pma/scripts/setup.php:
+- path: /admin/pma/scripts/setup.php
+  referer: &#39;-&#39;
+- path: /admin/pma/scripts/setup.php
+  referer: &#39;-&#39;
+</code></pre>
+
+<p>And here&#39;s some actual problems I found. Why are my markdown files
+getting requested? They shouldn&#39;t even get deployed to the server...
+Something weird&#39;s going on that demands some follow-up...</p>
+
+<pre><code>/2015/05/10/taco-chicken-bowls/index.markdown:
+- path: /2015/05/10/taco-chicken-bowls/index.markdown
+  referer: &#39;-&#39;
+/2015/05/17/spinach-and-mushroom-alfredo/index.markdown:
+- path: /2015/05/17/spinach-and-mushroom-alfredo/index.markdown
+  referer: &#39;-&#39;
+- path: /2015/05/17/spinach-and-mushroom-alfredo/index.markdown
+  referer: &#39;-&#39;
+/2015/05/24/kettle-corn/index.markdown:
+- path: /2015/05/24/kettle-corn/index.markdown
+  referer: &#39;-&#39;
+- path: /2015/05/24/kettle-corn/index.markdown
+  referer: &#39;-&#39;
+/2015/05/31/tequila-lime-shrimp/index.markdown:
+- path: /2015/05/31/tequila-lime-shrimp/index.markdown
+  referer: &#39;-&#39;
+</code></pre>
+
+<h2>Parsing Command Output</h2>
+
+<p>HTTP logs aren&#39;t the only plain text I have to deal with. Since most
+common Unix utilities output plain text, we can also parse that into
+documents.  For example, I can parse the output of the <code>ps -u</code> command
+using the <code>%{POSIX.PSU}</code> pattern.</p>
+
+<pre><code>$ ps au | ygrok &#39;%{POSIX.PSU}&#39;
+---
+command: -zsh
+cpu: &#39;0.0&#39;
+mem: &#39;0.0&#39;
+pid: &#39;441&#39;
+rss: &#39;1036&#39;
+started: Mon11AM
+status: S
+time: 0:01.09
+tty: s000
+user: doug
+vsz: &#39;2500680&#39;
+---
+command: vim blog/2015/11/24/new-post/index.markdown
+cpu: &#39;0.0&#39;
+mem: &#39;0.2&#39;
+pid: &#39;61761&#39;
+rss: &#39;20832&#39;
+started: 6:05PM
+status: S+
+time: 0:24.55
+tty: s004
+user: doug
+vsz: &#39;2514172&#39;
+</code></pre>
+
+<p>For monitoring purposes, I want to keep track of processes running every
+minute. So let&#39;s use <a href="/yertl/pod/ysql">ysql</a> to build a
+database to hold the information from <code>ps</code>:</p>
+
+<pre><code>$ ysql --config psdb --dsn dbi:SQLite:ps.db
+$ ysql psdb &#39;CREATE TABLE process ( command VARCHAR, pid INTEGER,
+    time VARCHAR, cpu DOUBLE, mem DOUBLE, rss INT, vsz INT,
+    started VARCHAR, status VARCHAR, tty VARCHAR, user VARCHAR )&#39;
+</code></pre>
+
+<p>Now we can pipe our parsed documents into our database:</p>
+
+<pre><code>$ ps u | ygrok &#39;%{POSIX.PSU}&#39; | ysql psdb --insert process
+</code></pre>
+
+<p>And then we can run some queries on it, like give me all the processes
+whose virtual size (vsz) is greater than 2.5gb:</p>
+
+<pre><code>$ ysql psdb --select process --where &#39;vsz &gt; 2500000&#39;
+---
+command: vim blog/2015/11/24/new-post/index.markdown
+cpu: 0
+mem: 0.3
+pid: 61761
+rss: 21344
+started: 6:05PM
+status: S+
+time: 0:40.34
+tty: s004
+user: doug
+vsz: 2514172
+</code></pre>
+
+<p>Or how about all the processes that were running at the time we took our
+poll:</p>
+
+<pre><code>$ ysql psdb --select process --where &#39;status LIKE &quot;%R%&quot;&#39;
+---
+command: ygrok %{POSIX.PSU}
+cpu: 0.1
+mem: 0
+pid: 68335
+rss: 236
+started: 7:10PM
+status: R+
+time: 0:00.00
+tty: s005
+user: doug
+vsz: 2423360
+</code></pre>
+
+<p>Well, that output should&#39;ve been obvious. Of course <code>ygrok</code> is running while
+I&#39;m parsing the output from <code>ps</code>...</p>
+
+<h2>Custom Patterns</h2>
+
+<p>So we can parse some preset formats, HTTP, and <code>ps</code> output. Now, what if
+we want to parse arbitrary text?</p>
+
+<p>Under-the-hood, <code>ygrok</code> is just a Perl regular expression. The <code>%{...}</code>
+syntax calls up one of the stored patterns, but we can make our own
+pattern if we want.</p>
+
+<p>So let&#39;s parse a PF log, which logs packets as they go through the
+packet filter firewall. The log looks like this:</p>
+
+<pre><code>$ tcpdump -n -e -ttt -r /var/log/pflog
+Mar 19 14:53:53.740926 rule def/(short) pass in on em0: 192.187.107.2.0 &gt; 208.86.227.106.0: SRPE 1159643658:1159643722(64) ack 0 win 0 (DF)
+May 01 03:11:45.868059 rule def/(short) pass in on em0: 70.38.64.233.0 &gt; 208.86.227.106.0: FR [bad hdr length] (DF)
+Jun 05 12:23:13.708854 rule def/(short) pass in on em0: 154.46.33.210.0 &gt; 208.86.227.106.0: . 3162804040:3162804092(52) win 80 (DF)
+Jul 19 16:10:50.154505 rule def/(short) pass in on em0: 198.154.62.56.0 &gt; 208.86.227.106.0: FRE 1542358674:1542358698(24) win 80 urg 0 (DF)
+Oct 10 18:41:15.888810 rule def/(short) pass in on em0: 62.210.220.29.0 &gt; 208.86.227.106.0: . 1466079741:1466079793(52) win 8000 (DF)
+</code></pre>
+
+<p>Looks like we have a few fields here:</p>
+
+<ul>
+<li>A timestamp (<code>Mar 19 14:53:53.740926</code>)</li>
+<li>The thing that created the log (<code>rule def/(short) pass in on em0</code>)</li>
+<li>The source address and port (<code>192.187.107.2.0</code>)</li>
+<li>A <code>&gt;</code>, likely indicating who initiated the connection</li>
+<li>The destination address and port (<code>208.86.227.106.0</code>) followed by a colon</li>
+<li>The reason the packet was logged (<code>SRPE 1159643658:1159643722(64) ack 0 win 0 (DF)</code>)</li>
+</ul>
+
+<p>Let&#39;s build ourselves an expression to parse this line.</p>
+
+<p><code>ygrok</code> uses named captures (<code>(?&lt;name&gt;...)</code>) to assign values to fields,
+so the regular expression to match the timestamp will look like this:
+<code>(?&lt;timestamp&gt;\w{3} \d{2} \d{2}:\d{2}:\d{2}\.\d{6})</code>.</p>
+
+<p>In addition to matching entire lines, <code>ygrok</code> comes with some common
+patterns we can use, like IPv4 addresses. When using one of these
+patterns, we can assign a name to the field by adding a colon and the
+field name, like <code>%{NET.IPV4:src_addr}</code>. If we want to match the
+pattern, but don&#39;t want to store it, we can simply leave out the field
+name.</p>
+
+<p>Using our own patterns, and the built-in <code>ygrok</code> patterns, our full
+parser looks like:</p>
+
+<pre><code>(?&lt;timestamp&gt;%{DATE.MONTH} \d{2} \d{2}:\d{2}:\d{2}\.\d{6})\s+
+(?&lt;rule&gt;[^:]+):\s+
+%{NET.IPV4:src_addr}\.%{INT:src_port}\s+
+(?&lt;dir&gt;[&lt;&gt;])\s+
+%{NET.IPV4:dest_addr}\.%{INT:dest_port}:\s+
+%{DATA:message}
+</code></pre>
+
+<p>We can either use this directly, or we can save this pattern for later
+use by giving our custom pattern a name. Let&#39;s call it <code>%{LOG.PF}</code>:</p>
+
+<pre><code>$ ygrok --pattern LOG.PF &#39;(?&lt;timestamp&gt;%{DATE.MONTH} \d{2} \d{2}:\d{2}:\d{2}\.\d{6})\s+(?&lt;rule&gt;[^:]+):\s+%{NET.IPV4:src_addr}\s+(?&lt;dir&gt;[&lt;&gt;])\s+%{NET.IPV4:dest_addr}:\s+%{DATA:message}&#39;
+</code></pre>
+
+<p>Now we can use it to parse our log:</p>
+
+<pre><code>$ tcpdump -n -e -ttt -r /var/log/pflog | ygrok &#39;%{LOG.PF}&#39;
+---
+dest_addr: 208.86.227.106
+dest_port: &#39;0&#39;
+dir: &#39;&gt;&#39;
+message: SRPE 1159643658:1159643722(64) ack 0 win 0 (DF)
+rule: rule def/(short) pass in on em0
+src_addr: 192.187.107.2
+src_port: &#39;0&#39;
+timestamp: Mar 19 14:53:53.740926
+---
+dest_addr: 208.86.227.106
+dest_port: &#39;0&#39;
+dir: &#39;&gt;&#39;
+message: FR [bad hdr length] (DF)
+rule: rule def/(short) pass in on em0
+src_addr: 70.38.64.233
+src_port: &#39;0&#39;
+timestamp: May 01 03:11:45.868059
+</code></pre>
+
+<p>As a side note, you can see all the patterns using <code>ygrok
+--pattern</code>, and you can see categories using <code>ygrok --pattern LOG</code> and
+individual patterns using <code>ygrok --pattern LOG.PF</code>.</p>
+
+<p>So <code>ygrok</code> allows parsing of plain text into documents. Then, using the
+rest of the Yertl tools, we can manipulate, store, retrieve, aggregate,
+and otherwise work with the structured data contained in our logs.</p>
+
+<p>For more information about Yertl, visit <a href="http://preaction.me/yertl">the Yertl
+website</a>.</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2015/11/27/ygrok-parse-plain-text-into-data-structures/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/chicago.pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.github.io/Statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

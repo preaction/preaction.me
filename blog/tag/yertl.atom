@@ -2,10 +2,48 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/yertl/</id>
     <title>preaction</title>
-    <updated>2015-10-27T00:14:57Z</updated>
+    <updated>2015-11-28T01:17:10Z</updated>
     <link href="http://preaction.me/blog/tag/yertl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/yertl/" rel="alternate" />
-    <generator version="0.056">Statocles</generator>
+    <generator version="0.060">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</id>
+        <title>ygrok - Parse plain text into data structures</title>
+        <link href="http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>As a data warehouse, a significant part of my job involves log analysis.
+Besides the standard root cause analysis, I need to verify database
+writes, diagnose user access issues, and look for under-used (and
+over-used) data sets. Additionally, my boss needs quarterly and yearly
+reports for client billing, and some of our clients need usage reports
+to identify data they might be paying for but not using (which we can
+then shut off to reduce costs). This has recently become a popular space
+for new solutions.</p>
+
+<p>On the other side, as a sysadmin, I need to get other reports like how
+all the machine&#39;s resources (CPU, memory, disk, network) are being used,
+what processes are running on the machine and how those processes used
+resources over time. This is basic monitoring, and there are lots of
+solutions here, too. In the true Unix philosophy, there are command-line
+programs to query every one of these, which write out text that I can
+then parse.</p>
+
+<p>In <a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
+ysql</a>, I showed how
+to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
+Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="http://preaction.me/yertl/pod/ygrok"><code>ygrok</code>
+utility</a> to parse plain text into YAML documents.</p>
+
+                <p><a href="http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+            </p>
+        ]]></content>
+        <updated>2015-11-27T00:00:00Z</updated>
+        <category term="yertl" />
+        <category term="perl" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</id>
         <title>Managing SQL Data with Yertl</title>
