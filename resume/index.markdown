@@ -27,6 +27,8 @@ I am currently employed, so please do not contact me with offers.
 
 ### Independant Contractor
 
+November 2015 - Present
+
 #### Responsibilities and accomplishments
 
 * To be continued...
