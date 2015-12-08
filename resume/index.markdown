@@ -11,6 +11,10 @@ Chicago, IL
 <madcityzen@gmail.com>  
 </div>
 
+<div style="background-color: #FCC; border-radius: 4px; font-weight: bold; padding: 1em; width: 70%;">
+I am currently employed, so please do not contact me with offers.
+</div>
+
 # Doug Bell
 
 ## Summary
