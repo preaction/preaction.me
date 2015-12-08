@@ -25,11 +25,17 @@ I am currently employed, so please do not contact me with offers.
 
 ## Work History
 
+### Independant Contractor
+
+#### Responsibilities and accomplishments
+
+* To be continued...
+
 ### Bank of America
 
 Senior Developer / Architect  
 Quantitative Analysis and Research (QAR) group, Core Data team  
-October 2011 - Present  
+October 2011 - November 2015  
 
 #### Responsibilities and accomplishments
 
