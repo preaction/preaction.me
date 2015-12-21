@@ -8,6 +8,8 @@ These are talks I've given at Perl Mongers meetings and Perl conferences.
 
 ## Perl
 
+* [Stupid WebSocket Tricks (and Mercury) (2015-12-10)](http://preaction.github.io/Stupid-Websocket-Tricks-With-Perl)
+* [Introduction to Dist::Zilla (2015-08-27)](http://preaction.github.io/Introduction-to-Dist-Zilla/)
 * [Introduction to DBIx::Class (2015-04-23)](http://preaction.github.io/Introduction-to-DBIx-Class/)
 * [Introduction to Rex (2015-04-14)](http://preaction.github.io/Introduction-to-Rex)
 * [Object-Oriented Perl - Plain Old Perl Objects, Moo, and Moose (2014-10-22)](http://chicago.pm.org/Object-Oriented/)
