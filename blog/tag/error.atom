@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/error/</id>
     <title>preaction</title>
-    <updated>2015-12-08T13:54:06Z</updated>
+    <updated>2015-12-20T22:45:21Z</updated>
     <link href="http://preaction.me/blog/tag/error.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/error/" rel="alternate" />
-    <generator version="0.060">Statocles</generator>
+    <generator version="0.061">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html</id>
         <title>I Bless You in the Name of the Stringified Object</title>
