@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/chicago.pm/</id>
     <title>preaction</title>
-    <updated>2015-12-20T22:48:19Z</updated>
+    <updated>2016-01-28T20:36:41Z</updated>
     <link href="http://preaction.me/blog/tag/chicago.pm.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/chicago.pm/" rel="alternate" />
-    <generator version="0.061">Statocles</generator>
+    <generator version="0.066">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2013/06/13/chicago.pm-new-website-new-meetup-url-new-presentations-project.html</id>
         <title>Chicago.PM New Website! New Meetup URL! New Presentations Project!</title>
