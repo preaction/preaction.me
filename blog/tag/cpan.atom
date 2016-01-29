@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/cpan/</id>
     <title>preaction</title>
-    <updated>2016-01-28T20:39:12Z</updated>
+    <updated>2016-01-28T20:39:41Z</updated>
     <link href="http://preaction.me/blog/tag/cpan.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/cpan/" rel="alternate" />
     <generator version="0.066">Statocles</generator>
