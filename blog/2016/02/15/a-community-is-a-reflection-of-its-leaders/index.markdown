@@ -20,22 +20,14 @@ a community merely requires that one have authority: The ability to
 decide who is part of the community and who is not. Because I founded
 the community, I had the authority.
 
+---
+
 My apparent goal was to build a community. My actions conflicted wildly
 with that goal. I built a community that reflected my beliefs, misguided
 and deluded as they were. But, I built it, and they did come. I ran my
 community as I thought one was supposed to. I treated people as
 I thought they were supposed to be treated, as I expected to be treated
 in other, similar communities.
-
-The community grew. The channel temperature regularly rose, and rather
-than cool it down, I delighted in goading people before removing them.
-After all, I needed to be completely sure this was a bad person, one
-undeserving of the privilege of being part of this community to justify
-my use of authority. So, I would provoke them into unacceptable behavior
-and then ban them for it. Disagree with me in a way I don't like?
-Goodbye, and you're not welcome back. Getting frustrated and coming to
-us for help? If you're being emotional, you're not like us, so you're
-banned. <em>-- delete this paragraph?</em>
 
 I called myself a community leader. Put it on my resume and everything.
 I had no leadership skills, but I convinced myself that because people
@@ -110,5 +102,6 @@ hostile, unwelcoming places.
 
 ---
 
-<p id="footnote-1">1: #css on freenode, though that is not important to the story.</p>
+<p id="footnote-1">1: #css on freenode, though that is not important to
+the story.</p>
 
