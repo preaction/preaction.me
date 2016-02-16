@@ -2,10 +2,40 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2016-01-28T20:39:41Z</updated>
+    <updated>2016-02-16T00:54:43Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
-    <generator version="0.066">Statocles</generator>
+    <generator version="0.067">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/</id>
+        <title>A Community is a Reflection of its Leaders</title>
+        <link href="http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>I&#39;ve been in charge of <a href="http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#footnote-1">a certain community</a> for a very
+long time. Before my actual tech career started, even. Back when doing
+websites was just a hobby I didn&#39;t want to ruin by getting money
+involved.</p>
+
+<p>I was put in charge of this community after only a few hours of effort:
+I wanted to learn something, I saw that a community didn&#39;t exist for
+this topic in some prime community real estate, and so I created one.
+Instantly, I was the leader of a community. Within weeks, people started
+pouring in.</p>
+
+<p>The funny thing about being in charge of a community is that it doesn&#39;t
+require merit or community-building skills. Being in charge of
+a community merely requires that one have authority: The ability to
+decide who is part of the community and who is not. Because I founded
+the community, I had the authority.</p>
+
+                <p><a href="http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/community/">community</a>
+            </p>
+        ]]></content>
+        <updated>2016-02-15T00:00:00Z</updated>
+        <category term="community" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</id>
         <title>ygrok - Parse plain text into data structures</title>
@@ -170,35 +200,6 @@ write my own static site generator,
         <updated>2015-03-02T00:00:00Z</updated>
         <category term="perl" />
         <category term="statocles" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</id>
-        <title>Mojolicious Triumphs Over Legacy Code</title>
-        <link href="http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>I got a text at 8:00am:</p>
-
-<blockquote>
-  <p>&quot;Hey, can you jump on a conference call?&quot;</p>
-</blockquote>
-
-<p>Groggy and disoriented, I blearily type the conference line and enter my
-passcode, followed by the pound or hash sign. At the tone, I would be the 6th
-person to enter the conference. Tone.</p>
-
-<blockquote>
-  <p>&quot;The app is down, and trading has stopped.&quot;</p>
-</blockquote>
-
-                <p><a href="http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/mojolicious/">mojolicious</a>
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-            </p>
-        ]]></content>
-        <updated>2015-02-13T00:00:00Z</updated>
-        <category term="mojolicious" />
-        <category term="perl" />
     </entry>
 </feed>
 

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/yertl/</id>
     <title>preaction</title>
-    <updated>2016-01-28T20:39:42Z</updated>
+    <updated>2016-02-16T00:54:47Z</updated>
     <link href="http://preaction.me/blog/tag/yertl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/yertl/" rel="alternate" />
-    <generator version="0.066">Statocles</generator>
+    <generator version="0.067">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</id>
         <title>ygrok - Parse plain text into data structures</title>
