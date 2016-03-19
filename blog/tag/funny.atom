@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/funny/</id>
     <title>preaction</title>
-    <updated>2016-02-16T01:10:44Z</updated>
+    <updated>2014-04-19T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/funny.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/funny/" rel="alternate" />
-    <generator version="0.067">Statocles</generator>
+    <generator version="0.073">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2014/04/19/raw-feed-of-openbsds-work-on-cleaning-up-openssl.html</id>
         <title>Raw Feed of OpenBSD&#39;s Work on Cleaning Up OpenSSL</title>
