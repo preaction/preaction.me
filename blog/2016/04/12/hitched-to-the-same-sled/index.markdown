@@ -1,0 +1,100 @@
+---
+tags: project management, communication
+title: Hitched to the Same Sled
+---
+
+There are a lot of differences between working by yourself and working
+with a team. To use the standard car analogy: A one-wheeled car is a lot
+easier to manage than a 4-wheeled car. With a one-wheeled car, we only
+have one wheel to worry about. One wheel handles direction and momentum.
+One wheel is less stable, but more agile, being able to simply pivot
+in-place. A four-wheeled car is more stable, and different wheels can
+handle different concerns, including stability, direction, and momentum.
+But there can be problems if one of the wheels starts going in the wrong
+direction... Then the vehicle manager has to get out of the car, find
+the wheel, ask it why it went the wrong way, and bolt it back in to
+place.
+
+Wait... That analogy doesn't work. Wheels don't have individual
+personalities and goals (besides the notorious vanity of white-walled
+tires, which is why nobody hires them anymore). We need a better
+analogy...
+
+A one-dog sled is a lot easier to manage than a 4-dog sled. With only
+one dog to feed, maintain, pet, brush, praise, scold, and muster, the
+manager's job is a lot less work. One dog can't get into fights with
+itself (except that elusive tail, which it will one day catch, just you
+wait). One dog can't disagree with other dogs about where to go and how
+best to get there.
+
+But, one dog can only travel at the speed of one dog, and only for how
+long one dog can travel. One dog can't draw maps and plans on
+a whiteboard for the other dogs if there are no other dogs (and no
+whiteboard). One dog is not enough for every project.
+
+One four-dog sled may be technically slower than four one-dog sleds put
+together, but one four-dog sled is also easier to manage: One manager
+for four dogs, one break room, one set of chew toys, one conference
+room, one box of imitation-bacon dog treats that they all begged to
+have.
+
+But managing a four-dog team is a lot different from managing a one-dog
+team. Problems that simply cannot exist in a one-dog team, like
+inter-canine communication, grooming and hygiene standards, and best
+practices for harnessing and unharnessing, will now be of utmost
+importance to the leader of a four-dog team.
+
+Even being a dog in a four-dog team is a lot different from being
+a one-dog team. A dog has to learn the communication system, the
+strengths and weaknesses of the other dogs, what everyone's butt smells
+like. Over time, the dog will assimilate, and some of the dog's
+knowledge will spread through the team as they grow closer together.
+
+But the biggest difference is that each dog has its own personality, and
+not all of those personalities are sociable. Some dogs can be set in
+their ways. Some dogs just won't make the effort to defend their ideas.
+Some dogs can be constantly battling for leadership. Some dogs will
+always turn to the right when confused, pulling the entire team with
+them. Some dogs refuse to follow the harnessing best practices and
+occasionally break free and start running too fast, leaving the other
+dogs to wait while the rogue is tracked down, re-harnessed, and gently
+reminded about the harnessing procedures.
+
+If your sled team has these problems, there are a few things you, as
+a sled dog manager, need to do. Overall, you need to be clear and
+consistent about your expectations. When problems come up, they need to
+be addressed. And every dog on the team needs to be informed, especially
+about the other dogs on the team.
+
+The first step is being clear and consistent about expectations. Dogs
+can be kind of hard to train. They want to be good dogs, they want those
+imitation-bacon dog treats (beg for them, in fact), they just need to
+know how. Make your requirements clear. Write them down (er...)
+somewhere and make sure to refer to them. When all the dogs are
+following the same minimum requirements, everyone can get harnessed and
+moving forward more quickly. The secret to meeting goals isn't going
+more fast, it's going less slow.
+
+When those expectations aren't reached, it needs to be addressed, in
+private, and as soon as possible. The best time to address the problem
+is immediately when it happened, but the second-best time is right now.
+Tell them how they need to improve, and give them some support in
+meeting expectations, either from yourself or another dog on the team.
+The entire team is working together, and every opportunity to foster
+closer connections should be exploited.
+
+Making sure every dog is fully informed about the team also helps foster
+closer connections. Every dog is unique, with strengths and weaknesses,
+and without that knowledge, the individual dogs can make bad decisions
+for the team. If one dog decides to go left, while another goes right,
+the sled is in for a bumpy ride. When two dogs meet for the first time,
+there could be communication differences, which could lead to conflict.
+Early conflict is much harder to overcome, so any information that can
+smooth the transition is valuable.
+
+For better or for worse, people aren't dogs. But we have a lot of the
+same problems (except we get real bacon, and we don't have to beg for
+it). But, like our furry companions, when we're working as a team, we
+need clear leadership, consistent expectations, and complete
+information. With this framework in place, the team can easily address
+the common, minor issues that are the nature of teamwork.
