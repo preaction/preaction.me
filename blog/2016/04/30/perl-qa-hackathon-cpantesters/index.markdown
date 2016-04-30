@@ -9,7 +9,7 @@ the Perl people I'd been interacting with all this time.
 
 My goals going into the hackathon weren't that clear: I've recently
 begun adopting [the CPANTesters project](http://www.cpantesters.org),
-and I had to take the opportunity to talk with its current leader,
+and I had to take the opportunity to talk with its former leader,
 [Barbie](http://missbarbell.co.uk), fix some current issues, and then...
 
 While Barbie fixed [the version summaries and Metacpan
