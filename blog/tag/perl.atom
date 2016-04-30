@@ -2,10 +2,55 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/perl/</id>
     <title>preaction</title>
-    <updated>2015-11-27T00:00:00Z</updated>
+    <updated>2016-04-30T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/perl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/perl/" rel="alternate" />
-    <generator version="0.073">Statocles</generator>
+    <generator version="0.074">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/</id>
+        <title>Perl QA Hackathon - CPANTesters</title>
+        <link href="http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>This year, I was invited to <a href="http://act.qa-hackathon.org/qa2016/">the Perl QA Hackathon in Rugby,
+UK</a>. It was wonderful to meet all
+the Perl people I&#39;d been interacting with all this time.</p>
+
+<p>My goals going into the hackathon weren&#39;t that clear: I&#39;ve recently
+begun adopting <a href="http://www.cpantesters.org">the CPANTesters project</a>,
+and I had to take the opportunity to talk with its current leader,
+<a href="http://missbarbell.co.uk">Barbie</a>, fix some current issues, and then...</p>
+
+<p>While Barbie fixed <a href="https://github.com/cpan-testers/cpantesters-project/issues/9">the version summaries and Metacpan
+issue</a>,
+I started work on <a href="https://github.com/cpan-testers/cpantesters-deploy">an automated deploy for
+CPANTesters using Rex</a>, which
+will allow for reproducible deployments and development virtual
+machines, and I began keeping track of the project and future goals in
+a <a href="http://github.com/cpan-testers/cpantesters-project">CPANTesters project
+meta-repository</a>,
+which should help with keeping CPANTesters going as an open community project.
+I&#39;ll be making future blog posts on both of these, though <a href="http://preaction.github.io/Introduction-to-Rex/">I&#39;ve spoken
+about Rex before</a>.</p>
+
+<p>Thanks to Barbie for 10 years of CPANTesters, and special thanks to
+<a href="http://capside.com">Capside</a> for their donation, both monetary and
+avian, as they sent <a href="https://twitter.com/ureesoriano">Oriol Soriano</a> to
+help with some CPANTesters tasks.</p>
+
+<p>And finally, thanks to all the <a href="http://act.qa-hackathon.org/qa2016/sponsors.html">other sponsors of the
+hackathon</a>. Without
+their support, we couldn&#39;t do all the work we do on the Perl ecosystem.</p>
+
+                <p><a href="http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+            </p>
+        ]]></content>
+        <updated>2016-04-30T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpantesters" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</id>
         <title>ygrok - Parse plain text into data structures</title>
@@ -157,44 +202,6 @@ person to enter the conference. Tone.</p>
         <updated>2015-02-13T00:00:00Z</updated>
         <category term="mojolicious" />
         <category term="perl" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</id>
-        <title>Managing SQL Data with Yertl</title>
-        <link href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
-Yertl</a></p>
-
-<p>Every week, I work with about a dozen SQL databases. Some are Sybase, some
-MySQL, some SQLite. Some have different versions in dev, staging, and
-production. All of them need data extracted, transformed, and loaded.</p>
-
-<p>DBI is the clear choice for dealing with SQL databases in Perl, but there are a
-dozen lines of Perl code in between me and the operation that I want. Sure,
-I&#39;ve got modules and web applications and ad-hoc commands and scripts that
-perform certain individual tasks on my databases, but sometimes those things
-don&#39;t quite do what I need right now, and I just want something that will let
-me execute whatever SQL I can come up with.</p>
-
-<p><a href="http://metacpan.org/pod/ETL::Yertl">Yertl (ETL::Yertl)</a> is a shell-based ETL
-framework. It&#39;s under development (as is all software), but included already is
-a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
-with SQL databases easy.</p>
-
-                <p><a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/sql/">sql</a>
-                <a href="http://preaction.me/blog/tag/etl/">etl</a>
-                <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
-            </p>
-        ]]></content>
-        <updated>2015-01-21T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="sql" />
-        <category term="etl" />
-        <category term="yertl" />
     </entry>
 </feed>
 
