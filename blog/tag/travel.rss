@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.me/blog/tag/travel/</link>
+        <atom:link href="http://preaction.me/blog/tag/travel.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.074</generator>
+        <item>
+            <title>The UK Is A Real Place</title>
+            <link>http://preaction.me/blog/2016/05/13/the-uk-is-a-real-place/</link>
+            <guid>http://preaction.me/blog/2016/05/13/the-uk-is-a-real-place/</guid>
+            <description><![CDATA[
+                <p>For this year&#39;s <a href="http://act.qa-hackathon.org/qa2016/">Perl QA Hackathon</a>, I
+travelled to the UK for the first time. I don&#39;t know what I was expecting, but
+what I got was kind of surreal. I&#39;ve watched a lot of British television and
+movies. But experiencing it was a lot different.</p>
+
+<p>I knew things would be different. But the interesting thing was how subtle the
+differences are. Everything&#39;s closer together, but the effect is warm and cozy
+not oppressive (despite the weather). The roads are a lot different. I can see
+why some modern subdivisions are eschewing a grid of streets with a curvy,
+winding road system (though the effect in the US is anti-pedestrian).</p>
+
+<p>Asda was very familiar though. Freakishly familiar. Finding out that it was
+owned by WalMart makes absolute sense. The interior of <a href="https://www.jdwetherspoon.com/pubs/all-pubs/england/warwickshire/the-lawrence-sheriff-rugby">The Lawrence Sheriff
+pub</a>
+was familiar as well, but because it&#39;s a JD Wetherspoon, which is a franchise
+(picture the interior of pubs in <a href="https://en.wikipedia.org/wiki/Three_Flavours_Cornetto_trilogy">the Cornetto
+trilogy</a>).</p>
+
+<p>When I got back, all I could think about is how loud Chicago is. And how
+organized. Efficient (that&#39;s not a compliment). A lot of the difference between
+the two boils down to &quot;big city&quot; vs &quot;small city&quot;. Rugby has 70,000 people, and
+another city I&#39;ve lived, Oskhosh, WI has 70,000 people, and the differences are
+still severe. Records of the village of Rugby go back to 1000AD. The hotel I
+was staying at pre-dated the entire city of Chicago (by perhaps 100 years). The
+hotel probably pre-dated the United States. It&#39;s difficult to fathom.</p>
+
+<p>And now, watching UK TV as I often do, I find myself recognizing the styles.
+There&#39;s now a very obvious difference in my head between &quot;generic human
+dwelling&quot; and &quot;English house&quot;, and between &quot;generic human village&quot; and &quot;English
+village&quot;.</p>
+
+<p>All in all, I really enjoyed the trip. Next up: Germany. I hear that <a href="https://en.wikipedia.org/wiki/Ludwig_II_of_Bavaria">a mad
+king</a> created <a href="https://en.wikipedia.org/wiki/Neuschwanstein_Castle">some
+interesting
+architecture</a>...</p>
+
+                    <p><a href="http://preaction.me/blog/2016/05/13/the-uk-is-a-real-place/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/travel/">travel</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 13 May 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+

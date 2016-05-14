@@ -52,6 +52,46 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2011/11/16/adventures-in-debugging-c-xs.html">Adventures in Debugging C/XS</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/xs/" rel="tag">xs</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2011-11-16">
+                            Posted on 2011-11-16
+                        </time>
+                            by preaction
+                        <a data-disqus-identifier="/2011/11/16/adventures-in-debugging-c-xs.markdown" href="/blog/2011/11/16/adventures-in-debugging-c-xs.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                    <p>Originally posted as:
+                            <a href="http://blogs.perl.org/users/preaction/2011/11/adventures-in-debugging-cxs.html">
+                                <em>Adventures in Debugging C/XS</em> on blogs.perl.org.
+                            </a>
+                    </p>
+                </header>
+
+                <p>... or Why A Good Perl Developer Is Not Automatically A Good C Developer, the
+Story of C Programming via Google.</p>
+
+<p>My tests failed, but only sometimes. I was building an XS module to interface
+with a C wrapper around a C++ library (wrapper unnecessary? probably). <code>make
+test</code> was failing with exit code 11. Some quick searching revealed that I had
+an intermittent segfault. Calling a function <code>as_xml</code> would fail with a SEGV in
+<code>strlen()</code>. This only happened in perl after <code>as_xml</code> when perl was making a SV
+out of the return value. This also only mainly happened during <code>make test</code>.
+Doing <code>prove</code> myself would succeed 19 times out of 20, where make test would
+fail 19 times out of 20. Worse, my C test program would never fail at all.</p>
+
+
+                    <p><a href="/blog/2011/11/16/adventures-in-debugging-c-xs.html#section-2">Continue reading Adventures in Debugging C/XS...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2011/05/20/webgui-8-status-report.html">WebGUI 8 Status Report</a></h1>
 
                     <p class="tags">Tags:
@@ -423,201 +463,6 @@ pretty and screenshots!</p>
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html">What&#39;s New in WebGUI 8.0 #3: Upgrade System</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/webgui/" rel="tag">webgui</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2011-02-04">
-                            Posted on 2011-02-04
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.markdown" href="/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2011/02/whats-new-in-webgui-80-3-upgrade-system.html">
-                                <em>What&#39;s New in WebGUI 8.0 #3: Upgrade System</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <h2>Following The Path</h2>
-
-<p>If you installed WebGUI 0.9.0 back in August of 2001 (the first public 
-release), you&#39;ve had a stable upgrade path through WebGUI 7.10.8 (January
-2011) and beyond. Plainblack.com has been through every upgrade for the last
-10 years, a shining bastion to our upgradability.</p>
-
-<p>A WebGUI 7.10 user would not even recognize a WebGUI 6.0 database, much less
-the database used by the 1.x series, but slowly, gradually, our upgrade system
-brought new features to every WebGUI site that wanted them.</p>
-
-<h2>The Ancient Way</h2>
-
-<p>Our old upgrade system was quite simple:</p>
-
-<pre><code>docs/upgrade_2.9.0-3.0.0.pl
-docs/upgrade_3.0.0-3.0.1.sql
-docs/upgrade_3.0.0-3.0.1.pl
-</code></pre>
-
-<p>Our upgrade.pl script would check for docs/upgrade_*, compare version numbers,
-and then execute the .sql and .pl scripts in order until there were no more
-upgrades left.</p>
-
-<p>Because each .pl script was executed individually, there was a considerable
-amount of boilerplate in each script (123 lines). Because there was only one script per
-version, some scripts could get quite long. We had conventions to manage these
-limitations, but it was still a bit of a mind-twist to write an upgrade
-routine.</p>
-
-<p>Later, when we moved to simultaneous beta and stable trees, it became even
-more difficult to manage these huge upgrade scripts. Collecting the new
-features from the beta tree to apply to the stable tree was a time-consuming
-manual task that some poor coder had to perform, back hunched over a dimly-lit
-screen in the wee hours of the night, testing and re-testing the upgrade to
-make sure stable lived up to its expectations.</p>
-
-<p>Though our upgrade system had performed admirably, it was time for a fresh
-look at the problem.</p>
-
-<h2>The Modern Vision</h2>
-
-<p>The individual files for upgrades was working quite well, but didn&#39;t go far 
-enough. Our new upgrade system has one file per upgrade step. Each sub from an
-old upgrade script would be one file in the new upgrade system. What&#39;s more,
-additional file types would be supported:</p>
-
-<pre><code>$ ls share/upgrades/7.10.4-8.0.0/
-addNewAdminConsole.pl
-admin_console.wgpkg
-facebook_auth.sql
-migrateToNewCache.pl
-moveMaintenance.pl
-moveRequiredProfileFields.pl
-</code></pre>
-
-<p>So now, instead of a single file for an upgrade, we have an entire directory.
-In this directory, the .pl files are scripts to be run, the .wgpkg files are
-WebGUI assets to add to the site, the .sql files are SQL commands to run, and
-any .txt files will be shown as a confirmation message to the user for gotchas
-like &quot;All your users have been logged out as a result of this upgrade. Deal
-with it.&quot;.</p>
-
-<p>So now, if you want to add your own custom upgrade routine, you just add
-another file to the directory which means less worrying about conflicts. When
-we need to build another new stable version release, we can just move the
-unique upgrade files from beta to the new upgrade.</p>
-
-<p>The best part of the new upgrade system is how the .pl scripts are written.
-When you are in a .pl, you have a bunch of sugar to make the basic tasks much
-easier.</p>
-
-<pre><code># Old upgrade routine. Just another day in a session
-sub migrateToNewCache {
-    my $session = shift;
-    print &quot;\tMigrating to new cache &quot; unless $quiet;
-
-    use File::Path;
-    rmtree &quot;../../lib/WebGUI/Cache&quot;;
-    unlink &quot;../../lib/WebGUI/Workflow/Activity/CleanDatabaseCache.pm&quot;;
-    unlink &quot;../../lib/WebGUI/Workflow/Activity/CleanFileCache.pm&quot;;
-
-    my $config = $session-&gt;config;
-    $config-&gt;set(&quot;cache&quot;, {
-        driver              =&gt; &#39;FastMmap&#39;,
-        expires_variance   =&gt; &#39;0.10&#39;,
-        root_dir            =&gt; &#39;/tmp/WebGUICache&#39;,
-    });
-
-    $config-&gt;set(&quot;hotSessionFlushToDb&quot;, 600);
-    $config-&gt;delete(&quot;disableCache&quot;);
-    $config-&gt;delete(&quot;cacheType&quot;);
-    $config-&gt;delete(&quot;fileCacheRoot&quot;);
-    $config-&gt;deleteFromArray(&quot;workflowActivities/None&quot;, &quot;WebGUI::Workflow::Activity::CleanDatabaseCache&quot;);
-    $config-&gt;deleteFromArray(&quot;workflowActivities/None&quot;, &quot;WebGUI::Workflow::Activity::CleanFileCache&quot;);
-
-    my $db = $session-&gt;db;
-    $db-&gt;write(&quot;drop table cache&quot;);
-    $db-&gt;write(&quot;delete from WorkflowActivity where className in (&#39;WebGUI::Workflow::Activity::CleanDatabaseCache&#39;,&#39;WebGUI::Workflow::Activity::CleanFileCache&#39;)&quot;);
-    $db-&gt;write(&quot;delete from WorkflowActivityData where activityId in  (&#39;pbwfactivity0000000002&#39;,&#39;pbwfactivity0000000022&#39;)&quot;);
-
-    print &quot;DONE!\n&quot; unless $quiet;
-}
-</code></pre>
-
-<p>If you&#39;re familiar with WebGUI session, this is pretty standard, but still
-much boilerplate and convention. The new scripts remove boilerplate and
-enforce what was once merely convention.</p>
-
-<pre><code># New upgrade routine. migrateToNewCache.pl
-use WebGUI::Upgrade::Script;
-use Module::Find;
-
-start_step &quot;Migrating to new cache&quot;;
-
-rm_lib
-    findallmod(&#39;WebGUI::Cache&#39;),
-    &#39;WebGUI::Workflow::Activity::CleanDatabaseCache&#39;,
-    &#39;WebGUI::Workflow::Activity::CleanFileCache&#39;,
-;
-
-config-&gt;set(&quot;cache&quot;, {
-    &#39;driver&#39;            =&gt; &#39;FastMmap&#39;,
-    &#39;expires_variance&#39;  =&gt; &#39;0.10&#39;,
-    &#39;root_dir&#39;          =&gt; &#39;/tmp/WebGUICache&#39;,
-});
-
-config-&gt;set(&#39;hotSessionFlushToDb&#39;, 600);
-config-&gt;delete(&#39;disableCache&#39;);
-config-&gt;delete(&#39;cacheType&#39;);
-config-&gt;delete(&#39;fileCacheRoot&#39;);
-config-&gt;deleteFromArray(&#39;workflowActivities/None&#39;, &#39;WebGUI::Workflow::Activity::CleanDatabaseCache&#39;);
-config-&gt;deleteFromArray(&#39;workflowActivities/None&#39;, &#39;WebGUI::Workflow::Activity::CleanFileCache&#39;);
-
-sql &#39;DROP TABLE IF EXISTS cache&#39;;
-sql &#39;DELETE FROM WorkflowActivity WHERE className in (?,?)&#39;,
-    &#39;WebGUI::Workflow::Activity::CleanDatabaseCache&#39;,
-    &#39;WebGUI::Workflow::Activity::CleanFileCache&#39;,
-;
-sql &#39;DELETE FROM WorkflowActivityData WHERE activityId IN (?,?)&#39;,
-    &#39;pbwfactivity0000000002&#39;,
-    &#39;pbwfactivity0000000022&#39;,
-;
-
-done;
-</code></pre>
-
-<p>The first thing we do in our new upgrade script is use
-WebGUI::Upgrade::Script. Now, instead of using the session for everything, we
-have subs imported for various tasks. This means that many times we can run an
-entire upgrade script without opening a WebGUI session, or creating a version
-tag unnecessarily.</p>
-
-<p>If we do need a session, or a version tag, they will be automatically assigned
-relevant information describing what we&#39;re doing. When we&#39;re done, they will
-be automatically cleaned up and committed. What once was done with
-boilerplate, and subject to random deletion or subversion, is now enforced
-policy.</p>
-
-<p>In all other respects, a WebGUI upgrade script is a Perl script. You can add
-modules, write subroutines, and do anything necessary to move WebGUI into the
-future.</p>
-
-<p>The Internet is always evolving. With the WebGUI 8 upgrade system, we&#39;ve made 
-it easier to evolve with it.</p>
-
-<p>Stay tuned for next time where I&#39;ll show off our CHI-based caching system.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -673,6 +518,7 @@ it easier to evolve with it.</p>
             <li><a href="/blog/tag/software/">software</a></li>
             <li><a href="/blog/tag/sql/">sql</a></li>
             <li><a href="/blog/tag/statocles/">statocles</a></li>
+            <li><a href="/blog/tag/travel/">travel</a></li>
             <li><a href="/blog/tag/webgui/">webgui</a></li>
             <li><a href="/blog/tag/xs/">xs</a></li>
             <li><a href="/blog/tag/yertl/">yertl</a></li>
