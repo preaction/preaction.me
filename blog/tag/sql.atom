@@ -5,7 +5,7 @@
     <updated>2015-01-21T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/sql.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/sql/" rel="alternate" />
-    <generator version="0.074">Statocles</generator>
+    <generator version="0.075">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</id>
         <title>Managing SQL Data with Yertl</title>
