@@ -38,6 +38,10 @@ These are talks I've given at Perl Mongers meetings and Perl conferences.
 
 * [WebGUI 8 Apps (2011-05-17)](/talks/WebGUI/8-apps.html)
 
+## Other
+
+* [State of the Velociraptor (2016-06-20)](http://preaction.github.io/SOTV-YAPCNA-2016/)
+
 # License and Copyright
 
 All presentations here are licensed under a [CC-BY-SA 3.0
