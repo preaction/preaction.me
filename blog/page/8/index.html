@@ -52,6 +52,119 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html">What&#39;s New in WebGUI 8.0 #4 -- CHI Cache</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/webgui/" rel="tag">webgui</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2011-02-18">
+                            Posted on 2011-02-18
+                        </time>
+                            by preaction
+                        <a data-disqus-identifier="/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.markdown" href="/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                    <p>Originally posted as:
+                            <a href="http://blogs.perl.org/users/preaction/2011/02/whats-new-in-webgui-80-4----chi-cache.html">
+                                <em>What&#39;s New in WebGUI 8.0 #4 -- CHI Cache</em> on blogs.perl.org.
+                            </a>
+                    </p>
+                </header>
+
+                <p>Caching is a tricky business. Having just one kind of cache won&#39;t work, because
+the production environment will greatly determine the most efficient caching
+system. A distributed production environment would be best-served with a
+distributed cache. A smaller, single-server environment could use a simple
+shared memory cache.</p>
+
+<p>Enter Jonathan Swartz&#39;s <a href="https://metacpan.org/pod/CHI">CHI</a> module, the greatest Perl module to provide a
+unified caching interface. CHI is the DBI of caching: It presents an API, and
+delegates to CHI::Driver modules to perform the heavy lifting. It
+provides a layered caching system, allowing you to have a faster, more
+volatile cache in front of a slower, more persistent cache. It also provides a
+variable expiration time, preventing a &quot;miss stampede&quot; where all processes try
+to recompute an expired cache item at the same time.</p>
+
+<p>By integrating CHI cache into WebGUI, we have the ability to provide any
+caching strategy that CHI can provide. We get Memcached, FastMmap, and DBI
+drivers (and more drivers can be written).</p>
+
+<p>I wrote a CHI cache driver for WebGUI 7.9 that we&#39;ve been using on many of our
+shared hosting servers. The performance increase using FastMmap through CHI 
+over the old Storable+DBI cache module is dramatic: 2-5 times faster with
+CHI and FastMmap.</p>
+
+<h2>Using CHI in WebGUI</h2>
+
+<p>The fewer wrappers that WebGUI has around CPAN modules we use, the less code I
+have to write, and the more features will be available to our users without
+having to change WebGUI to use them.</p>
+
+<p>To that end, you can write a section of the configuration file that gets
+passed directly to CHI-&gt;new. Some massaging occurs to make sure a DBI cache
+driver gets the right $dbh, but otherwise you can fully configure CHI directly
+from the WebGUI config file:</p>
+
+<pre><code># The new default cache for WebGUI, FastMmap
+{
+     cache : {
+         driver : &#39;FastMmap&#39;,
+         root_dir : &#39;/tmp/WebGUICache&#39;,
+         expires_variance : 0.5
+     }
+ }
+
+ # Set up a memcached cache with local memory in front
+ {
+     cache : {
+         driver : &#39;Memcached::libmemcached&#39;,
+         servers : [ &#39;10.0.0.100:11211&#39;, &#39;10.0.0.110:11211&#39; ],
+         l1_cache : {
+            driver : &#39;Memory&#39;
+         }
+     }
+ }
+</code></pre>
+
+<p>When you want to use the cache in your code, you can get a CHI object with
+$session-&gt;cache. CHI&#39;s interface is sufficiently simple, with some fun tricks:</p>
+
+<pre><code>my $cache = $session-&gt;cache; # as read
+my $value = $cache-&gt;get(&#39;cache_key&#39;);
+if ( !$value ) {
+    $value = compute_value();
+    $cache-&gt;set( &#39;cache_key&#39;, $value );
+}
+
+# Combine get and set with intelligence
+my $value = $cache-&gt;compute( &#39;cache_key&#39;, \&amp;compute_value );
+</code></pre>
+
+<h2>Future Plans</h2>
+
+<p>With a single unified cache that performs well and layers like CHI, we can
+take our current stow and scratch APIs and move them to the cache. In the case
+of stow, we remove a redundant API. In the case of scratch, we remove database
+hits.</p>
+
+<p>We&#39;ve also been exploring cache-only sessions, instead of updating the session
+every time a page is requested, updating the cache only, flushing to the
+database (or not). The fewer DB calls we make per page, the better performance
+will be.</p>
+
+<p>Special thanks go out to Jonathan Swartz for such a wonderful solution.</p>
+
+<p>Stay tuned for next time when I explore our new Admin Interface. Lots of
+pretty and screenshots!</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2011/02/04/whats-new-in-webgui-8.0-3-upgrade-system.html">What&#39;s New in WebGUI 8.0 #3: Upgrade System</a></h1>
 
                     <p class="tags">Tags:
@@ -469,6 +582,7 @@ develop.</p>
 
         <h1>Tags</h1>
         <ul class="list-inline">
+            <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
             <li><a href="/blog/tag/chicago.pm/">chicago.pm</a></li>
             <li><a href="/blog/tag/community/">community</a></li>
             <li><a href="/blog/tag/cpan/">cpan</a></li>
@@ -477,6 +591,7 @@ develop.</p>
             <li><a href="/blog/tag/etl/">etl</a></li>
             <li><a href="/blog/tag/funny/">funny</a></li>
             <li><a href="/blog/tag/git/">git</a></li>
+            <li><a href="/blog/tag/history/">history</a></li>
             <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
             <li><a href="/blog/tag/moose/">moose</a></li>
             <li><a href="/blog/tag/mysql/">mysql</a></li>
@@ -484,6 +599,7 @@ develop.</p>
             <li><a href="/blog/tag/perl/">perl</a></li>
             <li><a href="/blog/tag/personal/">personal</a></li>
             <li><a href="/blog/tag/progress/">progress</a></li>
+            <li><a href="/blog/tag/racism/">racism</a></li>
             <li><a href="/blog/tag/rants/">rants</a></li>
             <li><a href="/blog/tag/scripts/">scripts</a></li>
             <li><a href="/blog/tag/software/">software</a></li>
