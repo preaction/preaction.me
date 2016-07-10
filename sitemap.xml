@@ -4,7 +4,7 @@
         <loc>http://preaction.me/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2011/01/08/whats-new-in-webgui-8.0-1-psgi-plack.html</loc>
@@ -295,46 +295,52 @@
         <lastmod>2016-07-08</lastmod>
     </url>
     <url>
+        <loc>http://preaction.me/blog/2016/07/09/what-s-behind-that-bar-/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2016-07-09</lastmod>
+    </url>
+    <url>
         <loc>http://preaction.me/blog/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/4/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/5/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/6/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/7/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/8/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2016-07-08</lastmod>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/tag/blacklivesmatter/</loc>
@@ -503,6 +509,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2011-05-20</lastmod>
+    </url>
+    <url>
+        <loc>http://preaction.me/blog/tag/webundesign/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2016-07-09</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/tag/xs/</loc>

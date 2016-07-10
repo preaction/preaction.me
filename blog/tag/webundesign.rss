@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.me/blog/tag/webundesign/</link>
+        <atom:link href="http://preaction.me/blog/tag/webundesign.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.076</generator>
+        <item>
+            <title>What&#39;s Behind That Bar?</title>
+            <link>http://preaction.me/blog/2016/07/09/what-s-behind-that-bar-/</link>
+            <guid>http://preaction.me/blog/2016/07/09/what-s-behind-that-bar-/</guid>
+            <description><![CDATA[
+                <p><img alt="Picture of state fair website" src="http://preaction.me/blog/2016/07/09/what-s-behind-that-bar-/state-fair-1.png">
+<img alt="Picture of state fair website" src="http://preaction.me/blog/2016/07/09/what-s-behind-that-bar-/state-fair-2.png"></p>
+
+<p>I’d love to see the list of new food at the Wisconsin State Fair, but
+there’s a big purple bar in the way. With the always-there header taking
+up 1/3 of my browser height, I have barely two inches of space to read
+the content that is supposed to make me want to go to the fair...</p>
+
+<p>Seen at <a href="http://wistatefair.com/fair/Food-Category/new-foods/">http://wistatefair.com/fair/Food-Category/new-foods/</a></p>
+
+                    <p><a href="http://preaction.me/blog/2016/07/09/what-s-behind-that-bar-/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/webundesign/">webundesign</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sat, 09 Jul 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+
