@@ -8,8 +8,8 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>preaction</title>
         <meta content="Statocles 0.076" name="generator">
-        <link href="/blog/tag/cpantesters.atom" rel="alternate" type="application/atom+xml">
-        <link href="/blog/tag/cpantesters.rss" rel="alternate" type="application/rss+xml">
+        <link href="/blog/tag/logging.atom" rel="alternate" type="application/atom+xml">
+        <link href="/blog/tag/logging.rss" rel="alternate" type="application/rss+xml">
         
     </head>
     <body>
@@ -52,52 +52,39 @@
 
             <article>
                 <header>
-                    <h1><a href="/blog/2016/04/30/perl-qa-hackathon-cpantesters/">Perl QA Hackathon - CPANTesters</a></h1>
+                    <h1><a href="/blog/2016/08/18/new-log-any-trial-release-1-041/">New Log::Any Trial Release 1.041</a></h1>
 
                     <p class="tags">Tags:
                         <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                        <a href="/blog/tag/logging/" rel="tag">logging</a>
+                        <a href="/blog/tag/cpan/" rel="tag">cpan</a>
                     </p>
 
                     <aside>
-                        <p><time datetime="2016-04-30">
-                            Posted on 2016-04-30
+                        <p><time datetime="2016-08-18">
+                            Posted on 2016-08-18
                         </time>
-                        <a data-disqus-identifier="/2016/04/30/perl-qa-hackathon-cpantesters/index.markdown" href="/blog/2016/04/30/perl-qa-hackathon-cpantesters/#disqus_thread">0 comments</a>
+                        <a data-disqus-identifier="/2016/08/18/new-log-any-trial-release-1-041/index.markdown" href="/blog/2016/08/18/new-log-any-trial-release-1-041/#disqus_thread">0 comments</a>
                         </p>
                     </aside>
 
                 </header>
 
-                <p>This year, I was invited to <a href="http://act.qa-hackathon.org/qa2016/">the Perl QA Hackathon in Rugby,
-UK</a>. It was wonderful to meet all
-the Perl people I&#39;d been interacting with all this time.</p>
+                <p>I&#39;ve just released a new <a href="http://metacpan.org/pod/Log::Any">Log::Any</a>
+trial release. This release improves performance immensely when there
+are no log output adapters configured. This release also now returns the
+formatted log string from logging methods, allowing the log message to
+be used by a <code>die</code> or <code>warn</code> call.</p>
 
-<p>My goals going into the hackathon weren&#39;t that clear: I&#39;ve recently
-begun adopting <a href="http://www.cpantesters.org">the CPANTesters project</a>,
-and I had to take the opportunity to talk with its former leader,
-<a href="http://missbarbell.co.uk">Barbie</a>, fix some current issues, and then...</p>
+<p>Because of these changes, there is a very small chance of an
+incompatibility: Log::Any logging methods used to return whatever the
+configured adapter returned (this was undocumented and was not
+a feature). Now they always return the formatted log message.</p>
 
-<p>While Barbie fixed <a href="https://github.com/cpan-testers/cpantesters-project/issues/9">the version summaries and Metacpan
-issue</a>,
-I started work on <a href="https://github.com/cpan-testers/cpantesters-deploy">an automated deploy for
-CPANTesters using Rex</a>, which
-will allow for reproducible deployments and development virtual
-machines, and I began keeping track of the project and future goals in
-a <a href="http://github.com/cpan-testers/cpantesters-project">CPANTesters project
-meta-repository</a>,
-which should help with keeping CPANTesters going as an open community project.
-I&#39;ll be making future blog posts on both of these, though <a href="http://preaction.github.io/Introduction-to-Rex/">I&#39;ve spoken
-about Rex before</a>.</p>
-
-<p>Thanks to Barbie for 10 years of CPANTesters, and special thanks to
-<a href="http://capside.com">Capside</a> for their donation, both monetary and
-avian, as they sent <a href="https://twitter.com/ureesoriano">Oriol Soriano</a> to
-help with some CPANTesters tasks.</p>
-
-<p>And finally, thanks to all the <a href="http://act.qa-hackathon.org/qa2016/sponsors.html">other sponsors of the
-hackathon</a>. Without
-their support, we couldn&#39;t do all the work we do on the Perl ecosystem.</p>
+<p>So if you depend on Log::Any, please give
+<a href="http://www.cpan.org/authors/id/P/PR/PREACTION/Log-Any-1.041-TRIAL.tar.gz">Log-Any-1.041-TRIAL</a>
+a test run through and report any issues to <a href="http://github.com/preaction/Log-Any/issues">the Log-Any Github
+tracker</a>.</p>
 
 
 
@@ -170,12 +157,12 @@ their support, we couldn&#39;t do all the work we do on the Perl ecosystem.</p>
         <h1>Feeds</h1>
         <ul class="list-inline">
             <li>
-                <a href="/blog/tag/cpantesters.atom" rel="alternate" type="application/atom+xml">
+                <a href="/blog/tag/logging.atom" rel="alternate" type="application/atom+xml">
                     Atom
                 </a>
             </li>
             <li>
-                <a href="/blog/tag/cpantesters.rss" rel="alternate" type="application/rss+xml">
+                <a href="/blog/tag/logging.rss" rel="alternate" type="application/rss+xml">
                     RSS
                 </a>
             </li>

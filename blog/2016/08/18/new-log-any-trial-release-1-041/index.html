@@ -6,8 +6,9 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>Thoughts while changing the API of a massive framework... - preaction</title>
+        <title>New Log::Any Trial Release 1.041 - preaction</title>
         <meta content="Statocles 0.076" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2016/08/new-logany-trial-release-1041.html" rel="canonical">
         
     </head>
     <body>
@@ -46,89 +47,38 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>Thoughts while changing the API of a massive framework...</h1>
+                <h1>New Log::Any Trial Release 1.041</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/rants/" rel="tag">rants</a>
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/logging/" rel="tag">logging</a>
+                    <a href="/blog/tag/cpan/" rel="tag">cpan</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2013-04-11">
-                        Posted on 2013-04-11
+                    <p><time datetime="2016-08-18">
+                        Posted on 2016-08-18
                     </time>
-                        by preaction
                     </p>
                 </aside>
 
-                <p>Originally posted as:
-                        <a href="http://blogs.perl.org/users/preaction/2013/04/thoughts-while-changing-the-api-of-a-massive-framework.html">
-                            <em>Thoughts while changing the API of a massive framework...</em> on blogs.perl.org.
-                        </a>
-                </p>
 
             </header>
             <section id="section-1">
-                <p>At the Bank we have a home-grown ETL framework that we&#39;ve been using for quite
-some time. We recently completed a total rewrite, but unfortunately we left out
-a few changes. Had I gotten those changes in 5 months ago, I would have only
-had to break the API of about 10 modules. Today, in order to make those
-changes, I have to break the API of 122 modules.</p>
+                <p>I&#39;ve just released a new <a href="http://metacpan.org/pod/Log::Any">Log::Any</a>
+trial release. This release improves performance immensely when there
+are no log output adapters configured. This release also now returns the
+formatted log string from logging methods, allowing the log message to
+be used by a <code>die</code> or <code>warn</code> call.</p>
 
-<p>What follows is an account of this ordeal, provided for entertainment value
-only. There will be a future post that explains some of the things I did to
-make this task surmountable.</p>
+<p>Because of these changes, there is a very small chance of an
+incompatibility: Log::Any logging methods used to return whatever the
+configured adapter returned (this was undocumented and was not
+a feature). Now they always return the formatted log message.</p>
 
-            </section>
-            <section id="section-2">
-                <h2>Day 1</h2>
-
-<ul>
-<li>3:45pm - 122 modules left</li>
-<li>4:31pm - 112 modules left - And then I remember there&#39;s another feature to
-add that will require another migration of all these modules I will have to do.</li>
-<li>4:52pm - 106 modules left -
-<a href="https://metacpan.org/module/Test::Continuous">Test::Continuous</a> removes 3
-steps for each module. Total time saved: HOLY FUCK THAT&#39;S AWESOME</li>
-<li>5:35pm - 97 modules left - Every commit message during this ordeal is another
-love note to those who put off this migration five months ago, when there were
-only 10 modules to migrate.</li>
-<li>6:09pm - 94 modules left - New API to change: Create a role to do it for me!
-+100 experience points!</li>
-<li>6:15pm - 93 modules left - Why unpack the hash of args passed-in to the
-method if the method you&#39;re calling takes exactly the same arguments? <code>my
-$arg_name = $args{arg_name}; return $self-&gt;method( arg_name =&gt; $arg_name )</code>
-should never happen!</li>
-<li>6:37pm - 87 modules left - A thought: If the other team using this project
-ultimately rejects this API change, I get to write my own brand-new ETL
-framework from scratch! Temptation, thy name is Zoidberg.</li>
-<li>6:51pm - 84 modules left - Found a bug in the new API! Finally something
-interesting to do!</li>
-<li>7:00pm - 80 modules left - Every time you copy/paste code in tests, God
-inflicts another programmer with carpal tunnel. Please think of the
-programmers.</li>
-</ul>
-
-<h2>Day 2</h2>
-
-<ul>
-<li>3:02pm - 80 modules left - Let&#39;s see if I remember all the macros I left in
-vim over the weekend... Test::Continuous is still running, which is nice</li>
-<li>3:18pm - 71 modules left - The end is in sight!</li>
-<li>4:30pm - 52 modules left - Perhaps I was premature...</li>
-<li>6:30pm - 41 modules left - Caught up putting out fires in other places.
-Derail.</li>
-</ul>
-
-<h2>Day 3</h2>
-
-<ul>
-<li>1:35pm - 41 modules left - Another bug in the new API. Doing it this way is
-certainly shaking out the bugs.</li>
-<li>2:21pm - 20 modules left - Smooth sailing at last...</li>
-<li>3:47pm - 0 modules left - AND THE CROWD GOES WILD!</li>
-</ul>
-
-<p>Total time elapsed: 3.25+3.5+2.25 = 9 hours. Not bad for 130 commits to migrate
-122 modules.</p>
+<p>So if you depend on Log::Any, please give
+<a href="http://www.cpan.org/authors/id/P/PR/PREACTION/Log-Any-1.041-TRIAL.tar.gz">Log-Any-1.041-TRIAL</a>
+a test run through and report any issues to <a href="http://github.com/preaction/Log-Any/issues">the Log-Any Github
+tracker</a>.</p>
 
             </section>
         </main>
@@ -137,8 +87,8 @@ certainly shaking out the bugs.</li>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'preaction';
-            var disqus_identifier = '/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.markdown';
-            var disqus_url = 'http://preaction.me/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html';
+            var disqus_identifier = '/2016/08/18/new-log-any-trial-release-1-041/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';

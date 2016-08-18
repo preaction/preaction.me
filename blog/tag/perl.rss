@@ -7,6 +7,38 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.076</generator>
         <item>
+            <title>New Log::Any Trial Release 1.041</title>
+            <link>http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/</link>
+            <guid>http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/</guid>
+            <description><![CDATA[
+                <p>I&#39;ve just released a new <a href="http://metacpan.org/pod/Log::Any">Log::Any</a>
+trial release. This release improves performance immensely when there
+are no log output adapters configured. This release also now returns the
+formatted log string from logging methods, allowing the log message to
+be used by a <code>die</code> or <code>warn</code> call.</p>
+
+<p>Because of these changes, there is a very small chance of an
+incompatibility: Log::Any logging methods used to return whatever the
+configured adapter returned (this was undocumented and was not
+a feature). Now they always return the formatted log message.</p>
+
+<p>So if you depend on Log::Any, please give
+<a href="http://www.cpan.org/authors/id/P/PR/PREACTION/Log-Any-1.041-TRIAL.tar.gz">Log-Any-1.041-TRIAL</a>
+a test run through and report any issues to <a href="http://github.com/preaction/Log-Any/issues">the Log-Any Github
+tracker</a>.</p>
+
+                    <p><a href="http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/logging/">logging</a>
+                    <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Thu, 18 Aug 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Perl QA Hackathon - CPANTesters</title>
             <link>http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/</link>
             <guid>http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/</guid>
@@ -172,35 +204,6 @@ write my own static site generator,
             ]]></description>
             <pubDate>
                 Mon, 02 Mar 2015 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Mojolicious Triumphs Over Legacy Code</title>
-            <link>http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</link>
-            <guid>http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html</guid>
-            <description><![CDATA[
-                <p>I got a text at 8:00am:</p>
-
-<blockquote>
-  <p>&quot;Hey, can you jump on a conference call?&quot;</p>
-</blockquote>
-
-<p>Groggy and disoriented, I blearily type the conference line and enter my
-passcode, followed by the pound or hash sign. At the tone, I would be the 6th
-person to enter the conference. Tone.</p>
-
-<blockquote>
-  <p>&quot;The app is down, and trading has stopped.&quot;</p>
-</blockquote>
-
-                    <p><a href="http://preaction.me/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/mojolicious/">mojolicious</a>
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Fri, 13 Feb 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

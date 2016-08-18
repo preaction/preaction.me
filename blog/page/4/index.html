@@ -52,6 +52,64 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html">perlsloc - Count Perl Source Lines with Perl::Tidy</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/scripts/" rel="tag">scripts</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2014-06-29">
+                            Posted on 2014-06-29
+                        </time>
+                            by preaction
+                        <a data-disqus-identifier="/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.markdown" href="/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                    <p>Originally posted as:
+                            <a href="http://blogs.perl.org/users/preaction/2014/06/perlsloc---count-perl-source-lines-with-perltidy.html">
+                                <em>perlsloc - Count Perl Source Lines with Perl::Tidy</em> on blogs.perl.org.
+                            </a>
+                    </p>
+                </header>
+
+                <p>While spending some time putting together my own <a href="https://github.com/preaction/dot-files/blob/master/perltidyrc">perltidyrc
+file</a>, I became
+intimately familiar with the <a href="https://metacpan.org/pod/distribution/Perl-Tidy/bin/perltidy">Perl::Tidy
+documentation</a>.</p>
+
+<p>One day, I decided to find out exactly how much code I was maintaining. Since
+perltidy can strip comments and POD, and also normalize the source code to make
+a fair measurement, it&#39;s a perfect tool for counting Source Lines of Code
+(SLOC).</p>
+
+<p>Here&#39;s a small shell script using <code>ack</code>, <code>perltidy</code>, <code>xargs</code>, and <code>wc</code> to count
+the source lines of code in any number of directories.</p>
+
+<pre><code>ack -f --perl $@ | xargs -L 1 perltidy --noprofile --delete-pod --mbl=0 --standard-output | wc -l
+</code></pre>
+
+<p><code>ack -f</code> lists the files that would be searched, and <code>--perl</code> searches Perl
+files, so we get ack&#39;s heuristics for finding Perl files. <code>xargs -L 1</code> invokes
+the following command for every 1 line of input. The <code>perltidy</code> command strips
+the pod and tightens up the whitespace and writes the result to stdout, which
+<code>wc -l</code> will then count, line by line.</p>
+
+<p>So, as an example, the current <a href="http://metacpan.org/release/Statocles">Statocles</a> release
+has 50% more test lines than source lines:</p>
+
+<pre><code>» perlsloc lib bin
+    1034
+» perlsloc t
+    1633
+</code></pre>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html">Conflict Resolution: local::lib and git&#39;s Perl</a></h1>
 
                     <p class="tags">Tags:
@@ -187,51 +245,6 @@ tool</a>.</p>
                     <p><a href="/blog/2013/05/01/chicago.pm-beyond-grep-expanding-the-programmer-toolset.html#section-2">Continue reading Chicago.PM - Beyond grep - Expanding the Programmer Toolset...</a></p>
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html">I Bless You in the Name of the Stringified Object</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/error/" rel="tag">error</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2013-04-15">
-                            Posted on 2013-04-15
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.markdown" href="/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2013/04/i-bless-you-in-the-name-of-the-stringified-object.html">
-                                <em>I Bless You in the Name of the Stringified Object</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>A co-worker came to me today with a curious error message:</p>
-
-<pre><code>use DateTime;
-my $date = DateTime-&gt;new( year =&gt; 2013, month =&gt; 4, day =&gt; 15 );
-$date-&gt;set_time_zone(&quot;Australia/Sydney&quot;);
-print $date-&gt;today;&#39;
-</code></pre>
-
-<p>This code gives the error <code>Can&#39;t locate object method &quot;_normalize_nanoseconds&quot;
-via package &quot;2013-04-15T00:00:00&quot; at
-/usr2/local/perlbrew/perls/perl-5.16.3/lib/site_perl/5.16.3/x86_64-linux-thread-multi/DateTime.pm
-line 252.</code></p>
-
-<p>The package &quot;2013-04-15T00:00:00&quot; is the curious part: It looks like a
-stringified DateTime, but who could possibly be stringifying a DateTime object
-and then using that as a package name?</p>
-
-
-                    <p><a href="/blog/2013/04/15/i-bless-you-in-the-name-of-the-stringified-object.html#section-2">Continue reading I Bless You in the Name of the Stringified Object...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -277,6 +290,7 @@ and then using that as a package name?</p>
             <li><a href="/blog/tag/funny/">funny</a></li>
             <li><a href="/blog/tag/git/">git</a></li>
             <li><a href="/blog/tag/history/">history</a></li>
+            <li><a href="/blog/tag/logging/">logging</a></li>
             <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
             <li><a href="/blog/tag/moose/">moose</a></li>
             <li><a href="/blog/tag/mysql/">mysql</a></li>

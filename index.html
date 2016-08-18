@@ -52,6 +52,45 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/08/18/new-log-any-trial-release-1-041/">New Log::Any Trial Release 1.041</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/logging/" rel="tag">logging</a>
+                        <a href="/blog/tag/cpan/" rel="tag">cpan</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-08-18">
+                            Posted on 2016-08-18
+                        </time>
+                        <a data-disqus-identifier="/2016/08/18/new-log-any-trial-release-1-041/index.markdown" href="/blog/2016/08/18/new-log-any-trial-release-1-041/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>I&#39;ve just released a new <a href="http://metacpan.org/pod/Log::Any">Log::Any</a>
+trial release. This release improves performance immensely when there
+are no log output adapters configured. This release also now returns the
+formatted log string from logging methods, allowing the log message to
+be used by a <code>die</code> or <code>warn</code> call.</p>
+
+<p>Because of these changes, there is a very small chance of an
+incompatibility: Log::Any logging methods used to return whatever the
+configured adapter returned (this was undocumented and was not
+a feature). Now they always return the formatted log message.</p>
+
+<p>So if you depend on Log::Any, please give
+<a href="http://www.cpan.org/authors/id/P/PR/PREACTION/Log-Any-1.041-TRIAL.tar.gz">Log-Any-1.041-TRIAL</a>
+a test run through and report any issues to <a href="http://github.com/preaction/Log-Any/issues">the Log-Any Github
+tracker</a>.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/07/09/whats-behind-that-bar/">What&#39;s Behind That Bar?</a></h1>
 
                     <p class="tags">Tags:
@@ -245,45 +284,6 @@ their support, we couldn&#39;t do all the work we do on the Perl ecosystem.</p>
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/">A Community is a Reflection of its Leaders</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/community/" rel="tag">community</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2016-02-15">
-                            Posted on 2016-02-15
-                        </time>
-                        <a data-disqus-identifier="/2016/02/15/a-community-is-a-reflection-of-its-leaders/index.markdown" href="/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>I&#39;ve been in charge of <a href="/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#footnote-1">a certain community</a> for a very
-long time. Before my actual tech career started, even. Back when doing
-websites was just a hobby I didn&#39;t want to ruin by getting money
-involved.</p>
-
-<p>I was put in charge of this community after only a few hours of effort:
-I wanted to learn something, I saw that a community didn&#39;t exist for
-this topic in some prime community real estate, and so I created one.
-Instantly, I was the leader of a community. Within weeks, people started
-pouring in.</p>
-
-<p>The funny thing about being in charge of a community is that it doesn&#39;t
-require merit or community-building skills. Being in charge of
-a community merely requires that one have authority: The ability to
-decide who is part of the community and who is not. Because I founded
-the community, I had the authority.</p>
-
-
-                    <p><a href="/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#section-2">Continue reading A Community is a Reflection of its Leaders...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -329,6 +329,7 @@ the community, I had the authority.</p>
             <li><a href="/blog/tag/funny/">funny</a></li>
             <li><a href="/blog/tag/git/">git</a></li>
             <li><a href="/blog/tag/history/">history</a></li>
+            <li><a href="/blog/tag/logging/">logging</a></li>
             <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
             <li><a href="/blog/tag/moose/">moose</a></li>
             <li><a href="/blog/tag/mysql/">mysql</a></li>
