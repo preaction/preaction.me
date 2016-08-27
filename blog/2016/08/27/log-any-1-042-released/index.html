@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Log::Any 1.042 Released - preaction</title>
+        <meta content="Statocles 0.077" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2016/08/logany-1042-released.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Log::Any 1.042 Released</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/logging/" rel="tag">logging</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2016-08-27">
+                        Posted on 2016-08-27
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>Since <a href="http://cpantesters.org/distro/L/Log-Any.html">CPANTesters for Log-Any</a>
+are all showing green for <a href="http://blogs.perl.org/users/preaction/2016/08/new-logany-trial-release-1041.html">last week&#39;s trial
+release</a>,
+I&#39;ve pushed a <a href="https://metacpan.org/release/PREACTION/Log-Any-1.042">new standard release of Log::Any 1.042 to
+CPAN</a>.</p>
+
+            </section>
+            <section id="section-2">
+                <p>Log::Any is for logging what DBI is for databases and CHI is for caching: A
+common interface to allow CPAN libraries to have logging that integrates with
+the library user&#39;s existing logging.</p>
+
+<p>This release includes a significant performance improvement for when log
+outputs are not configured. This means Log::Any is even less obtrusive for use
+in CPAN modules. The overhead for a log method that doesn&#39;t need to do anything
+is down to one method call and one <code>wantarray</code> check.</p>
+
+<p>Logging methods now also return the formatted log message (which is why we need
+a <code>wantarray</code> check). This means we can use the return value in <code>die</code> and/or
+<code>warn</code> calls, like so:</p>
+
+<pre><code>use Log::Any &#39;$log&#39;;
+
+if ( !-e &#39;config.yml&#39; ) {
+    die $log-&gt;error( &#39;config.yml does not exist&#39; );
+}
+</code></pre>
+
+<p>Doing it this way instead of adding new methods to Log::Any prevents us from
+needing to create methods like <code>error_die</code>, <code>warn_die</code>, <code>error_warn</code>,
+<code>warn_warn</code>, <code>fatal_die</code>, <code>fatal_warn</code>, and other impractical combinations
+(<code>debug_die</code>? <code>emergency_warn</code>?)</p>
+
+<p>Finally, the default adapter for your logger can now be configured with
+arguments. So the simplest way to log to a file (but still allow others to
+direct logs elsewhere) would be:</p>
+
+<pre><code>use Log::Any &#39;$log&#39;, default_adapter =&gt; [ File =&gt; &#39;myapp.log&#39; ];
+</code></pre>
+
+<p>So give it a try and add some logging to your CPAN library. If you have any
+issues, <a href="http://github.com/preaction/Log-Any">report them at the Log::Any project on
+Github</a></p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2016/08/27/log-any-1-042-released/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2016/08/27/log-any-1-042-released/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

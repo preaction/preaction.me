@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/chicago-pm/</id>
+    <title>preaction</title>
+    <updated>2013-06-13T00:00:00Z</updated>
+    <link href="http://preaction.me/blog/tag/chicago-pm.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/chicago-pm/" rel="alternate" />
+    <generator version="0.077">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2013/06/13/chicago.pm-new-website-new-meetup-url-new-presentations-project.html</id>
+        <title>Chicago.PM New Website! New Meetup URL! New Presentations Project!</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.me/blog/2013/06/13/chicago.pm-new-website-new-meetup-url-new-presentations-project.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Lots of news for the Chicago.PM group! We&#39;ve got a <a href="http://chicago.pm.org">new Chicago.PM
+website</a>, powered by <a href="http://github.com">Github</a>, up at
+<a href="http://chicago.pm.org">http://chicago.pm.org</a>. The website is completely
+editable via Github using the <a href="http://octopress.org">Octopress</a> system. We hope
+to start sharing resources about Perl on our website, increasing the exposure
+of the good tutorials and learning sites.</p>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2013/06/chicagopm-new-website-new-meetup-url-new-presentations-project.html">
+                        Continue reading <em>Chicago.PM New Website! New Meetup URL! New Presentations Project!</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.me/blog/2013/06/13/chicago.pm-new-website-new-meetup-url-new-presentations-project.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/chicago-pm/">chicago.pm</a>
+            </p>
+        ]]></content>
+        <updated>2013-06-13T00:00:00Z</updated>
+        <category term="chicago.pm" />
+    </entry>
+    <entry>
+        <id>http://preaction.me/blog/2013/05/01/chicago.pm-beyond-grep-expanding-the-programmer-toolset.html</id>
+        <title>Chicago.PM - Beyond grep - Expanding the Programmer Toolset</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.me/blog/2013/05/01/chicago.pm-beyond-grep-expanding-the-programmer-toolset.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Last week, <a href="http://petdance.com">Andy Lester</a> (author of <a href="http://petdance.com/book/">Land the Tech Job You
+Love</a>) came to talk about tools to help programmers
+work more efficiently and the 2.0 release of his <a href="http://beyondgrep.com">Ack search
+tool</a>.</p>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2013/05/chicagopm---beyond-grep---expanding-the-programmer-toolset.html">
+                        Continue reading <em>Chicago.PM - Beyond grep - Expanding the Programmer Toolset</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.me/blog/2013/05/01/chicago.pm-beyond-grep-expanding-the-programmer-toolset.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/chicago-pm/">chicago.pm</a>
+            </p>
+        ]]></content>
+        <updated>2013-05-01T00:00:00Z</updated>
+        <category term="chicago.pm" />
+    </entry>
+    <entry>
+        <id>http://preaction.me/blog/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.html</id>
+        <title>Chicago.PM - Dependency Injection (also: Beam::Wire)</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.me/blog/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>At <a href="http://www.meetup.com/Windy-City-Perl-mongers-Meetup/events/104681992/">this month&#39;s Chicago.PM
+meeting</a>,
+I gave <a href="http://preaction.github.com/Perl/Dependency-Injection.html">a presentation on Dependency Injection and my new module,
+Beam::Wire</a>.</p>
+
+<p>[EDIT: The presentation doesn&#39;t appear to work on mobile devices. I&#39;m trying
+deck.js, and I&#39;m not sure I like it.]</p>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2013/03/chicagopm---dependency-injection-also-beamwire.html">
+                        Continue reading <em>Chicago.PM - Dependency Injection (also: Beam::Wire)</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.me/blog/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/chicago-pm/">chicago.pm</a>
+            </p>
+        ]]></content>
+        <updated>2013-03-29T00:00:00Z</updated>
+        <category term="chicago.pm" />
+    </entry>
+    <entry>
+        <id>http://preaction.me/blog/2013/03/14/chicago.pm-mojolicious.html</id>
+        <title>Chicago.PM - Mojolicious</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.me/blog/2013/03/14/chicago.pm-mojolicious.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>February&#39;s meeting was about the <a href="http://mojolicio.us">Mojolicious Web
+Framework</a>. <a href="http://blogs.perl.org/users/joel_berger/">Joel
+Berger</a> has written a <a href="https://metacpan.org/module/Galileo">minimal Perl
+CMS called Galileo</a>, and agreed to give a
+talk about the benefits of Mojolicious.</p>
+
+<p>Best of all, <a href="https://github.com/jberger/MojoliciousIntroduction">the talk itself was written in
+Mojolicious</a>! As Joel was
+talking, he was able to edit the code and display the results, showing off
+various features of Mojolicious like:</p>
+
+<ul>
+<li>Websockets</li>
+<li>Easy testing (even of websockets)</li>
+<li>Helper scripts</li>
+<li>Mojo templates</li>
+</ul>
+
+<p>There are quite a few interesting parts of Mojolicious that make it worth
+giving a look to, and I hope to be able to do so with some web projects that
+have been sitting in my queue for a while (I wrote a nice ticket tracker with
+AngularJS, but the backend is Python, I&#39;d like to fix that glaring mistake).</p>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2013/03/chicagopm---mojolicious.html">
+                        Continue reading <em>Chicago.PM - Mojolicious</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.me/blog/2013/03/14/chicago.pm-mojolicious.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/chicago-pm/">chicago.pm</a>
+            </p>
+        ]]></content>
+        <updated>2013-03-14T00:00:00Z</updated>
+        <category term="chicago.pm" />
+    </entry>
+    <entry>
+        <id>http://preaction.me/blog/2012/10/28/chicago.pm-report-scripting-git-with-perl.html</id>
+        <title>Chicago.PM - Scripting Git With Perl</title>
+        <author><name>preaction</name></author>
+        <link href="http://preaction.me/blog/2012/10/28/chicago.pm-report-scripting-git-with-perl.html" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>This month&#39;s presentation was on the
+<a href="http://search.cpan.org/dist/Git-Repository/">Git::Repository</a> Perl module,
+given by me. In both my jobs, I use the Git::Repository module to automate
+releases.</p>
+
+                <ul>
+                    <li><a href="http://blogs.perl.org/users/preaction/2012/10/chicagopm-report---scripting-git-with-perl.html">
+                        Continue reading <em>Chicago.PM - Scripting Git With Perl</em> on blogs.perl.org...
+                    </a></li>
+                    <li><a href="http://preaction.me/blog/2012/10/28/chicago.pm-report-scripting-git-with-perl.html#section-2">
+                        Continue reading on preaction
+                    </a></li>
+                </ul>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/chicago-pm/">chicago.pm</a>
+            </p>
+        ]]></content>
+        <updated>2012-10-28T00:00:00Z</updated>
+        <category term="chicago.pm" />
+    </entry>
+</feed>
+
