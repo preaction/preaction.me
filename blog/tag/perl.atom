@@ -2,10 +2,49 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/perl/</id>
     <title>preaction</title>
-    <updated>2016-08-27T00:00:00Z</updated>
+    <updated>2016-11-06T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/perl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/perl/" rel="alternate" />
-    <generator version="0.077">Statocles</generator>
+    <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</id>
+        <title>Log::Any 1.044 TRIAL released</title>
+        <link href="http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>A <a href="https://metacpan.org/release/PREACTION/Log-Any-1.044-TRIAL">new trial of Log::Any (1.044) has been
+released</a>.
+This release has a couple changes that make Log::Any a bit more
+predictable:</p>
+
+<ul>
+<li>Passing in objects to formatted log methods now handles objects that
+overload stringify correctly. Previously, these objects would be given
+to Data::Dumper, which violates object encapsulation. Thanks <a href="https://github.com/mephinet">Philipp
+Gortan (@mephinet)</a>!</li>
+<li>The imported Log::Any object (<code>use Log::Any &#39;$log&#39;</code>) can now be named
+anything (like <code>$LOG</code> or <code>$foo</code>).</li>
+</ul>
+
+<p>Since <a href="http://www.cpantesters.org">CPAN Testers</a> is still catching up
+<a href="http://blog.cpantesters.org/diary/203">from its little bit of downtime a few weeks
+ago</a>, I won&#39;t be releasing this
+as stable until I get some success reports in. So, you&#39;ve got some time
+to test this against your own codebase if you need to.  Please <a href="http://github.com/preaction/Log-Any/issues">report
+any issues to the Log-Any Github
+repository</a>.</p>
+
+                <p><a href="http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/logging/">logging</a>
+                <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
+            </p>
+        ]]></content>
+        <updated>2016-11-06T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="logging" />
+        <category term="cpan" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/08/27/log-any-1-042-released/</id>
         <title>Log::Any 1.042 Released</title>
@@ -142,56 +181,6 @@ utility</a> to parse plain text into YAML documents.</p>
         <updated>2015-11-27T00:00:00Z</updated>
         <category term="yertl" />
         <category term="perl" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/</id>
-        <title>List::Slice - Slice operations for lists</title>
-        <link href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>How many times have you needed to do this?</p>
-
-<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
-my @topfive = @found_names[0..4];
-</code></pre>
-
-<p>Or worse, this.</p>
-
-<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
-</code></pre>
-
-<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
-
-<p>Or this.</p>
-
-<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
-</code></pre>
-
-<p>Or this.</p>
-
-<pre><code>my @names
-        = map { $_-&gt;[0] }
-        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
-        grep { $_-&gt;[1] &gt; $now }
-        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
-        @all_users;
-my @topfive = @names[0..4];
-</code></pre>
-
-<p>There&#39;s got to be a better way!</p>
-
-<p><img alt="There&#39;s got to be a better way" src="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
-
-<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
-
-                <p><a href="http://preaction.me/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
-            </p>
-        ]]></content>
-        <updated>2015-10-26T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="cpan" />
     </entry>
 </feed>
 

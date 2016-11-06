@@ -5,7 +5,7 @@
     <updated>2015-11-27T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/yertl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/yertl/" rel="alternate" />
-    <generator version="0.077">Statocles</generator>
+    <generator version="0.081">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</id>
         <title>ygrok - Parse plain text into data structures</title>

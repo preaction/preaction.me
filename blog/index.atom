@@ -2,10 +2,49 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2016-08-27T00:00:00Z</updated>
+    <updated>2016-11-06T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
-    <generator version="0.077">Statocles</generator>
+    <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</id>
+        <title>Log::Any 1.044 TRIAL released</title>
+        <link href="http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>A <a href="https://metacpan.org/release/PREACTION/Log-Any-1.044-TRIAL">new trial of Log::Any (1.044) has been
+released</a>.
+This release has a couple changes that make Log::Any a bit more
+predictable:</p>
+
+<ul>
+<li>Passing in objects to formatted log methods now handles objects that
+overload stringify correctly. Previously, these objects would be given
+to Data::Dumper, which violates object encapsulation. Thanks <a href="https://github.com/mephinet">Philipp
+Gortan (@mephinet)</a>!</li>
+<li>The imported Log::Any object (<code>use Log::Any &#39;$log&#39;</code>) can now be named
+anything (like <code>$LOG</code> or <code>$foo</code>).</li>
+</ul>
+
+<p>Since <a href="http://www.cpantesters.org">CPAN Testers</a> is still catching up
+<a href="http://blog.cpantesters.org/diary/203">from its little bit of downtime a few weeks
+ago</a>, I won&#39;t be releasing this
+as stable until I get some success reports in. So, you&#39;ve got some time
+to test this against your own codebase if you need to.  Please <a href="http://github.com/preaction/Log-Any/issues">report
+any issues to the Log-Any Github
+repository</a>.</p>
+
+                <p><a href="http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/logging/">logging</a>
+                <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
+            </p>
+        ]]></content>
+        <updated>2016-11-06T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="logging" />
+        <category term="cpan" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/08/27/log-any-1-042-released/</id>
         <title>Log::Any 1.042 Released</title>
@@ -131,55 +170,6 @@ of effort to understand our fellow humans?</p>
         <category term="racism" />
         <category term="history" />
         <category term="blacklivesmatter" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/05/13/the-uk-is-a-real-place/</id>
-        <title>The UK Is A Real Place</title>
-        <link href="http://preaction.me/blog/2016/05/13/the-uk-is-a-real-place/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>For this year&#39;s <a href="http://act.qa-hackathon.org/qa2016/">Perl QA Hackathon</a>, I
-travelled to the UK for the first time. I don&#39;t know what I was expecting, but
-what I got was kind of surreal. I&#39;ve watched a lot of British television and
-movies. But experiencing it was a lot different.</p>
-
-<p>I knew things would be different. But the interesting thing was how subtle the
-differences are. Everything&#39;s closer together, but the effect is warm and cozy
-not oppressive (despite the weather). The roads are a lot different. I can see
-why some modern subdivisions are eschewing a grid of streets with a curvy,
-winding road system (though the effect in the US is anti-pedestrian).</p>
-
-<p>Asda was very familiar though. Freakishly familiar. Finding out that it was
-owned by WalMart makes absolute sense. The interior of <a href="https://www.jdwetherspoon.com/pubs/all-pubs/england/warwickshire/the-lawrence-sheriff-rugby">The Lawrence Sheriff
-pub</a>
-was familiar as well, but because it&#39;s a JD Wetherspoon, which is a franchise
-(picture the interior of pubs in <a href="https://en.wikipedia.org/wiki/Three_Flavours_Cornetto_trilogy">the Cornetto
-trilogy</a>).</p>
-
-<p>When I got back, all I could think about is how loud Chicago is. And how
-organized. Efficient (that&#39;s not a compliment). A lot of the difference between
-the two boils down to &quot;big city&quot; vs &quot;small city&quot;. Rugby has 70,000 people, and
-another city I&#39;ve lived, Oskhosh, WI has 70,000 people, and the differences are
-still severe. Records of the village of Rugby go back to 1000AD. The hotel I
-was staying at pre-dated the entire city of Chicago (by perhaps 100 years). The
-hotel probably pre-dated the United States. It&#39;s difficult to fathom.</p>
-
-<p>And now, watching UK TV as I often do, I find myself recognizing the styles.
-There&#39;s now a very obvious difference in my head between &quot;generic human
-dwelling&quot; and &quot;English house&quot;, and between &quot;generic human village&quot; and &quot;English
-village&quot;.</p>
-
-<p>All in all, I really enjoyed the trip. Next up: Germany. I hear that <a href="https://en.wikipedia.org/wiki/Ludwig_II_of_Bavaria">a mad
-king</a> created <a href="https://en.wikipedia.org/wiki/Neuschwanstein_Castle">some
-interesting
-architecture</a>...</p>
-
-                <p><a href="http://preaction.me/blog/2016/05/13/the-uk-is-a-real-place/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/travel/">travel</a>
-            </p>
-        ]]></content>
-        <updated>2016-05-13T00:00:00Z</updated>
-        <category term="travel" />
     </entry>
 </feed>
 

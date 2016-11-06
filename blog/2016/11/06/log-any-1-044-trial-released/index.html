@@ -6,8 +6,9 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>What's New in WebGUI 8.0 #4 -- CHI Cache - preaction</title>
+        <title>Log::Any 1.044 TRIAL released - preaction</title>
         <meta content="Statocles 0.081" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2016/11/logany-1044-trial-released.html" rel="canonical">
         
     </head>
     <body>
@@ -46,112 +47,44 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>What&#39;s New in WebGUI 8.0 #4 -- CHI Cache</h1>
+                <h1>Log::Any 1.044 TRIAL released</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/webgui/" rel="tag">webgui</a>
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/logging/" rel="tag">logging</a>
+                    <a href="/blog/tag/cpan/" rel="tag">cpan</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2011-02-18">
-                        Posted on 2011-02-18
+                    <p><time datetime="2016-11-06">
+                        Posted on 2016-11-06
                     </time>
-                        by preaction
                     </p>
                 </aside>
 
-                <p>Originally posted as:
-                        <a href="http://blogs.perl.org/users/preaction/2011/02/whats-new-in-webgui-80-4----chi-cache.html">
-                            <em>What&#39;s New in WebGUI 8.0 #4 -- CHI Cache</em> on blogs.perl.org.
-                        </a>
-                </p>
 
             </header>
             <section id="section-1">
-                <p>Caching is a tricky business. Having just one kind of cache won&#39;t work, because
-the production environment will greatly determine the most efficient caching
-system. A distributed production environment would be best-served with a
-distributed cache. A smaller, single-server environment could use a simple
-shared memory cache.</p>
+                <p>A <a href="https://metacpan.org/release/PREACTION/Log-Any-1.044-TRIAL">new trial of Log::Any (1.044) has been
+released</a>.
+This release has a couple changes that make Log::Any a bit more
+predictable:</p>
 
-<p>Enter Jonathan Swartz&#39;s <a href="https://metacpan.org/pod/CHI">CHI</a> module, the greatest Perl module to provide a
-unified caching interface. CHI is the DBI of caching: It presents an API, and
-delegates to CHI::Driver modules to perform the heavy lifting. It
-provides a layered caching system, allowing you to have a faster, more
-volatile cache in front of a slower, more persistent cache. It also provides a
-variable expiration time, preventing a &quot;miss stampede&quot; where all processes try
-to recompute an expired cache item at the same time.</p>
+<ul>
+<li>Passing in objects to formatted log methods now handles objects that
+overload stringify correctly. Previously, these objects would be given
+to Data::Dumper, which violates object encapsulation. Thanks <a href="https://github.com/mephinet">Philipp
+Gortan (@mephinet)</a>!</li>
+<li>The imported Log::Any object (<code>use Log::Any &#39;$log&#39;</code>) can now be named
+anything (like <code>$LOG</code> or <code>$foo</code>).</li>
+</ul>
 
-<p>By integrating CHI cache into WebGUI, we have the ability to provide any
-caching strategy that CHI can provide. We get Memcached, FastMmap, and DBI
-drivers (and more drivers can be written).</p>
-
-<p>I wrote a CHI cache driver for WebGUI 7.9 that we&#39;ve been using on many of our
-shared hosting servers. The performance increase using FastMmap through CHI 
-over the old Storable+DBI cache module is dramatic: 2-5 times faster with
-CHI and FastMmap.</p>
-
-<h2>Using CHI in WebGUI</h2>
-
-<p>The fewer wrappers that WebGUI has around CPAN modules we use, the less code I
-have to write, and the more features will be available to our users without
-having to change WebGUI to use them.</p>
-
-<p>To that end, you can write a section of the configuration file that gets
-passed directly to CHI-&gt;new. Some massaging occurs to make sure a DBI cache
-driver gets the right $dbh, but otherwise you can fully configure CHI directly
-from the WebGUI config file:</p>
-
-<pre><code># The new default cache for WebGUI, FastMmap
-{
-     cache : {
-         driver : &#39;FastMmap&#39;,
-         root_dir : &#39;/tmp/WebGUICache&#39;,
-         expires_variance : 0.5
-     }
- }
-
- # Set up a memcached cache with local memory in front
- {
-     cache : {
-         driver : &#39;Memcached::libmemcached&#39;,
-         servers : [ &#39;10.0.0.100:11211&#39;, &#39;10.0.0.110:11211&#39; ],
-         l1_cache : {
-            driver : &#39;Memory&#39;
-         }
-     }
- }
-</code></pre>
-
-<p>When you want to use the cache in your code, you can get a CHI object with
-$session-&gt;cache. CHI&#39;s interface is sufficiently simple, with some fun tricks:</p>
-
-<pre><code>my $cache = $session-&gt;cache; # as read
-my $value = $cache-&gt;get(&#39;cache_key&#39;);
-if ( !$value ) {
-    $value = compute_value();
-    $cache-&gt;set( &#39;cache_key&#39;, $value );
-}
-
-# Combine get and set with intelligence
-my $value = $cache-&gt;compute( &#39;cache_key&#39;, \&amp;compute_value );
-</code></pre>
-
-<h2>Future Plans</h2>
-
-<p>With a single unified cache that performs well and layers like CHI, we can
-take our current stow and scratch APIs and move them to the cache. In the case
-of stow, we remove a redundant API. In the case of scratch, we remove database
-hits.</p>
-
-<p>We&#39;ve also been exploring cache-only sessions, instead of updating the session
-every time a page is requested, updating the cache only, flushing to the
-database (or not). The fewer DB calls we make per page, the better performance
-will be.</p>
-
-<p>Special thanks go out to Jonathan Swartz for such a wonderful solution.</p>
-
-<p>Stay tuned for next time when I explore our new Admin Interface. Lots of
-pretty and screenshots!</p>
+<p>Since <a href="http://www.cpantesters.org">CPAN Testers</a> is still catching up
+<a href="http://blog.cpantesters.org/diary/203">from its little bit of downtime a few weeks
+ago</a>, I won&#39;t be releasing this
+as stable until I get some success reports in. So, you&#39;ve got some time
+to test this against your own codebase if you need to.  Please <a href="http://github.com/preaction/Log-Any/issues">report
+any issues to the Log-Any Github
+repository</a>.</p>
 
             </section>
         </main>
@@ -160,8 +93,8 @@ pretty and screenshots!</p>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'preaction';
-            var disqus_identifier = '/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.markdown';
-            var disqus_url = 'http://preaction.me/blog/2011/02/18/whats-new-in-webgui-8.0-4-chi-cache.html';
+            var disqus_identifier = '/2016/11/06/log-any-1-044-trial-released/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
