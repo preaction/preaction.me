@@ -52,6 +52,61 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/07/08/what-history-class-did-you-fail-/">What History Class Did You Fail?</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/racism/" rel="tag">racism</a>
+                        <a href="/blog/tag/history/" rel="tag">history</a>
+                        <a href="/blog/tag/blacklivesmatter/" rel="tag">blacklivesmatter</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-07-08">
+                            Posted on 2016-07-08
+                        </time>
+                        <a data-disqus-identifier="/2016/07/08/what-history-class-did-you-fail-/index.markdown" href="/blog/2016/07/08/what-history-class-did-you-fail-/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Every time I’m involved in some social media discussion, I hear so much
+completely inaccurate information being repeated time and again. Today,
+someone claimed that people in South Africa would have “Black
+Privilege”, completely ignorant of the long history of violent white
+supremacy that ended less than 30 years ago. Additionally, way too many
+people are ignorant of Jim Crow, and all the things that led up to and
+followed the 1960’s Civil Rights Movement.</p>
+
+<p>Ignoring the history of race relations is the foundation of a generation
+of future racists. This complete ignorance of the past, this
+white-washing, this idea that “racism ended in 1964 with the Civil
+Rights Act”, these ideas are the start of a belief that the current race
+relation problem is “reverse racism”: White people being discriminated
+against. And since anti-Black racism is “over”, all the crime statistics
+that show problems disproportionately affecting Black people must mean
+that Black people are “just naturally like that.”</p>
+
+<p>Curiously, these people are always well-“informed” about the history of
+slavery world-wide, but never about how the Americas changed all that,
+too. Indentured servitude is not chattel slavery, but the distinction is
+both lost and meaningless to those who want to believe that global
+racism ended with the abolition of slavery in the US. And again, the
+bleaching of history: The Civil War was about state’s rights, despite
+the libraries of information written at the time on the topic about the
+war’s aims.</p>
+
+<p>It has taken me mere months of casual perusal to learn the things that
+I know, or, more accurately, probe the vastness of the chasm that is my
+ignorance. With all the current news about racial violence, what hope
+for change can there be if we aren’t all putting in this minimum amount
+of effort to understand our fellow humans?</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/05/13/the-uk-is-a-real-place/">The UK Is A Real Place</a></h1>
 
                     <p class="tags">Tags:
@@ -244,64 +299,6 @@ utility</a> to parse plain text into YAML documents.</p>
                     <p><a href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading ygrok - Parse plain text into data structures...</a></p>
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/10/26/list-slice-slice-operations-for-lists/">List::Slice - Slice operations for lists</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/cpan/" rel="tag">cpan</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-10-26">
-                            Posted on 2015-10-26
-                        </time>
-                        <a data-disqus-identifier="/2015/10/26/list-slice-slice-operations-for-lists/index.markdown" href="/blog/2015/10/26/list-slice-slice-operations-for-lists/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>How many times have you needed to do this?</p>
-
-<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
-my @topfive = @found_names[0..4];
-</code></pre>
-
-<p>Or worse, this.</p>
-
-<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
-</code></pre>
-
-<p><img alt="There&#39;s got to be a better way" src="/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
-
-<p>Or this.</p>
-
-<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
-</code></pre>
-
-<p>Or this.</p>
-
-<pre><code>my @names
-        = map { $_-&gt;[0] }
-        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
-        grep { $_-&gt;[1] &gt; $now }
-        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
-        @all_users;
-my @topfive = @names[0..4];
-</code></pre>
-
-<p>There&#39;s got to be a better way!</p>
-
-<p><img alt="There&#39;s got to be a better way" src="/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
-
-<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
-
-
-                    <p><a href="/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading List::Slice - Slice operations for lists...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -337,6 +334,7 @@ my @topfive = @names[0..4];
 
         <h1>Tags</h1>
         <ul class="list-inline">
+            <li><a href="/blog/tag/beam/">beam</a></li>
             <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
             <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
             <li><a href="/blog/tag/community/">community</a></li>

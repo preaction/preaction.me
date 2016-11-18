@@ -7,6 +7,35 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.081</generator>
         <item>
+            <title>Beam::Emitter v1.004 released</title>
+            <link>http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/</link>
+            <guid>http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/</guid>
+            <description><![CDATA[
+                <p>This week, I released a new version of
+<a href="http://metacpan.org/pod/Beam::Emitter">Beam::Emitter</a>. A lot has changed since
+the first releases, so here&#39;s some details on all the new features.</p>
+
+<p>Beam::Emitter is a role for turning your classes into event emitters. Being an
+event emitter allows other classes to subscribe to important events from your
+object. Subscribers can use these events to perform additional tasks, transform
+your object&#39;s data, or otherwise extend and enhance your class. Beam::Emitter
+makes your class extensible by allowing you to provide specific places for
+custom code to run.</p>
+
+<p>Since the 1.000 release last year, Beam::Emitter has gotten quite a few new
+features and bug fixes to make it easier to use and safer for your code.</p>
+
+                    <p><a href="http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/beam/">beam</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 18 Nov 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Log::Any 1.044 TRIAL released</title>
             <link>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</link>
             <guid>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</guid>
@@ -140,44 +169,6 @@ their support, we couldn&#39;t do all the work we do on the Perl ecosystem.</p>
             ]]></description>
             <pubDate>
                 Sat, 30 Apr 2016 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>ygrok - Parse plain text into data structures</title>
-            <link>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</link>
-            <guid>http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/</guid>
-            <description><![CDATA[
-                <p>As a data warehouse, a significant part of my job involves log analysis.
-Besides the standard root cause analysis, I need to verify database
-writes, diagnose user access issues, and look for under-used (and
-over-used) data sets. Additionally, my boss needs quarterly and yearly
-reports for client billing, and some of our clients need usage reports
-to identify data they might be paying for but not using (which we can
-then shut off to reduce costs). This has recently become a popular space
-for new solutions.</p>
-
-<p>On the other side, as a sysadmin, I need to get other reports like how
-all the machine&#39;s resources (CPU, memory, disk, network) are being used,
-what processes are running on the machine and how those processes used
-resources over time. This is basic monitoring, and there are lots of
-solutions here, too. In the true Unix philosophy, there are command-line
-programs to query every one of these, which write out text that I can
-then parse.</p>
-
-<p>In <a href="http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
-ysql</a>, I showed how
-to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
-Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="http://preaction.me/yertl/pod/ygrok"><code>ygrok</code>
-utility</a> to parse plain text into YAML documents.</p>
-
-                    <p><a href="http://preaction.me/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Fri, 27 Nov 2015 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/beam/</id>
+    <title>preaction</title>
+    <updated>2016-11-18T00:00:00Z</updated>
+    <link href="http://preaction.me/blog/tag/beam.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/beam/" rel="alternate" />
+    <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/</id>
+        <title>Beam::Emitter v1.004 released</title>
+        <link href="http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>This week, I released a new version of
+<a href="http://metacpan.org/pod/Beam::Emitter">Beam::Emitter</a>. A lot has changed since
+the first releases, so here&#39;s some details on all the new features.</p>
+
+<p>Beam::Emitter is a role for turning your classes into event emitters. Being an
+event emitter allows other classes to subscribe to important events from your
+object. Subscribers can use these events to perform additional tasks, transform
+your object&#39;s data, or otherwise extend and enhance your class. Beam::Emitter
+makes your class extensible by allowing you to provide specific places for
+custom code to run.</p>
+
+<p>Since the 1.000 release last year, Beam::Emitter has gotten quite a few new
+features and bug fixes to make it easier to use and safer for your code.</p>
+
+                <p><a href="http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/beam/">beam</a>
+            </p>
+        ]]></content>
+        <updated>2016-11-18T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="beam" />
+    </entry>
+</feed>
+
