@@ -7,6 +7,31 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.081</generator>
         <item>
+            <title>meta::hack log</title>
+            <link>http://preaction.me/blog/2016/11/25/meta-hack-log/</link>
+            <guid>http://preaction.me/blog/2016/11/25/meta-hack-log/</guid>
+            <description><![CDATA[
+                <p>Last week, I attended meta::hack, the <a href="http://metacpan.org">MetaCPAN</a> hackathon
+in Chicago. I&#39;m the maintainer for <a href="http://cpantesters.org">CPAN Testers</a>, the
+central database for CPAN users to send in test reports on CPAN distributions
+and one of MetaCPAN&#39;s data sources. I asked to join them so I could improve how
+MetaCPAN consumes CPAN Testers data, and ensure the stability and reliability
+of that consumption.</p>
+
+<p>Here&#39;s a detailed log of what I was able to accomplish, and information on the
+new development of CPAN Testers.</p>
+
+                    <p><a href="http://preaction.me/blog/2016/11/25/meta-hack-log/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 25 Nov 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Perl QA Hackathon - CPANTesters</title>
             <link>http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/</link>
             <guid>http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/</guid>

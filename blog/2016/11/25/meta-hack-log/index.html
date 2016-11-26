@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>meta::hack log - preaction</title>
+        <meta content="Statocles 0.081" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2016/11/metahack-log.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>meta::hack log</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2016-11-25">
+                        Posted on 2016-11-25
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>Last week, I attended meta::hack, the <a href="http://metacpan.org">MetaCPAN</a> hackathon
+in Chicago. I&#39;m the maintainer for <a href="http://cpantesters.org">CPAN Testers</a>, the
+central database for CPAN users to send in test reports on CPAN distributions
+and one of MetaCPAN&#39;s data sources. I asked to join them so I could improve how
+MetaCPAN consumes CPAN Testers data, and ensure the stability and reliability
+of that consumption.</p>
+
+<p>Here&#39;s a detailed log of what I was able to accomplish, and information on the
+new development of CPAN Testers.</p>
+
+            </section>
+            <section id="section-2">
+                <h2>Day 1 - Thursday</h2>
+
+<p>Day 1 began bright and early, Thursday morning. We all got settled in to one of
+ServerCentral&#39;s conference rooms, passed out extra keyboards and monitors, and
+got ourselves to work.</p>
+
+<p>My goals for the hackathon were to build an API for MetaCPAN to use to obtain
+CPAN Testers release summary data: The little bits of CPAN Testers data on the
+left-hand side of a release page on MetaCPAN. The existing API for this had
+been causing us some trouble over the last year or so, and it was time to fix
+it once and for all.</p>
+
+<p>To do this, I started documenting the CPAN Testers database in a
+<a href="http://metacpan.org/pod/DBIx::Class">DBIx::Class</a> schema. This served a few
+purposes: I got to go through the database, understand all the data inside,
+look to see where the data was being generated, and document everything in an
+easy-to-use ORM. Now that we have this, making new APIs for the data will be
+extremely easy.</p>
+
+<h2>Day 2 - Friday</h2>
+
+<p>Starting with day 2, I realized that I had not written a single test for the
+DBIx::Class schema I had written, so I had no clue whether it worked or not.
+The early morning was spent fixing this oversight. Once the tests were written
+and the schema debugged, I released <a href="https://metacpan.org/release/PREACTION/CPAN-Testers-Schema-0.001">the first CPAN::Testers::Schema to
+CPAN</a>.</p>
+
+<p>As is the case with free software, I immediately got constructive feedback on
+the release: <a href="https://github.com/Grinnz">Dan Book</a> and <a href="https://github.com/karenetheridge">Karen
+Etheridge</a> helped make the <code>dist.ini</code> file
+(the <a href="http://metacpan.org/pod/Dist::Zilla">Dist::Zilla</a> configuration file
+which manages my releases to CPAN) better for future releases. Thanks to both
+of them!</p>
+
+<p>With the schema ready, I could finally start building the CPAN Testers release
+API. This API exposes the release summary data which shows how many test result
+passes and failures a single CPAN release has. So, if I want to know how many
+test results were submitted with pass or fail on my newly-released
+distribution, I can ask the release API. This can be helpful for CPAN author
+dashboards, and is used by MetaCPAN to display the results right in with the
+module documentation.</p>
+
+<p>For this API, I picked a couple modern web technologies:</p>
+
+<ul>
+<li><a href="http://mojolicious.org">Mojolicious</a> is a modern web framework for modern
+Perl. It&#39;s efficient and asynchronous from the ground-up, which is useful for
+transferring large quantities of data (like CPAN Testers).  *
+<a href="https://www.openapis.org">OpenAPI</a> is a JSON web API specification (similar to
+WSDL for XML). The API definition file describes and documents the API for easy
+consumption.  *
+<a href="http://metacpan.org/pod/Mojolicious::Plugin::OpenAPI">Mojolicious::Plugin::OpenAPI</a>
+reads the OpenAPI specification and produces all the routing necessary for your
+web app. This plugin made the API a lot easier to build.</li>
+</ul>
+
+<p>I started by writing the API specification. Unfortunately, the OpenAPI spec can
+be fickle, and the error messages that come out of the JSON validator difficult
+to discern. Debugging just the spec took me most of the evening. Then I started
+writing some tests for the API before we all called it a night.</p>
+
+<h2>Day 3 - Saturday</h2>
+
+<p>By Saturday I was finally able to start implementing the Release API. This
+involved writing a
+<a href="http://metacpan.org/pod/DBIx::Class::ResultSet">DBIx::Class::ResultSet</a> class
+to make querying the release summary table easier. It&#39;s almost always better to
+make your model layer smarter so that the API it defines for consumers can be
+stable, even if the underlying data schema changes. Since there are likely some
+schema changes in the future of CPAN Testers, I&#39;ve been making sure that the
+CPAN Testers schema API is as forwards-compatible as I can. This resulted in
+the <a href="https://metacpan.org/release/PREACTION/CPAN-Testers-Schema-0.002">second release of
+CPAN::Testers::Schema</a>.</p>
+
+<p>During my testing of the new
+<a href="http://metacpan.org/pod/CPAN::Testers::Schema::ResultSet::Release">CPAN::Testers::Schema::ResultSet::Release</a>
+module, I finally stumbled across
+<a href="http://metacpan.org/pod/DBIx::Class::ResultClass::HashRefInflator">DBIx::Class::ResultClass::HashRefInflator</a>.
+This automatically turns your results into hashrefs instead of objects, which
+makes them easier to compare with <a href="http://metacpan.org/pod/Test::More#is_deeply">Test::More&#39;s
+is_deeply</a>. After some confusion,
+I <a href="https://github.com/dbsrgits/dbix-class/pull/111">sent in a patch to clarify some
+documentation</a>.</p>
+
+<p>With the ResultSet class completed, the API itself was trivial: <a href="https://github.com/cpan-testers/cpantesters-api/blob/fb9ecd6f7fd3ab5c07460fd08d0e444785c3ea62/lib/CPAN/Testers/API/Controller/Release.pm#L61-L107">less than 50
+lines of code makes up the
+API</a>.
+The combination of DBIx::Class and Mojolicious::Plugin::OpenAPI is wonderful.</p>
+
+<p>By midday, I had released <a href="https://metacpan.org/release/PREACTION/CPAN-Testers-API-0.001">the first version of
+CPAN::Testers::API</a>.
+Now all that remained was figuring out how to deploy it, which was easier said
+than done.</p>
+
+<p>I&#39;d been <a href="http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/">previously working on a CPAN Testers deployment with
+Rex</a> at the
+<a href="http://act.qa-hackathon.org/qa2016/">2016 Perl QA Hackathon in Rugby</a>. Using
+Rex to install <a href="http://perlbrew.pl">perlbrew</a>, a brand-new modern Perl 5.24,
+and set up <a href="http://metacpan.org/pod/local::lib">a local::lib</a> was easy. <a href="https://github.com/cpan-testers/cpantesters-deploy/blob/master/Rexfile">The
+CPAN Testers
+Rexfile</a>
+also sets up a <code>cpantesters</code> user which will run all our apps with reduced
+privileges.</p>
+
+<p>I decided that the central Rexfile in <a href="https://github.com/cpan-testers/cpantesters-deploy">the cpantesters-deploy
+repository</a> would set up
+machines, install the right Perl, install the right OS prereqs, and prepare the
+machine for working in a CPAN Testers role (with minor adjustments for the
+particular role). The Rexfile in the individual application (like <a href="https://github.com/cpan-testers/cpantesters-api/blob/master/Rexfile">the Rexfile
+in
+CPAN::Testers::API</a>)
+would deploy the application. This way the project managers can give access to
+deploy individual apps to anyone, and changes made to an app can be easily
+deployed when completed.</p>
+
+<p>The key part of any good devops strategy is being able to test the deployment.
+I was pleased that <a href="https://www.vagrantup.com">Vagrant</a> made it amazingly easy
+to spin up a small VM to test the CPAN Testers deployment. <a href="https://github.com/cpan-testers/cpantesters-deploy/blob/master/Vagrantfile">A simple
+configuration in a
+Vagrantfile</a>,
+<a href="https://github.com/cpan-testers/cpantesters-deploy/blob/5cf6809b6fee0542a136dcd3f6c28ff338af6dbc/Rexfile#L47-L54">a special &quot;environment&quot; in the
+Rexfile</a>,
+and now I can test deployments over and over until they work the way I want.</p>
+
+<h2>Day 4 - Sunday</h2>
+
+<p>On Sunday, I woke up to a broken CPAN Testers: The Metabase, the
+highly-available destination database for incoming test reports, was filled up.
+Metabase presently uses <a href="https://aws.amazon.com/simpledb/">Amazon SimpleDB</a>,
+which has a hard limit on the size of a database. You can have up to 250
+databases in an account, though, so we just need to manually switch over to a
+new database. This happens about once every year, and is just one of the
+annoyances of SimpleDB. After this was fixed, I was able to return to working
+on the release API.</p>
+
+<p>There was a performance problem with the API: Asking for all the releases took
+about a minute, which is fine. Asking for a single dist&#39;s releases, or a single
+author&#39;s releases took less time, which was great. But asking for all the
+releases updated since a certain date/time took hours before I simply gave up.
+I tried adding some new indexes, and I tried playing around with the query, but
+nothing I did could <a href="https://gist.github.com/preaction/4e94f77f16d5cd4fd9953eac5579ae96">improve this query&#39;s performance to acceptable
+levels</a>.
+So, for now, querying for all releases since a certain date/time is disabled.
+Likely the solution is to denormalize the data just a little to add a date/time
+field to the release summary, but that will have to wait for another day.</p>
+
+<p>So after removing that small part of the API, and fixing some other bugs, I
+<a href="https://metacpan.org/release/PREACTION/CPAN-Testers-API-0.002">released the second version of the
+CPAN::Testers::API</a>.
+With that done, all I needed was an acceptable deployment strategy: The API
+daemon needs to start, automatically restart if stopped, log to a predictable
+location, and all of this needs to be deployed without root privileges.</p>
+
+<p>I&#39;ve used <a href="https://cr.yp.to/daemontools.html">the BSD daemontools</a> before, and
+this seems right up its alley: Make the original init system (in this case,
+systemd) run the <code>svcscan</code> utility as the non-root user to scan a directory
+that the non-root user has access to. Any services written to this directory
+get automatically started. The non-root user has complete control over
+everything without needing root privileges, and I get to avoid messing around
+with the system&#39;s initd (whatever that happens to be).</p>
+
+<p>In the years since I&#39;ve done this, some new options have appeared, like
+<a href="http://smarden.org/runit/">runit</a>,
+<a href="http://skarnet.org/software/s6/index.html">s6</a>, and
+<a href="https://jdebp.eu/Softwares/nosh/index.html">nosh</a>. Unfortunately, before I
+could finish my research, it was time to go. The current front-runner seems
+like nosh, which means the final step before unleashing this API on the world
+is just writing a nosh service bundle and some remote monitoring.</p>
+
+            </section>
+            <section id="section-3">
+                <p>Altogether, this was a greatly productive hackathon. It was great to see the
+MetaCPAN folks, and meet a couple new ones. Thanks to my employer,
+<a href="http://servercentral.com">ServerCentral</a>, for giving me the time, and to all
+the sponsors for making this happen.</p>
+
+<p>The next steps for me are documenting all the to-do items that I stumbled
+across or left unfinished in the <a href="https://github.com/cpan-testers/cpantesters-api/issues">CPAN Testers API issue
+tracker</a> and <a href="https://github.com/cpan-testers/cpantesters-schema/issues">the CPAN
+Testers Schema issue
+tracker</a>. These
+to-do items will be written in the issue tracker so that anyone who wants to
+help contribute can do so. There is quite a lot of things to do for CPAN
+Testers, and every little bit can help! If you&#39;d like to contribute, you can
+talk to us on <a href="https://chat.mibbit.com/?channel=%23cpantesters-discuss&amp;server=irc.perl.org">#cpantesters-discuss on
+irc.perl.org</a>
+or e-mail me at <a href="mailto:doug@preaction.me">doug@preaction.me</a>.</p>
+
+<p>This hackathon wouldn&#39;t have been possible without the overwhelming support of
+our sponsors. Our platinum sponsors were <a href="https://www.booking.com">Booking.com</a>
+and <a href="http://cpanel.com/">cPanel</a>. Our gold sponsors were
+<a href="https://www.elastic.co/">Elastic</a>, <a href="https://www.fastmail.com/">FastMail</a>, and
+<a href="http://Perl.careers/">Perl Careers</a>. Our silver sponsors were
+<a href="http://www.activestate.com/perl">ActiveState</a>, <a href="http://www.perl-services.de">Perl
+Services</a>, and
+<a href="https://www.servercentral.com/">ServerCentral</a>. Our bronze sponsors were
+<a href="https://www.meetup.com/Vienna-Perl-Mongers/">Vienna.pm</a>,
+<a href="http://easyname.at/">Easyname</a>, and the <a href="https://www.enlightenedperl.org/">Enlightened Perl Organisation
+(EPO)</a>. Please take a moment to thank them
+for helping our Perl community.</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2016/11/25/meta-hack-log/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2016/11/25/meta-hack-log/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

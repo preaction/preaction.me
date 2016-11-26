@@ -2,10 +2,35 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/cpantesters/</id>
     <title>preaction</title>
-    <updated>2016-04-30T00:00:00Z</updated>
+    <updated>2016-11-25T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/cpantesters.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/cpantesters/" rel="alternate" />
     <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/11/25/meta-hack-log/</id>
+        <title>meta::hack log</title>
+        <link href="http://preaction.me/blog/2016/11/25/meta-hack-log/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Last week, I attended meta::hack, the <a href="http://metacpan.org">MetaCPAN</a> hackathon
+in Chicago. I&#39;m the maintainer for <a href="http://cpantesters.org">CPAN Testers</a>, the
+central database for CPAN users to send in test reports on CPAN distributions
+and one of MetaCPAN&#39;s data sources. I asked to join them so I could improve how
+MetaCPAN consumes CPAN Testers data, and ensure the stability and reliability
+of that consumption.</p>
+
+<p>Here&#39;s a detailed log of what I was able to accomplish, and information on the
+new development of CPAN Testers.</p>
+
+                <p><a href="http://preaction.me/blog/2016/11/25/meta-hack-log/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+            </p>
+        ]]></content>
+        <updated>2016-11-25T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpantesters" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/04/30/perl-qa-hackathon-cpantesters/</id>
         <title>Perl QA Hackathon - CPANTesters</title>
