@@ -2,10 +2,186 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2016-11-25T00:00:00Z</updated>
+    <updated>2016-12-04T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/12/04/yuletide-logging/</id>
+        <title>Yuletide Logging</title>
+        <link href="http://preaction.me/blog/2016/12/04/yuletide-logging/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <blockquote>
+  <p>&#39;Twas a night before Christmas and on the ops floor <br>
+  All the servers were humming behind the closed door <br>
+  The app was deployed to the servers with care <br>
+  In hopes that the customers soon would be there <br>
+  When from out of the phone there arose such a clatter <br>
+  I sprang out of my chair to see what was the matter <br>
+  &quot;The website is down!&quot; said the boss with a shout <br>
+  &quot;We need to make money, so figure it out!&quot; <br>
+  I logged in to the server and looked all around <br>
+  But the app had no logging; no reason was found <br>
+  With no other choice, I called the developer <br>
+  Who said &quot;just restart it, I&#39;m sure that&#39;ll fix &#39;er&quot; <br>
+  I ran the right service, up the app came <br>
+  Only to come down again and again <br>
+  If there but was a way to know what was wrong <br>
+  I could fix it for sure, but no logging was found</p>
+</blockquote>
+
+<p>Good logging is crucial for applications in production. In an emergency,
+you will want it to be as easy as possible to track down problems when
+they happen. With good logs you can ensure that minor bugs don&#39;t cause
+major downtime and data loss problems. Good logs can help track down
+security issues and can provide an auditable trail of changes to track
+down who did what and when.</p>
+
+<p><a href="http://metacpan.org/pod/Log::Any">Log::Any</a> is a lightweight, generic API built for interoperable
+logging for <a href="http://cpan.org">CPAN</a> modules. Much like
+<a href="http://dbi.perl.org">DBI</a> allows interoperable database interfaces,
+<a href="http://metacpan.org/pod/CHI">CHI</a> allows interoperable caching
+interfaces, and <a href="http://plackperl.org">PSGI</a> allows interoperable web
+applications, Log::Any allows a CPAN module to produce logs that fit
+into your environment whether you just want to see logs on your
+terminal, you&#39;re using <a href="http://mschilli.github.io/log4perl/">Log4perl</a>
+to directly send e-mail alerts to your operations team, or you&#39;re using
+a local <a href="http://www.rsyslog.com">rsyslog</a> daemon to transmit logs to an
+<a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> instance
+via <a href="https://www.elastic.co/products/logstash">Logstash</a>.</p>
+
+<p>To achieve this interoperability, Log::Any is split up into two parts:
+Producers produce logs using a Log::Any object, and consumers consume those
+logs using a Log::Any::Adapter object. First we&#39;ll cover how to produce logs,
+then we&#39;ll cover how to consume them to display logs on your terminal.</p>
+
+<h2>Setting our Application up to Log: Using a Producer</h2>
+
+<p>To get started using Log::Any to produce logs, we just need to use and create a
+Log::Any object. The simplest way is by creating a single log object for your
+program when importing Log::Any:</p>
+
+<pre><code>use Log::Any &#39;$LOG&#39;;
+</code></pre>
+
+<p>If you&#39;ve got an object-oriented module, you can load your log object lazily
+using the <code>get_logger</code> method and store it in your object:</p>
+
+<pre><code>use Moo;
+use Log::Any;
+has log =&gt; ( is =&gt; &#39;lazy&#39;, default =&gt; sub { Log::Any-&gt;get_logger } );
+</code></pre>
+
+<p>Now that we have a log object, we can start producing logs. By default, they
+won&#39;t go anywhere, and we&#39;ll set up a consumer later. For now, let&#39;s just write
+some logs to tell our operations staff what&#39;s going on in our application.</p>
+
+<p>Log::Any has methods to produce logs at various named severity levels,
+including the standard <a href="https://en.wikipedia.org/wiki/Log4j#Log4j_Log_Levels">Log4j-ish
+levels</a> of <code>fatal</code>,
+<code>error</code>, <code>warning</code>, <code>info</code>, <code>debug</code>, and <code>trace</code>, and the <a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">Syslog
+severity levels</a>
+(which include &quot;critical&quot;, &quot;alert&quot;, and &quot;emergency&quot;). To emit a log
+message, simply call one of these methods with the message as an
+argument:</p>
+
+<pre><code>use DBI;
+use Log::Any &#39;$LOG&#39;;
+
+$LOG-&gt;info( &quot;Connecting to database&quot; );
+my $dbh = DBI-&gt;connect( &#39;dbi:SQLite:data.db&#39; );
+</code></pre>
+
+<p>Log::Any also has a set of formatter methods similar to
+<a href="http://perldoc.perl.org/functions/sprintf.html">sprintf</a> to make formatting
+log messages easier. These methods are the same name as the severity level, but
+with an &quot;f&quot; at the end (like <code>errorf()</code>, <code>warningf()</code>, <code>infof()</code>, etc...).
+These methods take a format string as the first argument, and format the
+remaining arguments using the format string (exactly like
+<a href="http://perldoc.perl.org/functions/sprintf.html">sprintf</a>). Any objects given
+to these methods will be printed with
+<a href="http://perldoc.perl.org/Data/Dumper.html">Data::Dumper</a> for quick debugging.</p>
+
+<p>The log message is returned by the log method and can be used further, for
+example, to throw an exception with
+<a href="http://perldoc.perl.org/functions/die.html">die</a> after writing a log message
+with <code>errorf()</code>, or to use <a href="http://perldoc.perl.org/functions/warn.html">warn</a>
+to ensure the log message is seen on STDERR even if you&#39;re logging to a file.</p>
+
+<pre><code>use DBI;
+use Log::Any &#39;$LOG&#39;;
+
+$LOG-&gt;info( &quot;Connecting to database&quot; );
+my $dbh = DBI-&gt;connect( &#39;dbi:SQLite:data.db&#39; );
+if ( !$dbh ) {
+    die $LOG-&gt;errorf( &#39;Could not connect to database: %s&#39;, $DBI::errstr );
+}
+$LOG-&gt;info( &quot;Database connected&quot; );
+</code></pre>
+
+<h2>Storing the Logs Somewhere: Wiring up a Consumer</h2>
+
+<blockquote>
+  <p>The major difference between a thing that might go wrong and a thing that
+  cannot possibly go wrong is that when a thing that cannot possibly go wrong
+  goes wrong it usually turns out to be impossible to get at or repair.
+  <cite>Douglas Adams</cite></p>
+</blockquote>
+
+<p>Now that we have some log lines being written, we need to give them somewhere
+to go. Log::Any has a set of &quot;adapters&quot; (in the
+<a href="http://metacpan.org/pod/Log::Any::Adapter">Log::Any::Adapter</a> namespace) that
+allow logs written using Log::Any to be written to various places.</p>
+
+<p>For example, if you want to throw logs to <code>STDERR</code> on your terminal,
+you can set up the &quot;Stderr&quot; adapter:</p>
+
+<pre><code>use Log::Any::Adapter &#39;Stderr&#39;;
+</code></pre>
+
+<p>Now when any log line is written, it will go to <code>STDERR</code>.</p>
+
+<p>There are adapters to make Log::Any log to syslog, files, and even other
+logging systems like <a href="http://metacpan.org/pod/Log::Dispatch">Log::Dispatch</a> and
+<a href="http://metacpan.org/pod/Log::Log4perl">Log::Log4perl</a>. These adapters make
+Log::Any a perfect choice for logging in CPAN modules: If the user wants to see
+logs, they get to see them in the same way as all other logs in their
+application, otherwise, the logging is there when they need it.</p>
+
+<p>The adapter is also where we decide what level of logs we want to see.
+Some adapters handle this with their own configuration, like
+Log::Dispatch and Log::Log4perl. For our simple example, we need to
+handle it ourselves. Let&#39;s allow our operations staff to set the
+<code>LOG_LEVEL</code> environment variable, and have it default to <code>warn</code>.</p>
+
+<pre><code>use Log::Any::Adapter &#39;Stderr&#39;, log_level =&gt; $ENV{LOG_LEVEL} || &quot;warn&quot;;
+</code></pre>
+
+<p>That&#39;s all there is to getting started using Log::Any. For those concerned
+about bloating their dependency tree, Log::Any has no non-core dependencies.
+For those who value backwards-compatibility, Log::Any is supported back to very
+early versions of Perl 5.8 (and if it is broken for versions before that,
+<a href="http://github.com/preaction/Log-Any">patches are welcome</a>).</p>
+
+<blockquote>
+  <p>Now that the logging is hung in our program with care <br>
+  I searched for the log file I knew would be there <br>
+  Inside I would find all the things I could know <br>
+  About problems and issues and something to go <br>
+  Now that I know what the problem&#39;s about <br>
+  I can fix it for sure so the app just stays up</p>
+</blockquote>
+
+                <p><a href="http://preaction.me/blog/2016/12/04/yuletide-logging/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/logging/">logging</a>
+            </p>
+        ]]></content>
+        <updated>2016-12-04T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="logging" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/11/25/meta-hack-log/</id>
         <title>meta::hack log</title>
@@ -119,39 +295,6 @@ CPAN</a>.</p>
         <updated>2016-08-27T00:00:00Z</updated>
         <category term="perl" />
         <category term="logging" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/</id>
-        <title>New Log::Any Trial Release 1.041</title>
-        <link href="http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>I&#39;ve just released a new <a href="http://metacpan.org/pod/Log::Any">Log::Any</a>
-trial release. This release improves performance immensely when there
-are no log output adapters configured. This release also now returns the
-formatted log string from logging methods, allowing the log message to
-be used by a <code>die</code> or <code>warn</code> call.</p>
-
-<p>Because of these changes, there is a very small chance of an
-incompatibility: Log::Any logging methods used to return whatever the
-configured adapter returned (this was undocumented and was not
-a feature). Now they always return the formatted log message.</p>
-
-<p>So if you depend on Log::Any, please give
-<a href="http://www.cpan.org/authors/id/P/PR/PREACTION/Log-Any-1.041-TRIAL.tar.gz">Log-Any-1.041-TRIAL</a>
-a test run through and report any issues to <a href="http://github.com/preaction/Log-Any/issues">the Log-Any Github
-tracker</a>.</p>
-
-                <p><a href="http://preaction.me/blog/2016/08/18/new-log-any-trial-release-1-041/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/logging/">logging</a>
-                <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
-            </p>
-        ]]></content>
-        <updated>2016-08-18T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="logging" />
-        <category term="cpan" />
     </entry>
 </feed>
 
