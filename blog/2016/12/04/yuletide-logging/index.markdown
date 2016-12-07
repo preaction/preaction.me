@@ -42,6 +42,8 @@ a local [rsyslog](http://www.rsyslog.com) daemon to transmit logs to an
 [ElasticSearch](https://www.elastic.co/products/elasticsearch) instance
 via [Logstash](https://www.elastic.co/products/logstash).
 
+---
+
 To achieve this interoperability, Log::Any is split up into two parts:
 Producers produce logs using a Log::Any object, and consumers consume those
 logs using a Log::Any::Adapter object. First we'll cover how to produce logs,
