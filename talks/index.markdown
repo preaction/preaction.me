@@ -30,6 +30,11 @@ These are talks I've given at Perl Mongers meetings and Perl conferences.
 * [Introduction to XS in C++ (2012-03-22)](/talks/Perl/Intro-XS-CXX.html)
 * [Testing with PSGI (2011-06-29)](/talks/Perl/PSGI-Testing.html)
 
+## JavaScript
+
+* [What's New In JavaScript for the Occasional JavaScript
+  Programmer](http://preaction.github.io/ES6-For-JS-Irregulars)
+
 ## Flex
 
 * [SwfConduit - A Flash Socket Server (2012-05-22)](/talks/Flex/SwfConduit.html)
