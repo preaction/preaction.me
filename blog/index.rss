@@ -7,6 +7,30 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.081</generator>
         <item>
+            <title>ES6 for the Occasional JavaScript Programmer</title>
+            <link>http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/</link>
+            <guid>http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/</guid>
+            <description><![CDATA[
+                <p>A <a href="https://www.meetup.com/ChicagoPM/events/235316571/">few weeks ago I gave
+a talk</a> for <a href="http://chicago.pm.org">the
+Chicago Perl Mongers</a> called &quot;ES6 for the
+JavaScript Irregular&quot;. A lot of developers are only occasional
+JavaScript developers, and so may not be fully-informed on all the
+latest developments in the JavaScript world. If this is you, you can
+<a href="https://github.com/preaction/ES6-For-JS-Irregulars/blob/master/NOTES.md">read my notes on ECMAScript 6, the latest specification of JavaScript,
+on my
+Github</a>.</p>
+
+                    <p><a href="http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/javascript/">javascript</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Wed, 14 Dec 2016 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Yuletide Logging</title>
             <link>http://preaction.me/blog/2016/12/04/yuletide-logging/</link>
             <guid>http://preaction.me/blog/2016/12/04/yuletide-logging/</guid>
@@ -150,27 +174,6 @@ repository</a>.</p>
             ]]></description>
             <pubDate>
                 Sun, 06 Nov 2016 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Log::Any 1.042 Released</title>
-            <link>http://preaction.me/blog/2016/08/27/log-any-1-042-released/</link>
-            <guid>http://preaction.me/blog/2016/08/27/log-any-1-042-released/</guid>
-            <description><![CDATA[
-                <p>Since <a href="http://cpantesters.org/distro/L/Log-Any.html">CPANTesters for Log-Any</a>
-are all showing green for <a href="http://blogs.perl.org/users/preaction/2016/08/new-logany-trial-release-1041.html">last week&#39;s trial
-release</a>,
-I&#39;ve pushed a <a href="https://metacpan.org/release/PREACTION/Log-Any-1.042">new standard release of Log::Any 1.042 to
-CPAN</a>.</p>
-
-                    <p><a href="http://preaction.me/blog/2016/08/27/log-any-1-042-released/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                    <a href="http://preaction.me/blog/tag/logging/">logging</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sat, 27 Aug 2016 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

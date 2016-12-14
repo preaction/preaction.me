@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/javascript/</id>
+    <title>preaction</title>
+    <updated>2016-12-14T00:00:00Z</updated>
+    <link href="http://preaction.me/blog/tag/javascript.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/javascript/" rel="alternate" />
+    <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/</id>
+        <title>ES6 for the Occasional JavaScript Programmer</title>
+        <link href="http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>A <a href="https://www.meetup.com/ChicagoPM/events/235316571/">few weeks ago I gave
+a talk</a> for <a href="http://chicago.pm.org">the
+Chicago Perl Mongers</a> called &quot;ES6 for the
+JavaScript Irregular&quot;. A lot of developers are only occasional
+JavaScript developers, and so may not be fully-informed on all the
+latest developments in the JavaScript world. If this is you, you can
+<a href="https://github.com/preaction/ES6-For-JS-Irregulars/blob/master/NOTES.md">read my notes on ECMAScript 6, the latest specification of JavaScript,
+on my
+Github</a>.</p>
+
+                <p><a href="http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/javascript/">javascript</a>
+            </p>
+        ]]></content>
+        <updated>2016-12-14T00:00:00Z</updated>
+        <category term="javascript" />
+    </entry>
+</feed>
+
