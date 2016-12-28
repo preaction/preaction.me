@@ -123,7 +123,10 @@ JSON, can be easily manipulated with simple tools like
 <a href="https://stedolan.github.io/jq/"><code>jq</code></a> or
 <a href="http://preaction.me/yertl/">ETL::Yertl</a>:</p>
 
-<pre><code># Get all Statocles release test data updated since the beginning of 2016
+<pre><code># Get all test data for every release of the CPAN-Testers-API distribution
+curl &#39;http://api.cpantesters.org/v1/release/dist/CPAN-Testers-API&#39;
+
+# Get all Statocles release test data updated since the beginning of 2016
 curl &#39;http://api.cpantesters.org/v1/release/dist/Statocles?since=2016-01-01T00:00:00&#39;
 
 # Select all of my releases where there was a failure report
