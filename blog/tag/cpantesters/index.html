@@ -52,6 +52,49 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/">CPAN Testers Has a New API</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-12-27">
+                            Posted on 2016-12-27
+                        </time>
+                        <a data-disqus-identifier="/2016/12/27/cpan-testers-has-a-new-api/index.markdown" href="/blog/2016/12/27/cpan-testers-has-a-new-api/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>As part of <a href="https://metacpan.org/about/meta_hack">the MetaCPAN hackathon,
+meta::hack</a>, I was invited to work
+on the CPAN Testers integration. <a href="http://cpantesters.org">CPAN Testers</a>
+is a community of <a href="http://cpan.org">CPAN</a> users who send in test reports
+for CPAN modules as they are uploaded. <a href="http://metacpan.org">MetaCPAN</a>
+adds a summary of those test reports to every CPAN distribution to help
+you determine which module you&#39;d most like to use. For quite a few
+months, this integration was broken, and the nature of the current
+integration (a SQLite database) means it is not as generally useful as
+it could be.</p>
+
+<p>So, I decided that the best way to improve the CPAN Testers / MetaCPAN
+integration was to build a <a href="http://api.cpantesters.org">new CPAN Testers
+API</a>. This API uses <a href="http://metacpan.org/pod/CPAN::Testers::Schema">the CPAN Testers
+schema</a> to expose CPAN
+Testers data using a JSON API. This API is built using <a href="http://mojolicious.org">the Mojolicious
+web framework</a>, and an <a href="http://openapis.org">OpenAPI
+specification</a> (using
+<a href="http://metacpan.org/pod/Mojolicious::Plugin::OpenAPI">Mojolicious::Plugin::OpenAPI</a>.</p>
+
+
+                    <p><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/#section-2">Continue reading CPAN Testers Has a New API...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/11/25/meta-hack-log/">meta::hack log</a></h1>
 
                     <p class="tags">Tags:

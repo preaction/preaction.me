@@ -2,10 +2,45 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/perl/</id>
     <title>preaction</title>
-    <updated>2016-12-04T00:00:00Z</updated>
+    <updated>2016-12-27T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/perl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/perl/" rel="alternate" />
     <generator version="0.081">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/</id>
+        <title>CPAN Testers Has a New API</title>
+        <link href="http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>As part of <a href="https://metacpan.org/about/meta_hack">the MetaCPAN hackathon,
+meta::hack</a>, I was invited to work
+on the CPAN Testers integration. <a href="http://cpantesters.org">CPAN Testers</a>
+is a community of <a href="http://cpan.org">CPAN</a> users who send in test reports
+for CPAN modules as they are uploaded. <a href="http://metacpan.org">MetaCPAN</a>
+adds a summary of those test reports to every CPAN distribution to help
+you determine which module you&#39;d most like to use. For quite a few
+months, this integration was broken, and the nature of the current
+integration (a SQLite database) means it is not as generally useful as
+it could be.</p>
+
+<p>So, I decided that the best way to improve the CPAN Testers / MetaCPAN
+integration was to build a <a href="http://api.cpantesters.org">new CPAN Testers
+API</a>. This API uses <a href="http://metacpan.org/pod/CPAN::Testers::Schema">the CPAN Testers
+schema</a> to expose CPAN
+Testers data using a JSON API. This API is built using <a href="http://mojolicious.org">the Mojolicious
+web framework</a>, and an <a href="http://openapis.org">OpenAPI
+specification</a> (using
+<a href="http://metacpan.org/pod/Mojolicious::Plugin::OpenAPI">Mojolicious::Plugin::OpenAPI</a>.</p>
+
+                <p><a href="http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+            </p>
+        ]]></content>
+        <updated>2016-12-27T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpantesters" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/12/04/yuletide-logging/</id>
         <title>Yuletide Logging</title>
@@ -152,27 +187,6 @@ repository</a>.</p>
         <category term="perl" />
         <category term="logging" />
         <category term="cpan" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/08/27/log-any-1-042-released/</id>
-        <title>Log::Any 1.042 Released</title>
-        <link href="http://preaction.me/blog/2016/08/27/log-any-1-042-released/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>Since <a href="http://cpantesters.org/distro/L/Log-Any.html">CPANTesters for Log-Any</a>
-are all showing green for <a href="http://blogs.perl.org/users/preaction/2016/08/new-logany-trial-release-1041.html">last week&#39;s trial
-release</a>,
-I&#39;ve pushed a <a href="https://metacpan.org/release/PREACTION/Log-Any-1.042">new standard release of Log::Any 1.042 to
-CPAN</a>.</p>
-
-                <p><a href="http://preaction.me/blog/2016/08/27/log-any-1-042-released/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/logging/">logging</a>
-            </p>
-        ]]></content>
-        <updated>2016-08-27T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="logging" />
     </entry>
 </feed>
 
