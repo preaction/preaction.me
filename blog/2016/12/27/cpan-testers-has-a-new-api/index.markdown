@@ -63,6 +63,9 @@ JSON, can be easily manipulated with simple tools like
 [`jq`](https://stedolan.github.io/jq/) or
 [ETL::Yertl](http://preaction.me/yertl/):
 
+    # Get all test data for every release of the CPAN-Testers-API distribution
+    curl 'http://api.cpantesters.org/v1/release/dist/CPAN-Testers-API'
+
     # Get all Statocles release test data updated since the beginning of 2016
     curl 'http://api.cpantesters.org/v1/release/dist/Statocles?since=2016-01-01T00:00:00'
 
