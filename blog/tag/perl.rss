@@ -5,7 +5,7 @@
         <link>http://preaction.me/blog/tag/perl/</link>
         <atom:link href="http://preaction.me/blog/tag/perl.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
-        <generator>Statocles 0.081</generator>
+        <generator>Statocles 0.083</generator>
         <item>
             <title>CPAN Testers Has a New API</title>
             <link>http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/</link>

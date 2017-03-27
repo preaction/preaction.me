@@ -5,7 +5,35 @@
         <link>http://preaction.me/blog/</link>
         <atom:link href="http://preaction.me/blog/index.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
-        <generator>Statocles 0.081</generator>
+        <generator>Statocles 0.083</generator>
+        <item>
+            <title>Choosing a Log Level</title>
+            <link>http://preaction.me/blog/2017/03/27/choosing-a-log-level/</link>
+            <guid>http://preaction.me/blog/2017/03/27/choosing-a-log-level/</guid>
+            <description><![CDATA[
+                <p>Like all subjective decisions in technology, which log level to use is
+the cause of much angry debate. Worse, different logging systems use
+different levels: <a href="https://en.wikipedia.org/wiki/Log4j#Log4j_log_levels">Log4j has 6 severity
+levels</a>, and
+<a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">Syslog has 8 severity
+levels</a>. While both
+lists of log levels come with guidance as to which level to use when,
+there&#39;s still enough ambiguity to cause confusion.</p>
+
+<p>When choosing a log level, it&#39;s important to know how visible you want
+the message to be, how big of a problem it is, and what you want the
+user to do about it. With that in mind, this is the decision tree
+I follow when choosing a log level:</p>
+
+                    <p><a href="http://preaction.me/blog/2017/03/27/choosing-a-log-level/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/logging/">logging</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Mon, 27 Mar 2017 00:00:00 +0000
+            </pubDate>
+        </item>
         <item>
             <title>CPAN Testers Has a New API</title>
             <link>http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/</link>
@@ -142,35 +170,6 @@ new development of CPAN Testers.</p>
             ]]></description>
             <pubDate>
                 Fri, 25 Nov 2016 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Beam::Emitter v1.004 released</title>
-            <link>http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/</link>
-            <guid>http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/</guid>
-            <description><![CDATA[
-                <p>This week, I released a new version of
-<a href="http://metacpan.org/pod/Beam::Emitter">Beam::Emitter</a>. A lot has changed since
-the first releases, so here&#39;s some details on all the new features.</p>
-
-<p>Beam::Emitter is a role for turning your classes into event emitters. Being an
-event emitter allows other classes to subscribe to important events from your
-object. Subscribers can use these events to perform additional tasks, transform
-your object&#39;s data, or otherwise extend and enhance your class. Beam::Emitter
-makes your class extensible by allowing you to provide specific places for
-custom code to run.</p>
-
-<p>Since the 1.000 release last year, Beam::Emitter has gotten quite a few new
-features and bug fixes to make it easier to use and safer for your code.</p>
-
-                    <p><a href="http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                    <a href="http://preaction.me/blog/tag/beam/">beam</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Fri, 18 Nov 2016 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

@@ -2,10 +2,37 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/logging/</id>
     <title>preaction</title>
-    <updated>2016-12-04T00:00:00Z</updated>
+    <updated>2017-03-27T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/logging.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/logging/" rel="alternate" />
-    <generator version="0.081">Statocles</generator>
+    <generator version="0.083">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/03/27/choosing-a-log-level/</id>
+        <title>Choosing a Log Level</title>
+        <link href="http://preaction.me/blog/2017/03/27/choosing-a-log-level/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Like all subjective decisions in technology, which log level to use is
+the cause of much angry debate. Worse, different logging systems use
+different levels: <a href="https://en.wikipedia.org/wiki/Log4j#Log4j_log_levels">Log4j has 6 severity
+levels</a>, and
+<a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">Syslog has 8 severity
+levels</a>. While both
+lists of log levels come with guidance as to which level to use when,
+there&#39;s still enough ambiguity to cause confusion.</p>
+
+<p>When choosing a log level, it&#39;s important to know how visible you want
+the message to be, how big of a problem it is, and what you want the
+user to do about it. With that in mind, this is the decision tree
+I follow when choosing a log level:</p>
+
+                <p><a href="http://preaction.me/blog/2017/03/27/choosing-a-log-level/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/logging/">logging</a>
+            </p>
+        ]]></content>
+        <updated>2017-03-27T00:00:00Z</updated>
+        <category term="logging" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/12/04/yuletide-logging/</id>
         <title>Yuletide Logging</title>
