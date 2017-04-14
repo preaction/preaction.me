@@ -10,6 +10,7 @@
         <meta content="Statocles 0.083" name="generator">
         <link href="http://blogs.perl.org/users/preaction/2017/04/timeouts-for-parallelforkmanager.html" rel="canonical">
         
+        <link href="/theme/plugin/highlight/solarized-light.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
@@ -94,78 +95,78 @@ killed, and has been reaped, we can then start another worker.</p>
 <p>With this code, hopefully we can prevent some of the test suites for
 CPAN distributions from forcing the tester to reboot their machine.</p>
 
-<pre><code>use v5.24;
-use warnings;
-use Parallel::ForkManager;
+<pre><code class="hljs"><span class="hljs-keyword">use</span> v5.<span class="hljs-number">24</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-keyword">warnings</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-function">Parallel::ForkManager</span>;
 
-my $TIMEOUT = 10; # How long a child is running before it should be killed
+<span class="hljs-keyword">my</span> <span class="hljs-type">$TIMEOUT</span> = <span class="hljs-number">10</span>; <span class="hljs-comment"># How long a child is running before it should be killed</span><span class="hljs-comment">
+</span>
+<span class="hljs-keyword">my</span> <span class="hljs-type">@jobs</span> = <span class="hljs-number">1..20</span>; <span class="hljs-comment"># How many fake jobs to run</span><span class="hljs-comment">
+</span>
+<span class="hljs-keyword">my</span> <span class="hljs-type">$pm</span> = <span class="hljs-function">Parallel::ForkManager</span>-&gt;new( <span class="hljs-number">5</span> ); <span class="hljs-comment"># 5 max workers</span><span class="hljs-comment">
+</span>
+<span class="hljs-comment"># Hash of PID =&gt; time started or last known good</span><span class="hljs-comment">
+</span><span class="hljs-keyword">my</span> <span class="hljs-type">%watching</span>;
 
-my @jobs = 1..20; # How many fake jobs to run
+<span class="hljs-comment"># While there is still work to do, or there are still active workers</span><span class="hljs-comment">
+</span><span class="hljs-keyword">while</span> ( <span class="hljs-type">@jobs</span> || <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">running_procs</span> ) {
 
-my $pm = Parallel::ForkManager-&gt;new( 5 ); # 5 max workers
+    <span class="hljs-comment"># Check to see if any workers are finished</span><span class="hljs-comment">
+</span>    <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">reap_finished_children</span>;
 
-# Hash of PID =&gt; time started or last known good
-my %watching;
-
-# While there is still work to do, or there are still active workers
-while ( @jobs || $pm-&gt;running_procs ) {
-
-    # Check to see if any workers are finished
-    $pm-&gt;reap_finished_children;
-
-    # Check to see if any workers need to be killed because of the
-    # timeout. We must do this if we&#39;ve reached the limit of the number
-    # of jobs we want (we wait for a slot to open up), or if we&#39;ve got
-    # no more work to give out.
-    if ( $pm-&gt;running_procs &gt;= $pm-&gt;max_procs || !@jobs ) {
-        say sprintf &quot;[%5s] %2s: Checking jobs (%d running, %d left)&quot;, &#39;-----&#39;, &#39;--&#39;, scalar $pm-&gt;running_procs, scalar @jobs;
-        for my $pid ( $pm-&gt;running_procs ) {
-            if ( $watching{ $pid }{ time } + $TIMEOUT &lt; time ) {
-                # XXX: You can add a concern check here to see if it&#39;s
-                # still working on something and reset the timeout
-                # instead of killing the child. To reset the timeout,
-                # just set the current time: $watching{ $pid } = time;
-
-                # Kill the child
-                # We&#39;re being unforgiving here. You might want to use
-                # &#39;TERM&#39; instead
-                kill &#39;KILL&#39;, $pid;
-                say sprintf &quot;[%5d] %2d: Killed at %d&quot;, $pid, $watching{ $pid }{ job }, time;
+    <span class="hljs-comment"># Check to see if any workers need to be killed because of the</span><span class="hljs-comment">
+</span>    <span class="hljs-comment"># timeout. We must do this if we&#39;ve reached the limit of the number</span><span class="hljs-comment">
+</span>    <span class="hljs-comment"># of jobs we want (we wait for a slot to open up), or if we&#39;ve got</span><span class="hljs-comment">
+</span>    <span class="hljs-comment"># no more work to give out.</span><span class="hljs-comment">
+</span>    <span class="hljs-keyword">if</span> ( <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">running_procs</span> &gt;= <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">max_procs</span> || !<span class="hljs-type">@jobs</span> ) {
+        say <span class="hljs-function">sprintf</span> &quot;<span class="hljs-string">[</span><span class="hljs-type">%5s</span><span class="hljs-string">] </span><span class="hljs-type">%2s</span><span class="hljs-string">: Checking jobs (</span><span class="hljs-type">%d</span><span class="hljs-string"> running, </span><span class="hljs-type">%d</span><span class="hljs-string"> left)</span>&quot;, &#39;<span class="hljs-string">-----</span>&#39;, &#39;<span class="hljs-string">--</span>&#39;, <span class="hljs-function">scalar</span> <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">running_procs</span>, <span class="hljs-function">scalar</span> <span class="hljs-type">@jobs</span>;
+        <span class="hljs-keyword">for</span> <span class="hljs-keyword">my</span> <span class="hljs-type">$pid</span> ( <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">running_procs</span> ) {
+            <span class="hljs-keyword">if</span> ( <span class="hljs-type">$watching</span>{ <span class="hljs-type">$pid</span> }{ <span class="hljs-function">time</span> } + <span class="hljs-type">$TIMEOUT</span> &lt; <span class="hljs-function">time</span> ) {
+                <span class="hljs-comment"># XXX: You can add a concern check here to see if it&#39;s</span><span class="hljs-comment">
+</span>                <span class="hljs-comment"># still working on something and reset the timeout</span><span class="hljs-comment">
+</span>                <span class="hljs-comment"># instead of killing the child. To reset the timeout,</span><span class="hljs-comment">
+</span>                <span class="hljs-comment"># just set the current time: $watching{ $pid } = time;</span><span class="hljs-comment">
+</span>
+                <span class="hljs-comment"># Kill the child</span><span class="hljs-comment">
+</span>                <span class="hljs-comment"># We&#39;re being unforgiving here. You might want to use</span><span class="hljs-comment">
+</span>                <span class="hljs-comment"># &#39;TERM&#39; instead</span><span class="hljs-comment">
+</span>                <span class="hljs-function">kill</span> &#39;<span class="hljs-string">KILL</span>&#39;, <span class="hljs-type">$pid</span>;
+                say <span class="hljs-function">sprintf</span> &quot;<span class="hljs-string">[</span><span class="hljs-type">%5d</span><span class="hljs-string">] </span><span class="hljs-type">%2d</span><span class="hljs-string">: Killed at </span><span class="hljs-type">%d</span>&quot;, <span class="hljs-type">$pid</span>, <span class="hljs-type">$watching</span>{ <span class="hljs-type">$pid</span> }{ job }, <span class="hljs-function">time</span>;
             }
         }
 
-        # Sleep for much less than the timeout. This means we could have
-        # a process that runs for up to 25% over the timeout. Our actual
-        # timeout is between 10 and 13 seconds.
-        sleep $TIMEOUT * 0.25;
-        next;
+        <span class="hljs-comment"># Sleep for much less than the timeout. This means we could have</span><span class="hljs-comment">
+</span>        <span class="hljs-comment"># a process that runs for up to 25% over the timeout. Our actual</span><span class="hljs-comment">
+</span>        <span class="hljs-comment"># timeout is between 10 and 13 seconds.</span><span class="hljs-comment">
+</span>        <span class="hljs-function">sleep</span> <span class="hljs-type">$TIMEOUT</span> * 0.<span class="hljs-number">25</span>;
+        <span class="hljs-keyword">next</span>;
     }
 
-    # Start a new job
-    my $job = shift @jobs;
-    my $pid = $pm-&gt;start;
+    <span class="hljs-comment"># Start a new job</span><span class="hljs-comment">
+</span>    <span class="hljs-keyword">my</span> <span class="hljs-type">$job</span> = <span class="hljs-function">shift</span> <span class="hljs-type">@jobs</span>;
+    <span class="hljs-keyword">my</span> <span class="hljs-type">$pid</span> = <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">start</span>;
 
-    # Parent process: Start tracking the job worker
-    if ( $pid ) {
-        # Add to the watchdog timer
-        $watching{ $pid }{ time } = time;
-        $watching{ $pid }{ job } = $job;
-        next;
+    <span class="hljs-comment"># Parent process: Start tracking the job worker</span><span class="hljs-comment">
+</span>    <span class="hljs-keyword">if</span> ( <span class="hljs-type">$pid</span> ) {
+        <span class="hljs-comment"># Add to the watchdog timer</span><span class="hljs-comment">
+</span>        <span class="hljs-type">$watching</span>{ <span class="hljs-type">$pid</span> }{ <span class="hljs-function">time</span> } = <span class="hljs-function">time</span>;
+        <span class="hljs-type">$watching</span>{ <span class="hljs-type">$pid</span> }{ job } = <span class="hljs-type">$job</span>;
+        <span class="hljs-keyword">next</span>;
     }
 
-    # Child process: Start the job
-    say sprintf &quot;[%5d] %2d: Started Job at %d&quot;, $$, $job, time;
-    srand; # Reinitialize the random number in children
-    my $time = int ( rand() * ( $TIMEOUT * 2 ) );
-    say sprintf &quot;[%5d] %2d: Sleeping for %d&quot;, $$, $job, $time;
-    sleep $time;
-    say sprintf &quot;[%5d] %2d: Finished!&quot;, $$, $job;
+    <span class="hljs-comment"># Child process: Start the job</span><span class="hljs-comment">
+</span>    say <span class="hljs-function">sprintf</span> &quot;<span class="hljs-string">[</span><span class="hljs-type">%5d</span><span class="hljs-string">] </span><span class="hljs-type">%2d</span><span class="hljs-string">: Started Job at </span><span class="hljs-type">%d</span>&quot;, <span class="hljs-variable">$$</span>, <span class="hljs-type">$job</span>, <span class="hljs-function">time</span>;
+    <span class="hljs-function">srand</span>; <span class="hljs-comment"># Reinitialize the random number in children</span><span class="hljs-comment">
+</span>    <span class="hljs-keyword">my</span> <span class="hljs-type">$time</span> = <span class="hljs-function">int</span> ( <span class="hljs-function">rand</span>() * ( <span class="hljs-type">$TIMEOUT</span> * <span class="hljs-number">2</span> ) );
+    say <span class="hljs-function">sprintf</span> &quot;<span class="hljs-string">[</span><span class="hljs-type">%5d</span><span class="hljs-string">] </span><span class="hljs-type">%2d</span><span class="hljs-string">: Sleeping for </span><span class="hljs-type">%d</span>&quot;, <span class="hljs-variable">$$</span>, <span class="hljs-type">$job</span>, <span class="hljs-type">$time</span>;
+    <span class="hljs-function">sleep</span> <span class="hljs-type">$time</span>;
+    say <span class="hljs-function">sprintf</span> &quot;<span class="hljs-string">[</span><span class="hljs-type">%5d</span><span class="hljs-string">] </span><span class="hljs-type">%2d</span><span class="hljs-string">: Finished!</span>&quot;, <span class="hljs-variable">$$</span>, <span class="hljs-type">$job</span>;
 
-    # Child process: Finished successfully
-    $pm-&gt;finish;
+    <span class="hljs-comment"># Child process: Finished successfully</span><span class="hljs-comment">
+</span>    <span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">finish</span>;
 }
 
-$pm-&gt;reap_finished_children;
+<span class="hljs-type">$pm</span>-&gt;<span class="hljs-type">reap_finished_children</span>;
 </code></pre>
 
             </section>
