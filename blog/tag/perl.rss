@@ -7,6 +7,38 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.083</generator>
         <item>
+            <title>Timeout for Parallel::ForkManager</title>
+            <link>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</link>
+            <guid>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</guid>
+            <description><![CDATA[
+                <p>At <a href="https://www.meetup.com/ChicagoPM/events/239053113/">tonight&#39;s Chicago Perl Mongers Office
+Hours</a>, Ray came up
+with an interesting problem. While testing all of CPAN for <a href="http://www.cpantesters.org">CPAN
+Testers</a>, how do you detect when a test is
+hanging and kill it before it takes down the entire machine? How do you
+simply kill a test that is taking too long? And how do you do it without
+having a wholly separate watchdog program?</p>
+
+<p>Ray&#39;s using
+<a href="http://metacpan.org/pod/Parallel::ForkManager">Parallel::ForkManager</a>
+to execute testing jobs in parallel across multiple Perl installs. There
+are a few ways we could implement timeouts, including
+<a href="http://metacpan.org/pod/IPC::Run">IPC::Run</a>&#39;s <code>timeout</code> function, or
+the <a href="http://perldoc.perl.org/functions/alarm.html"><code>alarm</code></a> Perl
+built-in, but these must all be implemented in the child process. It&#39;d
+be nicer if we could use the parent process to watch its own children.</p>
+
+                    <p><a href="http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/code/">code</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 14 Apr 2017 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>CPAN Testers Has a New API</title>
             <link>http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/</link>
             <guid>http://preaction.me/blog/2016/12/27/cpan-testers-has-a-new-api/</guid>
@@ -147,44 +179,6 @@ features and bug fixes to make it easier to use and safer for your code.</p>
             ]]></description>
             <pubDate>
                 Fri, 18 Nov 2016 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Log::Any 1.044 TRIAL released</title>
-            <link>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</link>
-            <guid>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</guid>
-            <description><![CDATA[
-                <p>A <a href="https://metacpan.org/release/PREACTION/Log-Any-1.044-TRIAL">new trial of Log::Any (1.044) has been
-released</a>.
-This release has a couple changes that make Log::Any a bit more
-predictable:</p>
-
-<ul>
-<li>Passing in objects to formatted log methods now handles objects that
-overload stringify correctly. Previously, these objects would be given
-to Data::Dumper, which violates object encapsulation. Thanks <a href="https://github.com/mephinet">Philipp
-Gortan (@mephinet)</a>!</li>
-<li>The imported Log::Any object (<code>use Log::Any &#39;$log&#39;</code>) can now be named
-anything (like <code>$LOG</code> or <code>$foo</code>).</li>
-</ul>
-
-<p>Since <a href="http://www.cpantesters.org">CPAN Testers</a> is still catching up
-<a href="http://blog.cpantesters.org/diary/203">from its little bit of downtime a few weeks
-ago</a>, I won&#39;t be releasing this
-as stable until I get some success reports in. So, you&#39;ve got some time
-to test this against your own codebase if you need to.  Please <a href="http://github.com/preaction/Log-Any/issues">report
-any issues to the Log-Any Github
-repository</a>.</p>
-
-                    <p><a href="http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                    <a href="http://preaction.me/blog/tag/logging/">logging</a>
-                    <a href="http://preaction.me/blog/tag/cpan/">cpan</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sun, 06 Nov 2016 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

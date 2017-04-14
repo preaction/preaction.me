@@ -2,10 +2,42 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2017-03-27T00:00:00Z</updated>
+    <updated>2017-04-14T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.083">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</id>
+        <title>Timeout for Parallel::ForkManager</title>
+        <link href="http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>At <a href="https://www.meetup.com/ChicagoPM/events/239053113/">tonight&#39;s Chicago Perl Mongers Office
+Hours</a>, Ray came up
+with an interesting problem. While testing all of CPAN for <a href="http://www.cpantesters.org">CPAN
+Testers</a>, how do you detect when a test is
+hanging and kill it before it takes down the entire machine? How do you
+simply kill a test that is taking too long? And how do you do it without
+having a wholly separate watchdog program?</p>
+
+<p>Ray&#39;s using
+<a href="http://metacpan.org/pod/Parallel::ForkManager">Parallel::ForkManager</a>
+to execute testing jobs in parallel across multiple Perl installs. There
+are a few ways we could implement timeouts, including
+<a href="http://metacpan.org/pod/IPC::Run">IPC::Run</a>&#39;s <code>timeout</code> function, or
+the <a href="http://perldoc.perl.org/functions/alarm.html"><code>alarm</code></a> Perl
+built-in, but these must all be implemented in the child process. It&#39;d
+be nicer if we could use the parent process to watch its own children.</p>
+
+                <p><a href="http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/code/">code</a>
+            </p>
+        ]]></content>
+        <updated>2017-04-14T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="code" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/03/27/choosing-a-log-level/</id>
         <title>Choosing a Log Level</title>
@@ -144,31 +176,6 @@ via <a href="https://www.elastic.co/products/logstash">Logstash</a>.</p>
         <updated>2016-12-04T00:00:00Z</updated>
         <category term="perl" />
         <category term="logging" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/11/25/meta-hack-log/</id>
-        <title>meta::hack log</title>
-        <link href="http://preaction.me/blog/2016/11/25/meta-hack-log/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>Last week, I attended meta::hack, the <a href="http://metacpan.org">MetaCPAN</a> hackathon
-in Chicago. I&#39;m the maintainer for <a href="http://cpantesters.org">CPAN Testers</a>, the
-central database for CPAN users to send in test reports on CPAN distributions
-and one of MetaCPAN&#39;s data sources. I asked to join them so I could improve how
-MetaCPAN consumes CPAN Testers data, and ensure the stability and reliability
-of that consumption.</p>
-
-<p>Here&#39;s a detailed log of what I was able to accomplish, and information on the
-new development of CPAN Testers.</p>
-
-                <p><a href="http://preaction.me/blog/2016/11/25/meta-hack-log/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
-            </p>
-        ]]></content>
-        <updated>2016-11-25T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="cpantesters" />
     </entry>
 </feed>
 

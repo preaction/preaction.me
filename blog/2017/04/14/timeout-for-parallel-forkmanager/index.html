@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Timeout for Parallel::ForkManager - preaction</title>
+        <meta content="Statocles 0.083" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2017/04/timeouts-for-parallelforkmanager.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Timeout for Parallel::ForkManager</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/code/" rel="tag">code</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2017-04-14">
+                        Posted on 2017-04-14
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>At <a href="https://www.meetup.com/ChicagoPM/events/239053113/">tonight&#39;s Chicago Perl Mongers Office
+Hours</a>, Ray came up
+with an interesting problem. While testing all of CPAN for <a href="http://www.cpantesters.org">CPAN
+Testers</a>, how do you detect when a test is
+hanging and kill it before it takes down the entire machine? How do you
+simply kill a test that is taking too long? And how do you do it without
+having a wholly separate watchdog program?</p>
+
+<p>Ray&#39;s using
+<a href="http://metacpan.org/pod/Parallel::ForkManager">Parallel::ForkManager</a>
+to execute testing jobs in parallel across multiple Perl installs. There
+are a few ways we could implement timeouts, including
+<a href="http://metacpan.org/pod/IPC::Run">IPC::Run</a>&#39;s <code>timeout</code> function, or
+the <a href="http://perldoc.perl.org/functions/alarm.html"><code>alarm</code></a> Perl
+built-in, but these must all be implemented in the child process. It&#39;d
+be nicer if we could use the parent process to watch its own children.</p>
+
+            </section>
+            <section id="section-2">
+                <p>Here, then, is the result of that hacking: This code spawns 5 workers at
+a time to sleep for a random number of seconds between 1 and 20. If the
+child worker is alive for longer than the 10 second timeout (a 50%
+chance), it is forcibly killed.</p>
+
+<p>When enough workers have been spawned, we check on all of our workers to
+see if they&#39;ve lived long enough. Once a worker has finished, or been
+killed, and has been reaped, we can then start another worker.</p>
+
+<p>With this code, hopefully we can prevent some of the test suites for
+CPAN distributions from forcing the tester to reboot their machine.</p>
+
+<pre><code>use v5.24;
+use warnings;
+use Parallel::ForkManager;
+
+my $TIMEOUT = 10; # How long a child is running before it should be killed
+
+my @jobs = 1..20; # How many fake jobs to run
+
+my $pm = Parallel::ForkManager-&gt;new( 5 ); # 5 max workers
+
+# Hash of PID =&gt; time started or last known good
+my %watching;
+
+# While there is still work to do, or there are still active workers
+while ( @jobs || $pm-&gt;running_procs ) {
+
+    # Check to see if any workers are finished
+    $pm-&gt;reap_finished_children;
+
+    # Check to see if any workers need to be killed because of the
+    # timeout. We must do this if we&#39;ve reached the limit of the number
+    # of jobs we want (we wait for a slot to open up), or if we&#39;ve got
+    # no more work to give out.
+    if ( $pm-&gt;running_procs &gt;= $pm-&gt;max_procs || !@jobs ) {
+        say sprintf &quot;[%5s] %2s: Checking jobs (%d running, %d left)&quot;, &#39;-----&#39;, &#39;--&#39;, scalar $pm-&gt;running_procs, scalar @jobs;
+        for my $pid ( $pm-&gt;running_procs ) {
+            if ( $watching{ $pid }{ time } + $TIMEOUT &lt; time ) {
+                # XXX: You can add a concern check here to see if it&#39;s
+                # still working on something and reset the timeout
+                # instead of killing the child. To reset the timeout,
+                # just set the current time: $watching{ $pid } = time;
+
+                # Kill the child
+                # We&#39;re being unforgiving here. You might want to use
+                # &#39;TERM&#39; instead
+                kill &#39;KILL&#39;, $pid;
+                say sprintf &quot;[%5d] %2d: Killed at %d&quot;, $pid, $watching{ $pid }{ job }, time;
+            }
+        }
+
+        # Sleep for much less than the timeout. This means we could have
+        # a process that runs for up to 25% over the timeout. Our actual
+        # timeout is between 10 and 13 seconds.
+        sleep $TIMEOUT * 0.25;
+        next;
+    }
+
+    # Start a new job
+    my $job = shift @jobs;
+    my $pid = $pm-&gt;start;
+
+    # Parent process: Start tracking the job worker
+    if ( $pid ) {
+        # Add to the watchdog timer
+        $watching{ $pid }{ time } = time;
+        $watching{ $pid }{ job } = $job;
+        next;
+    }
+
+    # Child process: Start the job
+    say sprintf &quot;[%5d] %2d: Started Job at %d&quot;, $$, $job, time;
+    srand; # Reinitialize the random number in children
+    my $time = int ( rand() * ( $TIMEOUT * 2 ) );
+    say sprintf &quot;[%5d] %2d: Sleeping for %d&quot;, $$, $job, $time;
+    sleep $time;
+    say sprintf &quot;[%5d] %2d: Finished!&quot;, $$, $job;
+
+    # Child process: Finished successfully
+    $pm-&gt;finish;
+}
+
+$pm-&gt;reap_finished_children;
+</code></pre>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2017/04/14/timeout-for-parallel-forkmanager/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/code/">code</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/javascript/">javascript</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

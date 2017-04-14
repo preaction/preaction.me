@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>preaction</title>
+        <link>http://preaction.me/blog/tag/code/</link>
+        <atom:link href="http://preaction.me/blog/tag/code.rss" rel="self" type="application/rss+xml" />
+        <description>Blog feed of preaction</description>
+        <generator>Statocles 0.083</generator>
+        <item>
+            <title>Timeout for Parallel::ForkManager</title>
+            <link>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</link>
+            <guid>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</guid>
+            <description><![CDATA[
+                <p>At <a href="https://www.meetup.com/ChicagoPM/events/239053113/">tonight&#39;s Chicago Perl Mongers Office
+Hours</a>, Ray came up
+with an interesting problem. While testing all of CPAN for <a href="http://www.cpantesters.org">CPAN
+Testers</a>, how do you detect when a test is
+hanging and kill it before it takes down the entire machine? How do you
+simply kill a test that is taking too long? And how do you do it without
+having a wholly separate watchdog program?</p>
+
+<p>Ray&#39;s using
+<a href="http://metacpan.org/pod/Parallel::ForkManager">Parallel::ForkManager</a>
+to execute testing jobs in parallel across multiple Perl installs. There
+are a few ways we could implement timeouts, including
+<a href="http://metacpan.org/pod/IPC::Run">IPC::Run</a>&#39;s <code>timeout</code> function, or
+the <a href="http://perldoc.perl.org/functions/alarm.html"><code>alarm</code></a> Perl
+built-in, but these must all be implemented in the child process. It&#39;d
+be nicer if we could use the parent process to watch its own children.</p>
+
+                    <p><a href="http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/code/">code</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Fri, 14 Apr 2017 00:00:00 +0000
+            </pubDate>
+        </item>
+    </channel>
+</rss>
+
