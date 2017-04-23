@@ -52,6 +52,43 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html">Mojolicious Triumphs Over Legacy Code</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/mojolicious/" rel="tag">mojolicious</a>
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-02-13">
+                            Posted on 2015-02-13
+                        </time>
+                        <a data-disqus-identifier="/2015/02/13/mojolicious-triumphs-over-legacy-code.markdown" href="/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>I got a text at 8:00am:</p>
+
+<blockquote>
+  <p>&quot;Hey, can you jump on a conference call?&quot;</p>
+</blockquote>
+
+<p>Groggy and disoriented, I blearily type the conference line and enter my
+passcode, followed by the pound or hash sign. At the tone, I would be the 6th
+person to enter the conference. Tone.</p>
+
+<blockquote>
+  <p>&quot;The app is down, and trading has stopped.&quot;</p>
+</blockquote>
+
+
+                    <p><a href="/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading Mojolicious Triumphs Over Legacy Code...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/01/21/managing-sql-data-with-yertl.html">Managing SQL Data with Yertl</a></h1>
 
                     <p class="tags">Tags:
@@ -214,64 +251,6 @@ new programming language. I didn&#39;t realize my mistake until it was too late.
 
 
                     <p><a href="/blog/2014/07/19/between-learning-and-doing.html#section-2">Continue reading Between Learning and Doing...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html">perlsloc - Count Perl Source Lines with Perl::Tidy</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/scripts/" rel="tag">scripts</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2014-06-29">
-                            Posted on 2014-06-29
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.markdown" href="/blog/2014/06/29/perlsloc-count-perl-source-lines-with-perl-tidy.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2014/06/perlsloc---count-perl-source-lines-with-perltidy.html">
-                                <em>perlsloc - Count Perl Source Lines with Perl::Tidy</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>While spending some time putting together my own <a href="https://github.com/preaction/dot-files/blob/master/perltidyrc">perltidyrc
-file</a>, I became
-intimately familiar with the <a href="https://metacpan.org/pod/distribution/Perl-Tidy/bin/perltidy">Perl::Tidy
-documentation</a>.</p>
-
-<p>One day, I decided to find out exactly how much code I was maintaining. Since
-perltidy can strip comments and POD, and also normalize the source code to make
-a fair measurement, it&#39;s a perfect tool for counting Source Lines of Code
-(SLOC).</p>
-
-<p>Here&#39;s a small shell script using <code>ack</code>, <code>perltidy</code>, <code>xargs</code>, and <code>wc</code> to count
-the source lines of code in any number of directories.</p>
-
-<pre><code>ack -f --perl $@ | xargs -L 1 perltidy --noprofile --delete-pod --mbl=0 --standard-output | wc -l
-</code></pre>
-
-<p><code>ack -f</code> lists the files that would be searched, and <code>--perl</code> searches Perl
-files, so we get ack&#39;s heuristics for finding Perl files. <code>xargs -L 1</code> invokes
-the following command for every 1 line of input. The <code>perltidy</code> command strips
-the pod and tightens up the whitespace and writes the result to stdout, which
-<code>wc -l</code> will then count, line by line.</p>
-
-<p>So, as an example, the current <a href="http://metacpan.org/release/Statocles">Statocles</a> release
-has 50% more test lines than source lines:</p>
-
-<pre><code>» perlsloc lib bin
-    1034
-» perlsloc t
-    1633
-</code></pre>
-
-
 
             </article>
         </main>

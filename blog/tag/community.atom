@@ -2,10 +2,39 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/community/</id>
     <title>preaction</title>
-    <updated>2016-02-15T00:00:00Z</updated>
+    <updated>2017-04-23T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/community.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/community/" rel="alternate" />
     <generator version="0.083">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/</id>
+        <title>Nerds Rejecting Nerds</title>
+        <link href="http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p><a href="https://medium.com/@maradydd/when-nerds-collide-31895b01e68c">https://medium.com/@maradydd/when-nerds-collide-31895b01e68c</a></p>
+
+<p>I was linked to this article after a discussion that was triggered by
+a Tweet: <a href="https://twitter.com/shadowcat_mst/status/852265380156510214">https://twitter.com/shadowcat_mst/status/852265380156510214</a></p>
+
+<p>In this article, the author describes a group called &quot;weird nerds&quot;,
+later renamed &quot;hackers&quot;, and goes through some of the reasons why this
+group is rejecting new members of their community (namely &quot;brogrammers&quot;
+and &quot;geek feminists&quot;, a false equivalence if ever there was one).</p>
+
+<p>As someone who fits the author&#39;s idea of a hacker (the classical
+definition of hacker, not someone who breaks into computers), and yet
+has never felt like part of the hacker community, there are a lot of
+things in here that are bad, but I&#39;ll comment for now on a couple
+quotes:</p>
+
+                <p><a href="http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/community/">community</a>
+            </p>
+        ]]></content>
+        <updated>2017-04-23T00:00:00Z</updated>
+        <category term="community" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/</id>
         <title>A Community is a Reflection of its Leaders</title>

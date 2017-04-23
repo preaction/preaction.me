@@ -2,10 +2,39 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2017-04-14T00:00:00Z</updated>
+    <updated>2017-04-23T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.083">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/</id>
+        <title>Nerds Rejecting Nerds</title>
+        <link href="http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p><a href="https://medium.com/@maradydd/when-nerds-collide-31895b01e68c">https://medium.com/@maradydd/when-nerds-collide-31895b01e68c</a></p>
+
+<p>I was linked to this article after a discussion that was triggered by
+a Tweet: <a href="https://twitter.com/shadowcat_mst/status/852265380156510214">https://twitter.com/shadowcat_mst/status/852265380156510214</a></p>
+
+<p>In this article, the author describes a group called &quot;weird nerds&quot;,
+later renamed &quot;hackers&quot;, and goes through some of the reasons why this
+group is rejecting new members of their community (namely &quot;brogrammers&quot;
+and &quot;geek feminists&quot;, a false equivalence if ever there was one).</p>
+
+<p>As someone who fits the author&#39;s idea of a hacker (the classical
+definition of hacker, not someone who breaks into computers), and yet
+has never felt like part of the hacker community, there are a lot of
+things in here that are bad, but I&#39;ll comment for now on a couple
+quotes:</p>
+
+                <p><a href="http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/community/">community</a>
+            </p>
+        ]]></content>
+        <updated>2017-04-23T00:00:00Z</updated>
+        <category term="community" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</id>
         <title>Timeout for Parallel::ForkManager</title>
@@ -122,60 +151,6 @@ Github</a>.</p>
         ]]></content>
         <updated>2016-12-14T00:00:00Z</updated>
         <category term="javascript" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/12/04/yuletide-logging/</id>
-        <title>Yuletide Logging</title>
-        <link href="http://preaction.me/blog/2016/12/04/yuletide-logging/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <blockquote>
-  <p>&#39;Twas a night before Christmas and on the ops floor <br>
-  All the servers were humming behind the closed door <br>
-  The app was deployed to the servers with care <br>
-  In hopes that the customers soon would be there <br>
-  When from out of the phone there arose such a clatter <br>
-  I sprang out of my chair to see what was the matter <br>
-  &quot;The website is down!&quot; said the boss with a shout <br>
-  &quot;We need to make money, so figure it out!&quot; <br>
-  I logged in to the server and looked all around <br>
-  But the app had no logging; no reason was found <br>
-  With no other choice, I called the developer <br>
-  Who said &quot;just restart it, I&#39;m sure that&#39;ll fix &#39;er&quot; <br>
-  I ran the right service, up the app came <br>
-  Only to come down again and again <br>
-  If there but was a way to know what was wrong <br>
-  I could fix it for sure, but no logging was found</p>
-</blockquote>
-
-<p>Good logging is crucial for applications in production. In an emergency,
-you will want it to be as easy as possible to track down problems when
-they happen. With good logs you can ensure that minor bugs don&#39;t cause
-major downtime and data loss problems. Good logs can help track down
-security issues and can provide an auditable trail of changes to track
-down who did what and when.</p>
-
-<p><a href="http://metacpan.org/pod/Log::Any">Log::Any</a> is a lightweight, generic API built for interoperable
-logging for <a href="http://cpan.org">CPAN</a> modules. Much like
-<a href="http://dbi.perl.org">DBI</a> allows interoperable database interfaces,
-<a href="http://metacpan.org/pod/CHI">CHI</a> allows interoperable caching
-interfaces, and <a href="http://plackperl.org">PSGI</a> allows interoperable web
-applications, Log::Any allows a CPAN module to produce logs that fit
-into your environment whether you just want to see logs on your
-terminal, you&#39;re using <a href="http://mschilli.github.io/log4perl/">Log4perl</a>
-to directly send e-mail alerts to your operations team, or you&#39;re using
-a local <a href="http://www.rsyslog.com">rsyslog</a> daemon to transmit logs to an
-<a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> instance
-via <a href="https://www.elastic.co/products/logstash">Logstash</a>.</p>
-
-                <p><a href="http://preaction.me/blog/2016/12/04/yuletide-logging/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/logging/">logging</a>
-            </p>
-        ]]></content>
-        <updated>2016-12-04T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="logging" />
     </entry>
 </feed>
 
