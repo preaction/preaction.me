@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://preaction.me/blog/tag/community/</id>
+    <id>http://preaction.me/blog/tag/feminism/</id>
     <title>preaction</title>
     <updated>2017-04-23T00:00:00Z</updated>
-    <link href="http://preaction.me/blog/tag/community.atom" rel="self" />
-    <link href="http://preaction.me/blog/tag/community/" rel="alternate" />
+    <link href="http://preaction.me/blog/tag/feminism.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/feminism/" rel="alternate" />
     <generator version="0.083">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/</id>
@@ -36,36 +36,6 @@ quotes:</p>
         <updated>2017-04-23T00:00:00Z</updated>
         <category term="community" />
         <category term="feminism" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/</id>
-        <title>A Community is a Reflection of its Leaders</title>
-        <link href="http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>I&#39;ve been in charge of <a href="http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#footnote-1">a certain community</a> for a very
-long time. Before my actual tech career started, even. Back when doing
-websites was just a hobby I didn&#39;t want to ruin by getting money
-involved.</p>
-
-<p>I was put in charge of this community after only a few hours of effort:
-I wanted to learn something, I saw that a community didn&#39;t exist for
-this topic in some prime community real estate, and so I created one.
-Instantly, I was the leader of a community. Within weeks, people started
-pouring in.</p>
-
-<p>The funny thing about being in charge of a community is that it doesn&#39;t
-require merit or community-building skills. Being in charge of
-a community merely requires that one have authority: The ability to
-decide who is part of the community and who is not. Because I founded
-the community, I had the authority.</p>
-
-                <p><a href="http://preaction.me/blog/2016/02/15/a-community-is-a-reflection-of-its-leaders/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/community/">community</a>
-            </p>
-        ]]></content>
-        <updated>2016-02-15T00:00:00Z</updated>
-        <category term="community" />
     </entry>
 </feed>
 
