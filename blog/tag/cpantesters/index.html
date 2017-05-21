@@ -52,6 +52,80 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2017/05/20/2017-perl-toolchain-summit/">2017 Perl Toolchain Summit</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2017-05-20">
+                            Posted on 2017-05-20
+                        </time>
+                        <a data-disqus-identifier="/2017/05/20/2017-perl-toolchain-summit/index.markdown" href="/blog/2017/05/20/2017-perl-toolchain-summit/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>This year I had one goal for <a href="http://cpantesters.org">CPAN Testers</a>:
+Replace the current <a href="http://metabase.cpantesters.org">Metabase API</a> with
+a new API that did not write to Amazon SimpleDB. The current
+high-availability database that raw incoming test reports are written is
+Amazon SimpleDB behind an API called Metabase.
+<a href="http://metacpan.org/pod/Metabase">Metabase</a> is a highly-flexible data
+storage API designed to work with massive, unstructured data sets and
+still allow for sane organization and storage of data. Unfortunately,
+Amazon SimpleDB is as it says on the tin: Simple. Worse, it&#39;s expensive:
+Like most Amazon services, it charges for usage, so there&#39;s a huge
+incentive for CPAN Testers to use it as little as possible (which made
+some of the code quite obtuse).</p>
+
+<p>So, I made a plan to excise the Metabase. Since we already cached every
+raw test report locally in the CPAN Testers MySQL database, I planned to
+write a new Metabase API that wrote directly to the cache, and then
+adjust the backend processing to read from the cache. I spent the better
+part of a month working through all the Metabase APIs, how the data was
+stored in the database, and how to translate between a simple JSON
+format and the serialized Metabase objects. However, some proper schema
+design prevented me from finishing this project: A single <code>NOT NULL</code>
+column could not be changed to allow nulls very easily, it being a 600GB
+table. The one time where a well-designed schema was a bad thing!</p>
+
+<p>But then <a href="https://github.com/garu">Garu</a>, author of
+<a href="https://metacpan.org/pod/cpanm-reporter">cpanm-reporter</a> and
+<a href="https://metacpan.org/pod/CPAN::Testers::Common::Client">CPAN::Testers::Common::Client</a>
+came up with an idea to make a new test report format. These new reports
+would have to be stored in a new place, and I discovered that <a href="https://dev.mysql.com/doc/refman/5.7/en/json.html">MySQL had
+recently started building some rich JSON
+tooling</a>. Making
+a new JSON test report format and storing it in our new
+high-availability MySQL cluster seemed like a perfect solution for
+storing our raw test reports.</p>
+
+<p>After a few weeks of discussion, I finally realized that it would be an
+easier task to make a backwards-compatible Metabase API write to the new
+test report MySQL table, even though it increased the amount of work
+that needed to be done:</p>
+
+<ul>
+<li>Complete the new test report format schema (Garu)</li>
+<li>Write the new backwards-compatibility Metabase API (Me)</li>
+<li>Write a new test report processor that writes to the old Metabase
+cache tables (Joel Berger)</li>
+<li>Write a migration script from the old Metabase cache tables to the new
+test report JSON object (?)</li>
+</ul>
+
+<p>With that plan, I headed for Lyon.</p>
+
+
+                    <p><a href="/blog/2017/05/20/2017-perl-toolchain-summit/#section-2">Continue reading 2017 Perl Toolchain Summit...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/">CPAN Testers Has a New API</a></h1>
 
                     <p class="tags">Tags:

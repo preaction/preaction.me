@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>2017 Perl Toolchain Summit - preaction</title>
+        <meta content="Statocles 0.083" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2017/05/2017-perl-toolchain-summit.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>2017 Perl Toolchain Summit</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2017-05-20">
+                        Posted on 2017-05-20
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>This year I had one goal for <a href="http://cpantesters.org">CPAN Testers</a>:
+Replace the current <a href="http://metabase.cpantesters.org">Metabase API</a> with
+a new API that did not write to Amazon SimpleDB. The current
+high-availability database that raw incoming test reports are written is
+Amazon SimpleDB behind an API called Metabase.
+<a href="http://metacpan.org/pod/Metabase">Metabase</a> is a highly-flexible data
+storage API designed to work with massive, unstructured data sets and
+still allow for sane organization and storage of data. Unfortunately,
+Amazon SimpleDB is as it says on the tin: Simple. Worse, it&#39;s expensive:
+Like most Amazon services, it charges for usage, so there&#39;s a huge
+incentive for CPAN Testers to use it as little as possible (which made
+some of the code quite obtuse).</p>
+
+<p>So, I made a plan to excise the Metabase. Since we already cached every
+raw test report locally in the CPAN Testers MySQL database, I planned to
+write a new Metabase API that wrote directly to the cache, and then
+adjust the backend processing to read from the cache. I spent the better
+part of a month working through all the Metabase APIs, how the data was
+stored in the database, and how to translate between a simple JSON
+format and the serialized Metabase objects. However, some proper schema
+design prevented me from finishing this project: A single <code>NOT NULL</code>
+column could not be changed to allow nulls very easily, it being a 600GB
+table. The one time where a well-designed schema was a bad thing!</p>
+
+<p>But then <a href="https://github.com/garu">Garu</a>, author of
+<a href="https://metacpan.org/pod/cpanm-reporter">cpanm-reporter</a> and
+<a href="https://metacpan.org/pod/CPAN::Testers::Common::Client">CPAN::Testers::Common::Client</a>
+came up with an idea to make a new test report format. These new reports
+would have to be stored in a new place, and I discovered that <a href="https://dev.mysql.com/doc/refman/5.7/en/json.html">MySQL had
+recently started building some rich JSON
+tooling</a>. Making
+a new JSON test report format and storing it in our new
+high-availability MySQL cluster seemed like a perfect solution for
+storing our raw test reports.</p>
+
+<p>After a few weeks of discussion, I finally realized that it would be an
+easier task to make a backwards-compatible Metabase API write to the new
+test report MySQL table, even though it increased the amount of work
+that needed to be done:</p>
+
+<ul>
+<li>Complete the new test report format schema (Garu)</li>
+<li>Write the new backwards-compatibility Metabase API (Me)</li>
+<li>Write a new test report processor that writes to the old Metabase
+cache tables (Joel Berger)</li>
+<li>Write a migration script from the old Metabase cache tables to the new
+test report JSON object (?)</li>
+</ul>
+
+<p>With that plan, I headed for Lyon.</p>
+
+            </section>
+            <section id="section-2">
+                <p>I lucked out on the plane ride to Dublin: The middle seat was
+unoccupied, giving me and my nearest flightmate some much-desired space.
+While on the plane I was able to add some <a href="https://github.com/cpan-testers/cpantesters-deploy/blob/master/Rexfile">more documentation about the
+CPAN Testers Rex deploy
+process</a>
+and <a href="https://github.com/cpan-testers/cpantesters-deploy#cpantesters-deploy">documentation about the Vagrant VM
+setup</a>.</p>
+
+<p>Once the summit started, Garu and I discussed the new test report
+format. With a new format, we would be able to handle more useful
+structured data like a distribution&#39;s computed prerequisites, and the
+output from each step of the install process. We could even build in
+a way to handle other reports for other languages (like Perl 6). We were
+both on the same page in making an <a href="http://openapis.org">OpenAPI schema</a>
+for the API, and were able to quickly talk through some changes to the
+report format to make it easier to query. It&#39;s really valuable to be
+able to sit next to someone from 1/4 around the world and hack out
+a solution to a problem, and thanks to all the sponsors of the Perl
+Toolchain Summit for making it happen.</p>
+
+<p>With the report format mostly settled, Garu set to changing <a href="https://github.com/cpan-testers/cpantesters-api">the CPAN
+Testers API server</a> to
+accept incoming reports in the new format, and I started editing <a href="https://github.com/cpan-testers/cpantesters-schema">the
+CPAN Testers database
+schema</a> to have
+a place to store the new reports.</p>
+
+<p>For the database, I needed a way to keep track of database versioning
+and automate upgrading. Since CPAN Testers uses <a href="http://metacpan.org/pod/DBIx::Class">the DBIx::Class Perl
+ORM</a>, there are a few ways to do
+it. The recommended, fully-featured way is
+<a href="http://metacpan.org/pod/DBIx::Class::DeploymentHandler">DBIx::Class::DeploymentHandler</a>,
+which I intended to use via <a href="https://metacpan.org/pod/App::DH">App::DH</a>.
+Unfortunately, a few hours later I decided that it was entirely too
+feature-rich for my taste, and I ended up using the standard
+<a href="https://metacpan.org/pod/DBIx::Class::Schema::Versioned">DBIx::Class::Schema::Versioned</a>
+(after only a few hours of headache getting it to deal with the database
+that currently exists). That complete, I built <a href="https://github.com/cpan-testers/cpantesters-schema/blob/master/Rexfile">a Rexfile to deploy the
+schema</a>
+and was able to move on to the API.</p>
+
+<p>With the rest of the week I was able to get the <a href="http://api.cpantesters.org/docs/?url=/v3#!/Report/v3_report_post">new API for submitting
+test
+reports</a>
+done, which Garu will be using in new releases of the various CPAN
+Testers reporters (via
+<a href="https://metacpan.org/pod/CPAN::Testers::Common::Client">CPAN::Testers::Common::Client</a>).
+Joel Berger is writing the backend processing for the new test reports
+to write their data to all the existing data tables and files (the last
+piece of the puzzle). I&#39;ll let them both talk in more detail about what
+they were doing.</p>
+
+<p>The last thing I was able to accomplish was the Metabase shim API for
+old CPAN Testers reporters to write to the new test reports tables. This
+means that for all existing reporters nothing changes: The reports must
+flow. I was able to run some tests with Chris Williams (BinGOS), the
+current leader in incoming test reports, and the shim API seems to be
+ready to go. Over the next few weeks, I&#39;ll complete the last task (a
+tail log that <a href="http://fast-matrix.cpantesters.org">http://fast-matrix.cpantesters.org</a> can use), and then
+start asking some testers to switch over (via <code>/etc/hosts</code>) before
+re-pointing the metabase.cpantesters.org DNS to the shim API for
+everyone.</p>
+
+<p>Altogether, I accomplished quite a bit in Lyon, and the city itself was
+amazing. Thanks to the organizers, Neil Bowers, Philippe Bruhat, and
+Laurent Boivin. And special thanks to the sponsors that make it all
+possible: <a href="http://www.booking.com">Booking.com</a>,
+<a href="http://www.activestate.com">ActiveState</a>, <a href="https://cpanel.com">cPanel</a>,
+<a href="https://www.fastmail.com">FastMail</a>,
+<a href="https://www.maxmind.com/en/home">MaxMind</a>, <a href="https://opensource.careers/perl-careers/">Perl
+Careers</a>,
+<a href="https://www.mongodb.com">MongoDB</a>,
+<a href="http://www.surevoip.co.uk">SureVoIP</a>, <a href="http://www.campusexplorer.com">Campus
+Explorer</a>,
+<a href="https://www.bytemark.co.uk">Bytemark</a>,
+<a href="http://capside.com/en/">CAPSiDE</a>, <a href="https://metacpan.org/author/ITCHARLIE">Charlie
+Gonzalez</a>,
+<a href="https://www.elastic.co">Elastic</a>, <a href="http://opusvl.com">OpusVL</a>, <a href="http://www.perl-services.de/">Perl
+Services</a>,
+<a href="https://www.procura.nl/">Procura</a>, <a href="https://www.procura.nl/">XS4ALL</a>,
+<a href="http://www.oetiker.ch/">Oetiker+Partner</a>.</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2017/05/20/2017-perl-toolchain-summit/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2017/05/20/2017-perl-toolchain-summit/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/code/">code</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/feminism/">feminism</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/javascript/">javascript</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

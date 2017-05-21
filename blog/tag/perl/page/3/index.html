@@ -52,6 +52,52 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/">ygrok - Parse plain text into data structures</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/yertl/" rel="tag">yertl</a>
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-11-27">
+                            Posted on 2015-11-27
+                        </time>
+                        <a data-disqus-identifier="/2015/11/27/ygrok-parse-plain-text-into-data-structures/index.markdown" href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>As a data warehouse, a significant part of my job involves log analysis.
+Besides the standard root cause analysis, I need to verify database
+writes, diagnose user access issues, and look for under-used (and
+over-used) data sets. Additionally, my boss needs quarterly and yearly
+reports for client billing, and some of our clients need usage reports
+to identify data they might be paying for but not using (which we can
+then shut off to reduce costs). This has recently become a popular space
+for new solutions.</p>
+
+<p>On the other side, as a sysadmin, I need to get other reports like how
+all the machine&#39;s resources (CPU, memory, disk, network) are being used,
+what processes are running on the machine and how those processes used
+resources over time. This is basic monitoring, and there are lots of
+solutions here, too. In the true Unix philosophy, there are command-line
+programs to query every one of these, which write out text that I can
+then parse.</p>
+
+<p>In <a href="/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
+ysql</a>, I showed how
+to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
+Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="/yertl/pod/ygrok"><code>ygrok</code>
+utility</a> to parse plain text into YAML documents.</p>
+
+
+                    <p><a href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading ygrok - Parse plain text into data structures...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2015/10/26/list-slice-slice-operations-for-lists/">List::Slice - Slice operations for lists</a></h1>
 
                     <p class="tags">Tags:
@@ -230,48 +276,6 @@ with SQL databases easy.</p>
 
 
                     <p><a href="/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading Managing SQL Data with Yertl...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2014/10/26/managing-boilerplate-with-import-base.html">Manage Boilerplate with Import::Base</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2014-10-26">
-                            Posted on 2014-10-26
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2014/10/26/managing-boilerplate-with-import-base.markdown" href="/blog/2014/10/26/managing-boilerplate-with-import-base.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2014/10/managing-boilerplate-with-importbase.html">
-                                <em>Manage Boilerplate with Import::Base</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>Boilerplate is everything I hate about programming:</p>
-
-<ul>
-<li>Doing the same thing more than once</li>
-<li>Leaving clutter in every file</li>
-<li>Making it harder to change things in the future</li>
-<li>Eventually blindly copying without understanding (cargo-cult programming)</li>
-</ul>
-
-<p>In an effort to reduce some of my boilerplate, I wrote
-<a href="https://metacpan.org/pod/Import::Base">Import::Base</a>, a module to collect and
-import useful bundles of modules, removing the need for long lists of <code>use ...</code>
-lines everywhere.</p>
-
-
-                    <p><a href="/blog/2014/10/26/managing-boilerplate-with-import-base.html#section-2">Continue reading Manage Boilerplate with Import::Base...</a></p>
 
             </article>
         </main>

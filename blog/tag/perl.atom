@@ -2,10 +2,76 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/tag/perl/</id>
     <title>preaction</title>
-    <updated>2017-04-14T00:00:00Z</updated>
+    <updated>2017-05-20T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/perl.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/perl/" rel="alternate" />
     <generator version="0.083">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/05/20/2017-perl-toolchain-summit/</id>
+        <title>2017 Perl Toolchain Summit</title>
+        <link href="http://preaction.me/blog/2017/05/20/2017-perl-toolchain-summit/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>This year I had one goal for <a href="http://cpantesters.org">CPAN Testers</a>:
+Replace the current <a href="http://metabase.cpantesters.org">Metabase API</a> with
+a new API that did not write to Amazon SimpleDB. The current
+high-availability database that raw incoming test reports are written is
+Amazon SimpleDB behind an API called Metabase.
+<a href="http://metacpan.org/pod/Metabase">Metabase</a> is a highly-flexible data
+storage API designed to work with massive, unstructured data sets and
+still allow for sane organization and storage of data. Unfortunately,
+Amazon SimpleDB is as it says on the tin: Simple. Worse, it&#39;s expensive:
+Like most Amazon services, it charges for usage, so there&#39;s a huge
+incentive for CPAN Testers to use it as little as possible (which made
+some of the code quite obtuse).</p>
+
+<p>So, I made a plan to excise the Metabase. Since we already cached every
+raw test report locally in the CPAN Testers MySQL database, I planned to
+write a new Metabase API that wrote directly to the cache, and then
+adjust the backend processing to read from the cache. I spent the better
+part of a month working through all the Metabase APIs, how the data was
+stored in the database, and how to translate between a simple JSON
+format and the serialized Metabase objects. However, some proper schema
+design prevented me from finishing this project: A single <code>NOT NULL</code>
+column could not be changed to allow nulls very easily, it being a 600GB
+table. The one time where a well-designed schema was a bad thing!</p>
+
+<p>But then <a href="https://github.com/garu">Garu</a>, author of
+<a href="https://metacpan.org/pod/cpanm-reporter">cpanm-reporter</a> and
+<a href="https://metacpan.org/pod/CPAN::Testers::Common::Client">CPAN::Testers::Common::Client</a>
+came up with an idea to make a new test report format. These new reports
+would have to be stored in a new place, and I discovered that <a href="https://dev.mysql.com/doc/refman/5.7/en/json.html">MySQL had
+recently started building some rich JSON
+tooling</a>. Making
+a new JSON test report format and storing it in our new
+high-availability MySQL cluster seemed like a perfect solution for
+storing our raw test reports.</p>
+
+<p>After a few weeks of discussion, I finally realized that it would be an
+easier task to make a backwards-compatible Metabase API write to the new
+test report MySQL table, even though it increased the amount of work
+that needed to be done:</p>
+
+<ul>
+<li>Complete the new test report format schema (Garu)</li>
+<li>Write the new backwards-compatibility Metabase API (Me)</li>
+<li>Write a new test report processor that writes to the old Metabase
+cache tables (Joel Berger)</li>
+<li>Write a migration script from the old Metabase cache tables to the new
+test report JSON object (?)</li>
+</ul>
+
+<p>With that plan, I headed for Lyon.</p>
+
+                <p><a href="http://preaction.me/blog/2017/05/20/2017-perl-toolchain-summit/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+            </p>
+        ]]></content>
+        <updated>2017-05-20T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpantesters" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/04/14/timeout-for-parallel-forkmanager/</id>
         <title>Timeout for Parallel::ForkManager</title>
@@ -151,35 +217,6 @@ new development of CPAN Testers.</p>
         <updated>2016-11-25T00:00:00Z</updated>
         <category term="perl" />
         <category term="cpantesters" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/</id>
-        <title>Beam::Emitter v1.004 released</title>
-        <link href="http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>This week, I released a new version of
-<a href="http://metacpan.org/pod/Beam::Emitter">Beam::Emitter</a>. A lot has changed since
-the first releases, so here&#39;s some details on all the new features.</p>
-
-<p>Beam::Emitter is a role for turning your classes into event emitters. Being an
-event emitter allows other classes to subscribe to important events from your
-object. Subscribers can use these events to perform additional tasks, transform
-your object&#39;s data, or otherwise extend and enhance your class. Beam::Emitter
-makes your class extensible by allowing you to provide specific places for
-custom code to run.</p>
-
-<p>Since the 1.000 release last year, Beam::Emitter has gotten quite a few new
-features and bug fixes to make it easier to use and safer for your code.</p>
-
-                <p><a href="http://preaction.me/blog/2016/11/18/beam-emitter-v1-004-released/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                <a href="http://preaction.me/blog/tag/beam/">beam</a>
-            </p>
-        ]]></content>
-        <updated>2016-11-18T00:00:00Z</updated>
-        <category term="perl" />
-        <category term="beam" />
     </entry>
 </feed>
 
