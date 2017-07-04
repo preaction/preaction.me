@@ -22,7 +22,7 @@ This new API uses [the Mojolicious web
 framework](http://mojolicious.org), along with an
 [OpenAPI](http://openapis.org) schema to expose all of the most useful
 CPAN Testers data. OpenAPI is a specification for web APIs, and there
-are tools like [Swagger](swagger) to generate a useful documentation
+are tools like [Swagger](http://swagger.io) to generate a useful documentation
 website from your spec, like the [CPAN Testers API documentation
 website](http://api.cpantesters.org/docs/?url=/v3).
 
@@ -55,7 +55,7 @@ Testers API project on
 Github](http://github.com/cpan-testers/cpantesters-api). If you'd like
 to do something with the CPAN Testers data and can't figure out how,
 [e-mail me](mailto:doug@preaction.me) or talk to me on IRC [irc.perl.org
-#cpantesters-discuss](https://chat.mibbit.com/?channel=%23cpantesters-discuss&server=irc.perl.org)
+\#cpantesters-discuss](https://chat.mibbit.com/?channel=%23cpantesters-discuss&server=irc.perl.org)
 and I can help! If you really like my very small dashboard and would
 like to make it better, you can contribute to it in the [CPAN Testers
 Web project on Github](http://github.com/cpan-testers/cpantesters-web).
