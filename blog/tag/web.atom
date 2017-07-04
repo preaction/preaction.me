@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/web/</id>
+    <title>preaction</title>
+    <updated>2017-07-04T00:00:00Z</updated>
+    <link href="http://preaction.me/blog/tag/web.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/web/" rel="alternate" />
+    <generator version="0.083">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/</id>
+        <title>CPAN Testers Has an API</title>
+        <link href="http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>[<a href="https://www.youtube.com/watch?v=okeBgBb1Cxs&amp;index=60&amp;list=PLA9_Hq3zhoFxdSVDA4v9Af3iutQxLI14m">Watch this lightning talk on The Perl Conference YouTube
+channel</a>]</p>
+
+<p>I&#39;ve been working on the <a href="http://www.cpantesters.org">CPAN Testers</a>
+project since 2015. In all that time, I&#39;ve been focused on maintenance
+(which has involved more operations/administration tasks than any actual
+code changes) and modernization. It&#39;s that modernization effort that has
+led to a <a href="http://api.cpantesters.org">new CPAN Testers API</a>.</p>
+
+<p>This new API uses <a href="http://mojolicious.org">the Mojolicious web
+framework</a>, along with an
+<a href="http://openapis.org">OpenAPI</a> schema to expose all of the most useful
+CPAN Testers data. OpenAPI is a specification for web APIs, and there
+are tools like <a href="http://swagger.io">Swagger</a> to generate a useful documentation
+website from your spec, like the <a href="http://api.cpantesters.org/docs/?url=/v3">CPAN Testers API documentation
+website</a>.</p>
+
+                <p><a href="http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/web/">web</a>
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+            </p>
+        ]]></content>
+        <updated>2017-07-04T00:00:00Z</updated>
+        <category term="web" />
+        <category term="cpantesters" />
+    </entry>
+</feed>
+

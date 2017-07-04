@@ -52,6 +52,49 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/">CPAN Testers Has a New API</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2016-12-27">
+                            Posted on 2016-12-27
+                        </time>
+                        <a data-disqus-identifier="/2016/12/27/cpan-testers-has-a-new-api/index.markdown" href="/blog/2016/12/27/cpan-testers-has-a-new-api/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>As part of <a href="https://metacpan.org/about/meta_hack">the MetaCPAN hackathon,
+meta::hack</a>, I was invited to work
+on the CPAN Testers integration. <a href="http://cpantesters.org">CPAN Testers</a>
+is a community of <a href="http://cpan.org">CPAN</a> users who send in test reports
+for CPAN modules as they are uploaded. <a href="http://metacpan.org">MetaCPAN</a>
+adds a summary of those test reports to every CPAN distribution to help
+you determine which module you&#39;d most like to use. For quite a few
+months, this integration was broken, and the nature of the current
+integration (a SQLite database) means it is not as generally useful as
+it could be.</p>
+
+<p>So, I decided that the best way to improve the CPAN Testers / MetaCPAN
+integration was to build a <a href="http://api.cpantesters.org">new CPAN Testers
+API</a>. This API uses <a href="http://metacpan.org/pod/CPAN::Testers::Schema">the CPAN Testers
+schema</a> to expose CPAN
+Testers data using a JSON API. This API is built using <a href="http://mojolicious.org">the Mojolicious
+web framework</a>, and an <a href="http://openapis.org">OpenAPI
+specification</a> (using
+<a href="http://metacpan.org/pod/Mojolicious::Plugin::OpenAPI">Mojolicious::Plugin::OpenAPI</a>.</p>
+
+
+                    <p><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/#section-2">Continue reading CPAN Testers Has a New API...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/">ES6 for the Occasional JavaScript Programmer</a></h1>
 
                     <p class="tags">Tags:
@@ -213,51 +256,6 @@ features and bug fixes to make it easier to use and safer for your code.</p>
                     <p><a href="/blog/2016/11/18/beam-emitter-v1-004-released/#section-2">Continue reading Beam::Emitter v1.004 released...</a></p>
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2016/11/06/log-any-1-044-trial-released/">Log::Any 1.044 TRIAL released</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/logging/" rel="tag">logging</a>
-                        <a href="/blog/tag/cpan/" rel="tag">cpan</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2016-11-06">
-                            Posted on 2016-11-06
-                        </time>
-                        <a data-disqus-identifier="/2016/11/06/log-any-1-044-trial-released/index.markdown" href="/blog/2016/11/06/log-any-1-044-trial-released/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>A <a href="https://metacpan.org/release/PREACTION/Log-Any-1.044-TRIAL">new trial of Log::Any (1.044) has been
-released</a>.
-This release has a couple changes that make Log::Any a bit more
-predictable:</p>
-
-<ul>
-<li>Passing in objects to formatted log methods now handles objects that
-overload stringify correctly. Previously, these objects would be given
-to Data::Dumper, which violates object encapsulation. Thanks <a href="https://github.com/mephinet">Philipp
-Gortan (@mephinet)</a>!</li>
-<li>The imported Log::Any object (<code>use Log::Any &#39;$log&#39;</code>) can now be named
-anything (like <code>$LOG</code> or <code>$foo</code>).</li>
-</ul>
-
-<p>Since <a href="http://www.cpantesters.org">CPAN Testers</a> is still catching up
-<a href="http://blog.cpantesters.org/diary/203">from its little bit of downtime a few weeks
-ago</a>, I won&#39;t be releasing this
-as stable until I get some success reports in. So, you&#39;ve got some time
-to test this against your own codebase if you need to.  Please <a href="http://github.com/preaction/Log-Any/issues">report
-any issues to the Log-Any Github
-repository</a>.</p>
-
-
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -322,6 +320,7 @@ repository</a>.</p>
             <li><a href="/blog/tag/sql/">sql</a></li>
             <li><a href="/blog/tag/statocles/">statocles</a></li>
             <li><a href="/blog/tag/travel/">travel</a></li>
+            <li><a href="/blog/tag/web/">web</a></li>
             <li><a href="/blog/tag/webgui/">webgui</a></li>
             <li><a href="/blog/tag/webundesign/">webundesign</a></li>
             <li><a href="/blog/tag/xs/">xs</a></li>

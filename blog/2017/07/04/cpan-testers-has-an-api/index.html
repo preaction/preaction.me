@@ -6,8 +6,9 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>Between Learning and Doing - preaction</title>
+        <title>CPAN Testers Has an API - preaction</title>
         <meta content="Statocles 0.083" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2017/07/cpan-testers-has-an-api.html" rel="canonical">
         
     </head>
     <body>
@@ -46,66 +47,78 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>Between Learning and Doing</h1>
+                <h1>CPAN Testers Has an API</h1>
                 <p class="tags">Tags:
-                    <a href="/blog/tag/rants/" rel="tag">rants</a>
+                    <a href="/blog/tag/web/" rel="tag">web</a>
+                    <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
                 </p>
 
                 <aside>
-                    <p><time datetime="2014-07-19">
-                        Posted on 2014-07-19
+                    <p><time datetime="2017-07-04">
+                        Posted on 2017-07-04
                     </time>
-                        by preaction
                     </p>
                 </aside>
 
-                <p>Originally posted as:
-                        <a href="http://blogs.perl.org/users/preaction/2014/07/between-learning-and-doing.html">
-                            <em>Between Learning and Doing</em> on blogs.perl.org.
-                        </a>
-                </p>
 
             </header>
             <section id="section-1">
-                <p><img alt="I&#39;ve made a huge mistake" src="/images/blog/ive-made-a-huge-mistake.gif"></p>
+                <p>[<a href="https://www.youtube.com/watch?v=okeBgBb1Cxs&amp;index=60&amp;list=PLA9_Hq3zhoFxdSVDA4v9Af3iutQxLI14m">Watch this lightning talk on The Perl Conference YouTube
+channel</a>]</p>
 
-<p>A long time ago, when I started building my first video game server for
-<a href="http://doublecluepon.com">Double Cluepon</a>, my video game company, I did a bad
-thing. I looked at the AMF library for Perl and Python and decided that
-Python&#39;s looked better. I had always meant to learn Python, and this felt like
-the perfect opportunity. It had cooperative multitasking (Twisted) and it had
-an ORM (SQLAlchemy), so along with the messaging format (PyAMF), I had
-everything I needed to build a server for a Flash MMO (later migrated to AIR).</p>
+<p>I&#39;ve been working on the <a href="http://www.cpantesters.org">CPAN Testers</a>
+project since 2015. In all that time, I&#39;ve been focused on maintenance
+(which has involved more operations/administration tasks than any actual
+code changes) and modernization. It&#39;s that modernization effort that has
+led to a <a href="http://api.cpantesters.org">new CPAN Testers API</a>.</p>
 
-<p>Let me reiterate my mistake: While under time constraints, I chose to learn a
-new programming language. I didn&#39;t realize my mistake until it was too late.</p>
+<p>This new API uses <a href="http://mojolicious.org">the Mojolicious web
+framework</a>, along with an
+<a href="http://openapis.org">OpenAPI</a> schema to expose all of the most useful
+CPAN Testers data. OpenAPI is a specification for web APIs, and there
+are tools like <a href="http://swagger.io">Swagger</a> to generate a useful documentation
+website from your spec, like the <a href="http://api.cpantesters.org/docs/?url=/v3">CPAN Testers API documentation
+website</a>.</p>
 
             </section>
             <section id="section-2">
-                <p>Being a startup (still), we needed something <strong>As Quickly As Possible</strong>. So, I
-cobbled together a marginally-working system from all the examples I could
-find. Not being familiar with Python&#39;s strengths and weaknesses, I tripped over
-everything, getting more and more frustrated (but still absolutely convinced I
-had chosen the correct path). When we needed an integrated website, something I
-already knew how to build in Perl which did not need the aforementioned library
-which was the reason to use Python, I kept it in Python to &quot;keep the number of
-languages in active use in the company to a minimum.&quot;</p>
+                <p>So, I&#39;ve used this new API, pulled in a bunch of JavaScript technologies
+like <a href="http://vuejs.org">Vue.js for dynamic content</a> and <a href="http://highcharts.com">HighCharts for
+pretty interactive charts</a>, and created <a href="http://beta.cpantesters.org/chart.html">a simple
+CPAN Testers chart dashboard</a>.
+This dashboard shows the summary of the reports for the last few
+versions of a distribution, and if you click on a version bar, you see
+a summary of that version&#39;s reports broken down by OS, and a list of the
+reports. Clicking on the breakdown pie charts will filter the list
+below, allowing you to see only the reports you want to see.</p>
 
-<p>In the end, I had something that technically worked, but was more akin to
-something an amateur programmer would produce. <strong>All my experience was worthless
-while I was trying to learn a new language, new libraries, and new ways of
-doing the things I already knew how to do.</strong></p>
+<p>As as aside: I&#39;ve been a web developers since the 90&#39;s, but it&#39;s only in
+the last few years that building dynamic web applications has not been
+a frustrating, awful, lengthy experience. I literally put this dashboard
+together in 4 hours one night during <a href="http://www.perlconference.us/tpc-2017-dc/">The Perl Conference
+2017</a> (but, to be fair, I&#39;ve
+spent the last 20 years developing the experience to make this web
+application in 4 hours).</p>
 
-<p>With our new game, I almost did it again: I was going to write the server
-component in C++ so that it could be compiled in to the game client to
-provide for LAN gaming (which is another horrible excuse to learn new
-things while under time constraints). Lucky for me, some good old-fashioned
-laziness has again put me under time pressure, and the most expedient way
-forward is to do what I know: Perl.</p>
+<p>So, you can see how <a href="http://api.cpantesters.org">the new CPAN Testers
+API</a> lets us build useful web applications
+from the CPAN Testers data. I&#39;d love to see more people writing neat
+things that use the CPAN Testers data! If you find the API does not have
+the data you want, you can add it by submitting a patch to the <a href="http://github.com/cpan-testers/cpantesters-api">CPAN
+Testers API project on
+Github</a>. If you&#39;d like
+to do something with the CPAN Testers data and can&#39;t figure out how,
+<a href="mailto:doug@preaction.me">e-mail me</a> or talk to me on IRC <a href="https://chat.mibbit.com/?channel=%23cpantesters-discuss&amp;server=irc.perl.org">irc.perl.org
+#cpantesters-discuss</a>
+and I can help! If you really like my very small dashboard and would
+like to make it better, you can contribute to it in the <a href="http://github.com/cpan-testers/cpantesters-web">CPAN Testers
+Web project on Github</a>.</p>
 
-<p>Learning new things is a good idea, but it&#39;s hard to learn new things while
-you&#39;re also trying to get things done. If you need to get things done quickly,
-be very careful before deciding to use something new.</p>
+<p>Thanks to <a href="http://github.com/garu">Breno de Oliviera</a> and <a href="http://github.com/jberger">Joel
+Berger</a> for their help on the API and the
+JavaScript, and thanks to all the <a href="http://act.qa-hackathon.org/qa2017/sponsors.html">sponsors of the Perl Toolchain
+Summit</a> for bringing
+us all together, which makes things like this happen!</p>
 
             </section>
         </main>
@@ -114,8 +127,8 @@ be very careful before deciding to use something new.</p>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'preaction';
-            var disqus_identifier = '/2014/07/19/between-learning-and-doing.markdown';
-            var disqus_url = 'http://preaction.me/blog/2014/07/19/between-learning-and-doing.html';
+            var disqus_identifier = '/2017/07/04/cpan-testers-has-an-api/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
