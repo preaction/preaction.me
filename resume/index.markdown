@@ -11,10 +11,6 @@ Chicago, IL
 <madcityzen@gmail.com>  
 </div>
 
-<div style="background-color: #FCC; border-radius: 4px; font-weight: bold; padding: 1em; width: 70%;">
-I am currently employed, so please do not contact me with offers.
-</div>
-
 # Doug Bell
 
 ## Summary
@@ -25,13 +21,36 @@ I am currently employed, so please do not contact me with offers.
 
 ## Work History
 
-### Independant Contractor
+### ServerCentral, Ltd.
 
-November 2015 - Present
+Senior Developer  
+May 2016 - November 2017
 
 #### Responsibilities and accomplishments
 
-* To be continued...
+* Built automated platform for identifying, querying, and provisioning
+  newly-racked servers
+* Wrote library for wrapping IPMI utilities to expose IPMI data and BMC
+  commands as a REST API
+* Wrote [OpenAPI](https://www.openapis.org) specs and documentation to
+  help downstream clients consume REST APIs
+* Built web UI for viewing server inventory, provisioning, installing
+  operating systems (via [Cobbler](http://cobbler.github.io)),
+  restarting servers, and configuring hardware RAID
+* Built [Grafana](https://grafana.com) dashboards for viewing network
+  traffic by point-of-presense and backbone provider using
+  [carbonsearch](https://github.com/kanatohodets/carbonsearch)
+
+### Independent Contractor
+
+December 2015 - May 2016
+
+#### Responsibilities and accomplishments
+
+* Built web application to manage DHCP server configuration for a large
+  consumer ISP
+* Built custom SQL reports for finding misconfigured modems and other
+  devices
 
 ### Bank of America
 
@@ -107,7 +126,7 @@ November 2005 - August 2011
 * Developed client website solutions with [WebGUI](http://webgui.org)
 * Designed and built new Calendar app, new Photo Gallery app, Google Map
   app, and online chat app for WebGUI
-* Manager (for 2 years )of major client project worth more than 50% of
+* Manager (for 2 years) of major client project worth more than 50% of
   company revenue
 * Developed [TheGameCrafter](http://thegamecrafter.com) Game Management
   interface using [YUI 2](http://yui.github.io/yui2)
@@ -125,20 +144,37 @@ November 2005 - August 2011
 
 ## Other Accomplishments
 
-* Community organizer
-    * Chicago Perl Mongers since May 2013
-    * #css on Freenode since Mar 2003 (IRC nick: preaction)
-* Presentations at [http://preaction.github.io/talks](/talks)
+* Community leader/organizer
+    * Leader of Chicago Perl Mongers since May 2013
+    * Founder of #css on Freenode since Mar 2003 (IRC nick: preaction)
+* Presentations at [http://preaction.me/talks](/talks)
 * Contributor to
     * Perl 5
     * Git
+* Primary Maintainer of [CPAN Testers](http://github.com/cpan-testers)
+    * Wrote new API (<http://api.cpantesters.org>)
+    * Started metrics and monitoring using
+      [Grafana](http://grafana.org) and [InfluxDB](http://influxdata.com)
+    * Built distributed job runner to improve data processing time from
+      hours to seconds
+    * Reduced costs by moving from Amazon SimpleDB to existing MySQL
+      database (with JSON column support)
+    * Reduced complexity by removing extraneous database abstractions
+    * Built new graphical dashboard to visualize test reports using
+      Vue.js and HighCharts
+        * Example: <http://beta.cpantesters.org/chart.html?dist=Statocles&version=0.083>
 * Personal projects
     * [Github profile: preaction](http://github.com/preaction)
     * [Statocles - A static site CMS](http://preaction.github.io/Statocles)
     * [Yertl - ETL With a Shell](http://preaction.github.io/ETL-Yertl)
     * [Import::Base - Remove boilerplate from your code](http://metacpan.org/pod/Import::Base)
+    * [GameDay - Desktop app to manage D&D game reporting](https://github.com/preaction/GameDay)
+    * [Mercury - A web socket message broker](http://preaction.me/mercury)
     * [MetaCPAN author page](https://metacpan.org/author/PREACTION)
 * Blogs
     * Perl blogging at <http://blogs.perl.org/users/preaction>
     * Cooking blog at <http://indiepalate.com>
     * Other blogging at <http://preaction.me>
+* Other Websites
+    * [chicago.pm.org](http://chicago.pm.org)
+    * [Millennial title generator](http://preaction.me/title) - [Code on Github](https://github.com/preaction/MillennialTitle)
