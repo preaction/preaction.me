@@ -8,6 +8,9 @@ These are talks I've given at Perl Mongers meetings and Perl conferences.
 
 ## Perl
 
+* [Logging in Perl (2017-06-21)](https://preaction.github.io/Logging-in-Perl/)
+* [Data Workflows with Beam::Runner (2017-06-21)](https://preaction.github.io/Data-Workflows-With-Beam/)
+* [CPAN Testers has an API (Lightning Talk) (2017-06-21)](https://preaction.github.io/CPAN-Testers-Has-An-API/#/)
 * [Writing Effective Documentation (2016-05-22)](http://preaction.github.io/Effective-Documentation)
 * [Import-Base (Lightning Talk) (2016-04-16)](http://preaction.github.io/Import-Base-Talk)
 * [Getting the Most from Travis-CI (2016-03-25)](http://preaction.github.io/Getting-The-Most-From-Travis-CI-For-Perl)
@@ -33,7 +36,11 @@ These are talks I've given at Perl Mongers meetings and Perl conferences.
 ## JavaScript
 
 * [What's New In JavaScript for the Occasional JavaScript
-  Programmer](http://preaction.github.io/ES6-For-JS-Irregulars)
+  Programmer (2016-11-10)](http://preaction.github.io/ES6-For-JS-Irregulars)
+
+## CSS
+
+* [All about CSS Flexbox (2017-07-26)](https://preaction.github.io/CSS-All-About-Flexbox/)
 
 ## Flex
 
