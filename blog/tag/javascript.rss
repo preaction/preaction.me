@@ -5,7 +5,7 @@
         <link>http://preaction.me/blog/tag/javascript/</link>
         <atom:link href="http://preaction.me/blog/tag/javascript.rss" rel="self" type="application/rss+xml" />
         <description>Blog feed of preaction</description>
-        <generator>Statocles 0.083</generator>
+        <generator>Statocles 0.085</generator>
         <item>
             <title>ES6 for the Occasional JavaScript Programmer</title>
             <link>http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/</link>

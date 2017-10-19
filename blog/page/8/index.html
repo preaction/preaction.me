@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>preaction</title>
-        <meta content="Statocles 0.083" name="generator">
+        <meta content="Statocles 0.085" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -50,6 +50,80 @@
         <main>
 
 
+            <article>
+                <header>
+                    <h1><a href="/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html">Thoughts while changing the API of a massive framework...</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/rants/" rel="tag">rants</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2013-04-11">
+                            Posted on 2013-04-11
+                        </time>
+                            by preaction
+                        <a data-disqus-identifier="/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.markdown" href="/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                    <p>Originally posted as:
+                            <a href="http://blogs.perl.org/users/preaction/2013/04/thoughts-while-changing-the-api-of-a-massive-framework.html">
+                                <em>Thoughts while changing the API of a massive framework...</em> on blogs.perl.org.
+                            </a>
+                    </p>
+                </header>
+
+                <p>At the Bank we have a home-grown ETL framework that we&#39;ve been using for quite
+some time. We recently completed a total rewrite, but unfortunately we left out
+a few changes. Had I gotten those changes in 5 months ago, I would have only
+had to break the API of about 10 modules. Today, in order to make those
+changes, I have to break the API of 122 modules.</p>
+
+<p>What follows is an account of this ordeal, provided for entertainment value
+only. There will be a future post that explains some of the things I did to
+make this task surmountable.</p>
+
+
+                    <p><a href="/blog/2013/04/11/thoughts-while-changing-the-api-of-a-massive-framework.html#section-2">Continue reading Thoughts while changing the API of a massive framework......</a></p>
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.html">Chicago.PM - Dependency Injection (also: Beam::Wire)</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/chicago-pm/" rel="tag">chicago.pm</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2013-03-29">
+                            Posted on 2013-03-29
+                        </time>
+                            by preaction
+                        <a data-disqus-identifier="/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.markdown" href="/blog/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                    <p>Originally posted as:
+                            <a href="http://blogs.perl.org/users/preaction/2013/03/chicagopm---dependency-injection-also-beamwire.html">
+                                <em>Chicago.PM - Dependency Injection (also: Beam::Wire)</em> on blogs.perl.org.
+                            </a>
+                    </p>
+                </header>
+
+                <p>At <a href="http://www.meetup.com/Windy-City-Perl-mongers-Meetup/events/104681992/">this month&#39;s Chicago.PM
+meeting</a>,
+I gave <a href="http://preaction.github.com/Perl/Dependency-Injection.html">a presentation on Dependency Injection and my new module,
+Beam::Wire</a>.</p>
+
+<p>[EDIT: The presentation doesn&#39;t appear to work on mobile devices. I&#39;m trying
+deck.js, and I&#39;m not sure I like it.]</p>
+
+
+                    <p><a href="/blog/2013/03/29/chicago.pm-dependency-injection-also-beam-wire.html#section-2">Continue reading Chicago.PM - Dependency Injection (also: Beam::Wire)...</a></p>
+
+            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2013/03/14/chicago.pm-mojolicious.html">Chicago.PM - Mojolicious</a></h1>
@@ -177,71 +251,6 @@ releases.</p>
                     <p><a href="/blog/2012/10/28/chicago.pm-report-scripting-git-with-perl.html#section-2">Continue reading Chicago.PM - Scripting Git With Perl...</a></p>
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html">Using MooseX::Types to Inflate Config Values</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/moose/" rel="tag">moose</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2012-10-22">
-                            Posted on 2012-10-22
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2012/10/22/using-moosex-types-to-inflate-config-values.markdown" href="/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2012/10/using-moosextypes-to-inflate-config-values.html">
-                                <em>Using MooseX::Types to Inflate Config Values</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>For a large application, configuration files become a necessity. They help
-flexible code be used in multiple instances across multiple modules. But they
-are, for the most part, only data structures, which can be a problem if the
-configured object is expecting another configured object.</p>
-
-
-                    <p><a href="/blog/2012/10/22/using-moosex-types-to-inflate-config-values.html#section-2">Continue reading Using MooseX::Types to Inflate Config Values...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2012/10/15/chicago.pm-report-project-night-alien-base.html">Chicago.PM Report - Project Night: Alien::Base</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/chicago-pm/" rel="tag">chicago.pm</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2012-10-15">
-                            Posted on 2012-10-15
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2012/10/15/chicago.pm-report-project-night-alien-base.markdown" href="/blog/2012/10/15/chicago.pm-report-project-night-alien-base.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2013/05/chicagopm---beyond-grep---expanding-the-programmer-toolset.html">
-                                <em>Chicago.PM Report - Project Night: Alien::Base</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>This month&#39;s project night focused on Joel Berger&#39;s Alien::Base module. The
-final bugs are either squashed or very close, and we got an introduction to how
-the whole thing works.</p>
-
-
-                    <p><a href="/blog/2012/10/15/chicago.pm-report-project-night-alien-base.html#section-2">Continue reading Chicago.PM Report - Project Night: Alien::Base...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -284,6 +293,7 @@ the whole thing works.</p>
             <li><a href="/blog/tag/community/">community</a></li>
             <li><a href="/blog/tag/cpan/">cpan</a></li>
             <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+            <li><a href="/blog/tag/devops/">devops</a></li>
             <li><a href="/blog/tag/error/">error</a></li>
             <li><a href="/blog/tag/etl/">etl</a></li>
             <li><a href="/blog/tag/feminism/">feminism</a></li>

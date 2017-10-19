@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>preaction</title>
-        <meta content="Statocles 0.083" name="generator">
+        <meta content="Statocles 0.085" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -50,6 +50,89 @@
         <main>
 
 
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/01/21/managing-sql-data-with-yertl.html">Managing SQL Data with Yertl</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/sql/" rel="tag">sql</a>
+                        <a href="/blog/tag/etl/" rel="tag">etl</a>
+                        <a href="/blog/tag/yertl/" rel="tag">yertl</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-01-21">
+                            Posted on 2015-01-21
+                        </time>
+                        <a data-disqus-identifier="/2015/01/21/managing-sql-data-with-yertl.markdown" href="/blog/2015/01/21/managing-sql-data-with-yertl.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
+Yertl</a></p>
+
+<p>Every week, I work with about a dozen SQL databases. Some are Sybase, some
+MySQL, some SQLite. Some have different versions in dev, staging, and
+production. All of them need data extracted, transformed, and loaded.</p>
+
+<p>DBI is the clear choice for dealing with SQL databases in Perl, but there are a
+dozen lines of Perl code in between me and the operation that I want. Sure,
+I&#39;ve got modules and web applications and ad-hoc commands and scripts that
+perform certain individual tasks on my databases, but sometimes those things
+don&#39;t quite do what I need right now, and I just want something that will let
+me execute whatever SQL I can come up with.</p>
+
+<p><a href="http://metacpan.org/pod/ETL::Yertl">Yertl (ETL::Yertl)</a> is a shell-based ETL
+framework. It&#39;s under development (as is all software), but included already is
+a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
+with SQL databases easy.</p>
+
+
+                    <p><a href="/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading Managing SQL Data with Yertl...</a></p>
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html">Leaving Crumb Trails -- Talking to Myself</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/software/" rel="tag">software</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2014-12-23">
+                            Posted on 2014-12-23
+                        </time>
+                            by preaction
+                        <a data-disqus-identifier="/2014/12/23/leaving-crumb-trails-talking-to-myself.markdown" href="/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                    <p>Originally posted as:
+                            <a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
+                                <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org.
+                            </a>
+                    </p>
+                </header>
+
+                <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
+(postaction?) had ideas, hopes, and dreams and developed some of them into
+software that I and others use. Unfortunately, that asshole left bugs all
+through the code for me to fix.</p>
+
+<p>I can&#39;t blame him. Nobody&#39;s perfect, not even idealized/demonized copies of my
+past self. But I do have to fix them, and deal with the messes he left.</p>
+
+<p>Lucky for me, while he was writing buggy software, he left extensive notes for
+me to use...</p>
+
+
+                    <p><a href="/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">Continue reading Leaving Crumb Trails -- Talking to Myself...</a></p>
+
+            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2014/10/26/managing-boilerplate-with-import-base.html">Manage Boilerplate with Import::Base</a></h1>
@@ -191,75 +274,6 @@ has 50% more test lines than source lines:</p>
 
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html">Conflict Resolution: local::lib and git&#39;s Perl</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/git/" rel="tag">git</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2014-06-14">
-                            Posted on 2014-06-14
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2014/06/14/conflict-resolution-local--lib-and-gits-perl.markdown" href="/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2014/06/conflict-resolution-locallib-and-gits-perl.html">
-                                <em>Conflict Resolution: local::lib and git&#39;s Perl</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>I ran into a frustrating problem the other day:</p>
-
-<pre><code>$ git add -i
-/usr/bin/perl: symbol lookup error: ~/perl5/lib/perl5/x86_64-linux-thread-multi/auto/List/Util/Util.so:
-undefined symbol: Perl_xs_apiversion_bootcheck
-fatal: &#39;add--interactive&#39; appears to be a git command, but we were not
-able to execute it. Maybe git-add--interactive is broken?
-</code></pre>
-
-
-                    <p><a href="/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html#section-2">Continue reading Conflict Resolution: local::lib and git&#39;s Perl...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2014/04/19/raw-feed-of-openbsds-work-on-cleaning-up-openssl.html">Raw Feed of OpenBSD&#39;s Work on Cleaning Up OpenSSL</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/openbsd/" rel="tag">openbsd</a>
-                        <a href="/blog/tag/funny/" rel="tag">funny</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2014-04-19">
-                            Posted on 2014-04-19
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2014/04/19/raw-feed-of-openbsds-work-on-cleaning-up-openssl.markdown" href="/blog/2014/04/19/raw-feed-of-openbsds-work-on-cleaning-up-openssl.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p><a href="http://freshbsd.org/search?project=openbsd&amp;q=file.name:libssl">Raw Feed of OpenBSD&#39;s Work on Cleaning Up OpenSSL</a></p>
-
-<p>This is an amazing timeline of how much and how quickly work can get done with
-a determined, dedicated team of hackers.</p>
-
-<p>Here are some gems:</p>
-
-
-                    <p><a href="/blog/2014/04/19/raw-feed-of-openbsds-work-on-cleaning-up-openssl.html#section-2">Continue reading Raw Feed of OpenBSD&#39;s Work on Cleaning Up OpenSSL...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -302,6 +316,7 @@ a determined, dedicated team of hackers.</p>
             <li><a href="/blog/tag/community/">community</a></li>
             <li><a href="/blog/tag/cpan/">cpan</a></li>
             <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+            <li><a href="/blog/tag/devops/">devops</a></li>
             <li><a href="/blog/tag/error/">error</a></li>
             <li><a href="/blog/tag/etl/">etl</a></li>
             <li><a href="/blog/tag/feminism/">feminism</a></li>

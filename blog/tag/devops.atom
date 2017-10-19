@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/devops/</id>
+    <title>preaction</title>
+    <updated>2017-10-18T00:00:00Z</updated>
+    <link href="http://preaction.me/blog/tag/devops.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/devops/" rel="alternate" />
+    <generator version="0.085">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/</id>
+        <title>Application Metrics with Yertl</title>
+        <link href="http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>A time series database is a massively useful tool for system reporting
+and monitoring. By storing series of simple values attached to
+timestamps, an ops team can see how fast their application is
+processing data, how much traffic they&#39;re serving, and how many
+resources they&#39;re consuming. From this data they can determine how well
+their application is working, track down issues in the system, and plan
+for future resource needs.</p>
+
+<p>There have been a lot of new databases and tools developed to create,
+store, and consume time series data, and existing databases are being
+enhanced to better support time series data.</p>
+
+<p>With the new release of <a href="http://preaction.me/yertl">ETL::Yertl</a>, we can
+easily translate SQL database queries into metrics for monitoring and
+reporting. I&#39;ve been using these new features to monitor the <a href="http://cpantesters.org">CPAN
+Testers</a> application.</p>
+
+                <p><a href="http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
+                <a href="http://preaction.me/blog/tag/devops/">devops</a>
+            </p>
+        ]]></content>
+        <updated>2017-10-18T00:00:00Z</updated>
+        <category term="yertl" />
+        <category term="devops" />
+    </entry>
+</feed>
+

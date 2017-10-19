@@ -7,10 +7,11 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>preaction</title>
-        <meta content="Statocles 0.083" name="generator">
+        <meta content="Statocles 0.085" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
+        <link href="/theme/plugin/highlight/solarized-light.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
@@ -50,6 +51,82 @@
         <main>
 
 
+            <article>
+                <header>
+                    <h1><a href="/blog/2017/04/14/timeout-for-parallel-forkmanager/">Timeout for Parallel::ForkManager</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/code/" rel="tag">code</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2017-04-14">
+                            Posted on 2017-04-14
+                        </time>
+                        <a data-disqus-identifier="/2017/04/14/timeout-for-parallel-forkmanager/index.markdown" href="/blog/2017/04/14/timeout-for-parallel-forkmanager/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>At <a href="https://www.meetup.com/ChicagoPM/events/239053113/">tonight&#39;s Chicago Perl Mongers Office
+Hours</a>, Ray came up
+with an interesting problem. While testing all of CPAN for <a href="http://www.cpantesters.org">CPAN
+Testers</a>, how do you detect when a test is
+hanging and kill it before it takes down the entire machine? How do you
+simply kill a test that is taking too long? And how do you do it without
+having a wholly separate watchdog program?</p>
+
+<p>Ray&#39;s using
+<a href="http://metacpan.org/pod/Parallel::ForkManager">Parallel::ForkManager</a>
+to execute testing jobs in parallel across multiple Perl installs. There
+are a few ways we could implement timeouts, including
+<a href="http://metacpan.org/pod/IPC::Run">IPC::Run</a>&#39;s <code>timeout</code> function, or
+the <a href="http://perldoc.perl.org/functions/alarm.html"><code>alarm</code></a> Perl
+built-in, but these must all be implemented in the child process. It&#39;d
+be nicer if we could use the parent process to watch its own children.</p>
+
+
+                    <p><a href="/blog/2017/04/14/timeout-for-parallel-forkmanager/#section-2">Continue reading Timeout for Parallel::ForkManager...</a></p>
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2017/03/27/choosing-a-log-level/">Choosing a Log Level</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/logging/" rel="tag">logging</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2017-03-27">
+                            Posted on 2017-03-27
+                        </time>
+                        <a data-disqus-identifier="/2017/03/27/choosing-a-log-level/index.markdown" href="/blog/2017/03/27/choosing-a-log-level/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Like all subjective decisions in technology, which log level to use is
+the cause of much angry debate. Worse, different logging systems use
+different levels: <a href="https://en.wikipedia.org/wiki/Log4j#Log4j_log_levels">Log4j has 6 severity
+levels</a>, and
+<a href="https://en.wikipedia.org/wiki/Syslog#Severity_level">Syslog has 8 severity
+levels</a>. While both
+lists of log levels come with guidance as to which level to use when,
+there&#39;s still enough ambiguity to cause confusion.</p>
+
+<p>When choosing a log level, it&#39;s important to know how visible you want
+the message to be, how big of a problem it is, and what you want the
+user to do about it. With that in mind, this is the decision tree
+I follow when choosing a log level:</p>
+
+
+                    <p><a href="/blog/2017/03/27/choosing-a-log-level/#section-2">Continue reading Choosing a Log Level...</a></p>
+
+            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/">CPAN Testers Has a New API</a></h1>
@@ -186,76 +263,6 @@ via <a href="https://www.elastic.co/products/logstash">Logstash</a>.</p>
                     <p><a href="/blog/2016/12/04/yuletide-logging/#section-2">Continue reading Yuletide Logging...</a></p>
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2016/11/25/meta-hack-log/">meta::hack log</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2016-11-25">
-                            Posted on 2016-11-25
-                        </time>
-                        <a data-disqus-identifier="/2016/11/25/meta-hack-log/index.markdown" href="/blog/2016/11/25/meta-hack-log/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>Last week, I attended meta::hack, the <a href="http://metacpan.org">MetaCPAN</a> hackathon
-in Chicago. I&#39;m the maintainer for <a href="http://cpantesters.org">CPAN Testers</a>, the
-central database for CPAN users to send in test reports on CPAN distributions
-and one of MetaCPAN&#39;s data sources. I asked to join them so I could improve how
-MetaCPAN consumes CPAN Testers data, and ensure the stability and reliability
-of that consumption.</p>
-
-<p>Here&#39;s a detailed log of what I was able to accomplish, and information on the
-new development of CPAN Testers.</p>
-
-
-                    <p><a href="/blog/2016/11/25/meta-hack-log/#section-2">Continue reading meta::hack log...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2016/11/18/beam-emitter-v1-004-released/">Beam::Emitter v1.004 released</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/beam/" rel="tag">beam</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2016-11-18">
-                            Posted on 2016-11-18
-                        </time>
-                        <a data-disqus-identifier="/2016/11/18/beam-emitter-v1-004-released/index.markdown" href="/blog/2016/11/18/beam-emitter-v1-004-released/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>This week, I released a new version of
-<a href="http://metacpan.org/pod/Beam::Emitter">Beam::Emitter</a>. A lot has changed since
-the first releases, so here&#39;s some details on all the new features.</p>
-
-<p>Beam::Emitter is a role for turning your classes into event emitters. Being an
-event emitter allows other classes to subscribe to important events from your
-object. Subscribers can use these events to perform additional tasks, transform
-your object&#39;s data, or otherwise extend and enhance your class. Beam::Emitter
-makes your class extensible by allowing you to provide specific places for
-custom code to run.</p>
-
-<p>Since the 1.000 release last year, Beam::Emitter has gotten quite a few new
-features and bug fixes to make it easier to use and safer for your code.</p>
-
-
-                    <p><a href="/blog/2016/11/18/beam-emitter-v1-004-released/#section-2">Continue reading Beam::Emitter v1.004 released...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -298,6 +305,7 @@ features and bug fixes to make it easier to use and safer for your code.</p>
             <li><a href="/blog/tag/community/">community</a></li>
             <li><a href="/blog/tag/cpan/">cpan</a></li>
             <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+            <li><a href="/blog/tag/devops/">devops</a></li>
             <li><a href="/blog/tag/error/">error</a></li>
             <li><a href="/blog/tag/etl/">etl</a></li>
             <li><a href="/blog/tag/feminism/">feminism</a></li>

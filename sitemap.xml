@@ -4,7 +4,7 @@
         <loc>http://preaction.me/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2011/01/08/whats-new-in-webgui-8.0-1-psgi-plack.html</loc>
@@ -166,19 +166,19 @@
         <loc>http://preaction.me/blog/2014/05/19/test-post.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2014/05/28/a-test-post.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2014/05/28/another-test-post.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</loc>
@@ -220,13 +220,13 @@
         <loc>http://preaction.me/blog/2015/01/08/new-post.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2015/01/08/spicy-tomato-and-shrimp-pasta.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</loc>
@@ -244,7 +244,7 @@
         <loc>http://preaction.me/blog/2015/02/15/chili-mac.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/2015/03/02/announcing-statocles/</loc>
@@ -379,64 +379,76 @@
         <lastmod>2017-07-04</lastmod>
     </url>
     <url>
+        <loc>http://preaction.me/blog/2017/07/05/demo-a-live-web-app-on-bad-internet/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2017-07-05</lastmod>
+    </url>
+    <url>
+        <loc>http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2017-10-18</lastmod>
+    </url>
+    <url>
         <loc>http://preaction.me/blog/page/10/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/11/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/2/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/3/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/4/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/5/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/6/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/7/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/8/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/page/9/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/tag/beam/</loc>
@@ -485,6 +497,12 @@
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
         <lastmod>2017-07-04</lastmod>
+    </url>
+    <url>
+        <loc>http://preaction.me/blog/tag/devops/</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.3</priority>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/blog/tag/error/</loc>
@@ -670,217 +688,217 @@
         <loc>http://preaction.me/blog/tag/yertl/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
-        <lastmod>2015-11-27</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/draft/community-is-work.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/draft/rules.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/resume/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Flex/SwfConduit.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/ActiveMQ-ETL.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Compare-Building-Modules.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Dependency-Injection.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Git-ReleaseRepo.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Intro-XS-CXX.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-01.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-02.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-03.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-04.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-05.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-06.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-07.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-08.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-09.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Mojo-Angular/app-10.pl.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/PSGI-Testing.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/Perl/Scripting-Git.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/WebGUI/8-apps.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/s5/index-osf.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/s5/index-xoxo.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/s5/ui/s5-notes.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/browsers.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/documentation.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/download.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/gplv3.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/license.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/links.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
     <url>
         <loc>http://preaction.me/talks/shjs/doc/news.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
-        <lastmod>2017-07-04</lastmod>
+        <lastmod>2017-10-18</lastmod>
     </url>
 </urlset>
 

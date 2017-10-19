@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>preaction</title>
-        <meta content="Statocles 0.083" name="generator">
+        <meta content="Statocles 0.085" name="generator">
         <link href="/blog/index.atom" rel="alternate" type="application/atom+xml">
         <link href="/blog/index.rss" rel="alternate" type="application/rss+xml">
         
@@ -50,6 +50,110 @@
         <main>
 
 
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/">ygrok - Parse plain text into data structures</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/yertl/" rel="tag">yertl</a>
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-11-27">
+                            Posted on 2015-11-27
+                        </time>
+                        <a data-disqus-identifier="/2015/11/27/ygrok-parse-plain-text-into-data-structures/index.markdown" href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>As a data warehouse, a significant part of my job involves log analysis.
+Besides the standard root cause analysis, I need to verify database
+writes, diagnose user access issues, and look for under-used (and
+over-used) data sets. Additionally, my boss needs quarterly and yearly
+reports for client billing, and some of our clients need usage reports
+to identify data they might be paying for but not using (which we can
+then shut off to reduce costs). This has recently become a popular space
+for new solutions.</p>
+
+<p>On the other side, as a sysadmin, I need to get other reports like how
+all the machine&#39;s resources (CPU, memory, disk, network) are being used,
+what processes are running on the machine and how those processes used
+resources over time. This is basic monitoring, and there are lots of
+solutions here, too. In the true Unix philosophy, there are command-line
+programs to query every one of these, which write out text that I can
+then parse.</p>
+
+<p>In <a href="/blog/2015/01/21/managing-sql-data-with-yertl.html">my previous post about
+ysql</a>, I showed how
+to use the <code>ysql</code> utility to read/write YAML documents to SQL databases.
+Now, <a href="http://preaction.me/yertl">Yertl</a> has a <a href="/yertl/pod/ygrok"><code>ygrok</code>
+utility</a> to parse plain text into YAML documents.</p>
+
+
+                    <p><a href="/blog/2015/11/27/ygrok-parse-plain-text-into-data-structures/#section-2">Continue reading ygrok - Parse plain text into data structures...</a></p>
+
+            </article>
+            <article>
+                <header>
+                    <h1><a href="/blog/2015/10/26/list-slice-slice-operations-for-lists/">List::Slice - Slice operations for lists</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/perl/" rel="tag">perl</a>
+                        <a href="/blog/tag/cpan/" rel="tag">cpan</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2015-10-26">
+                            Posted on 2015-10-26
+                        </time>
+                        <a data-disqus-identifier="/2015/10/26/list-slice-slice-operations-for-lists/index.markdown" href="/blog/2015/10/26/list-slice-slice-operations-for-lists/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>How many times have you needed to do this?</p>
+
+<pre><code>my @found_names = grep { /^[A-D]/ } @all_names;
+my @topfive = @found_names[0..4];
+</code></pre>
+
+<p>Or worse, this.</p>
+
+<pre><code>my @topfive = ( grep { /^[A-D]/ } @all_names )[0..4];
+</code></pre>
+
+<p><img alt="There&#39;s got to be a better way" src="/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos.gif"></p>
+
+<p>Or this.</p>
+
+<pre><code>my @bottomfive = @names &lt; 5 ? @names : @names[$#names-5..$#names];
+</code></pre>
+
+<p>Or this.</p>
+
+<pre><code>my @names
+        = map { $_-&gt;[0] }
+        sort { $a-&gt;[1] &lt;=&gt; $b-&gt;[1] }
+        grep { $_-&gt;[1] &gt; $now }
+        map { [ $_-&gt;{name}, parse_date( $_-&gt;{birthday} ) ] }
+        @all_users;
+my @topfive = @names[0..4];
+</code></pre>
+
+<p>There&#39;s got to be a better way!</p>
+
+<p><img alt="There&#39;s got to be a better way" src="/blog/2015/10/26/list-slice-slice-operations-for-lists/cheetos-2.gif"></p>
+
+<p>Now there is! Introducing: <a href="http://metacpan.org/pod/List::Slice">List::Slice</a>!</p>
+
+
+                    <p><a href="/blog/2015/10/26/list-slice-slice-operations-for-lists/#section-2">Continue reading List::Slice - Slice operations for lists...</a></p>
+
+            </article>
             <article>
                 <header>
                     <h1><a href="/blog/2015/03/08/consuming-chaos/">Consuming Chaos</a></h1>
@@ -180,89 +284,6 @@ person to enter the conference. Tone.</p>
                     <p><a href="/blog/2015/02/13/mojolicious-triumphs-over-legacy-code.html#section-2">Continue reading Mojolicious Triumphs Over Legacy Code...</a></p>
 
             </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2015/01/21/managing-sql-data-with-yertl.html">Managing SQL Data with Yertl</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/sql/" rel="tag">sql</a>
-                        <a href="/blog/tag/etl/" rel="tag">etl</a>
-                        <a href="/blog/tag/yertl/" rel="tag">yertl</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2015-01-21">
-                            Posted on 2015-01-21
-                        </time>
-                        <a data-disqus-identifier="/2015/01/21/managing-sql-data-with-yertl.markdown" href="/blog/2015/01/21/managing-sql-data-with-yertl.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p><a href="http://blogs.perl.org/users/preaction/2015/01/managing-sql-data-with-yertl.html">Originally posted on blogs.perl.org -- Managing SQL Data with
-Yertl</a></p>
-
-<p>Every week, I work with about a dozen SQL databases. Some are Sybase, some
-MySQL, some SQLite. Some have different versions in dev, staging, and
-production. All of them need data extracted, transformed, and loaded.</p>
-
-<p>DBI is the clear choice for dealing with SQL databases in Perl, but there are a
-dozen lines of Perl code in between me and the operation that I want. Sure,
-I&#39;ve got modules and web applications and ad-hoc commands and scripts that
-perform certain individual tasks on my databases, but sometimes those things
-don&#39;t quite do what I need right now, and I just want something that will let
-me execute whatever SQL I can come up with.</p>
-
-<p><a href="http://metacpan.org/pod/ETL::Yertl">Yertl (ETL::Yertl)</a> is a shell-based ETL
-framework. It&#39;s under development (as is all software), but included already is
-a small utility called <a href="http://metacpan.org/pod/ysql">ysql</a> to make dealing
-with SQL databases easy.</p>
-
-
-                    <p><a href="/blog/2015/01/21/managing-sql-data-with-yertl.html#section-2">Continue reading Managing SQL Data with Yertl...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html">Leaving Crumb Trails -- Talking to Myself</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/software/" rel="tag">software</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2014-12-23">
-                            Posted on 2014-12-23
-                        </time>
-                            by preaction
-                        <a data-disqus-identifier="/2014/12/23/leaving-crumb-trails-talking-to-myself.markdown" href="/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                    <p>Originally posted as:
-                            <a href="http://blogs.perl.org/users/preaction/2014/12/leaving-crumb-trails----talking-to-myself.html">
-                                <em>Leaving Crumb Trails -- Talking to Myself</em> on blogs.perl.org.
-                            </a>
-                    </p>
-                </header>
-
-                <p>The past me is another person. Sometimes antagonist, sometimes friend, past me
-(postaction?) had ideas, hopes, and dreams and developed some of them into
-software that I and others use. Unfortunately, that asshole left bugs all
-through the code for me to fix.</p>
-
-<p>I can&#39;t blame him. Nobody&#39;s perfect, not even idealized/demonized copies of my
-past self. But I do have to fix them, and deal with the messes he left.</p>
-
-<p>Lucky for me, while he was writing buggy software, he left extensive notes for
-me to use...</p>
-
-
-                    <p><a href="/blog/2014/12/23/leaving-crumb-trails-talking-to-myself.html#section-2">Continue reading Leaving Crumb Trails -- Talking to Myself...</a></p>
-
-            </article>
         </main>
 
         <ul class="pager">
@@ -305,6 +326,7 @@ me to use...</p>
             <li><a href="/blog/tag/community/">community</a></li>
             <li><a href="/blog/tag/cpan/">cpan</a></li>
             <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+            <li><a href="/blog/tag/devops/">devops</a></li>
             <li><a href="/blog/tag/error/">error</a></li>
             <li><a href="/blog/tag/etl/">etl</a></li>
             <li><a href="/blog/tag/feminism/">feminism</a></li>

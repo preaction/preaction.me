@@ -5,7 +5,7 @@
     <updated>2014-06-14T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/git.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/git/" rel="alternate" />
-    <generator version="0.083">Statocles</generator>
+    <generator version="0.085">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2014/06/14/conflict-resolution-local--lib-and-gits-perl.html</id>
         <title>Conflict Resolution: local::lib and git&#39;s Perl</title>

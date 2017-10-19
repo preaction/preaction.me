@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Application Metrics with Yertl - preaction</title>
+        <meta content="Statocles 0.085" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2017/10/application-metrics-with-yertl.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Application Metrics with Yertl</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/yertl/" rel="tag">yertl</a>
+                    <a href="/blog/tag/devops/" rel="tag">devops</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2017-10-18">
+                        Posted on 2017-10-18
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>A time series database is a massively useful tool for system reporting
+and monitoring. By storing series of simple values attached to
+timestamps, an ops team can see how fast their application is
+processing data, how much traffic they&#39;re serving, and how many
+resources they&#39;re consuming. From this data they can determine how well
+their application is working, track down issues in the system, and plan
+for future resource needs.</p>
+
+<p>There have been a lot of new databases and tools developed to create,
+store, and consume time series data, and existing databases are being
+enhanced to better support time series data.</p>
+
+<p>With the new release of <a href="http://preaction.me/yertl">ETL::Yertl</a>, we can
+easily translate SQL database queries into metrics for monitoring and
+reporting. I&#39;ve been using these new features to monitor the <a href="http://cpantesters.org">CPAN
+Testers</a> application.</p>
+
+            </section>
+            <section id="section-2">
+                <p>To monitor the CPAN Testers project, I need to make sure that incoming
+test reports are being processed into useful data. When a report is
+written to the database, a summary must be generated for building ad-hoc
+reports on the website. An easy way to know if the application is
+processing data is to look at the count of the raw reports and the count
+of the processed report summaries and compare the two. If those two
+values keep increasing, the application is processing reports.</p>
+
+<p>Since our data is stored in a MySQL database, this is a pretty easy
+query:</p>
+
+<pre><code>SELECT UNIX_TIMESTAMP(), COUNT(*) FROM test_report; -- raw reports
+SELECT UNIX_TIMESTAMP(), COUNT(*) FROM cpanstats; -- processed reports
+</code></pre>
+
+<p>If those queries are run every 5 minutes and the results stored in
+a time series database, I will have a record of how much data is
+processed over time. With this data, I can set a monitoring system to
+alert me when the amount of data processed drops to 0 for too long
+(which likely means that something is broken).</p>
+
+<p>There are other metrics like this that provide insight into the CPAN
+Testers application. Since I started using
+<a href="http://mojolicious.org/perldoc/Minion">Minion</a> as a job queue, I have
+needed to know that Minion is running jobs and completing them
+successfully. This data is also easy to get from the MySQL database:</p>
+
+<pre><code>SELECT UNIX_TIMESTAMP(), COUNT(*) FROM minion_jobs; -- total jobs
+SELECT UNIX_TIMESTAMP(), COUNT(*) FROM minion_jobs WHERE state=&quot;inactive&quot;; -- pending jobs
+SELECT UNIX_TIMESTAMP(), COUNT(*) FROM minion_jobs WHERE state=&quot;finished&quot;; -- finished jobs
+SELECT UNIX_TIMESTAMP(), COUNT(*) FROM minion_jobs WHERE state=&quot;failed&quot;; -- failed jobs
+</code></pre>
+
+<p>Going to various places in your application and counting things is
+a very common kind of data to store in a time series. So common, that
+I was surprised when I couldn&#39;t find a tool that could easily do it.
+Then I remembered that I had written a good tool to read from SQL
+databases: <a href="http://preaction.me/yertl/pod/ysql/">ysql</a>, part of
+<a href="http://preaction.me/yertl/">ETL::Yertl</a>.</p>
+
+<p>Using the <code>--count</code> option, I could easily count the number of records
+in a table:</p>
+
+<pre><code># SELECT COUNT(*) FROM test_report
+$ ysql --dsn dbi:mysql:localhost --count test_report
+---
+value: 3450981
+
+# SELECT COUNT(*) FROM cpanstats
+$ ysql --dsn dbi:mysql:localhost --count cpanstats
+---
+value: 83671432
+</code></pre>
+
+<p>The <code>--count</code> option also allows the <code>--where</code> option to limit the count
+to rows that match the given SQL <code>WHERE</code> clause. So I can get counts of
+the total number of Minion jobs, the pending jobs, the finished jobs,
+and the failed jobs:</p>
+
+<pre><code>ysql --dsn dbi:mysql:localhost --count minion_jobs
+ysql --dsn dbi:mysql:localhost --count minion_jobs --where &#39;state=&quot;inactive&quot;&#39;
+ysql --dsn dbi:mysql:localhost --count minion_jobs --where &#39;state=&quot;finished&quot;&#39;
+ysql --dsn dbi:mysql:localhost --count minion_jobs --where &#39;state=&quot;failed&quot;&#39;
+</code></pre>
+
+<p>All I needed is a tool to write to time series databases. With
+<a href="http://preaction.me/yertl/">ETL::Yertl</a>
+<a href="http://preaction.me/yertl/blog/2017/10/18/release-v0-035/">v0.35</a>, I&#39;ve
+added the <code>yts</code> command. This command can read/write time series values
+in YAML documents, like this:</p>
+
+<pre><code>---
+metric: cpantesters.report_count
+timestamp: 2017-01-01T00:00:00
+value: 83081421
+---
+metric: cpantesters.report_count
+timestamp: 2017-01-01T00:10:00
+value: 83081485
+---
+metric: cpantesters.report_count
+timestamp: 2017-01-01T00:20:00
+value: 83081539
+</code></pre>
+
+<p>We can also easily write single metric values by giving the metric to
+write on the command line. If we don&#39;t specify a timestamp, it will
+default to now:</p>
+
+<pre><code>$ yts influxdb://localhost telegraf.cpantesters.report_count &lt;&lt;
+---
+value: 83081421
+</code></pre>
+
+<p>So to write my metrics, I just need to combine the <code>ysql</code> command and
+the <code>yts</code> command using shell pipes:</p>
+
+<pre><code>ysql --dsn dbi:mysql:localhost --count test_report         | yts influxdb://localhost telegraf.cpantesters.report_count
+ysql --dsn dbi:mysql:localhost --count cpanstats         | yts influxdb://localhost telegraf.cpantesters.stats_count
+ysql --dsn dbi:mysql:localhost --count minion_jobs         | yts influxdb://localhost telegraf.minion.total_jobs
+ysql --dsn dbi:mysql:localhost --count minion_jobs --where &#39;state=&quot;inactive&quot;&#39;         | yts influxdb://localhost telegraf.minion.pending_jobs
+ysql --dsn dbi:mysql:localhost --count minion_jobs --where &#39;state=&quot;finished&quot;&#39;         | yts influxdb://localhost telegraf.minion.finished_jobs
+ysql --dsn dbi:mysql:localhost --count minion_jobs --where &#39;state=&quot;failed&quot;&#39;         | yts influxdb://localhost telegraf.minion.failed_jobs
+</code></pre>
+
+<p>Now I can run these as cron jobs to poll the status of the CPAN Testers
+application and send myself an alert (configured with
+<a href="http://grafana.org">Grafana</a> when something looks wrong!</p>
+
+<p>Right now, <code>yts</code> supports both <a href="https://www.influxdata.com">InfluxDB</a>
+(used by CPAN Testers) and <a href="http://graphiteapp.org">Graphite</a> (used by
+many). If you need support for another time series database, submit
+a patch for your adapter! If you&#39;re using a SQL database as time series
+storage, submit a patch for that!</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2017/10/18/application-metrics-with-yertl/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/code/">code</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/devops/">devops</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/feminism/">feminism</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/javascript/">javascript</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/web/">web</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>
