@@ -34,9 +34,10 @@ May 2016 - November 2017
   commands as a REST API
 * Wrote [OpenAPI](https://www.openapis.org) specs and documentation to
   help downstream clients consume REST APIs
-* Built web UI for viewing server inventory, provisioning, installing
-  operating systems (via [Cobbler](http://cobbler.github.io)),
-  restarting servers, and configuring hardware RAID
+* Built web UI using [Vue.js](http://vuejs.org) for viewing server
+  inventory, provisioning, installing operating systems (via
+  [Cobbler](http://cobbler.github.io)), restarting servers, and
+  configuring hardware RAID
 * Built [Grafana](https://grafana.com) dashboards for viewing network
   traffic by point-of-presense and backbone provider using
   [carbonsearch](https://github.com/kanatohodets/carbonsearch)
@@ -61,8 +62,8 @@ October 2011 - November 2015
 #### Responsibilities and accomplishments
 
 * Collect and store market data for historical time series analysis
-* Collect market data using Perl, C++ (via Perl XS), Java (via Perl Inline::Java),
-  SQL, SOAP, HTTP, FTP, and e-mail
+* Collect market data using Perl, C++ (via Perl XS), Java (via Perl
+  Inline::Java), SQL, SOAP, HTTP, FTP, and e-mail
 * Modernized and simplified legacy Perl platform and improved testing
   and documentation
 * Worked with other QAR teams to build common solutions to data loading
@@ -82,9 +83,10 @@ October 2011 - November 2015
   Mojolicious, [AngularJS](https://angularjs.org), and
   [Bootstrap](http://getbootstrap.com)
 * Developed drivers for internal General Universal Time Series (GUTS)
-  API using ZeroMQ and [Protobuf](https://developers.google.com/protocol-buffers/)
-* Automated releases, deployment and environment setup using
-  Git and [Rex](http://rexify.org)
+  API using ZeroMQ and
+  [Protobuf](https://developers.google.com/protocol-buffers/)
+* Automated releases, deployment and environment setup using Git and
+  [Rex](http://rexify.org)
 * Built fully-automated dev deployment using Perl and Jenkins
 
 ### Double Cluepon Software Corp.
