@@ -24,5 +24,3 @@ him that men could be better.
 And, through the magic of stereotype excuses, sexual predators occupy our
 highest offices and control our most powerful institutions. Because nobody ever
 told them that men had to be better.
-
-I believe that men can be better.
