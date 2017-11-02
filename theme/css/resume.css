@@ -1,3 +1,43 @@
+body {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin-bottom: 0.8rem;
+}
+h2 {
+    border-width: 0;
+    padding: 0;
+    line-height: 0.9em;
+    border-bottom-width: 3px;
+    position: relative;
+    border-image: linear-gradient(to right, #333, rgba(0, 0, 0, 0)) 1 0;
+}
+/** I don't like this anymore...
+h2 {
+    padding-left: 0.6rem;
+}
+h2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-right: 1rem;
+    border-left: 3px solid #333;
+    border-right: 0;
+    border-image: linear-gradient(to top, #333, rgba(0, 0, 0, 0)) 1 100%;
+}
+*/
+
+h3 {
+    border: 0;
+    border-bottom-width: 1px;
+    border-image: linear-gradient(to right, #333, rgba(0, 0, 0, 0)) 1 0;
+}
+
 li {
     margin-bottom: 0;
 }

@@ -2,10 +2,50 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2017-10-18T00:00:00Z</updated>
+    <updated>2017-11-02T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.085">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/11/02/i-believe-men-can-be-better/</id>
+        <title>I Believe Men Can Be Better</title>
+        <link href="http://preaction.me/blog/2017/11/02/i-believe-men-can-be-better/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>I said <a href="https://twitter.com/preaction/status/923937942388822017">&quot;I believe men can be better&quot; last week regarding a job ad I was
+reading</a>, and I&#39;ve
+been thinking that this is a thing I&#39;ve rarely heard from anyone. I hear, all
+the time, aphorisms disparaging men and removing all agency and blame for bad
+behavior:</p>
+
+<ul>
+<li>&quot;Boys will be boys&quot;</li>
+<li>&quot;That&#39;s just how guys are&quot;</li>
+<li>&quot;You should have known that would happen -- he&#39;s a guy&quot;</li>
+</ul>
+
+<p>Growing up, I expected to be a terrible person. I expected to be
+uncontrollable. I expected to want to hurt people. And I didn&#39;t want to be that
+person. When I didn&#39;t become that person, I still knew that was what people
+expected of me.</p>
+
+<p>So, through the power of stereotype threat, a shy, sensitive boy turns into a
+sullen, introverted man who struggles with depression. Because nobody ever told
+him that men could be better.</p>
+
+<p>And, through the magic of stereotype excuses, sexual predators occupy our
+highest offices and control our most powerful institutions. Because nobody ever
+told them that men had to be better.</p>
+
+<p>I believe that men can be better.</p>
+
+                <p><a href="http://preaction.me/blog/2017/11/02/i-believe-men-can-be-better/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/feminism/">feminism</a>
+            </p>
+        ]]></content>
+        <updated>2017-11-02T00:00:00Z</updated>
+        <category term="feminism" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/</id>
         <title>Application Metrics with Yertl</title>
@@ -336,37 +376,6 @@ test report JSON object (?)</li>
         <updated>2017-05-20T00:00:00Z</updated>
         <category term="perl" />
         <category term="cpantesters" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/</id>
-        <title>Nerds Rejecting Nerds</title>
-        <link href="http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p><a href="https://medium.com/@maradydd/when-nerds-collide-31895b01e68c">https://medium.com/@maradydd/when-nerds-collide-31895b01e68c</a></p>
-
-<p>I was linked to this article after a discussion that was triggered by
-a Tweet: <a href="https://twitter.com/shadowcat_mst/status/852265380156510214">https://twitter.com/shadowcat_mst/status/852265380156510214</a></p>
-
-<p>In this article, the author describes a group called &quot;weird nerds&quot;,
-later renamed &quot;hackers&quot;, and goes through some of the reasons why this
-group is rejecting new members of their community (namely &quot;brogrammers&quot;
-and &quot;geek feminists&quot;, a false equivalence if ever there was one).</p>
-
-<p>As someone who fits the author&#39;s idea of a hacker (the classical
-definition of hacker, not someone who breaks into computers), and yet
-has never felt like part of the hacker community, there are a lot of
-things in here that are bad, but I&#39;ll comment for now on a couple
-quotes:</p>
-
-                <p><a href="http://preaction.me/blog/2017/04/23/nerds-rejecting-nerds/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/community/">community</a>
-                <a href="http://preaction.me/blog/tag/feminism/">feminism</a>
-            </p>
-        ]]></content>
-        <updated>2017-04-23T00:00:00Z</updated>
-        <category term="community" />
-        <category term="feminism" />
     </entry>
 </feed>
 
