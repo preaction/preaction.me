@@ -173,6 +173,9 @@ November 2005 - August 2011
     * Built new graphical dashboard to visualize test reports using
       Vue.js and HighCharts
         * Example: <http://beta.cpantesters.org/chart.html?dist=Statocles&version=0.083>
+    * Fixed ongoing scaling issues through CDN load balancing (donated
+      by [Fastly](http://fastly.com)) and horizontally scaling backend
+      processes (via [Minion](http://metacpan.org/pod/Minion))
 * Personal projects
     * [Github profile: preaction](http://github.com/preaction)
     * [Statocles - A static site CMS](http://preaction.github.io/Statocles)
