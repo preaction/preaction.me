@@ -1,5 +1,6 @@
 ---
 title: Resume
+layout: layout/blank.html
 links:
     stylesheet:
         - href: /theme/css/resume.css
@@ -39,7 +40,7 @@ May 2016 - November 2017
   [Cobbler](http://cobbler.github.io)), restarting servers, and
   configuring hardware RAID
 * Built [Grafana](https://grafana.com) dashboards for viewing network
-  traffic by point-of-presense and backbone provider using
+  traffic by point-of-presence and backbone provider using
   [carbonsearch](https://github.com/kanatohodets/carbonsearch)
 
 ### Independent Contractor
@@ -149,12 +150,19 @@ November 2005 - August 2011
 * Community leader/organizer
     * Leader of Chicago Perl Mongers since May 2013
     * Founder of #css on Freenode since Mar 2003 (IRC nick: preaction)
-* Presentations at [http://preaction.me/talks](/talks)
+* Speaker at user groups and conferences
+    * Recent topics:
+        * [All About CSS Flexbox](https://preaction.github.io/CSS-All-About-Flexbox/)
+        * [ES6 for Occasional JS devs](https://preaction.github.io/ES6-For-JS-Irregulars/)
+        * [Data Workflows with Beam](https://preaction.github.io/Data-Workflows-With-Beam/)
+    * Talk slides at [http://preaction.me/talks](/talks)
 * Contributor to
     * Perl 5
     * Git
 * Primary Maintainer of [CPAN Testers](http://github.com/cpan-testers)
-    * Wrote new API (<http://api.cpantesters.org>)
+  since October 2015
+    * Wrote new API (<http://api.cpantesters.org>) using Mojolicious,
+      DBIx-Class, and OpenAPI specification
     * Started metrics and monitoring using
       [Grafana](http://grafana.org) and [InfluxDB](http://influxdata.com)
     * Built distributed job runner to improve data processing time from
