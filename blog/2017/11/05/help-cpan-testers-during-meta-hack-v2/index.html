@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Help CPAN Testers During meta::hack v2 - preaction</title>
+        <meta content="Statocles 0.085" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2017/11/helping-cpan-testers-during-metahack-v2.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Help CPAN Testers During meta::hack v2</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/hackathon/" rel="tag">hackathon</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2017-11-05">
+                        Posted on 2017-11-05
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>Would you like to help <a href="http://cpantesters.org">CPAN Testers</a> during
+<a href="http://www.olafalders.com/2017/10/12/announcing-metahack-v2/">meta::hack
+v2</a>? <a href="https://chat.mibbit.com/?channel=%23cpantesters-discuss&amp;server=irc.perl.org">Join
+us on IRC in #cpantesters-discuss on
+irc.perl.org</a>,
+<a href="https://lists.perl.org/list/cpan-testers-discuss.html">join our mailing list on
+lists.perl.org</a>,
+or e-mail me directly at <a href="mailto:doug@preaction.me">doug@preaction.me</a>.</p>
+
+<p>With <a href="http://www.olafalders.com/2017/10/12/announcing-metahack-v2/">meta::hack
+v2</a> only
+two weeks away, I’ve written down my todo list for the hackathon. With
+another brand-new machine graciously provided by
+<a href="https://www.bytemark.co.uk">ByteMark</a>, who have been hosting CPAN
+Testers for years, this year’s hackathon will involve more devops tasks
+to improve reliability and stability of the various parts of the
+project.</p>
+
+<p>The new server will be the host for <a href="http://github.com/cpan-testers/cpantesters-backend">CPAN Testers backend
+processes</a>, the
+processes that turn the raw incoming data into the various reports used
+by the websites and downstream systems. It will also be the new home for
+the <a href="http://cpan.org">CPAN</a> and <a href="http://backpan.perl.org">BackPAN</a>
+mirrors that CPAN Testers uses for data, and provides to external users
+as part of <a href="http://mirrors.cpan.org">CPAN’s mirrors list</a>.</p>
+
+            </section>
+            <section id="section-2">
+                <p>But though this will be the main goal, it is not the only goal. I hope
+to finish up the retirement of the SQLite data release process in favor
+of the new APIs that were developed last year. This means reducing the
+work the server needs to do, removing some code that would otherwise
+need maintenance, and streamlining the data flows.</p>
+
+<p>If I have time, I’d like to build a status dashboard for CPAN Testers.
+This would allow users to see the current state of the websites and
+backend processes, and should improve transparency about the reliability
+of the system. I’ve been using <a href="http://grafana.org">Grafana</a> for charts,
+and I hope to be able to export those charts to another set of web pages
+on <a href="http://status.cpantesters.com">http://status.cpantesters.com</a>.</p>
+
+<p>Finally, the Perl 5 Porters have long used CPAN Testers data to measure
+the impact of new features, bugfixes, and internal improvements to the
+Perl 5 interpreter. Development releases of Perl 5 are used to run the
+test suite of CPAN modules, and if long-stable CPAN distributions start
+failing, a person will follow up with triage and a report to the Perl
+5 Porters. Sometimes this results in a change to the interpreter to fix
+the problem. Other times the changes are deemed too important and the
+Perl 5 Porters will submit a patch to the distribution author to make
+sure it is compatible with the new Perl version. This project is called
+&quot;blead Perl breaks CPAN&quot;.</p>
+
+<p>James Keenan on the Perl 5 development mailing list has asked for a new
+report on CPAN Testers data to make discovering when blead Perl breaks
+CPAN easier. This will involve looking for distributions with passing
+tests on the latest stable Perl, and failing tests on the latest
+development Perl. From that data, a simple web dashboard can be created.
+This also involves some database work to ensure we can easily find which
+Perl version is the latest.</p>
+
+<p>If you would like to help with any of these tasks, or any other task in
+the CPAN Testers projects
+(<a href="https://github.com/cpan-testers/cpantesters-schema/issues">schema</a>,
+<a href="https://github.com/cpan-testers/cpantesters-api/issues">api</a>,
+<a href="https://github.com/cpan-testers/cpantesters-backend/issues">backend</a>,
+<a href="https://github.com/cpan-testers/cpantesters-web/issues">web</a>,
+<a href="https://github.com/cpan-testers/cpantesters-deploy/issues">deploy</a>),
+let me know <a href="https://chat.mibbit.com/?channel=%23cpantesters-discuss&amp;server=irc.perl.org">on
+IRC</a>,
+<a href="https://lists.perl.org/list/cpan-testers-discuss.html">the mailing
+list</a>, or <a href="doug@preaction.me">email
+me</a> for questions and guidance.</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2017/11/05/help-cpan-testers-during-meta-hack-v2/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/code/">code</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/devops/">devops</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/feminism/">feminism</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/hackathon/">hackathon</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/javascript/">javascript</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/web/">web</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

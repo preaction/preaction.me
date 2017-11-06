@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://preaction.me/blog/tag/hackathon/</id>
+    <title>preaction</title>
+    <updated>2017-11-05T00:00:00Z</updated>
+    <link href="http://preaction.me/blog/tag/hackathon.atom" rel="self" />
+    <link href="http://preaction.me/blog/tag/hackathon/" rel="alternate" />
+    <generator version="0.085">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/</id>
+        <title>Help CPAN Testers During meta::hack v2</title>
+        <link href="http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Would you like to help <a href="http://cpantesters.org">CPAN Testers</a> during
+<a href="http://www.olafalders.com/2017/10/12/announcing-metahack-v2/">meta::hack
+v2</a>? <a href="https://chat.mibbit.com/?channel=%23cpantesters-discuss&amp;server=irc.perl.org">Join
+us on IRC in #cpantesters-discuss on
+irc.perl.org</a>,
+<a href="https://lists.perl.org/list/cpan-testers-discuss.html">join our mailing list on
+lists.perl.org</a>,
+or e-mail me directly at <a href="mailto:doug@preaction.me">doug@preaction.me</a>.</p>
+
+<p>With <a href="http://www.olafalders.com/2017/10/12/announcing-metahack-v2/">meta::hack
+v2</a> only
+two weeks away, I’ve written down my todo list for the hackathon. With
+another brand-new machine graciously provided by
+<a href="https://www.bytemark.co.uk">ByteMark</a>, who have been hosting CPAN
+Testers for years, this year’s hackathon will involve more devops tasks
+to improve reliability and stability of the various parts of the
+project.</p>
+
+<p>The new server will be the host for <a href="http://github.com/cpan-testers/cpantesters-backend">CPAN Testers backend
+processes</a>, the
+processes that turn the raw incoming data into the various reports used
+by the websites and downstream systems. It will also be the new home for
+the <a href="http://cpan.org">CPAN</a> and <a href="http://backpan.perl.org">BackPAN</a>
+mirrors that CPAN Testers uses for data, and provides to external users
+as part of <a href="http://mirrors.cpan.org">CPAN’s mirrors list</a>.</p>
+
+                <p><a href="http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/hackathon/">hackathon</a>
+            </p>
+        ]]></content>
+        <updated>2017-11-05T00:00:00Z</updated>
+        <category term="cpantesters" />
+        <category term="perl" />
+        <category term="hackathon" />
+    </entry>
+</feed>
+
