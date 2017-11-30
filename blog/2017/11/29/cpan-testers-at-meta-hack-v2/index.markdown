@@ -52,7 +52,7 @@ of the report processing tasks, which are now able to process incoming
 test reports almost instantly. Thanks to Rex, it was trivial to move the
 backend processes from the main machine to this new machine. 
 
-Just before the hackathon, [Sebastien Riedl](https://twitter.com/kraih)
+Just before the hackathon, [Sebastian Riedel](https://twitter.com/kraih)
 (author of [Mojolicious](http://mojolicious.org)) released [a Minion UI
 application](https://twitter.com/kraih/status/931580527483682818).
 I spent Saturday morning making
