@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>CPAN Testers at meta::hack v2 - preaction</title>
+        <meta content="Statocles 0.085" name="generator">
+        <link href="http://blogs.perl.org/users/preaction/2017/11/cpan-testers-at-metahack-v2.html" rel="canonical">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>CPAN Testers at meta::hack v2</h1>
+                <p class="tags">Tags:
+                    <a href="/blog/tag/perl/" rel="tag">perl</a>
+                    <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2017-11-29">
+                        Posted on 2017-11-29
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>Two weeks ago, I was invited to <a href="https://metacpan.org/about/meta_hack">meta::hack v2, the second annual
+MetaCPAN hackathon</a>. As the
+primary maintainer of <a href="http://cpantesters.org">CPAN Testers</a>, I went to
+continue improving the integration of CPAN Testers data with MetaCPAN
+and generally improve the performance of CPAN Testers to the benefit of
+the entire <a href="http://perl.org">Perl</a> ecosystem.</p>
+
+            </section>
+            <section id="section-2">
+                <p>The first task on my plate was to complete the main task I started at
+last year&#39;s meta::hack: Make <a href="http://metacpan.org">MetaCPAN</a> consume
+CPAN Testers data via <a href="http://api.cpantesters.org">the CPAN Testers
+API</a>. Fortunately, the MetaCPAN team has <a href="https://github.com/metacpan/metacpan-developer">a
+Vagrant VM for developing on
+MetaCPAN</a>. After about
+an hour getting set up, I was able to start hacking.</p>
+
+<p>But getting set up hit a snag: On my machine and my machine only, the VM
+could not reach the Internet, but the parent machine could. Luckily,
+<a href="https://github.com/perl-carton/carton">Carton, a module manager for
+Perl</a>, has the <code>carton bundle</code>
+command which will fetch all the necessary module tarballs. From there,
+I could transfer all of the modules to the VM and then use <code>carton
+install --cached --deployment</code> to install from the tarballs. Problem
+solved!</p>
+
+<p>From there, it was a quick task to write
+<a href="https://github.com/metacpan/metacpan-api/blob/master/lib/MetaCPAN/Script/CPANTestersAPI.pm">MetaCPAN::Script::CPANTestersAPI</a>,
+make the MetaCPAN API integration tests pass, and <a href="https://github.com/metacpan/metacpan-api/pull/765">open
+a PR</a>.</p>
+
+<p>Next, I set about moving the CPAN Testers CPAN mirror to relieve some
+I/O pressure from the main machine. This new machine was graciously
+donated by <a href="http://bytemark.co.uk">ByteMark</a>, who has been hosting us
+for years. I spent all of Friday writing the appropriate Rex tasks to
+deploy the CPAN mirror and enable the BackPAN sync scripts, and thanks
+to <a href="http://www.manwar.org">Mohammad Anwar (manwar)</a> for helping to test
+the BackPAN mirror to make sure it&#39;s working correctly.</p>
+
+<p>Along with the CPAN/BackPAN mirror, this new machine is also running the
+backend processing for test reports. This has improved the performance
+of the report processing tasks, which are now able to process incoming
+test reports almost instantly. Thanks to Rex, it was trivial to move the
+backend processes from the main machine to this new machine. </p>
+
+<p>Just before the hackathon, <a href="https://twitter.com/kraih">Sebastien Riedl</a>
+(author of <a href="http://mojolicious.org">Mojolicious</a>) released <a href="https://twitter.com/kraih/status/931580527483682818">a Minion UI
+application</a>.
+I spent Saturday morning making
+<a href="http://metacpan.org/pod/Minion::Backend::mysql">Minion::Backend::mysql</a>
+work well enough to show the UI and try it out. Unfortunately, the MySQL
+Minion backend needs a bit more work before it will function properly
+(see <a href="https://github.com/preaction/Minion-Backend-mysql/issues/15">this Github issue for Minion-Backend-mysql to help fix this
+problem</a>).</p>
+
+<p>Finally on Saturday I worked with <a href="https://github.com/haarg">Graham Knop
+(haarg)</a> in tracking down a problem that
+started earlier in the day: Test reports with ASCII control characters
+would completely break the database. It turns out that MySQL would
+accept the JSON with escaped low-byte ASCII characters (0x00-0x1f), but
+when reading it back, would not re-escape them as JSON requires.
+A proper JSON decoder rightly died trying to process it, which I fixed
+by re-escaping the JSON using a custom DBIx::Class deserializer
+(released as <a href="https://metacpan.org/release/PREACTION/CPAN-Testers-Schema-0.020">CPAN::Testers::Schema
+v0.020</a>).</p>
+
+<p>On the last day I was able to work with <a href="http://leo.cuckoo.org">Leo Lapworth
+(ranguard)</a> to set up some custom error pages for
+Fastly to hopefully cut down on the number of people asking me about the
+downtime that comes with an overloaded machine, and especially a JSON
+error page for the API server to make it easier for users.</p>
+
+<p>Meanwhile, <a href="http://github.com/1nickt">Nick Tonkin</a> added some new
+features to the CPAN Testers API, including being able to limit the
+results from the test release summary API by distribution maturity (dev
+or stable) and soon the API will be able to limit the results to only
+the latest version of the distribution. So, it will be possible to say
+&quot;<a href="https://github.com/cpan-testers/cpantesters-api/issues/9">give me the test summary for the latest stable release of all dists on
+CPAN</a>&quot;. As
+part of this, Nick implemented <a href="https://github.com/cpan-testers/cpantesters-api/pull/18">a <code>limit</code> query parameter to limit
+results
+returned</a> and
+<a href="https://github.com/cpan-testers/cpantesters-schema/pull/15">the <code>maturity</code> parameter to show only stable or dev releases in the
+results</a>.
+Thanks to Nick for all his help so far!</p>
+
+<p>I spent the rest of the last day working through a problem with the new
+backend server that ended up being incompatible
+<a href="http://metacpan.org/pod/Sereal">Sereal</a> versions. Unfortunately because
+of this, I wasn&#39;t able to get to some of the stuff I wanted to. But I&#39;ve
+created Github issues for all the remaining tasks, and anyone is welcome
+to help contribute to CPAN Testers.</p>
+
+<p>Some tasks left over from this hackathon:</p>
+
+<ul>
+<li><a href="https://github.com/cpan-testers/cpantesters-web/issues/12">Create Perl development release dashboard (Bleadperl Breaks
+CPAN)</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-backend/issues/7">Generate list of Perl versions from CPAN
+mirror</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-deploy/issues/21">Create CPAN Testers development
+VM</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-web/issues/13">Add OAuth2 authentication for Perl
+auth0</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-backend/issues/12">Migrate release data script to new backend
+module</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-schema/issues/16">Add lint process for verifying CPAN uploads
+table</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-schema/issues/17">Add lint process for verifying release summary
+table</a></li>
+<li><a href="https://github.com/cpan-testers/cpantesters-deploy/issues/22">Move common database configuration to configuration/deploy
+repository</a></li>
+</ul>
+
+<p>Thanks to all the sponsors of meta::hack v2:
+<a href="https://booking.com">Booking.com</a>, <a href="https://cpanel.com">cPanel</a>,
+<a href="https://servercentral.com">ServerCentral</a>, and
+<a href="https://kritika.io">Kritika</a>. Sponsoring events like this is how <a href="http://cpantesters.org">CPAN
+Testers</a> a huge help to maintaining and
+enhancing the CPAN Testers project.</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2017/11/29/cpan-testers-at-meta-hack-v2/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/code/">code</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/devops/">devops</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/feminism/">feminism</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/hackathon/">hackathon</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/javascript/">javascript</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/web/">web</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

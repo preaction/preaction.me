@@ -7,6 +7,28 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.085</generator>
         <item>
+            <title>CPAN Testers at meta::hack v2</title>
+            <link>http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/</link>
+            <guid>http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/</guid>
+            <description><![CDATA[
+                <p>Two weeks ago, I was invited to <a href="https://metacpan.org/about/meta_hack">meta::hack v2, the second annual
+MetaCPAN hackathon</a>. As the
+primary maintainer of <a href="http://cpantesters.org">CPAN Testers</a>, I went to
+continue improving the integration of CPAN Testers data with MetaCPAN
+and generally improve the performance of CPAN Testers to the benefit of
+the entire <a href="http://perl.org">Perl</a> ecosystem.</p>
+
+                    <p><a href="http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                    <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Wed, 29 Nov 2017 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Help CPAN Testers During meta::hack v2</title>
             <link>http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/</link>
             <guid>http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/</guid>
@@ -179,60 +201,6 @@ specification</a> (using
             ]]></description>
             <pubDate>
                 Tue, 27 Dec 2016 00:00:00 +0000
-            </pubDate>
-        </item>
-        <item>
-            <title>Yuletide Logging</title>
-            <link>http://preaction.me/blog/2016/12/04/yuletide-logging/</link>
-            <guid>http://preaction.me/blog/2016/12/04/yuletide-logging/</guid>
-            <description><![CDATA[
-                <blockquote>
-  <p>&#39;Twas a night before Christmas and on the ops floor <br>
-  All the servers were humming behind the closed door <br>
-  The app was deployed to the servers with care <br>
-  In hopes that the customers soon would be there <br>
-  When from out of the phone there arose such a clatter <br>
-  I sprang out of my chair to see what was the matter <br>
-  &quot;The website is down!&quot; said the boss with a shout <br>
-  &quot;We need to make money, so figure it out!&quot; <br>
-  I logged in to the server and looked all around <br>
-  But the app had no logging; no reason was found <br>
-  With no other choice, I called the developer <br>
-  Who said &quot;just restart it, I&#39;m sure that&#39;ll fix &#39;er&quot; <br>
-  I ran the right service, up the app came <br>
-  Only to come down again and again <br>
-  If there but was a way to know what was wrong <br>
-  I could fix it for sure, but no logging was found</p>
-</blockquote>
-
-<p>Good logging is crucial for applications in production. In an emergency,
-you will want it to be as easy as possible to track down problems when
-they happen. With good logs you can ensure that minor bugs don&#39;t cause
-major downtime and data loss problems. Good logs can help track down
-security issues and can provide an auditable trail of changes to track
-down who did what and when.</p>
-
-<p><a href="http://metacpan.org/pod/Log::Any">Log::Any</a> is a lightweight, generic API built for interoperable
-logging for <a href="http://cpan.org">CPAN</a> modules. Much like
-<a href="http://dbi.perl.org">DBI</a> allows interoperable database interfaces,
-<a href="http://metacpan.org/pod/CHI">CHI</a> allows interoperable caching
-interfaces, and <a href="http://plackperl.org">PSGI</a> allows interoperable web
-applications, Log::Any allows a CPAN module to produce logs that fit
-into your environment whether you just want to see logs on your
-terminal, you&#39;re using <a href="http://mschilli.github.io/log4perl/">Log4perl</a>
-to directly send e-mail alerts to your operations team, or you&#39;re using
-a local <a href="http://www.rsyslog.com">rsyslog</a> daemon to transmit logs to an
-<a href="https://www.elastic.co/products/elasticsearch">ElasticSearch</a> instance
-via <a href="https://www.elastic.co/products/logstash">Logstash</a>.</p>
-
-                    <p><a href="http://preaction.me/blog/2016/12/04/yuletide-logging/#section-2">Continue reading...</a></p>
-                <p>Tags:
-                    <a href="http://preaction.me/blog/tag/perl/">perl</a>
-                    <a href="http://preaction.me/blog/tag/logging/">logging</a>
-                </p>
-            ]]></description>
-            <pubDate>
-                Sun, 04 Dec 2016 00:00:00 +0000
             </pubDate>
         </item>
     </channel>

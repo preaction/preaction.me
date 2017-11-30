@@ -53,6 +53,46 @@
 
             <article>
                 <header>
+                    <h1><a href="/blog/2017/07/04/cpan-testers-has-an-api/">CPAN Testers Has an API</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/blog/tag/web/" rel="tag">web</a>
+                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2017-07-04">
+                            Posted on 2017-07-04
+                        </time>
+                        <a data-disqus-identifier="/2017/07/04/cpan-testers-has-an-api/index.markdown" href="/blog/2017/07/04/cpan-testers-has-an-api/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>[<a href="https://www.youtube.com/watch?v=okeBgBb1Cxs&amp;index=60&amp;list=PLA9_Hq3zhoFxdSVDA4v9Af3iutQxLI14m">Watch this lightning talk on The Perl Conference YouTube
+channel</a>]</p>
+
+<p>I&#39;ve been working on the <a href="http://www.cpantesters.org">CPAN Testers</a>
+project since 2015. In all that time, I&#39;ve been focused on maintenance
+(which has involved more operations/administration tasks than any actual
+code changes) and modernization. It&#39;s that modernization effort that has
+led to a <a href="http://api.cpantesters.org">new CPAN Testers API</a>.</p>
+
+<p>This new API uses <a href="http://mojolicious.org">the Mojolicious web
+framework</a>, along with an
+<a href="http://openapis.org">OpenAPI</a> schema to expose all of the most useful
+CPAN Testers data. OpenAPI is a specification for web APIs, and there
+are tools like <a href="http://swagger.io">Swagger</a> to generate a useful documentation
+website from your spec, like the <a href="http://api.cpantesters.org/docs/?url=/v3">CPAN Testers API documentation
+website</a>.</p>
+
+
+                    <p><a href="/blog/2017/07/04/cpan-testers-has-an-api/#section-2">Continue reading CPAN Testers Has an API...</a></p>
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/blog/2017/05/20/2017-perl-toolchain-summit/">2017 Perl Toolchain Summit</a></h1>
 
                     <p class="tags">Tags:
@@ -238,49 +278,6 @@ I follow when choosing a log level:</p>
 
 
                     <p><a href="/blog/2017/03/27/choosing-a-log-level/#section-2">Continue reading Choosing a Log Level...</a></p>
-
-            </article>
-            <article>
-                <header>
-                    <h1><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/">CPAN Testers Has a New API</a></h1>
-
-                    <p class="tags">Tags:
-                        <a href="/blog/tag/perl/" rel="tag">perl</a>
-                        <a href="/blog/tag/cpantesters/" rel="tag">cpantesters</a>
-                    </p>
-
-                    <aside>
-                        <p><time datetime="2016-12-27">
-                            Posted on 2016-12-27
-                        </time>
-                        <a data-disqus-identifier="/2016/12/27/cpan-testers-has-a-new-api/index.markdown" href="/blog/2016/12/27/cpan-testers-has-a-new-api/#disqus_thread">0 comments</a>
-                        </p>
-                    </aside>
-
-                </header>
-
-                <p>As part of <a href="https://metacpan.org/about/meta_hack">the MetaCPAN hackathon,
-meta::hack</a>, I was invited to work
-on the CPAN Testers integration. <a href="http://cpantesters.org">CPAN Testers</a>
-is a community of <a href="http://cpan.org">CPAN</a> users who send in test reports
-for CPAN modules as they are uploaded. <a href="http://metacpan.org">MetaCPAN</a>
-adds a summary of those test reports to every CPAN distribution to help
-you determine which module you&#39;d most like to use. For quite a few
-months, this integration was broken, and the nature of the current
-integration (a SQLite database) means it is not as generally useful as
-it could be.</p>
-
-<p>So, I decided that the best way to improve the CPAN Testers / MetaCPAN
-integration was to build a <a href="http://api.cpantesters.org">new CPAN Testers
-API</a>. This API uses <a href="http://metacpan.org/pod/CPAN::Testers::Schema">the CPAN Testers
-schema</a> to expose CPAN
-Testers data using a JSON API. This API is built using <a href="http://mojolicious.org">the Mojolicious
-web framework</a>, and an <a href="http://openapis.org">OpenAPI
-specification</a> (using
-<a href="http://metacpan.org/pod/Mojolicious::Plugin::OpenAPI">Mojolicious::Plugin::OpenAPI</a>.</p>
-
-
-                    <p><a href="/blog/2016/12/27/cpan-testers-has-a-new-api/#section-2">Continue reading CPAN Testers Has a New API...</a></p>
 
             </article>
         </main>

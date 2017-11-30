@@ -2,10 +2,32 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2017-11-05T00:00:00Z</updated>
+    <updated>2017-11-29T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.085">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/</id>
+        <title>CPAN Testers at meta::hack v2</title>
+        <link href="http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>Two weeks ago, I was invited to <a href="https://metacpan.org/about/meta_hack">meta::hack v2, the second annual
+MetaCPAN hackathon</a>. As the
+primary maintainer of <a href="http://cpantesters.org">CPAN Testers</a>, I went to
+continue improving the integration of CPAN Testers data with MetaCPAN
+and generally improve the performance of CPAN Testers to the benefit of
+the entire <a href="http://perl.org">Perl</a> ecosystem.</p>
+
+                <p><a href="http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/perl/">perl</a>
+                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
+            </p>
+        ]]></content>
+        <updated>2017-11-29T00:00:00Z</updated>
+        <category term="perl" />
+        <category term="cpantesters" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/</id>
         <title>Help CPAN Testers During meta::hack v2</title>
@@ -319,38 +341,6 @@ runs perfectly.</p>
             </p>
         ]]></content>
         <updated>2017-07-05T00:00:00Z</updated>
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/</id>
-        <title>CPAN Testers Has an API</title>
-        <link href="http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>[<a href="https://www.youtube.com/watch?v=okeBgBb1Cxs&amp;index=60&amp;list=PLA9_Hq3zhoFxdSVDA4v9Af3iutQxLI14m">Watch this lightning talk on The Perl Conference YouTube
-channel</a>]</p>
-
-<p>I&#39;ve been working on the <a href="http://www.cpantesters.org">CPAN Testers</a>
-project since 2015. In all that time, I&#39;ve been focused on maintenance
-(which has involved more operations/administration tasks than any actual
-code changes) and modernization. It&#39;s that modernization effort that has
-led to a <a href="http://api.cpantesters.org">new CPAN Testers API</a>.</p>
-
-<p>This new API uses <a href="http://mojolicious.org">the Mojolicious web
-framework</a>, along with an
-<a href="http://openapis.org">OpenAPI</a> schema to expose all of the most useful
-CPAN Testers data. OpenAPI is a specification for web APIs, and there
-are tools like <a href="http://swagger.io">Swagger</a> to generate a useful documentation
-website from your spec, like the <a href="http://api.cpantesters.org/docs/?url=/v3">CPAN Testers API documentation
-website</a>.</p>
-
-                <p><a href="http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/web/">web</a>
-                <a href="http://preaction.me/blog/tag/cpantesters/">cpantesters</a>
-            </p>
-        ]]></content>
-        <updated>2017-07-04T00:00:00Z</updated>
-        <category term="web" />
-        <category term="cpantesters" />
     </entry>
 </feed>
 
