@@ -75,4 +75,4 @@ let me know [on
 IRC](https://chat.mibbit.com/?channel=%23cpantesters-discuss&server=irc.perl.org),
 [the mailing
 list](https://lists.perl.org/list/cpan-testers-discuss.html), or [email
-me](doug@preaction.me) for questions and guidance.
+me](mailto:doug@preaction.me) for questions and guidance.
