@@ -2,10 +2,146 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2017-11-29T00:00:00Z</updated>
+    <updated>2017-12-03T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.085">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2017/12/03/technology-never-dies/</id>
+        <title>Technology Never Dies</title>
+        <link href="http://preaction.me/blog/2017/12/03/technology-never-dies/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <div>
+<blockquote class="twitter-tweet" data-lang="en"><p dir="ltr" lang="en">List of things unpopular with programmers that I enjoy and
+have produced valuable solutions with:<br>1) Perl<br>2) JavaScript<br>3)
+C++<br>4) Excel<br>5) Java<br>6) CSS<br><br>Give it a month and I&#39;ll
+have another one for the list... Popularity contests are for
+small-minded people.</p>— Presistance (@preaction) <a href="https://twitter.com/preaction/status/936352187004878849?ref_src=twsrc%5Etfw">November
+30, 2017</a></blockquote><script async charset="utf-8" src="https://platform.twitter.com/widgets.js"></script> 
+</div>
+
+<p><a href="https://twitter.com/preaction/status/936352187004878849">This tweet got a lot of likes and
+replies</a>, so
+I should expand on it a bit.  Most of the replies were additions to the
+list: Visual Basic (tool for automating and scripting Windows),
+Microsoft Access (great for small databases), PHP (which unseated Perl
+as the powerhouse of the web). But some of the replies were the things
+I deal with a lot: Explanations why my choices suck and I should choose
+other things.</p>
+
+<p>I&#39;m mature, experienced, and confident enough so that now those things
+don&#39;t bother me, but it&#39;s a problem for novices in the tech community.
+Learning is difficult and frustrating, and hearing that the effort taken
+to learn a technology is worthless because that technology is &quot;bad&quot; is
+demoralizing and can lead to people leaving tech altogether.</p>
+
+<p>So, let me help you cut off some of these discussions:</p>
+
+<h2>X is Dead</h2>
+
+<ul>
+<li>X is obsolete</li>
+<li>X is outdated</li>
+<li>X is dying</li>
+<li>X is dead</li>
+</ul>
+
+<p>No, it isn&#39;t. Technologies don&#39;t die easily, and I can assure you that
+once a technology has left the technology journalism circuit it will
+continue still for quite some time.</p>
+
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Fortran">FORTRAN</a>, one of the oldest computer languages, still has new
+projects being written in it, and indeed had a <a href="https://en.wikipedia.org/wiki/Fortran#Fortran_2008">new specification come
+out in 2008</a> which adds concurrency and a <a href="https://en.wikipedia.org/wiki/Fortran#Fortran_2018">new spec being planned
+for 2018</a>.</li>
+<li>New games are being written for the
+<a href="https://www.theverge.com/2017/5/9/15584416/new-games-retro-consoles-nes-snes-sega-genesis-famicom">NES</a>, <a href="https://www.theverge.com/2012/11/26/3693208/c64-indie-games-paul-koller">Commodore 64</a>, and
+<a href="https://atariage.com">Atari 2600</a>.</li>
+<li>Flash is still ubiquitous, despite being declared dead in 2007.</li>
+<li>Operating systems abandoned by their parent companies (or whose parent
+companies are dead) still have devoted communities, and even active
+development (BeOS is now <a href="https://www.haiku-os.org">Haiku</a>, Solaris
+has <a href="https://wiki.illumos.org/display/illumos/illumos+Home">Illumos</a>,
+and even Windows XP has <a href="https://reactos.org">ReactOS</a>).</li>
+</ul>
+
+<p>What they might mean is &quot;X is no longer a way to be successful&quot;, which is also
+mostly false depending on how you measure success: If you want to make VC
+money, that is probably true. If you want to learn about technology or solve
+problems using technology, it is entirely false. If you want to make a career
+in technology, it&#39;s certainly false: Even old technology needs support,
+maintenance, and development.</p>
+
+<p>What they might also mean is &quot;X is no longer the only technology that can solve
+its specific problem&quot;, and that&#39;s a good thing. Technology evolves when it is
+exposed to new ideas, and there&#39;s no better way to get exposed to new ideas
+than to compete with other technology. This is why FORTRAN has a new spec
+coming out, as well as languages like Ada and COBOL.</p>
+
+<p>&quot;X is dead&quot; is anti-marketing. Don&#39;t be taken in.</p>
+
+<h2>X is Bad</h2>
+
+<ul>
+<li>X is ugly</li>
+<li>X is unmaintainable</li>
+<li>X is terrible</li>
+<li>X considered harmful</li>
+<li>X is bad</li>
+</ul>
+
+<p>Technology is invented at a specific time for a specific purpose. There aren&#39;t
+many technologies that gain widespread acceptance while being unsuitable for
+their purposes. So, how can that surviving technology be entirely bad?</p>
+
+<p>What they almost always mean is &quot;X is bad to use now&quot;, and that&#39;s also often
+false: While there may be more and better solutions to the particular problem
+(which, as explained above, is a good thing), a surviving technology often
+still has niches where it fits better than any other. This does mean that you
+need to do your research: Look at the problem domain, find the solutions, and
+if you have time, try them out to see which one you like better. Don&#39;t let &quot;X
+is bad&quot; stop you from trying X out to see if it solves your problem.</p>
+
+<p>What they may also mean is &quot;X teaches bad things&quot;, which is vehemently false:
+Learning about the history of a technology is important. Learning about
+historical problems and solutions is important. Technology is built for a
+reason. Learning those reasons will explain the design decisions made. Learning
+about design decisions and tradeoffs can teach you how to proceed when nothing
+is a good option. No technology is built to be deliberately terrible (though
+some technologies are certainly satirical or farcical, they are excellent
+satire/farce and should be evaluated as such, like INTERCAL).</p>
+
+<p>I have, in fact, learned the most from learning other languages designs.
+Java taught me a lot about OO, which I brought in to all my programs.
+Using pthreads in C++ taught me a lot about process safety and
+message-passing, which I then started using <a href="http://zeromq.org">Zeromq</a>
+to solve for me (when I can, but I still know how to solve that problem
+without if needed). The more shell scripting I learn, the less work
+I end up having to do (fact). Shell taught me fantastic lessons about
+composability of programs that I never thought possible, and I’ve got
+some projects that take full advantage of that.</p>
+
+<p>&quot;X is bad&quot; is almost always a disingenuous attempt to get you to use their
+favorite technology. Don&#39;t be fooled!</p>
+
+<p>Technology is not a popularity contest. Technology is not good because it&#39;s
+popular, and it&#39;s not bad because it is unpopular. Technology is not good
+because its unique, and it&#39;s not bad because it exists in a crowded maze of
+solutions, all alike. We need to evaluate technology objectively and
+critically, whether popular or unpopular. And we must always remember to be
+kind to people using technology.</p>
+
+                <p><a href="http://preaction.me/blog/2017/12/03/technology-never-dies/#section-2">Continue reading...</a></p>
+            <p>Tags:
+                <a href="http://preaction.me/blog/tag/software/">software</a>
+                <a href="http://preaction.me/blog/tag/community/">community</a>
+            </p>
+        ]]></content>
+        <updated>2017-12-03T00:00:00Z</updated>
+        <category term="software" />
+        <category term="community" />
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/11/29/cpan-testers-at-meta-hack-v2/</id>
         <title>CPAN Testers at meta::hack v2</title>
@@ -140,207 +276,6 @@ Testers</a> application.</p>
         <updated>2017-10-18T00:00:00Z</updated>
         <category term="yertl" />
         <category term="devops" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2017/07/05/demo-a-live-web-app-on-bad-internet/</id>
-        <title>Demo a Live Web App on Bad Internet</title>
-        <link href="http://preaction.me/blog/2017/07/05/demo-a-live-web-app-on-bad-internet/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p><a href="https://opensource.com/article/17/7/squid-proxy">Originally posted on Opensource.com</a></p>
-
-<p>Live demos are the bane of professional speakers everywhere. Even the
-most well-prepared live demo can go wrong for unforeseeable reasons.
-This is a bad thing to happen while you&#39;re up on-stage in front of 300
-people. Live demos of remote web apps are so fraught with peril that
-most people find other ways of presenting them. Screenshots can never
-fail, and local sandboxes won&#39;t fail on overloaded conference Internet
-connections. But what if we can&#39;t set up a local sandbox in time for our
-talk? What if our database is huge and complex? What if our app has
-animation and interactions that we can&#39;t show with screenshots?</p>
-
-<p>What if we could record our use of a web application and then replay the
-stored responses at the right time? Lucky for us, it&#39;s easy to proxy
-HTTP, the protocol that web browsers and web servers use to communicate
-with each other. This means we can put an intermediary between our
-browser and the server to do whatever we want. Often caching does
-content filtering (corporate filters, parental filters). But caching
-data on a server closer to the user can speed up a website.</p>
-
-<p>We&#39;re going to use a web proxy in a similar way: We&#39;ll cache our content
-and serve that cached data to our web browser. However, we&#39;re going to
-run our proxy on the same machine as our web browser. And, we&#39;re going
-to set it up to cache only the things that we want. This way we can run
-a live demo on an unstable connection.</p>
-
-<h2>Install and Configure Squid HTTP Proxy</h2>
-
-<p>First, we need to install and configure our proxy. I&#39;m on a Mac, so
-I was able to install <a href="http://www.squid-cache.org">the Squid HTTP Proxy</a>
-via <a href="https://brew.sh">Homebrew, a free package manager for MacOS</a>.</p>
-
-<p>For our live demo, we want to cache the application we are trying to
-demo and any other content the application needs. Anything else is
-unnecessary. To do this, Squid has <a href="http://www.squid-cache.org/Doc/config/acl/">Access Control Lists
-(ACLs)</a>. We
-configure an ACL with a list of domains that we should cache, and deny
-everything else. For maximum coverage, we should add both the host name
-and the IP addresses to the ACL.  Since HTTP proxies are also used for
-DNS, most of the time the proxy is looking up the DNS records.  But
-sometimes a browser already knows the IP and will just tell the proxy to
-get on with it.</p>
-
-<p>So, here&#39;s our list of domains and IPs:</p>
-
-<pre><code>acl cacheDomain dstdomain beta.cpantesters.org
-acl cacheDomain dstdomain api.cpantesters.org
-acl cacheDomain dstdomain www.cpantesters.org
-acl cacheDomain dstdomain 212.110.173.51
-acl cacheDomain dstdomain cdnjs.cloudflare.com
-</code></pre>
-
-<p>The first three domains are the applications that I&#39;m running. The
-fourth is the IP address for that application server: All the domains
-are on the same machine. The last is <a href="http://cdnjs.com">CDNJS, the JavaScript
-CDN</a> that I get my JavaScript from. In order for my
-application to work, I will need to cache all the JavaScript and CSS
-that I depend on from CDNJS.</p>
-
-<p>Once we&#39;ve listed what we want to cache, we can forbid any other domains
-from being cached:</p>
-
-<pre><code>cache deny !cacheDomain
-</code></pre>
-
-<p>Next, we should tell Squid where to put our cache and how much disk
-space to use. Homebrew&#39;s Squid configuration has a <code>cache_dir</code> line, commented
-out. We need to enable it and increase the disk space available to
-ensure that our data stays cached. When the disk space is used up, Squid
-starts deleting old cached data, which we can&#39;t have during our demo.</p>
-
-<pre><code># Uncomment and adjust the following to add a disk cache directory.
-cache_dir ufs /usr/local/var/cache/squid 1024 16 256
-</code></pre>
-
-<p>The first number at the end of the line is the cache size in MB, which
-I adjusted to 1024 (1 GB).</p>
-
-<p>Finally, we should make sure that we can use Squid&#39;s management API, and
-that it&#39;s only open to the local machine. This should be the default, so
-look for these <code>http_access</code> lines, and add them if they don&#39;t exist.</p>
-
-<pre><code># Only allow cachemgr access from localhost
-http_access allow localhost manager
-http_access deny manager
-</code></pre>
-
-<p>After allowing cache manager access from <code>localhost</code>, we should disable
-the cache manager password:</p>
-
-<pre><code>cachemgr_passwd none all
-</code></pre>
-
-<p>Now we&#39;re done with the configuration file. Our <a href="https://gist.github.com/preaction/d90ad4b9ddbe1f390252319cbec980f9">full configuration file is located
-here</a>.</p>
-
-<p>Now that we&#39;ve configured our proxy, we can start it up. Homebrew says
-to do <code>brew services start squid</code>, but your platform may need something
-different. This gets the proxy started and waiting for requests. Next
-we need to configure our browser to use the proxy.</p>
-
-<h2>Configure your web browser</h2>
-
-<p>Configuring your web browser for an HTTP proxy depends on what browser
-you use and what OS you use. If you&#39;re using Chrome or Safari on MacOS,
-you can go to System Preferences to configure a proxy. However, if
-you&#39;re using Firefox, you can configure the browser to use a proxy, and
-leave the rest of the system alone. Other operating systems have other
-ways to configure proxies, and you should check your OS&#39;s documentation.</p>
-
-<p>There are some good browser plugins for managing HTTP proxies, but
-unfortunately not for Safari or IE. If you&#39;re using Chrome, try <a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy
-SwitchyOmega</a>.
-If you&#39;re using Firefox, use <a href="https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/">FoxyProxy
-Standard</a>.
-These plugins make it easier to manage HTTP proxies.</p>
-
-<h2>Run through the demo to cache your content</h2>
-
-<p>Once you configure your proxy, you can run through your demo to test it.
-Do this on a good Internet connection. As you run through your demo,
-your browser asks its proxy to fetch all the demo&#39;s data. As your proxy
-does this, it caches it on disk. Since your computer is online, Squid
-will follow the caching rules that the web server asks it to. This means
-caching for a specific length of time, and possibly revalidating the
-data to see if it changed.</p>
-
-<p>As we run through our demo, we should make sure that our cache is being
-used. The easiest way to do that is to read Squid&#39;s log. For my
-configuration, it was located at <code>/usr/local/var/logs/access.log</code>.
-Inside are lines that look like this:</p>
-
-<pre><code>1498020228.970    203 ::1 TCP_MISS/200 3653 GET http://beta.cpantesters.org/chart.html? - HIER_DIRECT/212.110.173.51 text/html
-1498020229.523    314 ::1 TCP_REFRESH_MODIFIED/200 8130 GET http://api.cpantesters.org/v3/release/dist/Statocles - HIER_DIRECT/212.110.173.51 application/json
-1498020236.187   6945 ::1 TCP_MISS/200 148284 GET http://api.cpantesters.org/v3/summary/Statocles/0.077 - HIER_DIRECT/212.110.173.51 application/json
-1498020240.783    186 ::1 TCP_MISS/200 6597 GET http://people.w3.org/~dom/archives/2006/09/offline-web-cache-with-squid/ - HIER_DIRECT/128.30.54.11 text/html
-</code></pre>
-
-<p>The important parts of this line are the URL and the status.
-<code>TCP_MISS/200</code> means &quot;this request was not in our cache, and the remote
-server returned a <code>200 OK</code> HTTP response&quot;. <code>TCP_REFRESH_MODIFIED/200</code>
-means &quot;this request was in our cache, but we refreshed it from the
-remote server which returned a <code>200 OK</code> HTTP response&quot;. This is our
-cache building and refreshing itself because we&#39;re on a stable
-connection. Once we have some data in our cache, we&#39;ll start seeing
-things like this:</p>
-
-<pre><code>1498063273.261      0 ::1 TCP_INM_HIT/304 299 GET http://beta.cpantesters.org/chart.html - HIER_NONE/- text/html
-1498063281.831      0 ::1 TCP_MEM_HIT/200 8187 GET http://api.cpantesters.org/v3/release/dist/Statocles - HIER_NONE/- application/json
-1498063298.103      0 ::1 TCP_MEM_HIT/200 8187 GET http://api.cpantesters.org/v3/release/dist/Statocles - HIER_NONE/- application/json
-1498063300.473      8 ::1 TCP_MEM_HIT/200 154917 GET http://api.cpantesters.org/v3/summary/Statocles/0.083 - HIER_NONE/- application/json
-</code></pre>
-
-<p><code>TCP_INM_HIT/304</code> means &quot;The cache responded to this request with a <code>304
-Not Modified</code> response&quot;. The <code>TCP_MEM_HIT/200</code> means &quot;The cache
-responded to this request with a <code>200 OK</code> HTTP response&quot;. These are what
-we want: The cache is serving responses, not the remote server.</p>
-
-<h2>Run Your Demo</h2>
-
-<p>Now that our cache is operating well on a stable connection, we can give
-our demo on an unstable one. First, we want to make sure that our cache
-does not try to access the remote server (Squid&#39;s &quot;offline&quot; mode). To do
-this, Squid has a management client called <code>squidclient</code> which we can use
-to toggle offline mode.</p>
-
-<pre><code>$ squidclient mgr:offline_toggle
-HTTP/1.1 200 OK
-Server: squid/3.5.26
-Mime-Version: 1.0
-Date: Tue, 04 Jul 2017 21:16:36 GMT
-Content-Type: text/plain;charset=utf-8
-Expires: Tue, 04 Jul 2017 21:16:36 GMT
-Last-Modified: Tue, 04 Jul 2017 21:16:36 GMT
-X-Cache: MISS from gwen.local
-Via: 1.1 gwen.local (squid/3.5.26)
-Connection: close
-
-offline_mode is now ON
-</code></pre>
-
-<p>Squid&#39;s offline mode minimizes attempts to get remote content. Since we
-cached all our content running through our demo, this means Squid will
-be serving our demo!</p>
-
-<p>So now we can run our demo worry-free! All the remote content is served
-by the local machine, so it doesn&#39;t matter how good the conference wi-fi
-is. As long as stick to things we&#39;ve already cached, our web application
-runs perfectly.</p>
-
-                <p><a href="http://preaction.me/blog/2017/07/05/demo-a-live-web-app-on-bad-internet/#section-2">Continue reading...</a></p>
-            <p>Tags:
-            </p>
-        ]]></content>
-        <updated>2017-07-05T00:00:00Z</updated>
     </entry>
 </feed>
 
