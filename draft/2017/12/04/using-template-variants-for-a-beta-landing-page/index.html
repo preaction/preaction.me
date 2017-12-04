@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Using Template Variants For a Beta Landing Page - preaction</title>
+        <meta content="Statocles 0.085" name="generator">
+        
+        <link href="/theme/plugin/highlight/solarized-light.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Using Template Variants For a Beta Landing Page</h1>
+                <p class="tags">Tags:
+                    <a href="/draft/tag/mojolicious/" rel="tag">mojolicious</a>
+                    <a href="/draft/tag/web/" rel="tag">web</a>
+                </p>
+
+                <aside>
+                    <p><time datetime="2017-12-04">
+                        Posted on 2017-12-04
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p><a href="http://cpantesters.org">CPAN Testers</a> is a pretty big project with a long,
+storied history. At its heart is a data warehouse holding all the test reports
+made by people installing CPAN modules. Around that exists an ecosystem of
+tools and visualizations that use this data to provide useful insight into the
+status of CPAN distributions.</p>
+
+<p>For the <a href="http://github.com/cpan-testers/cpantesters-web">CPAN Testers webapp
+project</a>, I needed a way to
+show off some pre-release tools with some context about what they are and how
+they might be made ready for release. I needed a &quot;beta&quot; website with a front
+page that introduced the beta projects. But, I also needed the same
+<a href="http://mojolicious.org">Mojolicious</a> application to serve (in the future) as a
+production website. The front page of the production website would be
+completely different from the front page of the beta testing website.</p>
+
+<p>To achieve this, I used <a href="http://mojolicious.org/perldoc/Mojolicious/Guides/Rendering#Template-variants">Mojolicious&#39;s template variants
+feature</a>.
+First, I created a variant of my index.html template for my beta site
+and called it <code>index.html+beta.ep</code>.</p>
+
+<pre><code class="hljs"><span class="hljs-keyword">&lt;h1&gt;</span>CPAN Testers Beta<span class="hljs-keyword">&lt;/h1&gt;</span>
+<span class="hljs-keyword">&lt;p&gt;</span>This site shows off some new features currently being tested.<span class="hljs-keyword">&lt;/p&gt;</span>
+<span class="hljs-keyword">&lt;h2&gt;&lt;a</span> href=<span class="hljs-string">&quot;/chart.html&quot;</span><span class="hljs-keyword">&gt;</span>Release Dashboard<span class="hljs-keyword">&lt;/a&gt;&lt;/h2&gt;</span>
+</code></pre>
+
+<p>Next, I told Mojolicious to use the &quot;beta&quot; variant when in &quot;beta&quot; mode
+by passing <code>$app-&gt;mode</code> to the <code>variant</code> stash variable.</p>
+
+<pre><code class="hljs"><span class="hljs-comment"># myapp.pl</span><span class="hljs-comment">
+</span><span class="hljs-keyword">use</span> <span class="hljs-function">Mojolicious::Lite</span>;
+get &#39;<span class="hljs-string">/*path</span>&#39;, { path =&gt; &#39;<span class="hljs-string">index</span>&#39; }, <span class="hljs-keyword">sub </span>{
+    <span class="hljs-keyword">my</span> ( <span class="hljs-type">$c</span> ) = <span class="hljs-type">@_</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">render</span>(
+        template =&gt; <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">stash</span>( &#39;<span class="hljs-string">path</span>&#39; ),
+        variant =&gt; <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">app</span>-&gt;<span class="hljs-type">mode</span>,
+    );
+};
+app-&gt;start;
+</code></pre>
+
+<p>The mode is set by passing the <code>-m beta</code> option to Mojolicious&#39;s <code>daemon</code> or
+<code>prefork</code> command.</p>
+
+<pre><code>$ perl myapp.pl daemon -m beta
+</code></pre>
+
+<p>This gives me the <a href="http://beta.cpantesters.org">new landing page for beta.cpantesters.org</a>.</p>
+
+<pre><code>$ perl myapp.pl get / -m beta
+&lt;h1&gt;CPAN Testers Beta&lt;/h1&gt;
+&lt;p&gt;This site shows off some new features currently being tested.&lt;/p&gt;
+&lt;h2&gt;&lt;a href=&quot;/chart.html&quot;&gt;Release Dashboard&lt;/a&gt;&lt;/h2&gt;
+</code></pre>
+
+<p>But now I also need to replace the original landing page (index.html.ep)
+so it can still be seen on the beta website. I do this with a simple
+trick: I created a new template called <code>web.html+beta.ep</code> that imports
+the original template and unsets the <code>variant</code> stash variable. Now
+I can see the <a href="http://beta.cpantesters.org/web">main index page on the beta site at
+http://beta.cpantesters.org/web</a>.</p>
+
+<pre><code class="hljs">%= include &#39;index&#39;, variant =&gt; undef
+</code></pre>
+
+<pre><code>$ perl myapp.pl get /web -m beta
+&lt;h1&gt;CPAN Testers&lt;/h1&gt;
+&lt;p&gt;This is the main CPAN Testers application.&lt;/p&gt;
+</code></pre>
+
+<p>Template variants are a useful feature in some edge cases, and this isn&#39;t the
+first time I&#39;ve found a good use for them. I&#39;ve also used them to provide a
+different layout template in &quot;development&quot; mode to display a banner saying
+&quot;You&#39;re on the development site&quot;. Useful for folks who are undergoing user
+acceptance testing. The best part is that if the desired variant for that
+specific template is not found, Mojolicious falls back to the main template. I
+built a mock JSON API application which made extensive use of this fallback
+feature, but that&#39;s another blog post for another time.</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '/2017/12/04/using-template-variants-for-a-beta-landing-page/index.markdown';
+            var disqus_url = 'http://preaction.me/draft/2017/12/04/using-template-variants-for-a-beta-landing-page/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/draft/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/draft/tag/web/">web</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

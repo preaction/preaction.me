@@ -745,6 +745,12 @@
         <lastmod>2017-12-04</lastmod>
     </url>
     <url>
+        <loc>http://preaction.me/draft/2017/12/04/using-template-variants-for-a-beta-landing-page/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2017-12-04</lastmod>
+    </url>
+    <url>
         <loc>http://preaction.me/draft/tag/mojolicious/</loc>
         <changefreq>daily</changefreq>
         <priority>0.3</priority>
