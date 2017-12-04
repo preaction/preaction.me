@@ -5,6 +5,12 @@ blog_app:
         url_root: /blog
         index_tags: [ '-personal' ]
 
+draft_app:
+    class: Statocles::App::Blog
+    args:
+        store: 'draft'
+        url_root: /draft
+
 basic_app:
     class: Statocles::App::Basic
     args:
@@ -49,6 +55,8 @@ site:
         apps:
             blog:
                 $ref: blog_app
+            draft:
+                $ref: draft_app
             basic:
                 $ref: basic_app
 
