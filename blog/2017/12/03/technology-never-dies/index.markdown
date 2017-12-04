@@ -23,7 +23,7 @@ as the powerhouse of the web). But some of the replies were the things
 I deal with a lot: Explanations why my choices suck and I should choose
 other things.
 
-I'm mature, experienced, and confident enough so that now those things
+I'm mature, experienced, and confident enough so that now those comments
 don't bother me, but it's a problem for novices in the tech community.
 Learning is difficult and frustrating, and hearing that the effort taken
 to learn a technology is worthless because that technology is "bad" is
@@ -49,7 +49,8 @@ continue still for quite some time.
 * New games are being written for the
   [NES](https://www.theverge.com/2017/5/9/15584416/new-games-retro-consoles-nes-snes-sega-genesis-famicom), [Commodore 64](https://www.theverge.com/2012/11/26/3693208/c64-indie-games-paul-koller), and
   [Atari 2600](https://atariage.com).
-* Flash is still ubiquitous, despite being declared dead in 2007.
+* Flash is still ubiquitous, despite being [declared dead in
+  2007](https://en.wikipedia.org/wiki/IPhone_(1st_generation)).
 * Operating systems abandoned by their parent companies (or whose parent
   companies are dead) still have devoted communities, and even active
   development (BeOS is now [Haiku](https://www.haiku-os.org), Solaris
