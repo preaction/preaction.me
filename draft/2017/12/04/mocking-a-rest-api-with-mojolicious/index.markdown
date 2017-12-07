@@ -1,13 +1,20 @@
 ---
 tags: mojolicious, web
-title: Mocking a REST API With Mojolicious
+title: Mocking a REST API
 ---
 
-I need to test a UI for a REST JSON API. I don't want to set up
-a database. I can't set up the dozens of remote machines that my UI
-interacts with each with different hardware and revealing different
-potential problems in my code. So I need a mock API that can test my UI
-without actually doing anything.
+One of my applications is a pure-JavaScript UI for a JSON API. This UI
+is an entirely different project that communicates with a public API
+using an OpenAPI specification.
+
+Our public API is huge and complex: To set up the public API, I need
+a database, sample data, and three other private API servers that
+perform individual tasks as directed by the public API. Worse, I would
+need to set up a lot of different test scenarios with different kinds of
+data.
+
+It would be a lot easier to set up a mock public API that I could use to
+test my UI, and it turns out that Mojolicious makes this very easy.
 
 So let's set up a simple Mojolicious::Lite app that responds to a path
 with a JSON response:
@@ -92,7 +99,9 @@ Mojolicious has an easy way to layer on additional templates to use for
 certain routes: [Template
 variants](http://mojolicious.org/perldoc/Mojolicious/Guides/Rendering#Template-variants).
 These variant templates will be used instead of the original template,
-but only if they are available.
+but only if they are available. Read more on [how to use template
+variants yesterday on the advent
+calendar](/blog/2017/12/07/day-7-using-template-variants-for-a-beta-landing-page/).
 
 By setting the template variant to the application "mode", we can easily
 switch between multiple sets of templates by adding `-m <mode>` to the
