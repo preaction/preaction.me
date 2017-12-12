@@ -39,7 +39,38 @@ For our `blog` collection, we have five fields:
 
 Here's our configured Yancy `blog` collection:
 
-%= highlight Perl => "# myapp.pl\n" . include -raw => '02-yancy.pl'
+%= highlight Perl => begin
+plugin Yancy => {
+    backend => 'pg://localhost/blog',
+    collections => {
+        blog => {
+            required => [ 'title', 'markdown', 'html' ],
+            properties => {
+                id => {
+                    type => 'integer',
+                    readOnly => 1,
+                },
+                title => {
+                    type => 'string',
+                },
+                created => {
+                    type => 'string',
+                    format => 'date-time',
+                    readOnly => 1,
+                },
+                markdown => {
+                    type => 'string',
+                    format => 'markdown',
+                    'x-html-field' => 'html',
+                },
+                html => {
+                    type => 'string',
+                },
+            },
+        },
+    },
+};
+% end
 
 Yancy will build us a rich form for our collection from the field types
 we tell it. Some fields, like the `markdown` field, take additional
@@ -64,13 +95,30 @@ a collection name and gives us a list of items in that collection. It
 also allows us to search for items and order them to our liking. Since
 we've got a blog, we will order by the creation date, descending.
 
-%= highlight Perl => "# myapp.pl\n" . include -raw => '03-list.pl'
+%= highlight Perl => begin
+get '/' => sub {
+    my ( $c ) = @_;
+    return $c->render(
+        'index',
+        posts => [ $c->yancy->list(
+            'blog', {}, { order_by => { -desc => 'created' } },
+        ) ],
+    );
+};
+% end
 
-Now we just need an HTML template to go with our route!
+Now we just need an HTML template to go with our route! Here, I use the standard
+[Bootstrap 4 starter template](http://getbootstrap.com/docs/4.0/getting-started/introduction/#starter-template)
+and add this short loop to render our blog posts:
 
-%= highlight Perl => "# myapp.pl\n" . include -raw => '04-template.pl'
+    <main role="main" class="container">
+    %% for my $post ( @{ stash 'posts' } ) {
+        <%%== $post->{html} %>
+    %% }
+    </main>
 
-And then we can test to see our blog post:
+[Now we have our completed application](04-template.pl) and we can test
+to see our blog post:
 
     $ perl myapp.pl daemon
     Server available at http://127.0.0.1:3000
