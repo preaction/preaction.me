@@ -34,7 +34,9 @@ get '/' => sub {
     my ( $c ) = @_;
     return $c->render(
         'index',
-        posts => [ $c->yancy->list( 'blog' ) ],
+        posts => [ $c->yancy->list(
+            'blog', {}, { order_by => { -desc => 'created' } },
+        ) ],
     );
 };
 
@@ -46,6 +48,7 @@ __DATA__
 CREATE TABLE blog (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
     markdown TEXT NOT NULL,
     html TEXT NOT NULL
 );

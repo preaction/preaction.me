@@ -17,8 +17,8 @@ For an demonstration application, let’s create a simple blog using
 First we need to create a database schema for our blog posts. Let's use
 [Mojo::Pg](http://metacpan.org/pod/Mojo::Pg) and its [migrations
 feature](http://metacpan.org/pod/Mojo::Pg::Migrations) to create a table
-called "blog" with fields for an ID, a title, some markdown, and some
-HTML.
+called "blog" with fields for an ID, a title, a date, some markdown, and
+some HTML.
 
 %= highlight Perl => "# myapp.pl\n" . include -raw => '01-migrate.pl'
 
@@ -29,12 +29,13 @@ collections which contain items. For a relational database like
 Postgres, a collection is a table, and an item is a row in that table.
 
 Yancy uses a JSON schema to describe each item in a collection.
-For our `blog` collection, we have four fields:
+For our `blog` collection, we have five fields:
 
 1. `id` which is an auto-generated integer and should be read-only
 2. `title` which is a free-form string which is required
-3. `markdown` which is a required Markdown-formatted string
-4. `html`, a string which holds the rendered Markdown and is also required
+3. `created` which is an ISO8601 date/time string, auto-generated
+4. `markdown` which is a required Markdown-formatted string
+5. `html`, a string which holds the rendered Markdown and is also required
 
 Here's our configured Yancy `blog` collection:
 
@@ -59,7 +60,9 @@ Finally, we need some way to display our blog posts.  [Yancy provides
 helpers to access our
 data](http://metacpan.org/pod/Mojolicious::Plugin::Yancy#HELPERS). Let's
 use the `list` helper to display a list of blog posts. This helper takes
-a collection name and gives us a list of items in that collection:
+a collection name and gives us a list of items in that collection. It
+also allows us to search for items and order them to our liking. Since
+we've got a blog, we will order by the creation date, descending.
 
 %= highlight Perl => "# myapp.pl\n" . include -raw => '03-list.pl'
 
