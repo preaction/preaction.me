@@ -6,7 +6,7 @@
         <link href="/theme/css/skeleton.css" rel="stylesheet">
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <title>Mocking a REST API With Mojolicious - preaction</title>
+        <title>Mocking a REST API - preaction</title>
         <meta content="Statocles 0.085" name="generator">
         
         <link href="/theme/plugin/highlight/solarized-light.css" rel="stylesheet" type="text/css">
@@ -47,7 +47,7 @@
     <div class="nine columns">
         <main>
             <header>
-                <h1>Mocking a REST API With Mojolicious</h1>
+                <h1>Mocking a REST API</h1>
                 <p class="tags">Tags:
                     <a href="/draft/tag/mojolicious/" rel="tag">mojolicious</a>
                     <a href="/draft/tag/web/" rel="tag">web</a>
@@ -63,11 +63,18 @@
 
             </header>
             <section id="section-1">
-                <p>I need to test a UI for a REST JSON API. I don&#39;t want to set up
-a database. I can&#39;t set up the dozens of remote machines that my UI
-interacts with each with different hardware and revealing different
-potential problems in my code. So I need a mock API that can test my UI
-without actually doing anything.</p>
+                <p>One of my applications is a pure-JavaScript UI for a JSON API. This UI
+is an entirely different project that communicates with a public API
+using an OpenAPI specification.</p>
+
+<p>Our public API is huge and complex: To set up the public API, I need
+a database, sample data, and three other private API servers that
+perform individual tasks as directed by the public API. Worse, I would
+need to set up a lot of different test scenarios with different kinds of
+data.</p>
+
+<p>It would be a lot easier to set up a mock public API that I could use to
+test my UI, and it turns out that Mojolicious makes this very easy.</p>
 
 <p>So let&#39;s set up a simple Mojolicious::Lite app that responds to a path
 with a JSON response:</p>
@@ -227,7 +234,9 @@ Mojolicious has an easy way to layer on additional templates to use for
 certain routes: <a href="http://mojolicious.org/perldoc/Mojolicious/Guides/Rendering#Template-variants">Template
 variants</a>.
 These variant templates will be used instead of the original template,
-but only if they are available.</p>
+but only if they are available. Read more on <a href="/blog/2017/12/07/day-7-using-template-variants-for-a-beta-landing-page/">how to use template
+variants yesterday on the advent
+calendar</a>.</p>
 
 <p>By setting the template variant to the application &quot;mode&quot;, we can easily
 switch between multiple sets of templates by adding <code>-m &lt;mode&gt;</code> to the
