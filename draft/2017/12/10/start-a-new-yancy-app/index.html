@@ -121,14 +121,7 @@ For our <code>blog</code> collection, we have five fields:</p>
 
 <p>Here&#39;s our configured Yancy <code>blog</code> collection:</p>
 
-<pre><code class="hljs"><span class="hljs-comment"># myapp.pl</span><span class="hljs-comment">
-</span><span class="hljs-keyword">use</span> <span class="hljs-function">Mojolicious::Lite</span>;
-<span class="hljs-keyword">use</span> <span class="hljs-function">Mojo::Pg</span>;
-
-<span class="hljs-keyword">my</span> <span class="hljs-type">$pg</span> = <span class="hljs-function">Mojo::Pg</span>-&gt;new( &#39;<span class="hljs-string">postgres://localhost/blog</span>&#39; );
-<span class="hljs-type">$pg</span>-&gt;<span class="hljs-type">migrations</span>-&gt;<span class="hljs-type">from_data</span>-&gt;<span class="hljs-type">migrate</span>;
-
-plugin Yancy =&gt; {
+<pre><code class="hljs">plugin Yancy =&gt; {
     backend =&gt; &#39;<span class="hljs-string">pg://localhost/blog</span>&#39;,
     collections =&gt; {
         blog =&gt; {
@@ -158,21 +151,6 @@ plugin Yancy =&gt; {
         },
     },
 };
-
-app-&gt;start;
-
-<span class="hljs-keyword">__DATA__</span>
-@@ migrations
--- 1 up
-CREATE TABLE blog (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT NOW(),
-    markdown TEXT NOT NULL,
-    html TEXT NOT NULL
-);
--- 1 down
-DROP TABLE blog;
 </code></pre>
 
 <p>Yancy will build us a rich form for our collection from the field types
@@ -199,40 +177,7 @@ a collection name and gives us a list of items in that collection. It
 also allows us to search for items and order them to our liking. Since
 we&#39;ve got a blog, we will order by the creation date, descending.</p>
 
-<pre><code class="hljs"><span class="hljs-comment"># myapp.pl</span><span class="hljs-comment">
-</span><span class="hljs-keyword">use</span> <span class="hljs-function">Mojolicious::Lite</span>;
-<span class="hljs-keyword">use</span> <span class="hljs-function">Mojo::Pg</span>;
-
-<span class="hljs-keyword">my</span> <span class="hljs-type">$pg</span> = <span class="hljs-function">Mojo::Pg</span>-&gt;new( &#39;<span class="hljs-string">postgres://localhost/blog</span>&#39; );
-<span class="hljs-type">$pg</span>-&gt;<span class="hljs-type">migrations</span>-&gt;<span class="hljs-type">from_data</span>-&gt;<span class="hljs-type">migrate</span>;
-
-plugin Yancy =&gt; {
-    backend =&gt; &#39;<span class="hljs-string">pg://localhost/blog</span>&#39;,
-    collections =&gt; {
-        blog =&gt; {
-            required =&gt; [ &#39;<span class="hljs-string">title</span>&#39;, &#39;<span class="hljs-string">markdown</span>&#39;, &#39;<span class="hljs-string">html</span>&#39; ],
-            properties =&gt; {
-                id =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">integer</span>&#39;,
-                    readOnly =&gt; <span class="hljs-number">1</span>,
-                },
-                title =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
-                },
-                markdown =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
-                    <span class="hljs-function">format</span> =&gt; &#39;<span class="hljs-string">markdown</span>&#39;,
-                    &#39;<span class="hljs-string">x-html-field</span>&#39; =&gt; &#39;<span class="hljs-string">html</span>&#39;,
-                },
-                html =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
-                },
-            },
-        },
-    },
-};
-
-get &#39;<span class="hljs-string">/</span>&#39; =&gt; <span class="hljs-keyword">sub </span>{
+<pre><code class="hljs">get &#39;<span class="hljs-string">/</span>&#39; =&gt; <span class="hljs-keyword">sub </span>{
     <span class="hljs-keyword">my</span> ( <span class="hljs-type">$c</span> ) = <span class="hljs-type">@_</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">render</span>(
         &#39;<span class="hljs-string">index</span>&#39;,
@@ -241,112 +186,21 @@ get &#39;<span class="hljs-string">/</span>&#39; =&gt; <span class="hljs-keyword
         ) ],
     );
 };
-
-app-&gt;start;
-
-<span class="hljs-keyword">__DATA__</span>
-@@ migrations
--- 1 up
-CREATE TABLE blog (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT NOW(),
-    markdown TEXT NOT NULL,
-    html TEXT NOT NULL
-);
--- 1 down
-DROP TABLE blog;
 </code></pre>
 
-<p>Now we just need an HTML template to go with our route!</p>
+<p>Now we just need an HTML template to go with our route! Here, I use the standard
+<a href="http://getbootstrap.com/docs/4.0/getting-started/introduction/#starter-template">Bootstrap 4 starter template</a>
+and add this short loop to render our blog posts:</p>
 
-<pre><code class="hljs"><span class="hljs-comment"># myapp.pl</span><span class="hljs-comment">
-</span><span class="hljs-keyword">use</span> <span class="hljs-function">Mojolicious::Lite</span>;
-<span class="hljs-keyword">use</span> <span class="hljs-function">Mojo::Pg</span>;
-
-<span class="hljs-keyword">my</span> <span class="hljs-type">$pg</span> = <span class="hljs-function">Mojo::Pg</span>-&gt;new( &#39;<span class="hljs-string">postgres://localhost/blog</span>&#39; );
-<span class="hljs-type">$pg</span>-&gt;<span class="hljs-type">migrations</span>-&gt;<span class="hljs-type">from_data</span>-&gt;<span class="hljs-type">migrate</span>;
-
-plugin Yancy =&gt; {
-    backend =&gt; &#39;<span class="hljs-string">pg://localhost/blog</span>&#39;,
-    collections =&gt; {
-        blog =&gt; {
-            required =&gt; [ &#39;<span class="hljs-string">title</span>&#39;, &#39;<span class="hljs-string">markdown</span>&#39;, &#39;<span class="hljs-string">html</span>&#39; ],
-            properties =&gt; {
-                id =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">integer</span>&#39;,
-                    readOnly =&gt; <span class="hljs-number">1</span>,
-                },
-                title =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
-                },
-                markdown =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
-                    <span class="hljs-function">format</span> =&gt; &#39;<span class="hljs-string">markdown</span>&#39;,
-                    &#39;<span class="hljs-string">x-html-field</span>&#39; =&gt; &#39;<span class="hljs-string">html</span>&#39;,
-                },
-                html =&gt; {
-                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
-                },
-            },
-        },
-    },
-};
-
-get &#39;<span class="hljs-string">/</span>&#39; =&gt; <span class="hljs-keyword">sub </span>{
-    <span class="hljs-keyword">my</span> ( <span class="hljs-type">$c</span> ) = <span class="hljs-type">@_</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">render</span>(
-        &#39;<span class="hljs-string">index</span>&#39;,
-        posts =&gt; [ <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">yancy</span>-&gt;<span class="hljs-type">list</span>(
-            &#39;<span class="hljs-string">blog</span>&#39;, {}, { order_by =&gt; { -desc =&gt; &#39;<span class="hljs-string">created</span>&#39; } },
-        ) ],
-    );
-};
-
-app-&gt;start;
-
-<span class="hljs-keyword">__DATA__</span>
-@@ index.html.ep
-&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-  &lt;head&gt;
-    &lt;title&gt;Hello, world!&lt;/title&gt;
-    &lt;!-- Required meta tags --&gt;
-    &lt;meta charset=&quot;utf-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
-
-    &lt;!-- Bootstrap CSS --&gt;
-    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css&quot; integrity=&quot;sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb&quot; crossorigin=&quot;anonymous&quot;&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;main role=&quot;main&quot; class=&quot;container&quot;&gt;
-    % for my $post ( @{ stash &#39;posts&#39; } ) {
-      &lt;%== $post-&gt;{html} %&gt;
-    % }
-    &lt;/main&gt;
-
-    &lt;!-- Optional JavaScript --&gt;
-    &lt;!-- jQuery first, then Popper.js, then Bootstrap JS --&gt;
-    &lt;script src=&quot;https://code.jquery.com/jquery-3.2.1.slim.min.js&quot; integrity=&quot;sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js&quot; integrity=&quot;sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js&quot; integrity=&quot;sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-
-@@ migrations
--- 1 up
-CREATE TABLE blog (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT NOW(),
-    markdown TEXT NOT NULL,
-    html TEXT NOT NULL
-);
--- 1 down
-DROP TABLE blog;
+<pre><code>&lt;main role=&quot;main&quot; class=&quot;container&quot;&gt;
+% for my $post ( @{ stash &#39;posts&#39; } ) {
+    &lt;%== $post-&gt;{html} %&gt;
+% }
+&lt;/main&gt;
 </code></pre>
 
-<p>And then we can test to see our blog post:</p>
+<p><a href="04-template.pl">Now we have our completed application</a> and we can test
+to see our blog post:</p>
 
 <pre><code>$ perl myapp.pl daemon
 Server available at http://127.0.0.1:3000
