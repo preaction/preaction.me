@@ -17,6 +17,11 @@ plugin Yancy => {
                 title => {
                     type => 'string',
                 },
+                created => {
+                    type => 'string',
+                    format => 'date-time',
+                    readOnly => 1,
+                },
                 markdown => {
                     type => 'string',
                     format => 'markdown',
@@ -38,6 +43,7 @@ __DATA__
 CREATE TABLE blog (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
     markdown TEXT NOT NULL,
     html TEXT NOT NULL
 );

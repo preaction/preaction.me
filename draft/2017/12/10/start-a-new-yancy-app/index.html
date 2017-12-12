@@ -78,8 +78,8 @@ your site&#39;s content can be in
 First we need to create a database schema for our blog posts. Let&#39;s use
 <a href="http://metacpan.org/pod/Mojo::Pg">Mojo::Pg</a> and its <a href="http://metacpan.org/pod/Mojo::Pg::Migrations">migrations
 feature</a> to create a table
-called &quot;blog&quot; with fields for an ID, a title, some markdown, and some
-HTML.</p>
+called &quot;blog&quot; with fields for an ID, a title, a date, some markdown, and
+some HTML.</p>
 
 <pre><code class="hljs"><span class="hljs-comment"># myapp.pl</span><span class="hljs-comment">
 </span><span class="hljs-keyword">use</span> <span class="hljs-function">Mojolicious::Lite</span>;
@@ -94,6 +94,7 @@ HTML.</p>
 CREATE TABLE blog (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
     markdown TEXT NOT NULL,
     html TEXT NOT NULL
 );
@@ -108,11 +109,12 @@ collections which contain items. For a relational database like
 Postgres, a collection is a table, and an item is a row in that table.</p>
 
 <p>Yancy uses a JSON schema to describe each item in a collection.
-For our <code>blog</code> collection, we have four fields:</p>
+For our <code>blog</code> collection, we have five fields:</p>
 
 <ol>
 <li><code>id</code> which is an auto-generated integer and should be read-only</li>
 <li><code>title</code> which is a free-form string which is required</li>
+<li><code>created</code> which is an ISO8601 date/time string, auto-generated</li>
 <li><code>markdown</code> which is a required Markdown-formatted string</li>
 <li><code>html</code>, a string which holds the rendered Markdown and is also required</li>
 </ol>
@@ -139,6 +141,11 @@ plugin Yancy =&gt; {
                 title =&gt; {
                     type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
                 },
+                created =&gt; {
+                    type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
+                    <span class="hljs-function">format</span> =&gt; &#39;<span class="hljs-string">date-time</span>&#39;,
+                    readOnly =&gt; <span class="hljs-number">1</span>,
+                },
                 markdown =&gt; {
                     type =&gt; &#39;<span class="hljs-string">string</span>&#39;,
                     <span class="hljs-function">format</span> =&gt; &#39;<span class="hljs-string">markdown</span>&#39;,
@@ -160,6 +167,7 @@ app-&gt;start;
 CREATE TABLE blog (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
     markdown TEXT NOT NULL,
     html TEXT NOT NULL
 );
@@ -187,7 +195,9 @@ Server available at http://127.0.0.1:3000
 helpers to access our
 data</a>. Let&#39;s
 use the <code>list</code> helper to display a list of blog posts. This helper takes
-a collection name and gives us a list of items in that collection:</p>
+a collection name and gives us a list of items in that collection. It
+also allows us to search for items and order them to our liking. Since
+we&#39;ve got a blog, we will order by the creation date, descending.</p>
 
 <pre><code class="hljs"><span class="hljs-comment"># myapp.pl</span><span class="hljs-comment">
 </span><span class="hljs-keyword">use</span> <span class="hljs-function">Mojolicious::Lite</span>;
@@ -226,7 +236,9 @@ get &#39;<span class="hljs-string">/</span>&#39; =&gt; <span class="hljs-keyword
     <span class="hljs-keyword">my</span> ( <span class="hljs-type">$c</span> ) = <span class="hljs-type">@_</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">render</span>(
         &#39;<span class="hljs-string">index</span>&#39;,
-        posts =&gt; [ <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">yancy</span>-&gt;<span class="hljs-type">list</span>( &#39;<span class="hljs-string">blog</span>&#39; ) ],
+        posts =&gt; [ <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">yancy</span>-&gt;<span class="hljs-type">list</span>(
+            &#39;<span class="hljs-string">blog</span>&#39;, {}, { order_by =&gt; { -desc =&gt; &#39;<span class="hljs-string">created</span>&#39; } },
+        ) ],
     );
 };
 
@@ -238,6 +250,7 @@ app-&gt;start;
 CREATE TABLE blog (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
     markdown TEXT NOT NULL,
     html TEXT NOT NULL
 );
@@ -284,7 +297,9 @@ get &#39;<span class="hljs-string">/</span>&#39; =&gt; <span class="hljs-keyword
     <span class="hljs-keyword">my</span> ( <span class="hljs-type">$c</span> ) = <span class="hljs-type">@_</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">render</span>(
         &#39;<span class="hljs-string">index</span>&#39;,
-        posts =&gt; [ <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">yancy</span>-&gt;<span class="hljs-type">list</span>( &#39;<span class="hljs-string">blog</span>&#39; ) ],
+        posts =&gt; [ <span class="hljs-type">$c</span>-&gt;<span class="hljs-type">yancy</span>-&gt;<span class="hljs-type">list</span>(
+            &#39;<span class="hljs-string">blog</span>&#39;, {}, { order_by =&gt; { -desc =&gt; &#39;<span class="hljs-string">created</span>&#39; } },
+        ) ],
     );
 };
 
@@ -306,7 +321,6 @@ app-&gt;start;
   &lt;body&gt;
     &lt;main role=&quot;main&quot; class=&quot;container&quot;&gt;
     % for my $post ( @{ stash &#39;posts&#39; } ) {
-      &lt;h1&gt;&lt;%= $post-&gt;{title} %&gt;&lt;/h1&gt;
       &lt;%== $post-&gt;{html} %&gt;
     % }
     &lt;/main&gt;
@@ -324,6 +338,7 @@ app-&gt;start;
 CREATE TABLE blog (
     id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
     markdown TEXT NOT NULL,
     html TEXT NOT NULL
 );
