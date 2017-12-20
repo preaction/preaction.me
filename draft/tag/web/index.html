@@ -53,6 +53,199 @@
 
             <article>
                 <header>
+                    <h1><a href="/draft/2017/12/17/yancy-starts-a-conversation/">Yancy Starts a Conversation</a></h1>
+
+                    <p class="tags">Tags:
+                        <a href="/draft/tag/yancy/" rel="tag">yancy</a>
+                        <a href="/draft/tag/perl/" rel="tag">perl</a>
+                        <a href="/draft/tag/web/" rel="tag">web</a>
+                        <a href="/draft/tag/mojolicious/" rel="tag">mojolicious</a>
+                    </p>
+
+                    <aside>
+                        <p><time datetime="2017-12-17">
+                            Posted on 2017-12-17
+                        </time>
+                        <a data-disqus-identifier="/2017/12/17/yancy-starts-a-conversation/index.markdown" href="/draft/2017/12/17/yancy-starts-a-conversation/#disqus_thread">0 comments</a>
+                        </p>
+                    </aside>
+
+                </header>
+
+                <p>Continuing on from [our last post which created a simple blog app].
+A blog without comments is just a website. So, let&#39;s add a way for users
+to interact with our content.</p>
+
+<p>First, as before, we need a database table. A comment on our blog will
+need an ID, the date/time it was created, the author&#39;s name and e-mail
+address, and the content of their comment. We will also need to store
+the ID of the blog post the user is commenting on.</p>
+
+<p>We add the SQL that builds this table as a new migration. When our app
+starts up, <a href="http://metacpan.org/pod/Mojo::Pg">Mojo::Pg</a> will look to see
+what version of the database schema we have. If necessary, it will
+upgrade our database by running the migration SQL snippet.</p>
+
+<pre><code>@@ migrations
+-- 1 up
+CREATE TABLE blog (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR NOT NULL,
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
+    markdown TEXT NOT NULL,
+    html TEXT NOT NULL
+);
+-- 1 down
+DROP TABLE blog;
+-- 2 up
+CREATE TABLE blog_comment (
+    id SERIAL PRIMARY KEY,
+    blog_id INTEGER REFERENCES blog ON DELETE CASCADE,
+    author_name VARCHAR NOT NULL,
+    author_email VARCHAR NOT NULL,
+    content TEXT NOT NULL
+);
+-- 2 down
+DROP TABLE blog_comment;
+</code></pre>
+
+<p>Now that we have a place to store them, we should tell Yancy about our
+new collection so we can manage it. This won&#39;t be the way that users add
+comments to our site, but it will be the way we edit and delete comments
+from our site.</p>
+
+<pre><code>use Mojolicious::Lite;
+plugin Yancy =&gt; {
+    backend =&gt; &#39;pg://localhost/blog&#39;,
+    collections =&gt; {
+        blog_comment =&gt; {
+            &#39;x-list-columns&#39; =&gt; [qw( id blog_id author_name author_email )],
+            required =&gt; [qw( author_name author_email content )],
+            properties =&gt; {
+                id =&gt; { type =&gt; &#39;integer&#39;, readOnly =&gt; 1 },
+                blog_id =&gt; { type =&gt; &#39;integer&#39; },
+                author_name =&gt; { type =&gt; &#39;string&#39; },
+                author_email =&gt; { type =&gt; &#39;string&#39; },
+                content =&gt; { type =&gt; &#39;string&#39; },
+            },
+        },
+    },
+};
+</code></pre>
+
+<p>With our <code>blog_comment</code> collection, we&#39;re also using the
+<code>x-list-columns</code> value to set which columns are shown in Yancy&#39;s list
+view. This way we can easily see the author information while we&#39;re
+perusing the list.</p>
+
+<p>Next, we need a way for users to add new comments to a blog post. For
+this, we&#39;ll need a form, and a route that accepts the form contents and
+adds the comment to the database.</p>
+
+<p>First, the route. The route will accept three form parameters:
+<code>author_name</code>, <code>author_email</code>, and <code>content</code>. Then we need to set the
+correct <code>blog_id</code>. With the data ready, we can use <a href="https://metacpan.org/pod/Mojolicious::Plugin::Yancy#yancy.create">the <code>yancy.create</code>
+helper</a>
+to write the new comment. This helper will validate our data according
+to our configuration and throw an exception if it&#39;s invalid.  Finally,
+we can redirect the user back to the front page of the blog.</p>
+
+<pre><code>post &#39;/blog/:id/comment&#39; =&gt; sub {
+    my ( $c ) = @_;
+    # Create the new comment
+    my %item;
+    for my $field (qw( author_name author_email content )) {
+        $item{ $field } = $c-&gt;param( $field );
+    }
+    $item{ blog_id } = $c-&gt;stash( &#39;id&#39; );
+    eval { $c-&gt;yancy-&gt;create( blog_comment =&gt; \%item ) };
+    if ( $@ ) {
+        return $c-&gt;render(
+            status =&gt; 400,
+            text =&gt; &quot;Error adding comment: $@&quot;,
+        );
+    }
+    # Back to the blog
+    $c-&gt;res-&gt;headers-&gt;location( &#39;/&#39; );
+    return $c-&gt;rendered( status =&gt; 302 );
+};
+</code></pre>
+
+<p>Now we need a form. We&#39;ll use Bootstrap to make it look nice.</p>
+
+<pre><code>% for my $post ( @{ stash &#39;posts&#39; } ) {
+    &lt;%== $post-&gt;{html} %&gt;
+    &lt;h2&gt;Comments&lt;/h2&gt;
+    &lt;form class=&quot;form&quot; method=&quot;post&quot; action=&quot;/blog/&lt;%= $post-&gt;{id} %&gt;/comment&quot;&gt;
+        &lt;div class=&quot;form-group row&quot;&gt;
+            &lt;label class=&quot;col-form-label col-2&quot;&gt;Name&lt;/label&gt;
+            &lt;input name=&quot;author_name&quot; class=&quot;form-control col-4&quot; /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group row&quot;&gt;
+            &lt;label class=&quot;col-form-label col-2&quot;&gt;E-mail&lt;/label&gt;
+            &lt;input name=&quot;author_email&quot; class=&quot;form-control col-4&quot; /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group row&quot;&gt;
+            &lt;label class=&quot;col-form-label col-2&quot;&gt;Comment&lt;/label&gt;
+            &lt;textarea name=&quot;content&quot; rows=&quot;6&quot; class=&quot;form-control col-4&quot;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;button class=&quot;btn btn-primary&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+% }
+</code></pre>
+
+<p><img alt="Screenshot showing the comment form on the blog page" src="/draft/2017/12/17/yancy-starts-a-conversation/comment-form.png"></p>
+
+<p>Finally, we need to display the comments with our posts. We will have to
+rewrite our main <code>/</code> route to add the comments to the post data, like
+so:</p>
+
+<pre><code>get &#39;/&#39; =&gt; sub {
+    my ( $c ) = @_;
+    # Get posts, latest post first
+    my @posts = $c-&gt;yancy-&gt;list(
+        blog =&gt; {},
+        { order_by =&gt; { -desc =&gt; &#39;created&#39; } },
+    );
+    for my $post ( @posts ) {
+        # Add comments to the post, latest comment first
+        $post-&gt;{comments} = [
+            $c-&gt;yancy-&gt;list(
+                blog_comment =&gt; { blog_id =&gt; $post-&gt;{id} },
+                { order_by =&gt; { -desc =&gt; &#39;created&#39; } },
+            )
+        ];
+    }
+    return $c-&gt;render( &#39;index&#39;, posts =&gt; \@posts );
+};
+</code></pre>
+
+<p>And then we can display our posts in our template:</p>
+
+<pre><code>% for my $comment ( @{ $post-&gt;{comments} } ) {
+    &lt;h3&gt;
+        &lt;%= $comment-&gt;{author_name} %&gt;
+    &lt;/h3&gt;
+    &lt;date&gt;&lt;%= $comment-&gt;{created} %&gt;&lt;/date&gt;
+    &lt;p style=&quot;white-space: pre-line&quot;&gt;&lt;%= $comment-&gt;{content} %&gt;&lt;/p&gt;
+% }
+</code></pre>
+
+<p><img alt="Screenshot showing comment form and posted comment" src="/draft/2017/12/17/yancy-starts-a-conversation/blog-comments.png"></p>
+
+<p>Once we have some comments, we can manage them using Yancy.</p>
+
+<p><img alt="Screenshot showing list of comments in Yancy" src="/draft/2017/12/17/yancy-starts-a-conversation/manage-comments.png"></p>
+
+<p><a href="/draft/2017/12/17/yancy-starts-a-conversation/04-template.pl">Here&#39;s the whole code for our blog with comments</a>.
+Mojolicious and makes it easy to build a content-based website, and
+Yancy makes it easy to manage.</p>
+
+
+
+            </article>
+            <article>
+                <header>
                     <h1><a href="/draft/2017/12/10/start-a-new-yancy-app/">Start a New Yancy App</a></h1>
 
                     <p class="tags">Tags:
@@ -637,7 +830,9 @@ feature, but that&#39;s another blog post for another time.</p>
         <h1>Tags</h1>
         <ul class="list-inline">
             <li><a href="/draft/tag/mojolicious/">mojolicious</a></li>
+            <li><a href="/draft/tag/perl/">perl</a></li>
             <li><a href="/draft/tag/web/">web</a></li>
+            <li><a href="/draft/tag/yancy/">yancy</a></li>
         </ul>
         <h1>Feeds</h1>
         <ul class="list-inline">
