@@ -25,10 +25,12 @@ Chicago, IL
 ### ServerCentral, Ltd.
 
 Senior Developer  
-May 2016 - November 2017
+May 2016 - March 2018
 
 #### Responsibilities and accomplishments
 
+* Built responsive ticket-tracking dashboard webapp with real-time push
+  updates using Kayako APIs
 * Built automated platform for identifying, querying, and provisioning
   newly-racked servers
 * Wrote library for wrapping IPMI utilities to expose IPMI data and BMC
@@ -179,6 +181,7 @@ November 2005 - August 2011
 * Personal projects
     * [Github profile: preaction](http://github.com/preaction)
     * [Statocles - A static site CMS](http://preaction.github.io/Statocles)
+    * [Yancy - Content Administration for Mojolicious](http://metacpan.org/pod/Yancy/)
     * [Yertl - ETL With a Shell](http://preaction.github.io/ETL-Yertl)
     * [Import::Base - Remove boilerplate from your code](http://metacpan.org/pod/Import::Base)
     * [GameDay - Desktop app to manage D&D game reporting](https://github.com/preaction/GameDay)
