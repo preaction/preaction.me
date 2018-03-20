@@ -82,7 +82,7 @@ pre {
 /**
  * Don't allow main content images to push things around
  */
-main img {
+img {
     max-width: 100%;
 }
 
@@ -196,6 +196,7 @@ img.u-pull-left, img.u-pull-right {
 /** Pager widget */
 ul.pager {
     list-style: none;
+    overflow: hidden;
 }
 
 .pager .prev {

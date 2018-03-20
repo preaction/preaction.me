@@ -1,0 +1,18 @@
+
+<ul class="pager">
+    % if ( my $link = $self->links( 'prev' ) ) {
+    <li class="prev">
+        <a href="<%= $link->href %>" class="button">
+            &lt; <%= $link->title %>
+        </a>
+    </li>
+    % }
+    % if ( my $link = $self->links( 'next' ) ) {
+    <li class="next">
+        <a href="<%= $link->href %>" class="button button-primary">
+            <%= $link->title %> &gt;
+        </a>
+    </li>
+    % }
+</ul>
+

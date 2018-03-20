@@ -1,0 +1,7 @@
+
+%= include 'component/pager.html.ep'
+<main>
+    %= content
+</main>
+%= include 'component/pager.html.ep'
+
