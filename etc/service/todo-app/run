@@ -1,0 +1,7 @@
+#!/bin/sh
+eval $( perl -Mlocal::lib )
+
+export MOJO_HOME=$HOME/app/todo-app
+export MOJO_REVERSE_PROXY=/todo
+
+exec perl $MOJO_HOME/myapp.pl prefork -l 'http://*:6037' 2>&1

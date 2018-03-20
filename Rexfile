@@ -1,4 +1,7 @@
 
+use Rex -feature => [ 1.4 ];
+use Rex::Commands::Sync;
+
 group web => 'preaction.me';
 group mail => 'mail.preaction.me';
 group irc => 'irc.preaction.me';
@@ -52,7 +55,43 @@ task update_ports => sub {
 # -- uses webadmin though
 
 # Setup gitolite user
-task gitolite => [ group => qw( git ) ] => sub {
+task gitolite =>
+    group => [qw( git )],
+    sub {
 
-};
+    };
+
+
+task deploy =>
+    group => [qw( web )],
+    sub {
+        Rex::Logger::info( 'Deploying nginx config' );
+        sudo sub {
+            file '/etc/nginx/sites/preaction.me.conf',
+                source => 'etc/nginx.conf';
+            run 'nginx -s reload';
+        };
+
+        Rex::Logger::info( 'Deploying applications' );
+        sync_up 'app', '~/app';
+
+        Rex::Logger::info( 'Deploying service config' );
+        file '~/service/todo-app/log',
+            ensure => 'directory';
+        file '~/service/todo-app/run',
+            source => 'etc/service/todo-app/run';
+        file '~/service/todo-app/log/run',
+            source => 'etc/service/todo-app/log/run';
+
+        Rex::Logger::info( 'Restarting' );
+        run 'sv restart ~/service/todo-app';
+
+        Rex::Logger::info( 'Deploying ZNC conf' );
+        file '~/.znc/configs',
+            ensure => 'directory';
+        file '~/.znc/configs/znc.conf',
+            source => 'etc/znc.conf';
+    };
+
+
 
