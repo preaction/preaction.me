@@ -60,8 +60,7 @@ we'll run the application we build.
 ## Chapters
 
 1. [Set up a development environment](setup-carton.html)
-2. [Start a new Mojolicious application](start-lite-app.html) --
-   In-progress
+2. [Start a new Mojolicious application](start-lite-app.html)
 3. [Build the application schema](write-schema.html)
 4. [Add and configure Yancy](add-yancy.html)
 5. [Populate the recurring to-do data](populate-data.html)

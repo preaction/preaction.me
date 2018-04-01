@@ -8,6 +8,7 @@ links:
         href: add-yancy.html
         title: 4. Add and configure Yancy
 template: tutorial-page.html
+disable_content_template: 1
 ---
 
 # Create the Schema
@@ -35,7 +36,7 @@ directory. Once the database is initialized, we can run a database
 daemon with `pg_ctl -D db -l db.log start`.
 
 Once Postgres is running, we can create a database for our application
-with the `createdb` command: `createdb didio`.
+with the `createdb` command: `createdb myapp`.
 
 Now we need to populate that database with some tables to store our
 data.
@@ -53,8 +54,6 @@ So, each thing to do has a day where it's made available to do, and
 a period in which we display it. After the period is over, we no longer
 display the item.
 
-XXX Create diagram
-
 So we give each to-do item a period: "day", "week", or "month". And an
 interval, an integer which says how many periods to skip: "1 day" is
 daily, "2 weeks" is bi-weekly. The interval also tells us how long to
@@ -63,12 +62,13 @@ appear for one day out of every two, and an item that should be done
 every "2 weeks" should appear for one week out of two. Finally, a start
 date of when we created this item.
 
+    CREATE TYPE todo_interval AS ENUM ( 'day', 'week', 'month' );
     CREATE TABLE todo_item (
-        id SERIAL,
+        id SERIAL PRIMARY KEY,
         title TEXT,
-        period ENUM( "day", "week", "month" ) NOT NULL,
-        interval INTEGER DEFAULT 1 TEST ( > 1 ) NOT NULL,
-        start_date DATE NOT NULL
+        period todo_interval NOT NULL,
+        interval INTEGER DEFAULT 1 CHECK ( interval >= 1 ) NOT NULL,
+        start_date DATE NOT NULL DEFAULT CURRENT_DATE
     );
 
 Now we need the log of the things we did. This will also be a log of the
@@ -79,8 +79,8 @@ we completed the thing (which will be `null` if we have not completed
 the thing).
 
     CREATE TABLE todo_log (
-        id SERIAL,
-        todo_item_id INTEGER REFERENCES ( todo_item.id ) NOT NULL,
+        id SERIAL PRIMARY KEY,
+        todo_item_id INTEGER REFERENCES todo_item ( id ) NOT NULL,
         start_date DATE NOT NULL,
         end_date DATE NOT NULL,
         complete DATE DEFAULT NULL
@@ -92,12 +92,37 @@ called `migrations`. Inside that, we create a section called `-- 1 up` to
 upgrade to version 1 of our database, and `-- 1 down` to downgrade from version
 1 of our database.
 
+    @@ migrations
+    -- 1 up
+    CREATE TYPE todo_interval AS ENUM ( 'day', 'week', 'month' );
+    CREATE TABLE todo_item (
+        id SERIAL PRIMARY KEY,
+        title TEXT,
+        period todo_interval NOT NULL,
+        interval INTEGER DEFAULT 1 CHECK ( interval >= 1 ) NOT NULL,
+        start_date DATE NOT NULL DEFAULT CURRENT_DATE
+    );
+    CREATE TABLE todo_log (
+        id SERIAL PRIMARY KEY,
+        todo_item_id INTEGER REFERENCES todo_item ( id ) NOT NULL,
+        start_date DATE NOT NULL,
+        end_date DATE NOT NULL,
+        complete DATE DEFAULT NULL
+    );
+    -- 1 down
+    DROP TABLE todo_item;
+    DROP TABLE todo_log;
+    DROP TYPE todo_interval;
+
 Then we have to make Mojo::Pg migrate our database. For that we need a database
 connection, which we will create a helper for. Helpers are subroutines that are
 available to us throughout our application, which definitely describes what we
-want our database connection to db.
+want our database connection to do.
 
-    helper pg => sub { state $pg = Mojo::Pg->new( 'postgres:///didio' ) };
+    #!/usr/bin/env perl
+    use Mojolicious::Lite;
+    use Mojo::Pg;
+    helper pg => sub { state $pg = Mojo::Pg->new( 'postgres:///myapp' ) };
 
 Now we can tell Mojo::Pg to automatically migrate, and then tell it where our
 migrations are:
@@ -107,4 +132,47 @@ migrations are:
 Now if we ever add a version 2 of our database, we will be automatically
 migrated to it.
 
+Here's our full app so far:
+
+    #!/usr/bin/env perl
+    use Mojolicious::Lite;
+    use Mojo::Pg;
+    helper pg => sub { state $pg = Mojo::Pg->new( 'postgres:///myapp' ) };
+    app->pg->auto_migrate(1)->migrations->from_data;
+    get '/' => 'index';
+    app->start;
+    __DATA__
+    @@ index.html.ep
+    % layout 'default';
+    % title 'My Application';
+    Hello, world!
+    @@ layouts/default.html.ep
+    <!DOCTYPE html>
+    <html>
+        <head><title><%= title %></title></head>
+        <body>
+            %= content
+        </body>
+    </html>
+    @@ migrations
+    -- 1 up
+    CREATE TYPE todo_interval AS ENUM ( 'day', 'week', 'month' );
+    CREATE TABLE todo_item (
+        id SERIAL PRIMARY KEY,
+        title TEXT,
+        period todo_interval NOT NULL,
+        interval INTEGER DEFAULT 1 CHECK ( interval >= 1 ) NOT NULL,
+        start_date DATE NOT NULL DEFAULT CURRENT_DATE
+    );
+    CREATE TABLE todo_log (
+        id SERIAL PRIMARY KEY,
+        todo_item_id INTEGER REFERENCES todo_item ( id ) NOT NULL,
+        start_date DATE NOT NULL,
+        end_date DATE NOT NULL,
+        complete DATE DEFAULT NULL
+    );
+    -- 1 down
+    DROP TABLE todo_log;
+    DROP TABLE todo_item;
+    DROP TYPE todo_interval;
 
