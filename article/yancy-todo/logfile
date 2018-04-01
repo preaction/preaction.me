@@ -1,0 +1,36 @@
+2018-03-31 18:38:58.904 CDT [40151] LOG:  listening on IPv6 address "::1", port 5432
+2018-03-31 18:38:58.904 CDT [40151] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-03-31 18:38:58.905 CDT [40151] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-03-31 18:38:58.926 CDT [40152] LOG:  database system was shut down at 2018-03-31 18:38:30 CDT
+2018-03-31 18:38:58.931 CDT [40151] LOG:  database system is ready to accept connections
+2018-03-31 18:39:25.306 CDT [40151] LOG:  received smart shutdown request
+2018-03-31 18:39:25.308 CDT [40151] LOG:  worker process: logical replication launcher (PID 40158) exited with exit code 1
+2018-03-31 18:39:25.308 CDT [40153] LOG:  shutting down
+2018-03-31 18:39:25.319 CDT [40151] LOG:  database system is shut down
+2018-03-31 18:39:34.422 CDT [40298] LOG:  listening on IPv6 address "::1", port 5432
+2018-03-31 18:39:34.423 CDT [40298] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-03-31 18:39:34.424 CDT [40298] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-03-31 18:39:34.449 CDT [40299] LOG:  database system was shut down at 2018-03-31 18:39:25 CDT
+2018-03-31 18:39:34.455 CDT [40298] LOG:  database system is ready to accept connections
+2018-03-31 18:39:38.186 CDT [40298] LOG:  received fast shutdown request
+2018-03-31 18:39:38.187 CDT [40298] LOG:  aborting any active transactions
+2018-03-31 18:39:38.188 CDT [40298] LOG:  worker process: logical replication launcher (PID 40305) exited with exit code 1
+2018-03-31 18:39:38.188 CDT [40300] LOG:  shutting down
+2018-03-31 18:39:38.198 CDT [40298] LOG:  database system is shut down
+2018-03-31 18:39:41.979 CDT [40334] LOG:  listening on IPv6 address "::1", port 5432
+2018-03-31 18:39:41.979 CDT [40334] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-03-31 18:39:41.981 CDT [40334] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-03-31 18:39:42.007 CDT [40335] LOG:  database system was shut down at 2018-03-31 18:39:38 CDT
+2018-03-31 18:39:42.012 CDT [40334] LOG:  database system is ready to accept connections
+2018-03-31 20:25:08.050 CDT [40334] LOG:  received smart shutdown request
+2018-03-31 20:25:08.053 CDT [40334] LOG:  worker process: logical replication launcher (PID 40341) exited with exit code 1
+2018-03-31 20:25:08.053 CDT [40336] LOG:  shutting down
+2018-03-31 20:25:08.063 CDT [40334] LOG:  database system is shut down
+2018-03-31 21:39:19.178 CDT [2647] LOG:  listening on IPv6 address "::1", port 5432
+2018-03-31 21:39:19.178 CDT [2647] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2018-03-31 21:39:19.179 CDT [2647] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2018-03-31 21:39:19.210 CDT [2648] LOG:  database system was shut down at 2018-03-31 20:25:08 CDT
+2018-03-31 21:39:19.220 CDT [2647] LOG:  database system is ready to accept connections
+2018-03-31 21:39:22.912 CDT [2667] FATAL:  database "myapp" does not exist
+2018-03-31 21:39:29.540 CDT [2703] ERROR:  relation "mojo_migrations" does not exist at character 21
+2018-03-31 21:39:29.540 CDT [2703] STATEMENT:  select version from mojo_migrations where name = $1

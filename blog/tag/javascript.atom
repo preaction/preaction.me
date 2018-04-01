@@ -5,7 +5,7 @@
     <updated>2016-12-14T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/javascript.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/javascript/" rel="alternate" />
-    <generator version="0.085">Statocles</generator>
+    <generator version="0.093">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2016/12/14/es6-for-the-occasional-javascript-programmer/</id>
         <title>ES6 for the Occasional JavaScript Programmer</title>

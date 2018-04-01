@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Populate To-do List - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="add-yancy.html">
+            &lt; 4. Add and configure Yancy
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="display-todo-list.html">
+            6. Display the to-do list &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <h1>Show Todo List</h1>
+
+<p>Now that we have some items in our to-do list, we need to display the list of
+the things we should do today and allow the user to click to complete things.</p>
+
+<p>To do that, we first need to figure out which things in our todo list can be
+done today. We created a table for this, todo_log, and now we need to populate
+that table with things to do. For that, we&#39;re going to use the
+DateTime::Event::Recurrence module, and a Mojolicious helper.</p>
+
+<p>Helpers are little subroutines that are available throughout the Mojolicious
+application, and are created using the <code>helper</code> method of the app. Let&#39;s create
+some code that will generate log items for a given date.</p>
+
+<p>Our code will take a todo item (which has a period and an interval) and a date
+and ensure that a log item exists (creating a new log item with a start date
+and an end date if necessary).  For example, for a daily task, if we give it
+the date &quot;2018-02-14&quot;, it will look for a log item with a start date of
+&quot;2018-02-14&quot; and if not, create one with start date of &quot;2018-02-14&quot; and an end
+date of &quot;2018-02-14&quot;.  For a weekly task, if we give it the date &quot;2018-02-14&quot;
+(which is a Wednesday), it will look for a log item with a start date of
+&quot;2018-02-12&quot; (the previous Monday). If that doesn&#39;t exist, it will create a log
+item with a start date of &quot;2018-02-12&quot; and an end date of &quot;2018-02-18&quot;.</p>
+
+<p>Finding these dates is a task for the DateTime::Event::Recurrence. So, to start
+we need a routine that will configure a DateTime::Event::Recurrence object for
+our todo item. DateTime::Event::Recurrence has different constructors for each
+kind of recurrence: <code>daily</code> for daily, <code>weekly</code> for weekly, and <code>monthly</code> for
+monthly. So, we could write a subroutine like this:</p>
+
+<pre><code>sub _build_recurrence {
+    my ( $todo_item ) = @_;
+    if ( $todo_item-&gt;{ period } eq &#39;day&#39; ) {
+        return DateTime::Event::Recurrence-&gt;daily(
+            interval =&gt; $todo_item-&gt;{ interval },
+        );
+    }
+    elsif ( $todo_item-&gt;{ period } eq &#39;week&#39; ) {
+        return DateTime::Event::Recurrence-&gt;weekly(
+            interval =&gt; $todo_item-&gt;{ interval },
+        );
+    }
+    elsif ( $todo_item-&gt;{ period } eq &#39;month&#39; ) {
+        return DateTime::Event::Recurrence-&gt;monthly(
+            interval =&gt; $todo_item-&gt;{ interval },
+        );
+    }
+}
+</code></pre>
+
+<p>But we&#39;ve got a lot of repetition here. Each block varies only in the method
+being run. So, let&#39;s refactor this to reduce the repetition. It will increase
+maintainability and improve our ability to add features. We can reduce the
+repetition with a mapping of the todo item period (<code>day</code>, <code>week</code>, <code>month</code>) to
+the method we need to call (<code>daily</code>, <code>weekly</code>, <code>monthly</code>).</p>
+
+<pre><code>my %RECUR_METHOD = (
+    day =&gt; &#39;daily&#39;,
+    week =&gt; &#39;weekly&#39;,
+    month =&gt; &#39;monthly&#39;,
+);
+sub _build_recurrence {
+    my ( $todo_item ) = @_;
+    my $method = $RECUR_METHOD{ $todo_item-&gt;{ period } };
+    return DateTime::Event::Recurrence-&gt;$method(
+        interval =&gt; $todo_item-&gt;{ interval },
+    );
+}
+</code></pre>
+
+<p>Next, we will need a routine to calculate the end date for a todo log entry
+from the todo item and its start date: A daily item should be shown for a day,
+a weekly item should be shown for a week, and a monthly item should be shown
+for the entire month. Here&#39;s the code to do that:</p>
+
+<pre><code>sub _build_end_dt {
+    my ( $todo_item, $start_dt ) = @_;
+    if ( $todo_item-&gt;{ period } eq &#39;day&#39; ) {
+        return $start_dt-&gt;clone;
+    }
+    elsif ( $todo_item-&gt;{ period } eq &#39;week&#39; ) {
+        return $start_dt-&gt;clone-&gt;add( days =&gt; 6 );
+    }
+    elsif ( $todo_item-&gt;{ period } eq &#39;month&#39; ) {
+        return $start_dt-&gt;clone-&gt;add( months =&gt; 1 )-&gt;subtract( days =&gt; 1 );
+    }
+}
+</code></pre>
+
+<p>Since we&#39;ll be showing an item for every day between its start and end dates,
+inclusive, we make a weekly item&#39;s end date 6 days away and a monthly item&#39;s
+end date at the last day of the month.</p>
+
+<p>Now we can build the routine that creates log items (after verifying that they
+do not already exist). This time we&#39;re going to build a Mojolicious <code>helper</code> so
+that we have access to the database helper (our <code>pg</code> helper from before). </p>
+
+<pre><code>helper ensure_log_item_exists =&gt; sub {
+</code></pre>
+
+<p>This helper will accept a todo item and a DateTime object representing a start
+date, and all helpers get a controller object as their first argument</p>
+
+<pre><code>    my ( $c, $todo_item, $start_dt ) = @_;
+</code></pre>
+
+<p>First, we check to see if a log entry exists with the given id and start date.</p>
+
+<pre><code>    my $exists_sql = &lt;&lt;&#39;    SQL&#39;;
+        SELECT COUNT(*) FROM todo_log
+        WHERE todo_item_id = ? AND start_date = ?
+    SQL
+    my $result = $c-&gt;pg-&gt;db-&gt;query( $exists_sql, $todo_item-&gt;{id}, $start_dt-&gt;ymd );
+    my $exists = !!$result-&gt;array-&gt;[0];
+</code></pre>
+
+<p>The <code>query</code> method runs a SQL query. The first argument is the SQL query to
+run, and the remaining arguments are values to fill in to placeholders. This
+method returns a Mojo::Pg::Results object through which we can access the
+results of the query. Since our query only returns one row, we can just call
+the <code>array</code> method to get that first row, and then access the first element of
+that array to get our count. <code>!!</code> normalizes this into a boolean.</p>
+
+<pre><code>    if ( !$exists ) {
+        my $end_dt = _build_end_dt( $todo_item, $start_dt );
+        my $insert_sql = &lt;&lt;&#39;        SQL&#39;;
+            INSERT INTO todo_log ( todo_item_id, start_date, end_date )
+            VALUES ( ?, ?, ? )
+        SQL
+        $c-&gt;pg-&gt;db-&gt;query( $insert_sql,
+            $todo_item-&gt;{id}, $start_dt-&gt;ymd, $end_dt-&gt;ymd,
+        );
+    }
+</code></pre>
+
+<p>Finally, if the log entry does not exist, we can insert it. Again we write a
+SQL query with some placeholders, we use the <code>query</code> method to execute it
+passing in our values for our placeholders.</p>
+
+<p>Last, we can build another helper that will loop over all the todo items we
+have and ensure that they have an associated log entry for the given date. This
+helper will calculate the start date for the log entry (using
+DateTime::Event::Recurrence object we built earlier), and then call our helper
+that ensures the log entry exists.</p>
+
+<pre><code>helper build_todo_log =&gt; sub {
+    my ( $c, $dt ) = @_;
+    $dt //= DateTime-&gt;today;
+</code></pre>
+
+<p>This helper takes a DateTime object, and if it&#39;s not given one, it defaults to
+building the todo log for today.</p>
+
+<pre><code>    my $sql = &#39;SELECT * FROM todo_item WHERE start_date &lt;= ?&#39;;
+    my $result = $c-&gt;pg-&gt;db-&gt;query( $sql, $dt-&gt;ymd );
+    my $todo_items = $result-&gt;hashes;
+</code></pre>
+
+<p>This time, since our query will return multiple rows, we can quickly get all of
+them as an array reference of hashes by using the <code>hashes</code> method.</p>
+
+<pre><code>    for my $todo_item ( @$todo_items ) {
+        my $series = _build_recurrence( $item );
+</code></pre>
+
+<p>We loop over our todo items and build the DateTime::Event::Recurrence object.
+This object comes with a <code>current</code> method that takes a DateTime object for a
+given date and gives us a DateTime object for the start of the period that
+contains our date. This is our log entry start date. If the date is not inside
+of a recurrence, it returns <code>undef</code>, so we don&#39;t need to show that item.</p>
+
+<pre><code>if ( my $start_dt = $series-&gt;current( $dt ) ) {
+    $c-&gt;ensure_log_item_exists( $todo_item, $start_dt );
+}
+</code></pre>
+
+<p>XXX - Backlog</p>
+
+<p>Once we&#39;ve written this, how do we run it? To start, we can use the Mojolicious
+<code>eval</code> command to run our helper to test that it works currectly. The <code>eval</code>
+command loads your app and then runs the code you give on the command line.
+Since helpers are also available as methods on the <code>app</code> object, we can do
+things like <code>app-&gt;build_todo_log</code> to run our <code>build_todo_log</code> helper.</p>
+
+<p>So, we can build the todo log for today using <code>carton exec ./myapp.pl eval
+&#39;app-&gt;build_todo_log&#39;</code>. Then we can go into our database and see that our items
+exist.</p>
+
+<pre><code>$ psql myapp -c &#39;SELECT * FROM todo_log JOIN todo_item ON todo_item_id = todo_item.id&#39;
+ id | todo_item_id | start_date |  end_date  | complete | id |             title             | period | interval | start_date
+----+--------------+------------+------------+----------+----+-------------------------------+--------+----------+------------
+  1 |            1 | 2018-02-22 | 2018-02-22 |          |  1 | Did you brush your teeth?     | day    |        1 | 2018-02-22
+  2 |            2 | 2018-02-22 | 2018-02-22 |          |  2 | Did you clean the cat litter? | day    |        1 | 2018-02-22
+  3 |            3 | 2018-02-19 | 2018-02-25 |          |  3 | Did you write a blog post?    | week   |        1 | 2018-02-22
+  4 |            4 | 2018-02-22 | 2018-02-22 |          |  4 | Did you take your vitamin?    | day    |        1 | 2018-02-22
+  5 |            5 | 2018-02-22 | 2018-02-22 |          |  5 | Did you eat breakfast?        | day    |        1 | 2018-02-22
+(5 rows)
+</code></pre>
+
+<p>XXX Add full code here</p>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="add-yancy.html">
+            &lt; 4. Add and configure Yancy
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="display-todo-list.html">
+            6. Display the to-do list &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

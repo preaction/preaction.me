@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Design UI with Bootstrap - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="mark-todo-completed.html">
+            &lt; 7. Mark to-do items as completed
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="navigate-todo-list.html">
+            9. Navigate between dates &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <h1>Make it Pretty</h1>
+
+<p>Now is a good time to take a break and make this thing look good. To save time,
+I use a web design library. A design library contains CSS and JavaScript that
+make beautiful and functional components which you can use to build your web
+application. There are dozens of good web design libraries out there, but I
+generally pick Bootstrap as my go-to.
+￼
+We can download Bootstrap 4 and add it to our website by placing it in the
+<code>public</code> folder. The <code>public</code> folder is for external files that aren&#39;t supposed
+to be processed as templates. Inside this folder, I like to organize things by
+type, so I created a <code>css</code> and a <code>js</code> folder, and moved the Bootstrap files
+into the right places. For this project, we only need the CSS files.</p>
+
+<pre><code>$ find public
+public
+public/css
+public/css/bootstrap.min.css
+public/css/bootstrap.css
+public/css/bootstrap.css.map
+public/css/bootstrap.min.css.map
+public/js
+public/js/bootstrap.js
+public/js/bootstrap.min.js
+public/js/bootstrap.js.map
+public/js/bootstrap.min.js.map
+</code></pre>
+
+<p>Next, we add Bootstrap to our layout. Remember our layout is shared with all
+our templates, so that makes Bootstrap available to all our templates. We will
+also put our entire page in a <code>container</code>, which is a class that gives some
+padding to make the site look nice on all kinds of web browsers and devices.</p>
+
+<pre><code>@@ layouts/default.html.ep
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/bootstrap.css&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;main class=&quot;container&quot;&gt;
+            &lt;%= content %&gt;
+        &lt;/main&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Last we make our todo log entries look nice. Remember from our mockup that they
+took up the full width of the page, the buttons were colored green to complete
+the item and red to undo, and the background changed to green when the item was
+completed.</p>
+
+<p>The best Bootstrap component for our log items is called the &quot;list group&quot;. For
+each item, if the item is complete, we add the class <code>list-group-item-success</code>
+to make the entire item have a green background. To make each form take up the
+full width of the page, we use Bootstrap&#39;s flexbox utility classes: <code>d-flex</code> to
+turn it into a flexbox, <code>align-items-center</code> to center vertically, and
+<code>justify-content-between</code> to prefer adding space in between the items in the
+flexbox (so, the text is on the far left, and the button is on the far right.
+Finally, we add the <code>btn-success</code> class to turn the &quot;Complete&quot; button green,
+and the <code>btn-danger</code> class to turn the &quot;Undo&quot; button red.</p>
+
+<pre><code>&lt;ul class=&quot;list-group&quot;&gt;
+% for my $item ( @$items ) {
+    &lt;li class=&quot;list-group-item &lt;%= $item-&gt;{complete} ? &#39;list-group-item-success&#39; : &#39;&#39; %&gt;&quot;&gt;
+        %= form_for &#39;update_log&#39;, { log_id =&gt; $item-&gt;{id} }, ( class =&gt; &#39;d-flex align-items-center justify-content-between&#39; ), begin
+            &lt;span&gt;&lt;%= $item-&gt;{title} %&gt;&lt;/span&gt;
+            % if ( !$item-&gt;{complete} ) {
+                &lt;button class=&quot;btn btn-success&quot; name=&quot;complete&quot; value=&quot;1&quot;&gt;
+                    Complete
+                &lt;/button&gt;
+            % }
+            % else {
+                &lt;button class=&quot;btn btn-danger&quot; name=&quot;complete&quot; value=&quot;0&quot;&gt;
+                    Undo
+                &lt;/button&gt;
+            % }
+        % end
+    &lt;/li&gt;
+% }
+&lt;/ul&gt;
+</code></pre>
+
+<p>Our page has changed from this to this</p>
+
+<p><img alt="The site before applying the Bootstrap
+changes" src="mark-todo-completed.png"></p>
+
+<p><img alt="The site after applying the Bootstrap changes" src="bootstrap.png"></p>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="mark-todo-completed.html">
+            &lt; 7. Mark to-do items as completed
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="navigate-todo-list.html">
+            9. Navigate between dates &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

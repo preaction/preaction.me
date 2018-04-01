@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <h1>Todo App - Yancy Tutorial</h1>
+
+<p>This tutorial shows how to get started using the <a href="http://mojolicious.org">Mojolicious web
+framework</a> with the <a href="http://metacpan.org/pod/Yancy">Yancy content management
+system</a>. The tutorial walks through
+starting a new Mojolicious application in a development environment
+using <a href="https://metacpan.org/pod/Carton">Carton</a>, setting up
+a <a href="http://postgresql.org">Postgres</a> database with
+<a href="http://mojolicious.org/perldoc/Mojo::Pg">Mojo::Pg</a>, configuring and
+using Yancy to manage content, and building a basic To-Do list web
+application.</p>
+
+<h2>Introduction</h2>
+
+<p>I want to build an app that helps me remember the little things I should
+be doing. It should be able to:</p>
+
+<ul>
+<li>Store a list of to-do items with different time periods and
+frequencies</li>
+<li>List all of the items that could be done today</li>
+<li>Allow clicking a button to complete the item</li>
+</ul>
+
+<p>I should be able to navigate between days to see what I have to do
+tomorrow, or fix something I missed yesterday.</p>
+
+<p><img alt="The completed todo list app" src="index.png"></p>
+
+<h2>Prerequisites</h2>
+
+<p>This tutorial assumes that you already have Perl 5 installed on your
+system. Mojolicious requires at least Perl 5.10, which is included by
+default in most Linux distributions. <a href="https://learn.perl.org/installing/">See learn.perl.org for help
+installing Perl</a></p>
+
+<p>Once you have Perl installed, you should also install
+<a href="http://metacpan.org/pod/Carton">the Carton module</a> from CPAN. <a href="http://www.modernperlbooks.com/books/modern_perl_2016/02-perl-community.html#VGhlQ1BBTg">See
+Modern Perl for help installing CPAN
+modules</a></p>
+
+<p>This tutorial assumes you have some basic Perl knowledge. <a href="http://www.perl.org/books/library.html">Perl.org has
+free online books for learning Perl no matter your programming skill
+level</a>. I recommend <a href="http://www.perl.org/books/beginning-perl/">Beginning
+Perl</a> if you are just
+starting out in programming, and <a href="http://www.onyxneon.com/books/modern_perl/index.html">Modern
+Perl</a> or
+<a href="http://www.perl.org/books/impatient-perl/">Impatient Perl</a> if you have
+experience with other programming languages.</p>
+
+<p>You should be able to run commands from a command-line. This is how
+we&#39;ll run the application we build.</p>
+
+<h2>Chapters</h2>
+
+<ol>
+<li><a href="setup-carton.html">Set up a development environment</a></li>
+<li><a href="start-lite-app.html">Start a new Mojolicious application</a></li>
+<li><a href="write-schema.html">Build the application schema</a></li>
+<li><a href="add-yancy.html">Add and configure Yancy</a></li>
+<li><a href="populate-data.html">Populate the recurring to-do data</a></li>
+<li><a href="display-todo-list.html">Display the to-do list</a></li>
+<li><a href="mark-todo-completed.html">Mark to-do items as completed</a></li>
+<li><a href="bootstrap.html">Design a UI with Bootstrap</a></li>
+<li><a href="navigate-todo-list.html">Navigate between dates</a></li>
+<li><a href="user-auth.html">Add user authentication</a></li>
+</ol>
+
+<ul class="pager">
+    <li class="next">
+        <a class="button button-primary" href="setup-carton.html">
+            1. Setting up a Development Environment &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

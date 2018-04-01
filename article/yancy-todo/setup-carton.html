@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Setup Carton - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="./">
+            &lt; Introduction
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="start-lite-app.html">
+            2. Start a new Mojolicious Application &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <h1>Setting up a development environment</h1>
+
+<p>Before we can start developing an application, we need to set up
+a development environment. This will hold all of the files our
+application needs.</p>
+
+<p>For this small project, setting up our environment is pretty easy: We
+just need to create a new directory, any directory. Whenever we create
+a new file, we will put it in this directory.</p>
+
+<h2>Install Libraries with Carton</h2>
+
+<p>Our application is going to involve some libraries. We could install those
+libraries using <code>cpan</code>, but that would put the libraries in global places and
+may interfere with our system. We could use
+<a href="http://metacpan.org/pod/local::lib">local::lib</a> to install our modules, but
+it&#39;d be nice if we had an easy way to install our modules when we deploy our
+app.</p>
+
+<p>For this, we have <a href="http://metacpan.org/pod/Carton">Carton</a>. We can install
+Carton once globally (<code>cpan Carton</code>) and then use Carton to manage our
+dependencies. The <code>carton install</code> command will install our dependencies to a
+directory, <code>local</code>, and then we use <code>carton exec</code> to execute commands with our
+dependencies.</p>
+
+<p>We define our dependencies in a <code>cpanfile</code>. We will need
+<a href="http://mojolicious.org">Mojolicious</a>,
+<a href="http://metacpan.org/pod/Yancy">Yancy</a>, and
+<a href="http://mojolicious.org/perldoc/Mojo/Pg">Mojo::Pg</a>. Since we&#39;re making
+recurring events, we&#39;ll also need to pull in the
+<a href="http://metacpan.org/pod/DateTime">DateTime</a> and
+<a href="http://metacpan.org/pod/DateTime::Event::Recurrence">DateTime::Event::Recurrence</a>
+modules.</p>
+
+<p>Create a new file in your application directory named &quot;cpanfile&quot;, then
+add the following:</p>
+
+<pre><code>requires &#39;Mojolicious&#39;, &#39;7&#39;;
+requires &#39;Mojolicious::Plugin::Yancy&#39;, &#39;1&#39;;
+requires &#39;Mojo::Pg&#39;, &#39;4&#39;;
+requires &#39;DateTime&#39;;
+requires &#39;DateTime::Event::Recurrence&#39;;
+</code></pre>
+
+<p>This says we want to use Mojolicious version 7 or higher,
+Mojolicious::Plugin::Yancy (the plugin for the Yancy CMS) version 1 or
+higher, Mojo::Pg version 4 or higher, and any version of DateTime and
+DateTime::Event::Recurrence.</p>
+
+<p>With our <code>cpanfile</code> written, we install them with <code>carton install</code>.</p>
+
+<pre><code>$ carton install
+Installing modules using /Users/doug/perl/didio/cpanfile
+Successfully installed ExtUtils-Config-0.008
+Successfully installed ExtUtils-InstallPaths-0.011
+Successfully installed ExtUtils-Helpers-0.026
+Successfully installed Module-Build-Tiny-0.039
+Successfully installed File-ShareDir-Install-0.11
+Successfully installed Mojolicious-7.60
+Successfully installed JSON-Validator-1.08
+Successfully installed Mojolicious-Plugin-OpenAPI-1.23
+Successfully installed Yancy-0.015
+...
+</code></pre>
+
+<p>Carton reports on every distribution that it installs as it goes.
+Notice that we have a lot of modules we didn&#39;t define. These are the
+dependencies of our dependencies, and Carton installs them, too.</p>
+
+<p>Carton installs everything to the <code>local</code> directory. To see the modules
+in this directory, we can run the <code>carton exec</code> command. For example, to
+read the documentation for Mojolicious, we can run <code>carton exec perldoc
+Mojolicious</code>.</p>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="./">
+            &lt; Introduction
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="start-lite-app.html">
+            2. Start a new Mojolicious Application &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

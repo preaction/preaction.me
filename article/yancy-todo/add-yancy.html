@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Add Yancy - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="write-schema.html">
+            &lt; 3. Build the application schema
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="populate-data.html">
+            5. Populate the recurring to-do data &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <h1>Add Yancy</h1>
+
+<p>Yancy helps us manage the content on our site. We can use Yancy to
+easily add new To-do items to our site.</p>
+
+<p>To add Yancy, we use the Mojolicious::Lite <code>plugin</code> function. For Yancy
+to work, we need to configure it with our database and tell it to read
+our schema to build its forms. Yancy can generate its configuration from
+our database schema and give us a rich form to edit our data.</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+
+helper pg =&gt; sub { state $pg = Mojo::Pg-&gt;new( &#39;postgres:///myapp&#39; ) };
+app-&gt;pg-&gt;auto_migrate(1)-&gt;migrations-&gt;from_data;
+
+plugin Yancy =&gt; {
+    backend =&gt; { Pg =&gt; app-&gt;pg },
+    read_schema =&gt; 1,
+};
+</code></pre>
+
+<h2>Using Yancy</h2>
+
+<p>With the Yancy plugin added to our site, we can now manage our data from
+our website. Start the app using <code>carton exec ./myapp.pl daemon</code> and
+then navigate to <code>http://127.0.0.1:3000/yancy</code> to see the Yancy editor.</p>
+
+<p><img alt="The initial Yancy editor showing the mojo_migrations
+table" src="add-yancy-1.png"></p>
+
+<p>The first thing we see is the first table alphabetically,
+<code>mojo_migrations</code>. Mojo::Pg uses this to keep track of what database
+migrations have been applied. We don&#39;t need to use Yancy to manage this,
+so we&#39;ll go over how to remove this later.</p>
+
+<p>The left-side menu lists all of the tables we have in our database,
+which Yancy calls &quot;Collections&quot;. Click on the &quot;todo_item&quot; collection to
+see the todo item table, and then click on the &quot;Add Item&quot; button to add
+new rows.</p>
+
+<p><img alt="The Yancy editor showing the add new item form for new todo
+items" src="add-yancy-2.png"></p>
+
+<p>Yancy has read our database schema and produced a form to edit our todo
+items. The <code>period</code> field is a dropdown menu to select one of the three
+possible periods, and the <code>interval</code> field is a numeric input.</p>
+
+<h2>Configuring Yancy</h2>
+
+<p>Right now, Yancy only knows what it read from our database. We can give
+Yancy more information to make the forms better, adding titles,
+descriptions, and additional validations.</p>
+
+<p>Yancy configures collections using <a href="http://json-schema.org">JSON
+schema</a>. Each collection corresponds to
+a database table and describes a single row in that table. Additional,
+Yancy-specific fields help to control Yancy itself. These custom fields
+begin with a <code>x-</code> to prevent overlap with future JSON schema
+development.</p>
+
+<p>First, we&#39;ll remove the <code>mojo_migrations</code> table. We don&#39;t need Yancy to
+manage that. For that, we&#39;ll use the <code>x-ignore</code> Yancy option to tell
+Yancy to ignore the <code>mojo_migrations</code> collection.</p>
+
+<pre><code>plugin Yancy =&gt; {
+    backend =&gt; { Pg =&gt; app-&gt;pg },
+    read_schema =&gt; 1,
+    collections =&gt; {
+        mojo_migrations =&gt; {
+            &#39;x-ignore&#39; =&gt; 1,
+        },
+    },
+};
+</code></pre>
+
+<p>Now if we reload the editor, we&#39;ll see only the two tables we want:
+<code>todo_item</code> and <code>todo_log</code>.</p>
+
+<p>XXX</p>
+
+<ul>
+<li>Title / Description</li>
+<li>property descriptions</li>
+<li>x-list-columns</li>
+<li>example value</li>
+</ul>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="write-schema.html">
+            &lt; 3. Build the application schema
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="populate-data.html">
+            5. Populate the recurring to-do data &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

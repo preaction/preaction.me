@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Start a Mojolicious App - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="setup-carton.html">
+            &lt; 1. Set up a development environment
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="write-schema.html">
+            3. Build the application schema &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <h1>Start a Mojolicious App</h1>
+
+<p><a href="http://mojolicious.org">Mojolicious</a> is a full-featured web application
+framework, including features like asynchronous I/O, a Perl-based
+template language, parameterized routing, a built-in HTTP client,
+support for WebSockets, a web testing framework, and an array of plugins
+and related projects.</p>
+
+<p>Despite this vast ecosystem of libraries, getting started building
+a Mojolicious application is simple when you use the included
+<a href="http://mojolicious.org/perldoc/Mojolicious/Lite">Mojolicious::Lite</a>
+API. Mojolicious::Lite is a declarative API for easily building
+self-contained web applications in a single script file. This makes it
+perfect for tutorials like this one.</p>
+
+<p>To start your Mojolicious application, create a file called <code>myapp.pl</code>.
+In that file, import the <code>Mojolicious::Lite</code> module:</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+</code></pre>
+
+<p>The Mojolicious::Lite module imports a few functions into our script.
+One of these functions is the <code>get</code> function, which creates
+a <a href="http://mojolicious.org/perldoc/Mojolicious/Guides/Routing">Mojolicious
+route</a> to
+respond to an HTTP <code>GET</code> request. The <code>get</code> function takes two
+arguments: The first is the route&#39;s path (like <code>/index</code> or even just
+<code>/</code>), the second is the route&#39;s handler (we&#39;ll use a subroutine).</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+get &#39;/&#39; =&gt; sub {
+};
+</code></pre>
+
+<p>Inside our subroutine, we generate the response for the request. We send
+our response using the
+<a href="http://mojolicious.org/perldoc/Mojolicious/Controller">Mojolicious::Controller</a> object
+given to our subroutine (which by convention we call <code>$c</code>). The
+controller has a method called <code>render</code> which allows us to respond with
+content:</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+get &#39;/&#39; =&gt; sub {
+    my ( $c ) = @_;
+    $c-&gt;render(
+        content =&gt; &#39;Hello, world!&#39;,
+    );
+};
+</code></pre>
+
+<p>As the last thing in our Mojolicious::Lite application, we need to call
+<code>app-&gt;start</code>. <code>app</code> is another subroutine Mojolicious::Lite gives us and
+it refers to the current application (a
+<a href="http://mojolicious.org/perldoc/Mojolicious">Mojolicious</a> object). The
+<code>start</code> method hands control to the
+<a href="http://mojolicious.org/perldoc/Mojolicious/Commands">Mojolicious::Commands</a>
+framework, which lets us run our app.</p>
+
+<p>Our complete (so far) example app looks like this:</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+get &#39;/&#39; =&gt; sub {
+    my ( $c ) = @_;
+    $c-&gt;render(
+        content =&gt; &#39;Hello, world!&#39;,
+    );
+};
+app-&gt;start;
+</code></pre>
+
+<h2>Mojolicious Commands</h2>
+
+<p>Now that we have an application, let&#39;s run it. Since we&#39;re using Carton,
+we can execute our script with <code>carton exec</code>:</p>
+
+<pre><code>$ chmod +x ./myapp.pl
+$ carton exec ./myapp.pl
+Usage: APPLICATION COMMAND [OPTIONS]
+
+  mojo version
+  mojo generate lite_app
+  ./myapp.pl daemon -m production -l http://*:8080
+  ./myapp.pl get /foo
+  ./myapp.pl routes -v
+
+Tip: CGI and PSGI environments can be automatically detected very often and
+     work without commands.
+
+Options (for all commands):
+  -h, --help          Get more information on a specific command
+      --home &lt;path&gt;   Path to home directory of your application, defaults to
+                      the value of MOJO_HOME or auto-detection
+  -m, --mode &lt;name&gt;   Operating mode for your application, defaults to the
+                      value of MOJO_MODE/PLACK_ENV or &quot;development&quot;
+
+Commands:
+ cgi       Start application with CGI
+ cpanify   Upload distribution to CPAN
+ daemon    Start application with HTTP and WebSocket server
+ eval      Run code against application
+ generate  Generate files and directories from templates
+ get       Perform HTTP request
+ inflate   Inflate embedded files to real files
+ prefork   Start application with pre-forking HTTP and WebSocket server
+ psgi      Start application with PSGI
+ routes    Show available routes
+ test      Run tests
+ version   Show versions of available modules
+
+See &#39;APPLICATION help COMMAND&#39; for more information on a specific command.
+</code></pre>
+
+<p>Running our app without any arguments gives us a list of the Mojolicious
+commands we can run. To run our application, we can use the <code>daemon</code>
+command:</p>
+
+<pre><code>$ carton exec ./myapp.pl daemon
+Server available at http://127.0.0.1:3000
+</code></pre>
+
+<p>Now if we open up a web browser, we can see our page.</p>
+
+<p><img alt="A web browser showing the text &quot;Hello, world!&quot;" src="start-lite-app.png"></p>
+
+<h2><strong>DATA</strong>, Templates, and Layouts</h2>
+
+<p>In addition to just rendering text, we can render HTML templates. Rather
+than putting our HTML inside our subroutine, we can instead create
+a template. Rather than putting the template in an external file, we can
+put our template in the same file as our webapp in the our script&#39;s
+data section.</p>
+
+<p>The data section of the script is all the content in our file that
+comes after <code>__DATA__</code>. See <a href="https://perldoc.perl.org/perldata.html#Special-Literals">perldoc perldata</a>
+for more information about <code>__DATA__</code>.</p>
+
+<p>Inside our data section, we can create a template by introducing a new
+file with <code>@@</code>. We&#39;ll name our template <code>index.html.ep</code>: <code>index</code> is the
+name, <code>html</code> is the format, and <code>ep</code> is the template language (short for
+Embedded Perl).</p>
+
+<pre><code>__DATA__
+@@ index.html.ep
+Hello, world!
+</code></pre>
+
+<p>Now we can refer to our template to render our response:</p>
+
+<pre><code>get &#39;/&#39; =&gt; sub {
+    my ( $c ) = @_;
+    $c-&gt;render( &#39;index&#39; );
+};
+</code></pre>
+
+<p>Or, even more succinctly:</p>
+
+<pre><code>get &#39;/&#39; =&gt; &#39;index&#39;;
+</code></pre>
+
+<p>Our app now look like this:</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+get &#39;/&#39; =&gt; &#39;index&#39;;
+app-&gt;start;
+__DATA__
+@@ index.html.ep
+Hello, world!
+</code></pre>
+
+<p>But this index page is not a good HTML document: It lacks a <code>DOCTYPE</code>
+and the appropriate HTML scaffolding. Rather than add this common
+boilerplate to every one of our templates individually, we can create
+a layout template that wraps our other templates. A layout template is
+just another template, this time in the <code>layouts</code> folder. We&#39;ll name our
+template <code>default</code>:</p>
+
+<pre><code>@@ layouts/default.html.ep
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;&lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+        %= content
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>This template uses our first Embedded Perl directives:</p>
+
+<ul>
+<li>First, we insert the title of the page into the <code>&lt;title&gt;</code> tag by using
+<code>&lt;%= title %&gt;</code>. The <code>title</code> function gets/sets the title of the page.</li>
+<li>Next, we insert the content of the page by using <code>%= content</code>. The
+<code>content</code> function is where the rendered inner template (our <code>index</code>
+template) is stored.</li>
+</ul>
+
+<p>Embedded Perl templates have two kinds of directives:</p>
+
+<ul>
+<li><code>&lt;% ... %&gt;</code> is a tag directive, and can be found anywhere and span
+multiple lines</li>
+<li><code>%</code> as the first non-whitespace character on a line makes a line
+directive.</li>
+</ul>
+
+<p>Having a <code>=</code> immediately after the opening <code>%</code> prints the result of the
+Perl expression in to the template. So, <code>&lt;%= title %&gt;</code> calls the <code>title</code>
+function and embeds the result in the response, and <code>%= content</code> calls
+the <code>content</code> function and embeds the result.</p>
+
+<p>Once we have our layout template, we can tell our <code>index</code> template to
+use our layout template, and set a title for the page using template
+directives:</p>
+
+<pre><code>@@ index.html.ep
+% layout &#39;default&#39;;
+% title &#39;My Application&#39;;
+Hello, world!
+</code></pre>
+
+<p>Here&#39;s our full app so far:</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+get &#39;/&#39; =&gt; &#39;index&#39;;
+app-&gt;start;
+__DATA__
+@@ index.html.ep
+% layout &#39;default&#39;;
+% title &#39;My Application&#39;;
+Hello, world!
+@@ layouts/default.html.ep
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;&lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+        %= content
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>This is where we&#39;ll start creating our to-do application.</p>
+
+<p>You can <a href="http://mojolicious.org/perldoc/Mojolicious/Guides/Rendering">read a guide about rendering Mojolicious
+responses</a>
+for more information about templates and other kinds of responses.</p>
+
+<h2>The Mojolicious Tutorial</h2>
+
+<p>Mojolicious has its own tutorial which covers more than the introduction
+here. The rest of this Yancy tutorial will cover some of these topics
+in-depth, but if you&#39;re familiar with web frameworks, you can <a href="http://mojolicious.org/perldoc/Mojolicious/Guides/Tutorial">read the
+official Mojolicious
+tutorial</a>
+for a quick demonstration of Mojolicious&#39;s features.</p>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="setup-carton.html">
+            &lt; 1. Set up a development environment
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="write-schema.html">
+            3. Build the application schema &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Display Todo List - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="populate-data.html">
+            &lt; 5. Populate the recurring to-do data
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="mark-todo-completed.html">
+            7. Mark to-do items as completed &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <p>Now that we have some log items, let&#39;s display them! When a user visits
+our root page (<code>/</code>), we want to display the current date and the list of
+the log entries that are available to complete for that date. So let&#39;s
+edit the <code>get &#39;/&#39;</code> route that was added by the <code>mojo generate</code> command.</p>
+
+<p>First, we start by finding out what today is, which we already know how
+to do:</p>
+
+<pre><code>get &#39;/&#39; =&gt; sub {
+    my ( $c ) = @_;
+    my $dt = DateTime-&gt;today;
+</code></pre>
+
+<p>Next we need to get the items that should appear today. But, before we
+can get these items, we should make sure that they exist by calling our
+<code>build_todo_log</code> helper.</p>
+
+<pre><code>    $c-&gt;build_todo_log( $dt );
+</code></pre>
+
+<p>Now we can get our items. These items should have a start date less than
+or equal to today&#39;s date, and an end date greater than or equal to
+today&#39;s date. We need to know the ID of the log entry (for later), the
+text of the todo item (joining the <code>todo_item</code> table), and when (if) the
+log entry was completed.</p>
+
+<pre><code>    my $sql = &lt;&lt;&#39;        SQL&#39;;
+        SELECT log.id, item.title, log.complete
+        FROM todo_log log
+        JOIN todo_item item
+            ON log.todo_item_id = item.id
+        WHERE log.start_date &lt;= ?::date
+            AND log.end_date &gt;= ?::date
+    SQL
+    my $result = $c-&gt;pg-&gt;db-&gt;query( $sql, ( $dt-&gt;ymd ) x 2 );
+    my $items = $result-&gt;hashes;
+</code></pre>
+
+<p>Then we can render our template, passing in all the data we have.</p>
+
+<pre><code>    return $c-&gt;render(
+        template =&gt; &#39;index&#39;,
+        date =&gt; $dt,
+        items =&gt; $items,
+    );
+</code></pre>
+
+<p>The last thing we do in our route code is to give our route a name.
+Route names in Mojolicious are used to refer to routes later when we
+want to build URLs or redirect to a specific route. The route&#39;s name is
+different from its URL so that the URL can change but the route name can
+stay the same, making sure that all the links to the route are updated
+appropriately.</p>
+
+<p>We&#39;ll call our route <code>index</code>, since it&#39;s the main page of our site, and
+this page has historically been called <code>index.html</code> by web servers
+(except for IIS which called it <code>default.htm</code>).</p>
+
+<p>Our entire route looks like this:</p>
+
+<pre><code>get &#39;/&#39; =&gt; sub {
+    my ( $c ) = @_;
+    my $dt = DateTime-&gt;today;
+    $c-&gt;build_todo_log( $dt );
+    my $sql = &lt;&lt;&#39;    SQL&#39;;
+        SELECT log.id, item.title, log.complete
+        FROM todo_log log
+        JOIN todo_item item
+            ON log.todo_item_id = item.id
+        WHERE log.start_date &lt;= ?::date
+            AND log.end_date &gt;= ?::date
+    SQL
+    my $result = $c-&gt;pg-&gt;db-&gt;query( $sql, ($dt-&gt;ymd) x 2 );
+    my $items = $result-&gt;hashes;
+    return $c-&gt;render(
+        template =&gt; &#39;index&#39;,
+        date =&gt; $dt,
+        items =&gt; $items,
+    );
+} =&gt; &#39;index&#39;;
+</code></pre>
+
+<p>Once we&#39;ve prepared all the data our template needs, we need to change
+our template to display the data. Down below our <code>__DATA__</code> marker, in
+our <code>@@ index.html.ep</code> template, we need to show the current date and
+display the list of items we need to do today.</p>
+
+<pre><code>@@ index.html.ep
+% layout &#39;default&#39;;
+% title &#39;Welcome&#39;;
+&lt;h1&gt;&lt;%= $date-&gt;ymd %&gt;&lt;/h1&gt;
+% for my $item ( @$items ) {
+&lt;p&gt;&lt;%= $item-&gt;{title} %&gt;&lt;/p&gt;
+% }
+</code></pre>
+
+<p>Now let&#39;s give it a test. When we&#39;re doing rapid development, it&#39;s nice
+to not have to restart a server to load new code, so Mojolicious ships
+with a command called <code>morbo</code> that automatically restarts the server
+when there&#39;s new code. Let&#39;s use <code>morbo</code> to run our server:</p>
+
+<pre><code>$ carton exec morbo myapp.pl
+Server available at http://127.0.0.1:3000
+</code></pre>
+
+<p>Then we can look at our work so far: ￼</p>
+
+<p><img alt="The list of items to do today" src="display-todo-list.png"></p>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="populate-data.html">
+            &lt; 5. Populate the recurring to-do data
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="mark-todo-completed.html">
+            7. Mark to-do items as completed &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>

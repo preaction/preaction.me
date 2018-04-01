@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Mark Todo Completed - Todo App - Yancy Tutorial - preaction</title>
+        <meta content="Statocles 0.093" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="display-todo-list.html">
+            &lt; 6. Display the to-do list
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="bootstrap.html">
+            8. Design a UI with Bootstrap &gt;
+        </a>
+    </li>
+</ul>
+
+<main>
+    <p>Once we&#39;ve displayed our to-do list, we need to be able to mark our
+to-do items as completed. We will turn each of our todo log entries into
+a form with a button. Clicking on the button will mark the item as
+completed, or, if it&#39;s already completed, will mark it as incomplete (in
+case we mistakenly complete something we haven&#39;t done).</p>
+
+<p>First, we should build a route to mark an entry as completed. This will
+be a <code>POST</code> request, so we use the <code>post</code> function. We&#39;re going to put
+the ID of the log entry in the URL to make it REST-like.</p>
+
+<pre><code>post &#39;/log/:log_id&#39; =&gt; sub {
+    my ( $c ) = @_;
+</code></pre>
+
+<p>The <code>:</code> in the route path introduces a placeholder. The text following
+the <code>:</code> is where Mojolicious will save the value in the <code>stash</code>, which
+is a general storage area for the current request. So, we can get the ID
+out using the <code>stash()</code> method of the controller object.</p>
+
+<pre><code>    my $id = $c-&gt;stash( &#39;log_id&#39; );
+</code></pre>
+
+<p>Our form will have a button that will have a value of true (<code>1</code>) or
+false (<code>0</code>) if we are marking the item as complete or incomplete. Form
+values are retrieved by using the <code>param()</code> method of the controller
+object. If the item is complete, we want to store the date that the item
+was completed. Otherwise we want to set the completed date to <code>null</code>
+(from the Perl side, we use <code>undef</code>).</p>
+
+<pre><code>    my $complete = $c-&gt;param( &#39;complete&#39; )
+        ? DateTime-&gt;today-&gt;ymd
+        : undef;
+</code></pre>
+
+<p>Then we can execute a SQL <code>UPDATE</code> query to update our log entry.</p>
+
+<pre><code>    my $sql = &#39;UPDATE todo_log SET complete = ? WHERE id = ?&#39;;
+    $c-&gt;pg-&gt;db-&gt;query( $sql, $complete, $id );
+</code></pre>
+
+<p>Finally, we redirect the user back to where they were, our <code>index</code> page,
+with the <code>redirect_to()</code> method.</p>
+
+<pre><code>    return $c-&gt;redirect_to( &#39;index&#39; );
+</code></pre>
+
+<p>This route needs a name, so we&#39;ll give it a name of <code>update_log</code>. We&#39;re
+going to use this name to build a form that gets submitted to the right
+URL.</p>
+
+<p>Down in our template, rather than displaying an unordered list, now
+we&#39;re going to render a form for every item in the list.</p>
+
+<pre><code>@@ index.html.ep
+% layout &#39;default&#39;;
+% title &#39;Welcome&#39;;
+&lt;h1&gt;&lt;%= $date-&gt;ymd %&gt;&lt;/h1&gt;
+% for my $item ( @$items ) {
+    %= form_for &#39;update_log&#39;, { log_id =&gt; $item-&gt;{id} }, begin
+        %= $item-&gt;{title}
+        % if ( !$item-&gt;{complete} ) {
+            &lt;button name=&quot;complete&quot; value=&quot;1&quot;&gt;Complete&lt;/button&gt;
+        % }
+        % else {
+            &lt;button name=&quot;complete&quot; value=&quot;0&quot;&gt;Undo&lt;/button&gt;
+        % }
+    % end
+% }
+</code></pre>
+
+<p>This uses the <code>form_for</code> helper. Helper functions are also available in
+every template (making them truly helpful). The <code>form_for</code> helper is
+part of a set of helpers installed by default called the TagHelpers. It
+takes the name of a route, a hash reference of placeholder values (in
+this case, we need to give it the ID of the log entry), and then we use
+the <code>begin</code> function.</p>
+
+<p>The <code>begin</code> function allows us to add a template as an argument to
+a function. The <code>end</code> function marks the end of the content, and then
+the whole thing is given to the original function (in this case,
+<code>form_for</code>). In this way, the <code>form_for</code> function will wrap our content
+in <code>&lt;form&gt;</code> HTML tags.</p>
+
+<p>Inside our form we print out the text of the todo item.</p>
+
+<p>Finally, we add the button. If the item is not completed, we&#39;ll make
+a button that marks the item as complete. If the item is completed,
+we&#39;ll make a button that marks the item as incomplete.</p>
+
+<p>Now we can see our button and click on it to complete our to-do list!</p>
+
+<p><img alt="The todo list with complete/undo
+buttons" src="mark-todo-completed.png"></p>
+
+</main>
+
+<ul class="pager">
+    <li class="prev">
+        <a class="button" href="display-todo-list.html">
+            &lt; 6. Display the to-do list
+        </a>
+    </li>
+    <li class="next">
+        <a class="button button-primary" href="bootstrap.html">
+            8. Design a UI with Bootstrap &gt;
+        </a>
+    </li>
+</ul>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>
