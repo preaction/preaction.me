@@ -2,14 +2,16 @@
 use Mojolicious::Lite;
 use Mojo::Util qw( unindent trim );
 use Mojo::Pg;
+
 helper pg => sub { state $pg = Mojo::Pg->new( 'postgres:///myapp' ) };
 app->pg->auto_migrate(1)->migrations->from_data;
+
 plugin Yancy => {
     backend => { Pg => app->pg },
     read_schema => 1,
     collections => {
         mojo_migrations => {
-            'x-hidden' => 1,
+            'x-ignore' => 1,
         },
         todo_item => {
             title => 'To-Do Item',
@@ -32,16 +34,11 @@ plugin Yancy => {
                 interval => 1,
             },
             properties => {
-                title => {
-                    'x-order' => 1,
-                },
                 period => {
                     description => 'How long a task is available to do.',
-                    'x-order' => 2,
                 },
                 interval => {
                     description => 'The number of periods each between each instance.',
-                    'x-order' => 3,
                 },
                 start_date => {
                     description => 'The date to start using this item. Defaults to today.',
@@ -51,27 +48,29 @@ plugin Yancy => {
         },
         todo_log => {
             title => 'To-Do Log',
-            'x-list-columns' => [qw( id start_date end_date complete )],
             description => unindent( trim q{
                 A log of the to-do items that have passed. Items can either be completed
                 or uncompleted.
             } ),
             properties => {
                 complete => {
-                    type => [qw( string null )],
                     description => 'The date which this item was completed, if any.',
                 },
             },
         },
     },
 };
+
 get '/' => 'index';
+
 app->start;
 __DATA__
+
 @@ index.html.ep
 % layout 'default';
 % title 'My Application';
 Hello, world!
+
 @@ layouts/default.html.ep
 <!DOCTYPE html>
 <html>
@@ -80,6 +79,7 @@ Hello, world!
         %= content
     </body>
 </html>
+
 @@ migrations
 -- 1 up
 CREATE TYPE todo_interval AS ENUM ( 'day', 'week', 'month' );

@@ -114,10 +114,12 @@ upgrade to version 1 of our database, and `-- 1 down` to downgrade from version
     DROP TABLE todo_log;
     DROP TYPE todo_interval;
 
-Then we have to make Mojo::Pg migrate our database. For that we need a database
-connection, which we will create a helper for. Helpers are subroutines that are
-available to us throughout our application, which definitely describes what we
-want our database connection to do.
+Then we have to make Mojo::Pg migrate our database. For that we need
+a database connection, which we will create a helper for. Helpers are
+subroutines that are available to us throughout our application, and are
+frequently used to hold on to database connections and other objects
+that we need to interact with a lot. This works well with Perl 5.10's
+[`state`](https://perldoc.perl.org/functions/state.html) keyword.
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
