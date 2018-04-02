@@ -167,10 +167,12 @@ DROP TABLE todo_log;
 DROP TYPE todo_interval;
 </code></pre>
 
-<p>Then we have to make Mojo::Pg migrate our database. For that we need a database
-connection, which we will create a helper for. Helpers are subroutines that are
-available to us throughout our application, which definitely describes what we
-want our database connection to do.</p>
+<p>Then we have to make Mojo::Pg migrate our database. For that we need
+a database connection, which we will create a helper for. Helpers are
+subroutines that are available to us throughout our application, and are
+frequently used to hold on to database connections and other objects
+that we need to interact with a lot. This works well with Perl 5.10&#39;s
+<a href="https://perldoc.perl.org/functions/state.html"><code>state</code></a> keyword.</p>
 
 <pre><code>#!/usr/bin/env perl
 use Mojolicious::Lite;

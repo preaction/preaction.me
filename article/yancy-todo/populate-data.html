@@ -62,10 +62,10 @@
 <p>Now that we have some items in our to-do list, we need to display the list of
 the things we should do today and allow the user to click to complete things.</p>
 
-<p>To do that, we first need to figure out which things in our todo list can be
-done today. We created a table for this, todo_log, and now we need to populate
-that table with things to do. For that, we&#39;re going to use the
-DateTime::Event::Recurrence module, and a Mojolicious helper.</p>
+<p>To do that, we first need to figure out which things in our todo list
+can be done today. We created a table for this, <code>todo_log</code>, and now we
+need to populate that table with things to do. For that, we&#39;re going to
+use the DateTime::Event::Recurrence module, and a Mojolicious helper.</p>
 
 <p>Helpers are little subroutines that are available throughout the Mojolicious
 application, and are created using the <code>helper</code> method of the app. Let&#39;s create

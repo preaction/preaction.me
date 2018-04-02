@@ -136,14 +136,195 @@ Yancy to ignore the <code>mojo_migrations</code> collection.</p>
 <p>Now if we reload the editor, we&#39;ll see only the two tables we want:
 <code>todo_item</code> and <code>todo_log</code>.</p>
 
-<p>XXX</p>
+<p>Next, we should add some friendly descriptive text to our tables to make
+it easier to edit them. JSON Schema allows use to annotate our
+collections with <code>title</code> and <code>description</code> fields. Yancy allows these
+fields to have Markdown, so we&#39;re using
+<a href="http://mojolicious.org/perldoc/Mojo/Util">Mojo::Util</a>&#39;s <code>unindent</code> and
+<code>trim</code> functions to keep our multi-line descriptions indented.</p>
 
-<ul>
-<li>Title / Description</li>
-<li>property descriptions</li>
-<li>x-list-columns</li>
-<li>example value</li>
-</ul>
+<p>Not only can we add a title and description to our collections, we can
+also add them to each column by declaring the column in the collection&#39;s
+<code>properties</code> field.</p>
+
+<pre><code>collections =&gt; {
+    mojo_migrations =&gt; {
+        &#39;x-ignore&#39; =&gt; 1,
+    },
+
+    todo_item =&gt; {
+        title =&gt; &#39;To-Do Item&#39;,
+        description =&gt; unindent( trim q{
+            A recurring task to do. Tasks are available during a `period`, and
+            recur after an `interval`. For example:
+
+            * A task with an interval of `1` and a period of `day` should be
+              completed once every day.
+            * A task with an interval of `1` and a period of `week` should be
+              completed once every week.
+            * A task with an interval of `2` and a period of `day` will show up
+              once every 2 days and should be completed that day.
+            * A task with an interval of `2` and a period of `week` will show up
+              once every 2 weeks and should be completed that week.
+        }),
+        properties =&gt; {
+            period =&gt; {
+                description =&gt; &#39;How long a task is available to do.&#39;,
+            },
+            interval =&gt; {
+                description =&gt; &#39;The number of periods each between each instance.&#39;,
+            },
+            start_date =&gt; {
+                description =&gt; &#39;The date to start using this item. Defaults to today.&#39;,
+            },
+        },
+    },
+
+    todo_log =&gt; {
+        title =&gt; &#39;To-Do Log&#39;,
+        description =&gt; unindent( trim q{
+            A log of the to-do items that have passed. Items can either be completed
+            or uncompleted.
+        } ),
+        properties =&gt; {
+            complete =&gt; {
+                description =&gt; &#39;The date which this item was completed, if any.&#39;,
+            },
+        },
+    },
+},
+</code></pre>
+
+<p>This information now appears in the editor:</p>
+
+<p><img alt="The Yancy editor showing the to-do item title and description
+annotations" src="add-yancy-3.png"></p>
+
+<p>After we&#39;ve added some documentation to our data, we should make the
+list view more useful. Yancy tries to guess as to some useful fields for
+the list, but it&#39;s just a guess. We can display the <code>title</code>, <code>interval</code>,
+and <code>period</code> columns for the to-do items by setting <code>&#39;x-list-columns&#39; =&gt;
+[qw( title interval period )]</code>.</p>
+
+<div style="display: flex; margin-bottom: 1em;">
+    <figure style="margin: 0.4em">
+        <img src="add-yancy-4.png">
+        <figcaption style="font-size: small">The list before: <code>id</code>,
+        <code>title</code></figcaption>
+    </figure>
+    <figure style="margin: 0.4em">
+        <img src="add-yancy-5.png">
+        <figcaption style="font-size: small">The list after: <code>title</code>,
+        <code>interval</code>, <code>period</code></figcaption>
+    </figure>
+</div>
+
+<p>Here&#39;s our completely-configured Yancy plugin in our application:</p>
+
+<pre><code>#!/usr/bin/env perl
+use Mojolicious::Lite;
+use Mojo::Util qw( unindent trim );
+use Mojo::Pg;
+
+helper pg =&gt; sub { state $pg = Mojo::Pg-&gt;new( &#39;postgres:///myapp&#39; ) };
+app-&gt;pg-&gt;auto_migrate(1)-&gt;migrations-&gt;from_data;
+
+plugin Yancy =&gt; {
+    backend =&gt; { Pg =&gt; app-&gt;pg },
+    read_schema =&gt; 1,
+    collections =&gt; {
+        mojo_migrations =&gt; {
+            &#39;x-ignore&#39; =&gt; 1,
+        },
+        todo_item =&gt; {
+            title =&gt; &#39;To-Do Item&#39;,
+            description =&gt; unindent( trim q{
+                A recurring task to do. Tasks are available during a `period`, and
+                recur after an `interval`. For example:
+
+                * A task with an interval of `1` and a period of `day` should be
+                  completed once every day.
+                * A task with an interval of `1` and a period of `week` should be
+                  completed once every week.
+                * A task with an interval of `2` and a period of `day` will show up
+                  once every 2 days and should be completed that day.
+                * A task with an interval of `2` and a period of `week` will show up
+                  once every 2 weeks and should be completed that week.
+            }),
+            example =&gt; {
+                period =&gt; &quot;day&quot;,
+                title =&gt; &quot;Did you brush your teeth?&quot;,
+                interval =&gt; 1,
+            },
+            properties =&gt; {
+                period =&gt; {
+                    description =&gt; &#39;How long a task is available to do.&#39;,
+                },
+                interval =&gt; {
+                    description =&gt; &#39;The number of periods each between each instance.&#39;,
+                },
+                start_date =&gt; {
+                    description =&gt; &#39;The date to start using this item. Defaults to today.&#39;,
+                },
+            },
+            &#39;x-list-columns&#39; =&gt; [qw( title interval period )],
+        },
+        todo_log =&gt; {
+            title =&gt; &#39;To-Do Log&#39;,
+            description =&gt; unindent( trim q{
+                A log of the to-do items that have passed. Items can either be completed
+                or uncompleted.
+            } ),
+            properties =&gt; {
+                complete =&gt; {
+                    description =&gt; &#39;The date which this item was completed, if any.&#39;,
+                },
+            },
+        },
+    },
+};
+
+get &#39;/&#39; =&gt; &#39;index&#39;;
+
+app-&gt;start;
+__DATA__
+
+@@ index.html.ep
+% layout &#39;default&#39;;
+% title &#39;My Application&#39;;
+Hello, world!
+
+@@ layouts/default.html.ep
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;&lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;&lt;/head&gt;
+    &lt;body&gt;
+        %= content
+    &lt;/body&gt;
+&lt;/html&gt;
+
+@@ migrations
+-- 1 up
+CREATE TYPE todo_interval AS ENUM ( &#39;day&#39;, &#39;week&#39;, &#39;month&#39; );
+CREATE TABLE todo_item (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    period todo_interval NOT NULL,
+    interval INTEGER DEFAULT 1 CHECK ( interval &gt;= 1 ) NOT NULL,
+    start_date DATE NOT NULL DEFAULT CURRENT_DATE
+);
+CREATE TABLE todo_log (
+    id SERIAL PRIMARY KEY,
+    todo_item_id INTEGER REFERENCES todo_item ( id ) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    complete DATE DEFAULT NULL
+);
+-- 1 down
+DROP TABLE todo_log;
+DROP TABLE todo_item;
+DROP TYPE todo_interval;
+</code></pre>
 
 </main>
 
