@@ -2,6 +2,8 @@
 use Mojolicious::Lite;
 use Mojo::Util qw( unindent trim );
 use Mojo::Pg;
+use DateTime::Event::Recurrence;
+use DateTime;
 
 helper pg => sub { state $pg = Mojo::Pg->new( 'postgres:///myapp' ) };
 app->pg->auto_migrate(1)->migrations->from_data;
@@ -61,7 +63,91 @@ plugin Yancy => {
     },
 };
 
-get '/' => 'index';
+my %RECUR_METHOD = (
+    day => 'daily',
+    week => 'weekly',
+    month => 'monthly',
+);
+sub _build_recurrence {
+    my ( $todo_item ) = @_;
+    my $method = $RECUR_METHOD{ $todo_item->{ period } };
+    return DateTime::Event::Recurrence->$method(
+        interval => $todo_item->{ interval },
+    );
+}
+
+sub _build_end_dt {
+    my ( $todo_item, $start_dt ) = @_;
+    if ( $todo_item->{ period } eq 'day' ) {
+        return $start_dt->clone;
+    }
+    elsif ( $todo_item->{ period } eq 'week' ) {
+        return $start_dt->clone->add( days => 6 );
+    }
+    elsif ( $todo_item->{ period } eq 'month' ) {
+        return $start_dt->clone->add( months => 1 )->subtract( days => 1 );
+    }
+}
+
+helper _log_exists => sub {
+    my ( $c, $todo_item, $start_dt ) = @_;
+    my $exists_sql = <<'    SQL';
+        SELECT COUNT(*) FROM todo_log
+        WHERE todo_item_id = ? AND start_date = ?
+    SQL
+    my $result = $c->pg->db->query( $exists_sql, $todo_item->{id}, $start_dt->ymd );
+    my $exists = !!$result->array->[0];
+    return $exists;
+};
+
+helper ensure_log_item_exists => sub {
+    my ( $c, $todo_item, $start_dt ) = @_;
+    if ( !$c->_log_exists( $todo_item, $start_dt ) ) {
+        my $end_dt = _build_end_dt( $todo_item, $start_dt );
+        my $insert_sql = <<'        SQL';
+            INSERT INTO todo_log ( todo_item_id, start_date, end_date )
+            VALUES ( ?, ?, ? )
+        SQL
+        $c->pg->db->query( $insert_sql,
+            $todo_item->{id}, $start_dt->ymd, $end_dt->ymd,
+        );
+    }
+};
+
+helper build_todo_log => sub {
+    my ( $c, $dt ) = @_;
+    $dt //= DateTime->today;
+    my $sql = 'SELECT * FROM todo_item WHERE start_date <= ?';
+    my $result = $c->pg->db->query( $sql, $dt->ymd );
+    my $todo_items = $result->hashes;
+    for my $todo_item ( @$todo_items ) {
+        my $series = _build_recurrence( $todo_item );
+        if ( my $start_dt = $series->current( $dt ) ) {
+            $c->ensure_log_item_exists( $todo_item, $start_dt );
+        }
+    }
+};
+
+get '/' => sub {
+    my ( $c ) = @_;
+    my $dt = DateTime->today;
+    $c->build_todo_log( $dt );
+    my $sql = <<'    SQL';
+        SELECT log.id, item.title, log.complete
+        FROM todo_log log
+        JOIN todo_item item
+            ON log.todo_item_id = item.id
+        WHERE log.start_date <= ?::date
+            AND log.end_date >= ?::date
+    SQL
+    my $result = $c->pg->db->query( $sql, ( $dt->ymd ) x 2 );
+    my $items = $result->hashes;
+    return $c->render(
+        template => 'index',
+        date => $dt,
+        items => $items,
+    );
+} => 'index';
 
 app->start;
 __DATA__
@@ -69,7 +155,10 @@ __DATA__
 @@ index.html.ep
 % layout 'default';
 % title 'My Application';
-Hello, world!
+<h1><%= $date->ymd %></h1>
+% for my $item ( @$items ) {
+<p><%= $item->{title} %></p>
+% }
 
 @@ layouts/default.html.ep
 <!DOCTYPE html>

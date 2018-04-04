@@ -2,11 +2,11 @@
 title: Design UI with Bootstrap - Todo App - Yancy Tutorial
 links:
     prev:
-        href: mark-todo-completed.html
-        title: 7. Mark to-do items as completed
-    next:
         href: navigate-todo-list.html
-        title: 9. Navigate between dates
+        title: 8. Navigate between dates
+    next:
+        href: index.html
+        title: Back to Introduction
 template: tutorial-page.html
 ---
 

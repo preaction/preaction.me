@@ -5,8 +5,8 @@ links:
         href: display-todo-list.html
         title: 6. Display the to-do list
     next:
-        href: bootstrap.html
-        title: 8. Design a UI with Bootstrap
+        href: navigate-todo-list.html
+        title: 8. Navigate between dates
 template: tutorial-page.html
 ---
 

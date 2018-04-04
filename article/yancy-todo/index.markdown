@@ -66,9 +66,8 @@ we'll run the application we build.
 5. [Populate the recurring to-do data](populate-data.html)
 6. [Display the to-do list](display-todo-list.html)
 7. [Mark to-do items as completed](mark-todo-completed.html)
-8. [Design a UI with Bootstrap](bootstrap.html)
-9. [Navigate between dates](navigate-todo-list.html)
-10. [Add user authentication](user-auth.html)
+8. [Navigate between dates](navigate-todo-list.html)
+9. [Design a UI with Bootstrap](bootstrap.html)
 
 %= include 'component/pager.html.ep'
 
