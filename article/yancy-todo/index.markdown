@@ -66,10 +66,10 @@ we'll run the application we build.
 5. [Populate the recurring to-do data](populate-data.html)
 6. [Display the to-do list](display-todo-list.html)
 7. [Mark to-do items as completed](mark-todo-completed.html)
-8. [Navigate between dates](navigate-todo-list.html)
-9. [Design a UI with Bootstrap](bootstrap.html)
-10. [Write tests with Test::Mojo](automated-tests.html)
-11. [Configure and Deploy](deploy.html)
+8. [Navigate between dates](navigate-todo-list.html) -- Up next
+9. [Design a UI with Bootstrap](bootstrap.html) -- In progress
+10. [Write tests with Test::Mojo](automated-tests.html) -- Not started
+11. [Configure and Deploy](deploy.html) -- Not started
 
 %= include 'component/pager.html.ep'
 
