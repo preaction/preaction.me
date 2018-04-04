@@ -224,13 +224,17 @@ Here's our full app so far:
 
     #!/usr/bin/env perl
     use Mojolicious::Lite;
+
     get '/' => 'index';
+
     app->start;
     __DATA__
+
     @@ index.html.ep
     % layout 'default';
     % title 'My Application';
     Hello, world!
+
     @@ layouts/default.html.ep
     <!DOCTYPE html>
     <html>

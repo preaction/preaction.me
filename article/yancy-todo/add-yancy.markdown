@@ -8,7 +8,6 @@ links:
         href: populate-data.html
         title: 5. Populate the recurring to-do data
 template: tutorial-page.html
-disable_content_template: 1
 ---
 
 # Add Yancy
@@ -172,6 +171,8 @@ and `period` columns for the to-do items by setting `'x-list-columns' =>
 
 Here's our completely-configured Yancy plugin in our application:
 
+%= include 'component/collapse.html.ep', title => 'Expand code', content => markdown begin
+
     #!/usr/bin/env perl
     use Mojolicious::Lite;
     use Mojo::Util qw( unindent trim );
@@ -241,16 +242,16 @@ Here's our completely-configured Yancy plugin in our application:
     __DATA__
 
     @@ index.html.ep
-    % layout 'default';
-    % title 'My Application';
+    %% layout 'default';
+    %% title 'My Application';
     Hello, world!
 
     @@ layouts/default.html.ep
     <!DOCTYPE html>
     <html>
-        <head><title><%= title %></title></head>
+        <head><title><%%= title %></title></head>
         <body>
-            %= content
+            %%= content
         </body>
     </html>
 
@@ -276,3 +277,4 @@ Here's our completely-configured Yancy plugin in our application:
     DROP TABLE todo_item;
     DROP TYPE todo_interval;
 
+% end

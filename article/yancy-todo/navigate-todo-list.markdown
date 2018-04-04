@@ -2,11 +2,11 @@
 title: Navigate Todo List - Todo App - Yancy Tutorial
 links:
     prev:
-        href: bootstrap.html
-        title: 8. Design a UI with Bootstrap
+        href: mark-todo-completed.html
+        title: 7. Mark to-do items as completed
     next:
-        href: user-auth.html
-        title: 10. Add user authentication
+        href: bootstrap.html
+        title: 9. Design a UI with Bootstrap
 template: tutorial-page.html
 ---
 

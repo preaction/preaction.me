@@ -8,7 +8,6 @@ links:
         href: add-yancy.html
         title: 4. Add and configure Yancy
 template: tutorial-page.html
-disable_content_template: 1
 ---
 
 # Create the Schema
@@ -136,26 +135,34 @@ migrated to it.
 
 Here's our full app so far:
 
+%= include 'component/collapse.html.ep', title => 'Expand code', content => markdown begin
+
     #!/usr/bin/env perl
     use Mojolicious::Lite;
     use Mojo::Pg;
+
     helper pg => sub { state $pg = Mojo::Pg->new( 'postgres:///myapp' ) };
     app->pg->auto_migrate(1)->migrations->from_data;
+
     get '/' => 'index';
+
     app->start;
     __DATA__
+
     @@ index.html.ep
-    % layout 'default';
-    % title 'My Application';
+    %% layout 'default';
+    %% title 'My Application';
     Hello, world!
+
     @@ layouts/default.html.ep
     <!DOCTYPE html>
     <html>
-        <head><title><%= title %></title></head>
+        <head><title><%%= title %></title></head>
         <body>
-            %= content
+            %%= content
         </body>
     </html>
+
     @@ migrations
     -- 1 up
     CREATE TYPE todo_interval AS ENUM ( 'day', 'week', 'month' );
@@ -178,3 +185,4 @@ Here's our full app so far:
     DROP TABLE todo_item;
     DROP TYPE todo_interval;
 
+% end

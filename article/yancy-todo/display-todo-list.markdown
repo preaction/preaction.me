@@ -146,6 +146,8 @@ Then we can look at our work so far: ￼
 
 Our full code now looks like this:
 
+%= include 'component/collapse.html.ep', title => 'Expand code', content => markdown begin
+
     #!/usr/bin/env perl
     use Mojolicious::Lite;
     use Mojo::Util qw( unindent trim );
@@ -338,4 +340,4 @@ Our full code now looks like this:
     DROP TABLE todo_log;
     DROP TABLE todo_item;
     DROP TYPE todo_interval;
-
+% end

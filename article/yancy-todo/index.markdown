@@ -68,6 +68,8 @@ we'll run the application we build.
 7. [Mark to-do items as completed](mark-todo-completed.html)
 8. [Navigate between dates](navigate-todo-list.html)
 9. [Design a UI with Bootstrap](bootstrap.html)
+10. [Write tests with Test::Mojo](automated-tests.html)
+11. [Configure and Deploy](deploy.html)
 
 %= include 'component/pager.html.ep'
 

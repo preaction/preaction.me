@@ -241,6 +241,15 @@ footer .tagline {
     content: '';
 }
 
+/** Collapse component */
+.collapse {
+    height: 0;
+    overflow: hidden;
+}
+.collapse.in {
+    height: auto;
+}
+
 /************************************************
  * Applications
  */

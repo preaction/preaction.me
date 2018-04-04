@@ -149,15 +149,34 @@ get '/' => sub {
     );
 } => 'index';
 
+post '/log/:log_id' => sub {
+    my ( $c ) = @_;
+    my $id = $c->stash( 'log_id' );
+    my $complete = $c->param( 'complete' )
+        ? DateTime->today->ymd
+        : undef;
+    my $sql = 'UPDATE todo_log SET complete = ? WHERE id = ?';
+    $c->pg->db->query( $sql, $complete, $id );
+    return $c->redirect_to( 'index' );
+} => 'update_log';
+
 app->start;
 __DATA__
 
 @@ index.html.ep
 % layout 'default';
-% title 'My Application';
+% title 'Welcome';
 <h1><%= $date->ymd %></h1>
 % for my $item ( @$items ) {
-<p><%= $item->{title} %></p>
+    %= form_for 'update_log', { log_id => $item->{id} }, begin
+        %= $item->{title}
+        % if ( !$item->{complete} ) {
+            <button name="complete" value="1">Complete</button>
+        % }
+        % else {
+            <button name="complete" value="0">Undo</button>
+        % }
+    % end
 % }
 
 @@ layouts/default.html.ep

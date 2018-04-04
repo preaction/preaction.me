@@ -1,0 +1,8 @@
+
+% my $id = 'collapse-' . time . rand( 100 );
+<p><button class="btn btn-primary" onclick="document.getElementById( '<%= $id %>' ).classList.toggle( 'in' )">
+    <%= $title %>
+</button></p>
+<div class="collapse" id="<%= $id %>">
+    %= ref $content eq 'CODE' ? $content->() : $content
+</div>

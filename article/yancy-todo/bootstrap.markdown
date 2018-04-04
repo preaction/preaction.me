@@ -5,8 +5,8 @@ links:
         href: navigate-todo-list.html
         title: 8. Navigate between dates
     next:
-        href: index.html
-        title: Back to Introduction
+        href: automated-tests.html
+        title: 10. Write tests with Test::Mojo
 template: tutorial-page.html
 ---
 
