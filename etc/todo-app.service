@@ -1,0 +1,11 @@
+[Unit]
+Description=Todo list application
+After=nginx.service
+
+[Service]
+Environment=MOJO_HOME=/home/doug/app/todo-app
+Environment=MOJO_REVERSE_PROXY=/todo
+ExecStart=/home/doug/app/todo-app/myapp.pl prefork -l 'http://*:6037'
+
+[Install]
+WantedBy=multi-user.target
