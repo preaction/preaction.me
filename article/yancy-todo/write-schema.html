@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Create Schema - Todo App - Yancy Tutorial - preaction</title>
-        <meta content="Statocles 0.093" name="generator">
+        <meta content="Statocles 0.094" name="generator">
         
     </head>
     <body>
@@ -191,18 +191,28 @@ migrated to it.</p>
 
 <p>Here&#39;s our full app so far:</p>
 
-<pre><code>#!/usr/bin/env perl
+<p><button class="btn btn-primary" onclick="document.getElementById( &#39;collapse-152288545623.9281569584129&#39; ).classList.toggle( &#39;in&#39; )">
+    Expand code
+</button></p>
+
+<div class="collapse" id="collapse-152288545623.9281569584129">
+    <pre><code>#!/usr/bin/env perl
 use Mojolicious::Lite;
 use Mojo::Pg;
+
 helper pg =&gt; sub { state $pg = Mojo::Pg-&gt;new( &#39;postgres:///myapp&#39; ) };
 app-&gt;pg-&gt;auto_migrate(1)-&gt;migrations-&gt;from_data;
+
 get &#39;/&#39; =&gt; &#39;index&#39;;
+
 app-&gt;start;
 __DATA__
+
 @@ index.html.ep
 % layout &#39;default&#39;;
 % title &#39;My Application&#39;;
 Hello, world!
+
 @@ layouts/default.html.ep
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -211,6 +221,7 @@ Hello, world!
         %= content
     &lt;/body&gt;
 &lt;/html&gt;
+
 @@ migrations
 -- 1 up
 CREATE TYPE todo_interval AS ENUM ( &#39;day&#39;, &#39;week&#39;, &#39;month&#39; );
@@ -233,6 +244,8 @@ DROP TABLE todo_log;
 DROP TABLE todo_item;
 DROP TYPE todo_interval;
 </code></pre>
+
+</div>
 
 </main>
 

@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Add Yancy - Todo App - Yancy Tutorial - preaction</title>
-        <meta content="Statocles 0.093" name="generator">
+        <meta content="Statocles 0.094" name="generator">
         
     </head>
     <body>
@@ -221,7 +221,12 @@ and <code>period</code> columns for the to-do items by setting <code>&#39;x-list
 
 <p>Here&#39;s our completely-configured Yancy plugin in our application:</p>
 
-<pre><code>#!/usr/bin/env perl
+<p><button class="btn btn-primary" onclick="document.getElementById( &#39;collapse-152288545817.2769247725629&#39; ).classList.toggle( &#39;in&#39; )">
+    Expand code
+</button></p>
+
+<div class="collapse" id="collapse-152288545817.2769247725629">
+    <pre><code>#!/usr/bin/env perl
 use Mojolicious::Lite;
 use Mojo::Util qw( unindent trim );
 use Mojo::Pg;
@@ -325,6 +330,8 @@ DROP TABLE todo_log;
 DROP TABLE todo_item;
 DROP TYPE todo_interval;
 </code></pre>
+
+</div>
 
 </main>
 

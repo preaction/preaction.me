@@ -7,7 +7,7 @@
         <link href="/theme/css/statocles-default.css" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <title>Start a Mojolicious App - Todo App - Yancy Tutorial - preaction</title>
-        <meta content="Statocles 0.093" name="generator">
+        <meta content="Statocles 0.094" name="generator">
         
     </head>
     <body>
@@ -286,13 +286,17 @@ Hello, world!
 
 <pre><code>#!/usr/bin/env perl
 use Mojolicious::Lite;
+
 get &#39;/&#39; =&gt; &#39;index&#39;;
+
 app-&gt;start;
 __DATA__
+
 @@ index.html.ep
 % layout &#39;default&#39;;
 % title &#39;My Application&#39;;
 Hello, world!
+
 @@ layouts/default.html.ep
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;

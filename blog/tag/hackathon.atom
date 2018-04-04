@@ -5,7 +5,7 @@
     <updated>2017-11-05T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/hackathon.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/hackathon/" rel="alternate" />
-    <generator version="0.093">Statocles</generator>
+    <generator version="0.094">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2017/11/05/help-cpan-testers-during-meta-hack-v2/</id>
         <title>Help CPAN Testers During meta::hack v2</title>

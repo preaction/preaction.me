@@ -19,7 +19,19 @@
         <lastmod>2018-04-04</lastmod>
     </url>
     <url>
+        <loc>http://preaction.me/article/yancy-todo/automated-tests.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2018-04-04</lastmod>
+    </url>
+    <url>
         <loc>http://preaction.me/article/yancy-todo/bootstrap.html</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+        <lastmod>2018-04-04</lastmod>
+    </url>
+    <url>
+        <loc>http://preaction.me/article/yancy-todo/deploy.html</loc>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
         <lastmod>2018-04-04</lastmod>
