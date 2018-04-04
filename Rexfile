@@ -7,91 +7,76 @@ group mail => 'mail.preaction.me';
 group irc => 'irc.preaction.me';
 group git => 'git.preaction.me';
 
-set osversion => '5.5';
-set mirror => sprintf 'http://ftp.openbsd.org/pub/OpenBSD/%s', get( 'osversion' );
-
-task setup => sub {
-    # add wheel to sudoers
-    # %wheel  ALL=(ALL) NOPASSWD: SETENV: ALL
-    # Task: Add admin
-    # add doug to wheel and wsrc
-
-    # Development environment:
-    # cd /usr/ports/editors/vim && env FLAVOR="no_x11 perl python ruby" make install
-    # zsh
-    # tmux
-    # python
-    # ruby
-    # node
-    # git
-
-};
-
-task update_ports => sub {
-    if ( run 'ls -d /usr/ports' && $? ) {
-        # download and verify ports
-        run 'cd /tmp; ftp ' . get( 'mirror' ) . '/ports.tar.gz';
-        run 'cd /tmp; ftp ' . get( 'mirror' ) . 'SHA256.sig';
-        run 'cd /tmp; signify -C -p /etc/signify/openbsd-55-base.pub -x SHA256.sig ports.tar.gz';
-        if ( $? ) {
-            die "Checksum failed!";
-        }
-
-        run 'cd /usr; sudo tar xzf /tmp/ports.tar.gz';
-        run 'chgrp -R wsrc /usr/ports';
-        run 'find /usr/ports -type d -exec chmod g+w {} \\;';
+my @packages = qw( zsh tmux git );
+task prepare => sub {
+    for my $pkg ( @packages ) {
+        pkg $pkg, ensure => 'installed';
     }
-
-    file "/etc/mk.conf", content => template("etc/mk.conf");
 };
 
-# ROOTBSD forgets the xshare55.tgz set?
-# Task: Install set
-# http://mirror.team-cymru.org/pub/OpenBSD/5.5/amd64/ (set name)
+task znc =>
+    group => [qw( irc )],
+    sub {
+        # Install znc
+        sudo sub {
+            pkg 'znc', ensure => 'installed';
+            # Allow systemd to run after logout
+            pkg 'dbus', ensure => 'installed';
+            pkg 'libpam-systemd', ensure => 'installed';
+            # After installing those, must restart!!
+            run 'sudo loginctl enable-linger doug';
+        };
+        # REMEMBER TO ADD THE znc.pem TO YOUR MACHINE'S TRUSTED SSL
+        # CERTIFICATES!
 
-# Install znc
-# add to crontab: @reboot /usr/local/bin/znc >/dev/null 2>&1
-# steal znc config!
-# -- uses webadmin though
+        file '/home/doug/.znc/configs/znc.conf',
+            source => 'etc/znc.conf';
+        file '/home/doug/.config/systemd/user/znc.service',
+            source => 'etc/znc.service';
+        run 'systemctl --user enable znc.service';
+        run 'systemctl --user start znc.service';
+    };
 
 # Setup gitolite user
 task gitolite =>
     group => [qw( git )],
     sub {
+        sudo sub {
+            pkg 'gitolite3', ensure => 'installed';
+        };
+
+
 
     };
 
 
-task deploy =>
+task web =>
     group => [qw( web )],
     sub {
+        sudo sub {
+            pkg 'nginx', ensure => 'installed';
+            pkg 'postgresql-9.6', ensure => 'installed';
+            pkg 'carton', ensure => 'installed';
+        };
+
         Rex::Logger::info( 'Deploying nginx config' );
         sudo sub {
-            file '/etc/nginx/sites/preaction.me.conf',
+            file '/etc/nginx/sites-available/preaction.me.conf',
                 source => 'etc/nginx.conf';
+            run 'ln -s /etc/nginx/sites-available/preaction.me.conf /etc/nginx/sites-enabled/';
             run 'nginx -s reload';
         };
 
         Rex::Logger::info( 'Deploying applications' );
+        file 'app', ensure => 'directory';
         sync_up 'app', '~/app';
 
         Rex::Logger::info( 'Deploying service config' );
-        file '~/service/todo-app/log',
-            ensure => 'directory';
-        file '~/service/todo-app/run',
-            source => 'etc/service/todo-app/run';
-        file '~/service/todo-app/log/run',
-            source => 'etc/service/todo-app/log/run';
+        file '/home/doug/.config/systemd/user/todo-app.service',
+            source => 'etc/todo-app.service';
 
-        Rex::Logger::info( 'Restarting' );
-        run 'sv restart ~/service/todo-app';
-
-        Rex::Logger::info( 'Deploying ZNC conf' );
-        file '~/.znc/configs',
-            ensure => 'directory';
-        file '~/.znc/configs/znc.conf',
-            source => 'etc/znc.conf';
+        Rex::Logger::info( 'Starting' );
+        run 'systemctl --user enable todo-app.service';
+        run 'systemctl --user start todo-app.service';
     };
-
-
 
