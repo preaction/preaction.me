@@ -53,6 +53,7 @@ These are talks I've given at Perl Mongers meetings and Perl conferences.
 ## Other
 
 * [State of the Velociraptor (2016-06-20)](http://preaction.github.io/SOTV-YAPCNA-2016/)
+* [State of the Velociraptor (2018-06-18)](SOTV-TPCNA-2018)
 
 # License and Copyright
 
