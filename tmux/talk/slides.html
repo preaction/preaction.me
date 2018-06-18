@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>preaction</title>
+        <meta content="Statocles 0.094" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <h1>Organized Development with Tmux</h1>
+
+<p><a href="http://preaction.github.io/articles/tmux/talk/chicago">http://preaction.github.io/articles/tmux/talk/chicago</a></p>
+
+<div style="width: 40%; float: left">
+
+by [Doug Bell](http://preaction.me)  
+<small>(he, him, his)</small>  
+[<i class="fa fa-twitter"></i> @preaction](http://twitter.com/preaction)  
+[<i class="fa fa-github"></i> preaction](http://github.com/preaction)  
+<img src="http://chicago.pm.org/theme/images/chicagopm-small.png" style="border: none; vertical-align: middle">
+[Chicago.PM](http://chicago.pm.org)  
+
+</div>
+
+<div style="width: 20%; float: left; text-align: center">
+<img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%">
+</div>
+
+<div style="width: 40%; float: left">
+
+[<i class="fa fa-file-text-o"></i>
+Full Article](http://preaction.me/articles/tmux)  
+
+[CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode)  
+
+<small data-markdown>
+For navigation help, press `?`  
+For speaker view, press `S`  
+For full-screen, press `F`
+</small>
+</div>
+
+<p>--- {Topic}</p>
+
+<h1>Tmux</h1>
+
+<p>^ Since showing is better than telling, I&#39;m going to show you what Tmux
+does.</p>
+
+<hr>
+
+<h1><code>screen</code></h1>
+
+<p>^ But first, who has used GNU screen? Okay, so a lot of this will be
+familiar to you.</p>
+
+<hr>
+
+<h1>Installing</h1>
+
+<p>^ We&#39;re not going to go over installing Tmux. It&#39;s available from all
+major package managers including Homebrew for MacOS, Cygwin, and works
+inside Windows Subsystem for Linux (Ubuntu-in-Windows)</p>
+
+<p>--- {Topic}</p>
+
+<h1>Starting Tmux</h1>
+
+<p>^ To start Tmux, we need to run the <code>tmux</code> command</p>
+
+<hr>
+
+<p><img alt="Terminal window with the command &#39;tmux&#39; typed-in" src="starting-tmux-1-run-tmux.png"></p>
+
+<p>^ Once we run this command...</p>
+
+<hr>
+
+<p><img alt="Terminal window running &#39;tmux&#39;" src="starting-tmux-2-inside-tmux.png"></p>
+
+<p>^ We get a shell prompt again, but now we have a bar at the bottom of
+the window. This is the Tmux status bar.</p>
+
+<hr>
+
+<p><img alt="Tmux window with session name highlighted" src="starting-tmux-3-session-name.png"></p>
+
+<p>^ Over in the bottom left in square brackets we have the session name,
+which defaults to <code>0</code>. We&#39;ll talk about using session names later.</p>
+
+<hr>
+
+<p><img alt="Tmux window with window information highlighted" src="starting-tmux-4-window.png"></p>
+
+<h1 class="fragment solarized-bar-text absolute-center">
+    <span class="fragment highlight-current-purple">0</span>:<span class="fragment highlight-current-purple">zsh</span><span class="fragment highlight-current-purple">*</span>
+</h1>
+
+<!-- It took 30 minutes to make this work correctly, so I need to stop
+thinking that I can just "do my slides" in the hour before the talk,
+after I've written the full talk in prose -->
+
+<p>^ Next to that we have window information. &gt;&gt; We have one window, &gt;&gt; window 0,</p>
+
+<blockquote>
+  <blockquote>
+    <p>currently running <code>zsh</code> (my shell), &gt;&gt; and the asterisk says it is the
+    selected window. Creating and managing windows is the most useful part
+    of Tmux, and we&#39;ll spend a lot of time talking about them.</p>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<p><img alt="Tmux window with bottom right corner
+highlighted" src="starting-tmux-5-info-box.png"></p>
+
+<p>^ Finally, on the right, we have some information about our machine: My
+laptop&#39;s hostname is &quot;gwen.local&quot;, and this screenshot was taken at 8:32
+PM on May 22, 2018.</p>
+
+<hr>
+
+<p><img alt="Tmux window with &#39;ps u&#39; typed in a shell
+prompt" src="starting-tmux-6-type-command.png"></p>
+
+<p>^ Otherwise, this is just what we had without Tmux. We can type
+a command into our shell and execute it...</p>
+
+<hr>
+
+<p><img alt="Tmux window with output from &#39;ps u&#39;" src="starting-tmux-7-run-command.png"></p>
+
+<p>^ and the output is displayed on our screen. Amazing!</p>
+
+<hr>
+
+<p><img alt="Tmux window with &#39;exit&#39; typed in a shell prompt" src="starting-tmux-8-type-exit.png"></p>
+
+<p>^ And then when we&#39;re done, we can exit our shell</p>
+
+<hr>
+
+<p><img alt="Terminal window after exiting Tmux" src="starting-tmux-9-exited.png"></p>
+
+<p>^ And we exit Tmux.</p>
+
+<p>--- {Topic}</p>
+
+<h1>Detach</h1>
+
+<h1 class="fragment">Attach</h1>
+
+<p>^ However, instead of exiting, we can detach from our Tmux session and
+re-attach to it later. When we detach from a session, Tmux stays running
+in the background. Everything in our session keeps running, too, waiting
+for us to return.</p>
+
+<hr>
+
+<p><img alt="Terminal window with the command &#39;tmux&#39; typed-in" src="detach-1-run-tmux.png"></p>
+
+<p>^ So let&#39;s start Tmux again</p>
+
+<hr>
+
+<p><img alt="Terminal window running &#39;tmux&#39;" src="detach-2-inside-tmux.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>
+        <span class="fragment highlight-current-red">Ctrl+b</span>
+        <span class="fragment highlight-current-red">d</span>
+    </kbd>
+</h1>
+
+<p>^ But this time let&#39;s detach from our session instead of exiting. We do
+this by typing &quot;Ctrl+b d&quot;. &gt;&gt; &quot;Ctrl+b&quot; is the prefix. Typing this tells
+Tmux we&#39;re about to give it a command. &gt;&gt; And then &quot;d&quot; for &quot;detach&quot;. If
+you&#39;re a screen user, screen uses &quot;Ctrl+a&quot; as its prefix by default, and
+later I&#39;ll show how to configure what the prefix is if you prefer
+&quot;Ctrl+a&quot;.</p>
+
+<hr>
+
+<p><img alt="Terminal showing as detached from tmux session 0" src="detach-3-detached.png"></p>
+
+<p>^ When we detach, we&#39;re back in our terminal window where we left off.
+But our Tmux session is still running.</p>
+
+<hr>
+
+<p><img alt="Terminal showing &quot;tmux attach-session&quot; typed in
+a prompt" src="detach-4-run-attach.png"></p>
+
+<p>^ To get back to our session, we can run &quot;tmux attach-session&quot;, or for
+brevity &quot;tmux attach&quot;, or for even more brevity &quot;tmux a&quot;.</p>
+
+<hr>
+
+<p><img alt="Terminal window running &#39;tmux&#39;" src="detach-5-back-inside-tmux.png"></p>
+
+<p>^ When we do that, we&#39;re right back where we left off.</p>
+
+<hr>
+
+<h1>SSH</h1>
+
+<p>^ Why is this useful? The most common use is over SSH. Connect to
+a remote machine via SSH and then run Tmux. If you detach, or get
+disconnected, you can later reattach and pick up where you left off. For
+some people, this is the only reason they use Tmux.</p>
+
+<hr>
+
+<h1>Detached Tasks</h1>
+
+<p>^ This is also good for just putting local tasks in the background,
+unattached to any terminal. There are other ways to do this, nohup and
+disown, but Tmux makes it easier to get back to those tasks later (it&#39;s
+not impossible with nohup/disown, just more difficult / annoying).</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Windows</h1>
+
+<p>^ Now that we&#39;ve reattached, we can try some other features. The name
+&quot;Tmux&quot; stands for &quot;Terminal Multiplexer&quot;, making one terminal act like
+multiple terminals. The first way we can do that is with windows.</p>
+
+<hr>
+
+<p><img alt="Terminal window running &#39;tmux&#39;" src="windows-1-back-in-tmux.png"></p>
+
+<p>^ Here we are back in Tmux.</p>
+
+<hr>
+
+<p><img alt="Terminal window running &#39;tmux&#39;" src="windows-2-the-first-window.png"></p>
+
+<p>^ Remember that we already have one window, window 0. Let&#39;s open a
+program in this window. I&#39;ll open my editor, Vim.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing the vim startup screen" src="windows-3-running-vim.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>
+        <span class="fragment highlight-current-red">Ctrl+b</span>
+        <span class="fragment highlight-current-red">c</span>
+    </kbd>
+</h1>
+
+<p>^ Okay, now this window is busy running Vim. In order to also do
+something else, we will need to open a new window. &gt;&gt; We can open a new
+window with &quot;Ctrl+b c&quot;. &quot;Ctrl+b&quot; is the prefix, and &quot;c&quot; for &quot;create
+window&quot;.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-4-now-there-are-two-of-them.png"></p>
+
+<p>^ Now we have a new window, with a new shell.</p>
+
+<hr>
+
+<p><img alt="Tmux window with the new window in the status bar highlighted" src="windows-5-new-window-highlighted.png"></p>
+
+<h1 class="fragment solarized-bar-text absolute-center">
+    <span class="fragment highlight-current-purple">1</span>:<span class="fragment highlight-current-purple">zsh</span><span class="fragment highlight-current-purple">*</span>
+</h1>
+
+<p>^ Our new window is &gt;&gt; window number 1, &gt;&gt; running &quot;zsh&quot;, &gt;&gt; and is our
+current window.</p>
+
+<hr>
+
+<p><img alt="Tmux window with the previous window in the status bar highlighted" src="windows-6-old-window-highlighted.png"></p>
+
+<h1 class="fragment solarized-bar-text absolute-center">
+    0:vim<span class="fragment highlight-current-purple">-</span>
+</h1>
+
+<p>^ And notice our old window now has a &gt;&gt; dash (&quot;-&quot;) instead of an
+asterisk. This means it was the previous window we were looking at.
+There&#39;s a lot of information packed in to a tiny space down here.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-4-now-there-are-two-of-them.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b l</kbd>
+    <kbd class="fragment">Ctrl+b p</kbd>
+    <kbd class="fragment">Ctrl+b 0</kbd>
+</h1>
+
+<p>^ Now, how do we get back to our Vim window? We have multiple ways. &gt;&gt;
+Since it was the previous window, we can use &quot;Ctrl+b l&quot; (&quot;l&quot; for the
+last window we were on). &quot;Ctrl+b l&quot; allows you to quickly toggle between
+two windows. &gt;&gt; We can use &quot;Ctrl+b p&quot; to go back to the previous window
+numerically in the list &gt;&gt; Or we can choose our window by its number
+with &quot;Ctrl+b 0&quot;. The last one is made more difficult because the first
+window is window 0, but we&#39;ll go over how to configure that to make the
+windows start at 1.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing the vim startup screen" src="windows-7-back-to-vim.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b l</kbd>
+    <kbd class="fragment">Ctrl+b n</kbd>
+    <kbd class="fragment">Ctrl+b 1</kbd>
+</h1>
+
+<p>^ Doing any one of these will bring us back to our Vim window. Then, to
+get back to our new window, we can do &gt;&gt; &quot;Ctrl+b l&quot; again, since it was
+our last window &gt;&gt; &quot;Ctrl+b n&quot;, to move to the next window numerically &gt;&gt;
+or &quot;Ctrl+b 1&quot; to go directly to window 1.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-4-now-there-are-two-of-them.png"></p>
+
+<p>^ Then we can run commands in this new window</p>
+
+<hr>
+
+<p><img alt="Tmux window showing the manual page for Tmux" src="windows-8-run-command.png"></p>
+
+<p>^ Like look up some documentation for Tmux</p>
+
+<hr>
+
+<p><img alt="Tmux window showing the word &quot;exit&quot; typed into the command prompt" src="windows-9-type-exit.png"></p>
+
+<p>^ And then when we&#39;re done, we exit the shell</p>
+
+<hr>
+
+<p><img alt="Tmux window showing our first window with Vim after the second window is destroyed" src="windows-10-back-to-vim-again.png"></p>
+
+<p>^ We&#39;re back to our last window.</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the area of the status bar where the destroyed window was" src="windows-11-window-destroyed.png"></p>
+
+<p>^ And our new window is destroyed.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Scroll Buffer</h1>
+
+<p>^ The next thing a new Tmux user comes across is that their terminal&#39;s
+scroll bar doesn&#39;t work anymore.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing a &quot;ps au&quot; command typed in" src="scroll-1-run-verbose-command.png"></p>
+
+<p>^ We can run a command...</p>
+
+<hr>
+
+<p><img alt="Tmux window showing the bottom of the output of &quot;ps
+au&quot;" src="scroll-2-ps-au-output.png"></p>
+
+<p>^ ... that prints out a lot of data, and when we use our mouse to try to
+scroll our terminal window back up to see the top...</p>
+
+<hr>
+
+<p><img alt="Terminal window with a Tmux status bar in the middle instead of on the
+bottom" src="scroll-3-scroll-fail.png"></p>
+
+<p>^ We scroll through the terminal, not the output. Sometimes, we won&#39;t
+scroll at all.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing the bottom of the output of &quot;ps
+au&quot;" src="scroll-2-ps-au-output.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <span class="nowrap">Copy Mode</span>
+    <kbd class="fragment">Ctrl+b [</kbd>
+</h1>
+
+<p>^ This happens because Tmux is keeping the output in a buffer. This is
+good, it means we can come back to it later. But it means that we need
+to tell Tmux we want to scroll through the buffer by &gt;&gt; entering &quot;copy
+mode&quot;. We enter &quot;copy mode&quot; by &gt;&gt; pressing &quot;Ctrl+b&quot; and then the left
+square bracket (&quot;[&quot;).</p>
+
+<hr>
+
+<p><img alt="Tmux window in copy mode" src="scroll-4-copy-mode.png"></p>
+
+<p>^ In &quot;copy mode&quot; we have two changes to our window.</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the window name in the status bar enclosed in
+square brackets" src="scroll-4.1-window-name-brackets.png"></p>
+
+<h1 class="fragment solarized-bar-text absolute-center nowrap">
+    1:[tmux]*
+</h1>
+
+<p>^ The window name in the bottom bar is &gt;&gt; changed to &quot;tmux&quot; enclosed in
+square brackets to show we&#39;re in copy mode</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the scroll position indicator in the upper
+right" src="scroll-4.2-scroll-position.png"></p>
+
+<h1 class="fragment solarized-search-text absolute-center nowrap">
+    [<span class="fragment highlight-current-white">0</span>/<span class="fragment highlight-current-white">4</span>]
+</h1>
+
+<p>^ And there are two numbers in the upper right of the screen. &gt;&gt; The
+first one shows the line we&#39;re on (0 is the bottom of the screen) &gt;&gt; The
+second shows the total number of lines in the buffer</p>
+
+<hr>
+
+<p><img alt="Tmux window in copy mode" src="scroll-4-copy-mode.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>⬅️ ⬇️ ⬆️ ➡️ </kbd>
+    <kbd class="fragment">PgUp PgDn</kbd>
+</h1>
+
+<p>^ We move through the buffer using &gt;&gt; arrow keys &gt;&gt; Page Up / Page Down
+keys ...</p>
+
+<hr>
+
+<p><img alt="Tmux window in copy mode" src="scroll-4-copy-mode.png"></p>
+
+<h1 class="absolute-center bg-solarized">
+    <kbd>h j k l</kbd>
+    <kbd class="fragment">Ctrl+f Ctrl+b</kbd>
+    <kbd class="fragment">g G</kbd>
+</h1>
+
+<p>^ ... or Tmux also comes set up with less-style bindings &gt;&gt; (Ctrl+b
+goes down, Ctrl+f goes up) &gt;&gt; &quot;g&quot; goes to the top, &quot;G&quot; to the bottom.
+and you can configure other styles (vim and emacs)</p>
+
+<hr>
+
+<p><img alt="Tmux window scrolled to the top" src="scroll-5-over-the-top.png"></p>
+
+<p>^ I hit the &quot;g&quot; key, and I scrolled all the way to the top. Now I can
+hit the &quot;G&quot; key and scroll back to the bottom.</p>
+
+<hr>
+
+<p><img alt="Tmux window in copy mode" src="scroll-4-copy-mode.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>?</kbd>
+    <kbd class="fragment">/</kbd>
+</h1>
+
+<p>^ We can also move through our buffer searching for keywords using the</p>
+
+<blockquote>
+  <blockquote>
+    <p>question mark (&quot;?&quot;) key to search up, &gt;&gt; and the slash (&quot;/&quot;) key to
+    search down.</p>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<p><img alt="Tmux window showing (search up) in the status
+bar" src="scroll-6-search-up.png"></p>
+
+<p>^ So, to search up we hit the &quot;?&quot; key.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing (search up) in the status bar,
+highlighted" src="scroll-6.1-search-up-highlights.png"></p>
+
+<h1 class="fragment absolute-center solarized-search-text nowrap">
+    (search up)
+    <kbd class="fragment">login</kbd>
+</h1>
+
+<p>^ Tmux shows us that we&#39;re searching up. &gt;&gt; Then we type what we want to
+look for, and press Enter.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing search results highlighted" src="scroll-7-results.png"></p>
+
+<p>^ Now Tmux shows us our results</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the highlighted search
+results" src="scroll-7.1-highlight-search-words.png"></p>
+
+<p>^ ... highlights the matched text...</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the highlighted search
+results" src="scroll-7.2-highlight-cursor.png"></p>
+
+<p>^ ... putting our cursor on the bottom one, since we&#39;re searching up ...</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the search status bar at the
+top" src="scroll-7.3-highlight-result-status.png"></p>
+
+<p>^ and tells us how many results are found.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing search results highlighted" src="scroll-7-results.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>n</kbd>
+    <kbd class="fragment">N</kbd>
+</h1>
+
+<p>^ We can see the next search result &gt;&gt; by pressing &quot;n&quot;, and the previous
+result by &gt;&gt; pressing &quot;N&quot;.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing cursor on the next
+result" src="scroll-8-next-result.png"></p>
+
+<p>^ Pressing &quot;n&quot; to go to the next result...</p>
+
+<hr>
+
+<p><img alt="Tmux window showing cursor on the next
+result, highlighted" src="scroll-8.1-next-result-highlighted.png"></p>
+
+<p>^ ... takes me up the page (because I&#39;m searching up).</p>
+
+<hr>
+
+<p><img alt="Tmux window showing cursor on the next
+result" src="scroll-8-next-result.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>q</kbd>
+</h1>
+
+<p>^ We can exit copy mode by &gt;&gt; pressing &quot;q&quot;...</p>
+
+<hr>
+
+<p><img alt="Tmux window showing the bottom of the output of &quot;ps
+au&quot;" src="scroll-2-ps-au-output.png"></p>
+
+<p>^ and we&#39;re back at our command prompt at the bottom of our window</p>
+
+<hr>
+
+<p><img alt="Tmux window scrolled to the top" src="scroll-5-over-the-top.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Space</kbd>
+</h1>
+
+<p>^ Finally, it&#39;s called &quot;copy mode&quot; because we can copy text from the
+buffer and paste it later. &gt;&gt; Start selecting text by pressing the space
+bar</p>
+
+<hr>
+
+<p><img alt="Tmux window showing selected text" src="scroll-9-select-text.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+w</kbd>
+    <kbd class="fragment">Enter</kbd>
+</h1>
+
+<p>^ Now moving through the text will select it. When we&#39;ve selected the
+text we want, we can &gt;&gt; press &quot;Ctrl+w&quot; &gt;&gt; or &quot;Enter&quot; to copy the text.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim" src="scroll-10-switch-window.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b ]</kbd>
+</h1>
+
+<p>^ And then we can move to another window and &gt;&gt; press &quot;Ctrl+b&quot; and the
+right square bracket (&quot;]&quot;) to paste the text</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim with pasted text
+inside" src="scroll-11-paste-text.png"></p>
+
+<p>^ And now our selected text is in our editor. Some of this is a little
+awkward. I admit that I rarely use copy mode for its copy/paste
+features, mostly for searching program output, which I then select with
+my mouse. But there have been some times where copy/paste using copy
+mode was the only solution. For example, if the text I want to copy
+takes up more lines than can be displayed on the screen.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Window Panes</h1>
+
+<p>^ Okay, so, Tmux can create multiple windows, that&#39;s great. But what if
+I want to look at my editor and my program&#39;s output at the same time?
+For this, Tmux allows splitting windows into panes.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim" src="panes-1-editor-window.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b %</kbd>
+</h1>
+
+<p>^ To split the editor window vertically, use &gt;&gt; &quot;Ctrl+b&quot; and the percent
+sign (&quot;%&quot;).</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically showing vim on the left, a shell on the
+right" src="panes-2-split-vertically.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b &quot;</kbd>
+</h1>
+
+<p>^ Now our window is split in two, with a new shell on the right side. We
+can also &gt;&gt; split horizontally using &quot;Ctrl+b&quot; and double quote (&#39;&quot;&#39;).</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically with the right pane split
+horizontally" src="panes-3-split-horizontally.png"></p>
+
+<p>^ So, now we split our right pane in two horizontally. And we can keep
+going...</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically, with the right pane split horizontally,
+and then the right-bottom pane split vertically" src="panes-4-split-more.png"></p>
+
+<p>^ and going...</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically, with the right pane split horizontally,
+the right-bottom pane split vertically, and then the right-bottom-right
+pane split horizontally" src="panes-5-split-alive.png"></p>
+
+<p>^ and going...</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically, with the right pane split horizontally,
+the right-bottom pane split vertically, the right-bottom-right
+pane split horizontally, and the right-bottom-right-bottom pane split
+vertically" src="panes-6-split-up-sticks.png"></p>
+
+<p>^ and going on in to uselessness. Each pane has its own shell and scroll
+buffer. When we&#39;re done with a pane, we can exit our shell...</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically, with the right pane split horizontally,
+the right-bottom pane split vertically, and then the right-bottom-right
+pane split horizontally" src="panes-5-split-alive.png"></p>
+
+<p>^ ... and the space gets reclaimed</p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically, with the right pane split horizontally,
+and then the right-bottom pane split vertically" src="panes-4-split-more.png"></p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically with the right pane split
+horizontally" src="panes-3-split-horizontally.png"></p>
+
+<hr>
+
+<p><img alt="Tmux window split vertically showing vim on the left, a shell on the
+right" src="panes-2-split-vertically.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b ⬅️</kbd>
+    <kbd class="fragment">⬅️ ⬇️ ⬆️ ➡️ </kbd>
+</h1>
+
+<p>^ Now we&#39;re back to our editor on one side, our shell on the other. To
+switch panes to get back to our editor, we can use &gt;&gt; &quot;Ctrl+b&quot; and Left.</p>
+
+<blockquote>
+  <blockquote>
+    <p>&quot;Ctrl+b&quot; and the arrow keys moves between the panes in the window.</p>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<p><img alt="Tmux window split vertically showing vim on the left, a shell on the
+right, with the cursor in the vim window" src="panes-7-editor-selected.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b z</kbd>
+</h1>
+
+<p>^ Now we&#39;re back in our editor. If we&#39;ve split our window, but we need
+to look at a pane using all available space temporarily, we can use &gt;&gt;
+&quot;Ctrl+b z&quot; to zoom in to the current pane.</p>
+
+<hr>
+
+<p><img alt="Tmux window with editor pane zoomed" src="panes-8-zoom.png"></p>
+
+<p>^ Now our editor takes up the full window...</p>
+
+<hr>
+
+<p><img alt="Tmux window with editor pane zoomed showing window in status bar
+highlighted" src="panes-8.1-zoom-highlighted.png"></p>
+
+<h1 class="fragment solarized-bar-text absolute-center nowrap">
+    0:vim*<span class="highlight-purple">Z</span>
+</h1>
+
+<p>^ ... and down here next to our window &gt;&gt; we can see a &quot;Z&quot; to show we&#39;re
+zoomed.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>The Basics of Tmux</h1>
+
+<h3 class="fragment">Start / Stop</h3>
+
+<h3 class="fragment">Attach / Detach</h3>
+
+<h3 class="fragment">Windows</h3>
+
+<h3 class="fragment">Scroll buffer</h3>
+
+<h3 class="fragment">Panes</h3>
+
+<p>^ Those are the basics of Tmux: &gt;&gt; Starting and stopping Tmux, &gt;&gt;
+Attaching and detaching from Tmux, &gt;&gt; Creating, destroying, and
+switching windows &gt;&gt; Using the scroll buffer and copy mode &gt;&gt; And
+creating, destroying, and switching panes. With only this, Tmux is
+a very useful tool.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Configuration</h1>
+
+<p>^ But, we can make it even more useful. The first thing we can do to
+maximize Tmux&#39;s usefulness is to customize it for our needs. Tmux is
+highly configurable, so we can only go over some of the most useful
+things here.</p>
+
+<hr>
+
+<h1>Examples</h1>
+
+<p>^ These are just examples of things you could do, copied from my own
+configs.</p>
+
+<hr>
+
+<h1>Config File</h1>
+
+<h2><code>~/.tmux.conf</code></h2>
+
+<p>^ The Tmux configuration file is <code>.tmux.conf</code> in our home directory. If
+you&#39;ve never configured Tmux, you&#39;ll have to create this file.</p>
+
+<hr>
+
+<p><img alt="Vim window showing &quot;:e&quot; command to edit
+~/.tmux.conf" src="config-1-edit-tmux-conf.png"></p>
+
+<p>^ I&#39;m going to open up ~/.tmux.conf in my editor</p>
+
+<hr>
+
+<p><img alt="vim window editing ~/.tmux.conf, a new
+file" src="config-2-editing-new-file.png"></p>
+
+<p>^ And it&#39;s currently blank, so let&#39;s add some configuration</p>
+
+<hr>
+
+<h1>Setting the Prefix</h1>
+
+<p>^ The first thing I do in my Tmux is change the prefix.</p>
+
+<hr>
+
+<h1>Tmux</h1>
+
+<h1><code>Ctrl+b</code></h1>
+
+<p>^ Remember &quot;Ctrl+b&quot; is called the &quot;prefix&quot;. It&#39;s what we use to tell
+Tmux we&#39;re about to give it a command. But, to me, Ctrl+B is a finger
+workout.</p>
+
+<hr>
+
+<h1>Screen</h1>
+
+<h1><code>Ctrl+a</code></h1>
+
+<p>^ Screen users often switch this to Ctrl+A, but Ctrl+A is useful
+in shells (it moves the cursor to the start of the line).</p>
+
+<hr>
+
+<h1>Custom</h1>
+
+<h1><code>Ctrl+s</code></h1>
+
+<p>^ So I use Ctrl+S: The &quot;S&quot; key is on the home row under my fingers, next
+to A. And I rarely use Ctrl+S for its original purpose, sending SIGSTOP
+to stop a process.</p>
+
+<hr>
+
+<p><img alt="vim window editing ~/.tmux.conf, a new
+file" src="config-2-editing-new-file.png"></p>
+
+<h2 class="fragment solarized-text absolute-center nowrap">
+    <code>
+        <span>set</span>
+        <span class="fragment">-g</span>
+        <span class="fragment">prefix</span>
+        <span class="fragment">
+            <span class="fragment highlight-current-red">C</span>-s
+        </span>
+    </code>
+</h2>
+
+<p>^ To change the prefix, &gt;&gt; we use the <code>set</code> command. &gt;&gt; we give a <code>-g</code>
+option to make it a global setting &gt;&gt; and we set the &quot;prefix&quot; &gt;&gt; to
+&quot;C-s&quot;. The &gt;&gt; capital-C is &quot;control&quot;</p>
+
+<hr>
+
+<p><img alt="vim window showing set prefix in config file" src="config-3-set-prefix.png"></p>
+
+<h1 class="fragment solarized-text absolute-center nowrap">
+    <code>
+        <span>unbind</span>
+        <span class="fragment">C-b</span>
+    </code>
+</h1>
+
+<p>^ After we change the prefix, we have to do two more things. First, the
+default behavior for pressing &quot;Ctrl+b&quot; twice is to send &quot;Ctrl+b&quot; to the
+currently-running program. We can stop that behavior by &gt;&gt; using the
+<code>unbind</code> command to &gt;&gt; stop &quot;Ctrl+b&quot; from doing anything.</p>
+
+<hr>
+
+<p><img alt="vim window showing unbind command added to config
+file" src="config-4-unbind-old-prefix.png"></p>
+
+<h2 class="fragment solarized-text absolute-center nowrap">
+    <code>
+        <span>bind</span>
+        <span class="fragment">C-s</span>
+        <span class="fragment">send-prefix</span>
+    </code>
+</h2>
+
+<p>^ Finally, we need a way to send Ctrl+s to the current program just in
+case we need to. So, we&#39;ll make pressing Ctrl+s twice send a Ctrl+s to
+the currently-running program. We configure a key using &gt;&gt; the &quot;bind&quot;
+command, which takes &gt;&gt; the key to bind (Ctrl+s) &gt;&gt; and the command to
+run (&quot;send-prefix&quot;, which sends the configured prefix to our current
+program)</p>
+
+<hr>
+
+<p><img alt="vim window showing bind for send-prefix added to
+config" src="config-5-bind-send-prefix.png"></p>
+
+<p>^ Now our prefix is Ctrl+s, Ctrl+b is just Ctrl+b, and pressing Ctrl+s
+twice sends one Ctrl+s to our current program. Note: I will keep calling
+the prefix &quot;Ctrl+b&quot; for the rest of this talk, to try to limit
+confusion, or increase it, whichever.</p>
+
+<hr>
+
+<h1>Window Index</h1>
+
+<p>^ Next, let&#39;s renumber our windows.</p>
+
+<hr>
+
+<h1 class="fragment">1 2 3 ... 0</h1>
+
+<h1>0 1 2 ... 9</h1>
+
+<p>^ Having the window number start at 0 is annoying: &gt;&gt; Our keyboards all
+start numbering at 1 on the left, with 0 on the right.</p>
+
+<hr>
+
+<h1>1 2 3 ... <span class="highlight-red">0</span></h1>
+
+<h1><span class="highlight-red">0</span> 1 2 ... 9</h1>
+
+<p>^ If we use the number keys to switch windows, we have to use the right
+side of the keyboard to get to the first window on the left.</p>
+
+<hr>
+
+<p><img alt="vim window showing bind for send-prefix added to
+config" src="config-5-bind-send-prefix.png"></p>
+
+<h2 class="fragment solarized-text absolute-center nowrap">
+    <code>
+        <span>set -g</span>
+        <span class="fragment">base-index</span>
+        <span class="fragment">1</span>
+    </code>
+</h2>
+
+<p>^ To fix this, let&#39;s &gt;&gt; set (globally) the &gt;&gt; base-index to &gt;&gt; 1.</p>
+
+<hr>
+
+<p><img alt="vim window showing set base-index" src="config-6-set-base-index.png"></p>
+
+<p>^ Now our windows will start numbering from 1, not 0</p>
+
+<hr>
+
+<h1>Escape Time</h1>
+
+<p>^ Next thing we should configure: The default behavior of Tmux is to
+have a 1-second delay between when the Escape key is pressed and when it
+is sent to the underlying program.</p>
+
+<hr>
+
+<h1>Escape Sequence</h1>
+
+<h2>
+    <kbd class="fragment">Esc [D</kbd><br>
+    <kbd class="fragment">Esc [C</kbd><br>
+    <kbd class="fragment">Esc [1m</kbd>
+</h2>
+
+<p>^ This is because the Escape character is the first character in an ANSI
+escape sequence, a way to send special commands to terminals. Extremely
+special commands like pressing the left arrow to move cursor left,
+pressing the right arrow to move cursor right, and making text bold</p>
+
+<hr>
+
+<h1>🏃 ^[D</h1>
+
+<h1 class="fragment">🚶 ^   [   D</h1>
+
+<h1 class="fragment">🕺  ^      [      D</h1>
+
+<p>^ Since we use the arrow keys to change panes, Tmux has to wait after it
+sees an Escape character to see if it&#39;s part of an escape sequence.
+Normally, this takes almost no time. &gt;&gt; But, if you&#39;re on a network, the
+gaps between the bytes &gt;&gt; could take a lot longer.</p>
+
+<hr>
+
+<h1>Vim + Tmux</h1>
+
+<p>^ But, as a Vim user, I use Escape a lot to escape back to &quot;normal&quot;
+mode, the mode that lets me navigate my code. I use it so much I&#39;ve
+gotten extremely fast at it. So fast that the escape delay ends up
+ruining whatever I&#39;m trying to do.</p>
+
+<hr>
+
+<p><img alt="vim window showing set base-index" src="config-6-set-base-index.png"></p>
+
+<h2 class="fragment solarized-text absolute-center nowrap">
+    <code>
+        <span>set -g</span>
+        <span class="fragment">escape-time</span>
+        <span class="fragment">20</span>
+    </code>
+</h2>
+
+<p>^ So, let&#39;s configure Tmux to spend less time waiting for an Escape
+sequence. Let&#39;s &gt;&gt; set the &gt;&gt; escape-time to ... &gt;&gt; 20 ms sounds about
+right to me.</p>
+
+<hr>
+
+<p><img alt="vim window showing set escape-time" src="config-7-escape-time.png"></p>
+
+<table class="fragment absolute-center bg-solarized character-map">
+    <tr><td>⬅️</td><td>⬇️</td><td>⬆️</td><td>➡️</td></tr>
+    <tr class="fragment"><td>H</td><td>J</td><td>K</td><td>L</td></tr>
+</table>
+
+<p>^ With that out of the way, let&#39;s make it easier to navigate around
+panes. &gt;&gt; I&#39;m a Vim user, so in my head I&#39;ve mapped left, down, up, right
+to &gt;&gt; H, J, K, L.</p>
+
+<hr>
+
+<p><img alt="vim window showing set escape-time" src="config-7-escape-time.png"></p>
+
+<h3 class="fragment solarized-text absolute-center">
+    <code class="nowrap">
+        bind
+        <span class="fragment">h</span>
+        <span class="fragment">select-pane</span>
+        <span class="fragment">-L</span>
+    </code>
+    <code class="fragment nowrap">bind j select-pane -D</code>
+    <code class="fragment nowrap">bind k select-pane -U</code>
+    <code class="fragment nowrap">bind l select-pane -R</code>
+</h3>
+
+<p>^ So, let&#39;s &gt;&gt; bind the &gt;&gt; h key &gt;&gt; to select the pane &gt;&gt; to the left.
+Now, &quot;Ctrl+b h&quot; will run the select-pane command with the -L option,
+which goes left. Then let&#39;s &gt;&gt; bind j &gt;&gt; to down, bind k &gt;&gt; to up, and</p>
+
+<blockquote>
+  <blockquote>
+    <p>bind l &gt;&gt; to right</p>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<p><img alt="vim window showing binds for
+select-pane" src="config-8-bind-select-pane.png"></p>
+
+<p>^ But we&#39;re not limited to only using the prefix: We can bind keys so
+they work all the time, not just after the prefix. Let&#39;s make it so
+holding the Alt key and pressing h, j, k, or l will also switch between
+panes.</p>
+
+<hr>
+
+<p><img alt="vim window showing binds for
+select-pane" src="config-8-bind-select-pane.png"></p>
+
+<h3 class="solarized-text absolute-center">
+    <code class="nowrap">
+        bind -n
+        <span class="fragment">M-h</span>
+        <span class="fragment">select-pane -L</span>
+    </code>
+    <code class="fragment nowrap">bind -n M-j select-pane -D</code>
+    <code class="fragment nowrap">bind -n M-k select-pane -U</code>
+    <code class="fragment nowrap">bind -n M-l select-pane -R</code>
+</h3>
+
+<p>^ So this time we use &gt;&gt; bind with the -n flag for &quot;no prefix&quot;. We bind &quot;Alt&quot; &quot;h&quot;.
+The &quot;M&quot; stands for Meta, but since keyboards rarely have Meta keys, the
+Alt key is usually used. &gt;&gt; And Alt-h selects the pane to the left.
+Again, we do this for &gt;&gt; down, &gt;&gt; up, and &gt;&gt; right.</p>
+
+<hr>
+
+<p><img alt="vim window showing meta binds" src="config-9-bind-alt-select-pane.png"></p>
+
+<p>^ Now we can move through panes using Alt and h, j, k, and l.</p>
+
+<hr>
+
+<h1>Reloading Config</h1>
+
+<p>^ Now that we&#39;ve changed our configuration file, we need to load it. We
+could just restart Tmux, but we could also load our new configuration
+inside our current session.</p>
+
+<hr>
+
+<p><img alt="vim window showing saved config file" src="config-10-config-saved.png"></p>
+
+<h1 class="fragment absolute-center bg-solarized">
+    <kbd>Ctrl+b :</kbd>
+</h1>
+
+<p>^ We can load a config file using Tmux&#39;s &quot;source&quot; command. This command
+isn&#39;t bound to a key, but we can use Tmux&#39;s command prompt to use it.
+To show the command prompt, &gt;&gt; press Ctrl+b and then the colon key (<code>:</code>).</p>
+
+<hr>
+
+<p><img alt="tmux window showing the command prompt" src="config-11-command-prompt.png"></p>
+
+<p>^ The status bar changes to the command bar</p>
+
+<hr>
+
+<p><img alt="tmux window highlighting the command
+bar" src="config-11.1-command-prompt-highlighted.png"></p>
+
+<p>^ The command bar lets us execute Tmux commands. Everything we&#39;ve
+written in our configuration file so far has been a Tmux command, and
+there are a lot more Tmux commands (and we&#39;ll get in to fun things you
+can do with them a bit later)</p>
+
+<hr>
+
+<p><img alt="tmux window showing the command prompt" src="config-11-command-prompt.png"></p>
+
+<h2 class="fragment absolute-center solarized-search-text nowrap">
+    :<kbd class="fragment">source</kbd>
+    <kbd class="fragment">~/.tmux.conf</kbd>
+</h2>
+
+<p>^ To load the config file, &gt;&gt; we use the &quot;source&quot; command, &gt;&gt; and give
+it the file we want to load, &quot;~/.tmux.conf&quot;. This acts like your shell&#39;s
+source (or &#39;.&#39;) command: it reads the file and executes the commands
+inside to change your current settings.</p>
+
+<hr>
+
+<p><img alt="vim window showing saved config file" src="config-10-config-saved.png"></p>
+
+<p>^ With that done, our prefix is now Ctrl+s, and we can use our HJKL keys
+to move between our panes. Notice that our windows are not numbered from
+1 yet. This is because our config doesn&#39;t change existing windows. We
+could fix this session with another command, but we won&#39;t.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Theming</h1>
+
+<p>^ Of course, we cannot be maximally productive if we can&#39;t change how
+things look.</p>
+
+<hr>
+
+<p><img alt="vim window showing the config file" src="theme-1-config-file.png"></p>
+
+<p>^ Tmux lets us change the color and position of anything in the status
+bar.</p>
+
+<hr>
+
+<p><img alt="vim window highlighting the tmux status bar" src="theme-1.1-status-bar.png"></p>
+
+<p>^ For example, the bottom bar&#39;s dark text doesn&#39;t have good contrast
+against the medium green background.</p>
+
+<hr>
+
+<p><img alt="vim window highlighting the right status area" src="theme-1.2-right-status-area.png"></p>
+
+<p>^ And this right side here takes up a lot of space for things I don&#39;t
+need. I may sometimes forget what day it is, but that&#39;s what my
+smartphone is for...</p>
+
+<hr>
+
+<p><img alt="vim window showing the config file" src="theme-1-config-file.png"></p>
+
+<h2 class="fragment solarized-text absolute-center">
+    <code class="nowrap" style="display: block">
+        set -g
+        <span class="fragment">status-bg</span>
+        <span class="fragment">black</span>
+    </code>
+    <code class="fragment nowrap" style="display: block">
+        set -g
+        <span class="fragment">status-fg</span>
+        <span class="fragment">white</span>
+    </code>
+</h2>
+
+<p>^ So let&#39;s configure a couple things. First, let&#39;s make the status bar
+to have white text on a black background. So, we &gt;&gt; set (globally) the</p>
+
+<blockquote>
+  <blockquote>
+    <p>status background &gt;&gt; to black. And we &gt;&gt; set the &gt;&gt; status foreground
+    to white</p>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<p><img alt="vim window showing config file with status-bg and
+status-fg" src="theme-2-status-colors.png"></p>
+
+<h2 class="fragment solarized-text absolute-center">
+    <code class="nowrap" style="display: block">
+        set -g
+        <span class="fragment">status-left-length</span>
+        <span class="fragment">20</span>
+    </code>
+    <code class="fragment nowrap" style="display: block">
+        set -g
+        <span class="fragment">status-right-length</span>
+        <span class="fragment">20</span>
+    </code>
+</h2>
+
+<p>^ Next let&#39;s configure the amount of space the left side (our session
+name) and the right side (the date/time) are allowed to take up. We&#39;ll
+need some more space for the session name soon, so let&#39;s set the
+status-left-length to 20. We don&#39;t want the right side to take up as
+much space as it is, so let&#39;s set that to 20 as well.</p>
+
+<hr>
+
+<p><img alt="vim window showing config file with status left/right
+length" src="theme-3-status-length.png"></p>
+
+<div class="fragment absolute-center bg-solarized">
+    <h1>
+        <kbd>Ctrl+b :</kbd>
+    </h1>
+    <h2 class="fragment solarized-search-text">
+        <kbd>:source ~/.tmux.conf</kbd>
+    </h2>
+</div>
+
+<p>^ Now we&#39;ve got all this configured, so let&#39;s reload our configuration.</p>
+
+<blockquote>
+  <blockquote>
+    <p>Remember that&#39;s &quot;Ctrl+b :&quot; to open the prompt, and then &gt;&gt; &quot;source
+    ~/.tmux.conf&quot; to reload the config</p>
+  </blockquote>
+</blockquote>
+
+<hr>
+
+<p><img alt="vim window showing new colors and layout" src="theme-4-new-theme.png"></p>
+
+<p>^ Voila! Our bottom bar is now black-and-white.</p>
+
+<hr>
+
+<p><img alt="vim window highlighting the bottom right status
+area" src="theme-4.1-new-theme-right.png"></p>
+
+<p>^ And only the hostname and the current time are shown on the right side
+here</p>
+
+<hr>
+
+<p><img alt="vim window showing new colors and layout" src="theme-4-new-theme.png"></p>
+
+<p>^ There are lots of other theme-related things you can do. There are
+even plugins that add charts and other distractions down in the status
+bar. Customize to your needs!</p>
+
+<hr>
+
+<h1>Mouse 🐭 Tmux</h1>
+
+<h2><code>set -g mouse on</code></h2>
+
+<p>^ There are a lot more configuration options, including enabling the
+mouse to select and scroll through the scroll buffer. I don&#39;t enable the
+mouse, because I prefer how the mouse works in iTerm (my terminal), but
+it can make selecting text easier than using the keyboard to move
+around.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Organizing Sessions and Windows</h1>
+
+<p>^ Remember that detaching and attaching sessions is one of Tmux&#39;s core
+features. But what if we don&#39;t want to reattach to our running session?</p>
+
+<hr>
+
+<p><img alt="Terminal window with &lt;code&gt;tmux&lt;/code&gt; command typed-in" src="sessions-1-run-tmux.png"></p>
+
+<p>^ If we just run <code>tmux</code> again without trying to attach...</p>
+
+<hr>
+
+<p><img alt="Tmux window with session 1 in the bottom left" src="sessions-2-new-session.png"></p>
+
+<p>^ we get a new session.</p>
+
+<hr>
+
+<p><img alt="Tmux window with session 1 highlighted" src="sessions-2.1-session-name.png"></p>
+
+<p>^ Notice in the lower left of the Tmux status bar, our session is now
+<code>1</code></p>
+
+<hr>
+
+<p><img alt="Tmux window with window 1 highlighted" src="sessions-2.2-window-1.png"></p>
+
+<p>^ Notice also that our first window is window 1, because of our
+configuration</p>
+
+<hr>
+
+<p><img alt="Tmux window with session 1 in the bottom left" src="sessions-2-new-session.png"></p>
+
+<p>^ Now we have a new Tmux session completely unrelated to our last
+session. We can open windows, split them into panes, start programs, and
+etc... just like our previous session.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing detached from session
+1" src="sessions-3-detach.png"></p>
+
+<p>^ When we detach, tmux tells us we detached from session 1. Let&#39;s try
+attaching again.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &quot;tmux attach&quot; typed-in" src="sessions-4-attach.png"></p>
+
+<p>^ When we run <code>tmux attach</code>...</p>
+
+<hr>
+
+<p><img alt="Tmux window showing session 1" src="sessions-5-attached.png"></p>
+
+<p>^ ... we get the last session we attached to. Handy!</p>
+
+<hr>
+
+<p><img alt="Tmux window showing session 1" src="sessions-6-attach-to-0-inside-tmux.png"></p>
+
+<p>^ But now how do we get to our first session, session <code>0</code>? If we use
+<code>tmux attach</code> with the <code>-t</code> option, we can specify the target session we
+want to attach to. In this case, session 0.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing error for trying to attach inside
+tmux" src="sessions-7-attach-error.png"></p>
+
+<p>^ Okay, well, Tmux doesn&#39;t like being run inside Tmux. I forgot to
+detach first.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux attach -t 0&lt;/code&gt; typed
+in" src="sessions-8-attach-to-0.png"></p>
+
+<p>^ Okay, so then I run <code>tmux attach -t 0</code>...</p>
+
+<hr>
+
+<p><img alt="Tmux window showing session 0" src="sessions-9-attached-to-0.png"></p>
+
+<p>^ ... and now I&#39;m back to session 0 looking at the window I detached
+from.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux ls&lt;/code&gt; typed-in" src="sessions-10-tmux-ls-typed.png"></p>
+
+<p>^ If you want to know what Tmux sessions exist, or even whether Tmux is
+running, you can run <code>tmux ls</code>.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing output from &lt;code&gt;tmux ls&lt;/code&gt;" src="sessions-11-tmux-ls-output.png"></p>
+
+<p>^ This will list the running sessions and some information about them.
+If there is no Tmux server running, it will tell you.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Naming Sessions</h1>
+
+<p>^ But in order for us to use multiple sessions effectively, we need to
+do something better than leaving them named as <code>0</code> and <code>1</code>. We can
+instead give our sessions descriptive names: The project we&#39;re working
+on, or the issue number we&#39;re working on.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing session 1" src="sessions-5-attached.png"></p>
+
+<div class="fragment absolute-center bg-solarized">
+    <h1>
+        <kbd>Ctrl+b :</kbd>
+    </h1>
+    <h1 class="fragment">
+        <kbd>Ctrl+b $</kbd>
+    </h1>
+</div>
+
+<p>^ We can rename a session we&#39;ve created by using the <code>rename-session</code>
+command. We can either use the Tmux prompt &gt;&gt; (<code>Ctrl+b :</code>) to run
+<code>rename-session</code>, or we can use &gt;&gt; <code>Ctrl+b $</code>. I tend to end up using
+the Tmux prompt a lot more, because it&#39;s easier to remember that
+I rename sessions with <code>rename-session</code> than it is to remember I rename
+sessions with <code>Ctrl+b $</code></p>
+
+<hr>
+
+<p><img alt="Tmux window showing command line open" src="sessions-12-command-open.png"></p>
+
+<h2 class="fragment absolute-center solarized-search-text nowrap">
+    :<kbd class="fragment">rename-session</kbd>
+    <kbd class="fragment">talk</kbd>
+</h2>
+
+<p>^ So we just need to type &gt;&gt; Ctrl+b, colon... &gt;&gt; <code>rename-session</code> and
+then the session&#39;s name. &gt;&gt; Let&#39;s call it &quot;talk&quot;.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing &#39;rename-session&#39; command
+typed-in" src="sessions-13-rename-command.png"></p>
+
+<p>^ Then when we run that command...</p>
+
+<hr>
+
+<p><img alt="Tmux window showing new session name" src="sessions-14-renamed.png"></p>
+
+<p>^ our session is renamed.</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting session
+name" src="sessions-14.1-name-highlight.png"></p>
+
+<p>^ ... our new name shows up in the bottom left.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux ls&lt;/code&gt; output with new session
+name" src="sessions-15-tmux-ls-new-name.png"></p>
+
+<p>^ It now also shows up in <code>tmux ls</code>...</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux ls&lt;/code&gt; output with new session name
+highlighted" src="sessions-15.1-tmux-ls-name-highlight.png"></p>
+
+<p>^ ... with our new name.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux ls&lt;/code&gt; output with attached
+highlighted" src="sessions-15.2-tmux-ls-attached-highlight.png"></p>
+
+<p>^ Also notice that <code>tmux ls</code> tells us that this session is attached.
+I took this screenshot in another window while my other window was
+attached to this session.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux new&lt;/code&gt; typed in" src="sessions-16-tmux-new-s.png"></p>
+
+<div class="fragment absolute-center bg-solarized">
+    <h2>
+        <kbd>tmux new-session</kbd>
+    </h2>
+</div>
+
+<p>^ We can also create new sessions with a name by using &gt;&gt; <code>tmux
+new-session</code> </p>
+
+<hr>
+
+<p><img alt="Terminal window showing &lt;code&gt;tmux new&lt;/code&gt; typed in" src="sessions-16-tmux-new-s.png"></p>
+
+<div class="absolute-center bg-solarized">
+    <h2 class="nowrap">
+        <kbd>tmux new
+            <span class="fragment">-s</span>
+            <span class="fragment">bugfix</span>
+        </kbd>
+    </h2>
+</div>
+
+<p>^ ... (or, for brevity, &gt;&gt; <code>tmux new</code>). &gt;&gt; The <code>-s</code> option lets us
+specify a &gt;&gt; name when we create the session.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing &#39;bugfix&#39; session
+name" src="sessions-17-bugfix-session.png"></p>
+
+<p>^ And now we have a session named &quot;bugfix&quot;</p>
+
+<hr>
+
+<h1>Session Organization</h1>
+
+<p>^ I use sessions a lot. My current job has me bouncing around between
+tickets 4-5 times per day. Each ticket touches different files and has
+different tests.</p>
+
+<hr>
+
+<p><img alt="Terminal window showing tmux ls with multiple
+sessions" src="sessions-18-ticket-names.png"></p>
+
+<p>^ So, for each ticket I start working on, I create a new session, named
+after the ticket. Then I can attach to the session I want to work on,
+do a bunch of work, and when I get interrupted to do some quick work on
+another ticket, my workspace is safe in my Tmux session. This has helped
+reduce the inertia of context-switching for me.</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Naming Windows</h1>
+
+<p>^ In addition to naming sessions, Tmux also lets you name windows.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim and zsh windows" src="naming-1-tmux-window.png"></p>
+
+<p>^ Like I may have mentioned before, windows are generally named with the
+program that&#39;s currently running</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the vim window" src="naming-1.1-vim.png"></p>
+
+<p>^ This window is running vim, my editor.</p>
+
+<hr>
+
+<p><img alt="Tmux window highlighting the zsh window" src="naming-1.2-zsh.png"></p>
+
+<p>^ And this window is running zsh, my shell.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim and zsh windows" src="naming-1-tmux-window.png"></p>
+
+<p>^ This is a pretty useful default, but let&#39;s create a new window.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim and 2 zsh windows" src="naming-2-too-many-shells.png"></p>
+
+<p>^ Now I have two windows named &quot;zsh&quot;. Which is which? Which one am
+I using to run my tests, and which one am I using to look up
+documentation?</p>
+
+<hr>
+
+<p><img alt="Tmux window showing vim and 2 zsh windows" src="naming-2-too-many-shells.png"></p>
+
+<p>XXX fragments</p>
+
+<p>^ To rename a window, we can use &gt;&gt; <code>Ctrl+b</code> and comma, or the &gt;&gt;
+rename-window command. This one I use so often that I remember the
+shortcut.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing (rename-window) command prompt" src="naming-3-rename-prompt.png"></p>
+
+<p>XXX fragments</p>
+
+<p>^ Then, in the command prompt, we delete the current name and add our
+own. Now the window will stay this name, even if we run a different
+program in it.</p>
+
+<hr>
+
+<p><img alt="Tmux window showing windows named &quot;editor&quot;, &quot;test&quot;, and
+&quot;docs&quot;" src="naming-4-renamed-windows.png"></p>
+
+<p>^ Now I can easily remember which window has my editor...</p>
+
+<hr>
+
+<p>XXX</p>
+
+<p>^ ... which window is for tests</p>
+
+<hr>
+
+<p>XXX</p>
+
+<p>^ ... and which is for docs...</p>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Automation</h1>
+
+<hr>
+
+<h1>XXX</h1>
+
+<hr>
+
+<p>{Topic}</p>
+
+<h1>Questions?</h1>
+
+<hr>
+
+<h1>Thank You</h1>
+
+<p><a href="http://preaction.github.io/REPO_NAME/">http://preaction.github.io/REPO_NAME/</a></p>
+
+<div style="width: 40%; float: left">
+
+by [Doug Bell](http://preaction.me)  
+<small>(he, him, his)</small>  
+[<i class="fa fa-twitter"></i> @preaction](http://twitter.com/preaction)  
+[<i class="fa fa-github"></i> preaction](http://github.com/preaction)  
+<img src="http://chicago.pm.org/theme/images/chicagopm-small.png" style="border: none; vertical-align: middle">
+[Chicago.PM](http://chicago.pm.org)  
+
+</div>
+
+<div style="width: 20%; float: left; text-align: center">
+<img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%">
+</div>
+
+<div style="width: 40%; float: left">
+
+[<i class="fa fa-file-text-o"></i> Notes](https://github.com/preaction/REPO_NAME/blob/master/NOTES.md)  
+<small> </small>  
+[Source on <i class="fa fa-github"></i>](https://github.com/preaction/REPO_NAME/)  
+
+[CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode)  
+
+</div>
+
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>
