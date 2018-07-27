@@ -46,11 +46,48 @@ programs and transfer files.</p>
 
 <h2>Talks</h2>
 
+<h3><a href="talks/chicago-pm-2018">Working Remotely With SSH (Chicago.PM 2018)</a></h3>
+
+<p>This talk introduces SSH to anyone who isn&#39;t familiar and demonstrates
+the basic use-cases of logging in, generating and using SSH keys,
+transferring files over SSH, and running the SSH agent.</p>
+
+<p>There is also some discussion of the SSH config file, how SSH agent
+forwarding works (and why to use it), and how to set up SSH tunnels (and
+why).</p>
+
+<!-- ## Articles -->
+
+<h2>External Resources</h2>
+
 <ul>
-<li><a href="talks/chicago-pm-2018">Working Remotely With SSH - Chicago Perl Mongers, July 2018</a></li>
+<li><a href="https://www.openssh.com/manual.html">OpenSSH documentation</a></li>
 </ul>
 
-<h2>Articles</h2>
+<h2>Related Topics</h2>
+
+<h3><a href="https://github.com/tmux/tmux/wiki">tmux - Terminal Multiplexer</a></h3>
+
+<p>Using <a href="https://github.com/tmux/tmux/wiki">Tmux</a> on a system you&#39;ve
+logged in to with SSH allows you to run programs without worrying about
+your programs being stopped if you get disconnected. The programs you
+run inside a Tmux session will remain running, and you can re-connect to
+the server and re-attach to your Tmux session.</p>
+
+<p>Often my first step after logging in to a machine is running a Tmux
+session just in case.</p>
+
+<h3><a href="https://www.gnu.org/software/screen/">screen - Terminal Window Manager</a></h3>
+
+<p>Much like Tmux, <a href="https://www.gnu.org/software/screen/">screen</a> lets you
+run programs, disconnect from the server, and then reconnect later to
+continue your work.</p>
+
+<h3><a href="https://rsync.samba.org">rsync - Advanced file transfer</a></h3>
+
+<p>The <a href="https://rsync.samba.org">rsync</a> command uses SSH (and other
+protocols) to synchronize files between servers. This is a more powerful
+tool than <code>scp</code> for tasks like mirroring data and backups.</p>
 
 
         </div>

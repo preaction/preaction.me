@@ -168,18 +168,19 @@
 
 <h1>Working Remotely With SSH</h1>
 
-<div style="width: 40%; float: left">
+<div style="display: flex; justify-items: space-between">
+<div style="width: 40%;">
     by <a href="http://preaction.me">Doug Bell</a><br>
     <small>(he, him, his)</small><br>
     <a href="http://twitter.com/preaction"><i class="fa fa-twitter"></i> @preaction</a><br>
     <a href="http://github.com/preaction"><i class="fa fa-github"></i> preaction</a><br>
 </div>
 
-<div style="width: 20%; float: left; text-align: center">
+<div style="width: 20%; text-align: center">
     <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%">
 </div>
 
-<div style="width: 40%; float: left">
+<div style="width: 40%;">
     <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA 4.0</a><br>
     <br>
     <small>
@@ -188,6 +189,11 @@
         For full-screen, press <kbd>F</kbd><br>
     </small>
 </div>
+</div>
+
+<aside class="notes">This is the notes panel, where you can read the
+talk. Press <kbd>Space</kbd> to advance, press <kbd>Shift+Space</kbd> to
+go back. For more navigation help, press <kbd>?</kbd></aside>
 
 </section>
 
@@ -223,7 +229,10 @@
 
 
 </p><div class="slides">
+
 <section>XXX What does SSH do?</section>
+
+<!-- Basic SSH command -->
 <section>
 <section>
 <h1>Run <code>ssh</code></h1>
@@ -395,6 +404,7 @@ start running commands.</aside>
 </section>
 </section>
 
+<!-- SSH Config -->
 <section>
 <section>
 <h3><code>ssh dbell@stage.cpantesters.org</code></h3>
@@ -1020,7 +1030,7 @@ remote machine, though the docs seem to imply that it would work.
 
 <section>
 <h1>Recursively</h1>
-<h2><code>ssh -r</code></h2>
+<h2><code>scp -r</code></h2>
 <aside class="notes">
 Like the regular copy command, you can copy things recursively. Unlike
 the regular &quot;cp&quot; command, this command uses lower-case r instead of
@@ -1105,10 +1115,11 @@ time for here.
 <h1><code>ssh stage.cpantesters.org</code></h1>
 <h1><code>-R 3000:127.0.0.1:3000</code></h1>
 <aside class="notes">
-We can also do this in reverse to give the remote server access to our
-local machine using the -R flag. I&#39;ve never done this, but it might be
-used to show off code running on your laptop to someone on the server
-(perhaps they&#39;ve used -L to set up their own tunnel to see your code).
+We can also do this in reverse to invite the remote server to use our
+local machine to make connections to 127.0.0.1 port 3000.  I&#39;ve never
+done this, but it might be used to show off code running on your laptop
+to someone on the server (perhaps they&#39;ve used -L to set up their own
+tunnel to see your code).
 </aside></section>
 
 </section>
