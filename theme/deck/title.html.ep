@@ -3,18 +3,19 @@
 
 <h1><%= $title %></h1>
 
-<div style="width: 40%; float: left">
+<div style="display: flex; justify-items: space-between">
+<div style="width: 40%;">
     by <a href="http://preaction.me">Doug Bell</a><br/>
     <small>(he, him, his)</small><br/>
     <a href="http://twitter.com/preaction"><i class="fa fa-twitter"></i> @preaction</a><br/>
     <a href="http://github.com/preaction"><i class="fa fa-github"></i> preaction</a><br/>
 </div>
 
-<div style="width: 20%; float: left; text-align: center">
+<div style="width: 20%; text-align: center">
     <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%"/>
 </div>
 
-<div style="width: 40%; float: left">
+<div style="width: 40%;">
     <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA 4.0</a><br/>
     <br/>
     <small>
@@ -23,5 +24,10 @@
         For full-screen, press <kbd>F</kbd><br/>
     </small>
 </div>
+</div>
+
+<aside class="notes">This is the notes panel, where you can read the
+talk. Press <kbd>Space</kbd> to advance, press <kbd>Shift+Space</kbd> to
+go back. For more navigation help, press <kbd>?</kbd></aside>
 
 </section>
