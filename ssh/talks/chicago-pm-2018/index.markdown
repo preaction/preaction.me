@@ -33,7 +33,10 @@ layout: reveal.html
 -->
 
 <div class="slides">
+
 <section>XXX What does SSH do?</section>
+
+<!-- Basic SSH command -->
 <section>
 <section>
 <h1>Run <code>ssh</code></h1>
@@ -205,6 +208,7 @@ start running commands.</aside>
 </section>
 </section>
 
+<!-- SSH Config -->
 <section>
 <section>
 <h3><code>ssh dbell@stage.cpantesters.org</code></h3>
@@ -830,7 +834,7 @@ remote machine, though the docs seem to imply that it would work.
 
 <section>
 <h1>Recursively</h1>
-<h2><code>ssh -r</code></h2>
+<h2><code>scp -r</code></h2>
 <aside class="notes">
 Like the regular copy command, you can copy things recursively. Unlike
 the regular "cp" command, this command uses lower-case r instead of
@@ -915,10 +919,11 @@ time for here.
 <h1><code>ssh stage.cpantesters.org</code></h1>
 <h1><code>-R 3000:127.0.0.1:3000</code></h1>
 <aside class="notes">
-We can also do this in reverse to give the remote server access to our
-local machine using the -R flag. I've never done this, but it might be
-used to show off code running on your laptop to someone on the server
-(perhaps they've used -L to set up their own tunnel to see your code).
+We can also do this in reverse to invite the remote server to use our
+local machine to make connections to 127.0.0.1 port 3000.  I've never
+done this, but it might be used to show off code running on your laptop
+to someone on the server (perhaps they've used -L to set up their own
+tunnel to see your code).
 </aside></section>
 
 </section>
