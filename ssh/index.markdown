@@ -17,6 +17,22 @@ There is also some discussion of the SSH config file, how SSH agent
 forwarding works (and why to use it), and how to set up SSH tunnels (and
 why).
 
+This is a good exploration of the basics of SSH needed to get useful
+work done, and an introduction to some of the more useful advanced SSH
+features.
+
+#### Presenter's Notes
+
+This talk went well and lasted about an hour. The section explaining
+symmetric and asymmetric cryptography was extraneous and irrelevant and
+resulted in a lengthy digression. I don't know enough about them to
+explain them, and that's often seen as an invitation for someone else to
+do so (despite it being very clearly not relevant). This part should be
+removed from future talks.
+
+Errata: The `ssh-copy-id` is not part of the OpenSSH distribution, and
+is a shell script that Linux and MacOS include for ease-of-use.
+
 <!-- ## Articles -->
 
 ## External Resources

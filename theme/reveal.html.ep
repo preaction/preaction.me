@@ -156,6 +156,24 @@
             span.prompt {
                 font-family: monospace;
             }
+
+            .reveal .footer {
+                position: absolute;
+                bottom: 0.2em;
+                z-index: 1000;
+                max-width: 40%;
+                white-space: nowrap;
+            }
+            .reveal .footer a {
+                font-size: 26px;
+                color: #999;
+            }
+            .reveal .footer.left {
+                left: 0.2em;
+            }
+            .reveal .footer.right {
+                right: 0.2em;
+            }
         </style>
     </head>
 
@@ -163,6 +181,16 @@
 
         <div class="reveal">
             %= content
+            <div class="footer left">
+                <a href="http://twitter.com/preaction">
+                    <i class="fa fa-twitter"></i>@preaction
+                </a>
+            </div>
+            % if ( my $url = $page->data->{topic_url} ) {
+            <div class="footer right">
+                <a href="http://<%= $url %>"><%= $url %></a>
+            </div>
+            % }
         </div>
 
         <script src="/reveal.js/lib/js/head.min.js"></script>

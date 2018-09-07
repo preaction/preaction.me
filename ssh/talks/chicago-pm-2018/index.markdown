@@ -1,40 +1,60 @@
 ---
 title: Working Remotely With SSH
 layout: reveal.html
+data:
+    topic_url: preaction.me/ssh
 ---
 
 <div class="slides">
 %= include 'deck/title.html.ep', title => $self->title
-</div>
 
-<!--
-> Welcome aboard! I'm happy to have you as a contributor to the project.
-> I've made you an account on our staging server,
-> `stage.cpantesters.org`. Your account is `dbell` and your password is
-> `123qwe` (please remember to change it).
->
-> The application Git repository is at
-> git@stage.cpantesters.org/www.git. Your user account has already been
-> set up with all the software you need to develop the application. The
-> staging server has a firewall, so if you want to run a development
-> server, you'll need an SSH tunnel.
+<section>
 
-* Server: `stage.cpantesters.org`
-* Account: `dbell`
-* Password: `123qwe`
-* Git: `git@stage.cpantesters.org/www.git`
-* SSH tunnel
+<section>
+<h1>What is SSH?</h1>
+<aside class="notes">This talk is about SSH.</aside>
+</section>
 
-* Run the SSH client
-* Configure SSH client
-* Create SSH keys
-* Configure SSH agent
-* Create SSH tunnel
--->
+<section>
+<h1>Secure Shell</h1>
+<aside class="notes">SSH stands for "Secure Shell".</aside>
+</section>
 
-<div class="slides">
+<section>
+<h1>Remote Server</h1>
+<aside class="notes">It's a way of connecting to a remote server through
+a terminal (think command-line).</aside>
+</section>
 
-<section>XXX What does SSH do?</section>
+<section>
+<h1>More Secure than <code>rsh</code></h1>
+<aside class="notes">SSH is used over RSH ("Remote Shell") because of
+its security. SSH encrypts all of its traffic, RSH does not (RSH being
+from an earlier time before the commercial Internet and its inherent
+dangers). SSH was built directly as an RSH replacement, so there are
+some similarities (though most likely nobody here has used RSH).</aside>
+</section>
+
+<section>
+<h1>More Secure than <code>telnet</code></h1>
+<aside class="notes">Telnet is another thing you may have heard of to
+connect to servers and run commands. Telnet is more general-purpose,
+though: It can connect to anything and send any data. SSH, because of
+its security negotiation, connects only to SSH servers. So, SSH has
+replaced Telnet for remote shells, but Telnet is still a useful command
+for other things.</aside>
+</section>
+
+<section>
+<h1>More Than a Shell</h1>
+<aside class="notes">In addition to a shell, an SSH server also provides
+file transfer (like FTP, but secure and built for a modern Internet),
+and network proxies (connect to other machines through your SSH server,
+like a VPN)</aside>
+</section>
+
+
+</section>
 
 <!-- Basic SSH command -->
 <section>
@@ -61,7 +81,7 @@ stage.cpantesters.org</code>
 </aside>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 
 
 
@@ -73,7 +93,7 @@ stage.cpantesters.org</code>
 </pre>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 The authenticity of host 'stage.cpantesters.org (2607:f740:f::914)' can't
 be established.
 ECDSA key fingerprint is SHA256:AcGEg+DDHplQT8Cc02CYy8Y4p/C4I5ARoEhrA5ZvrOQ.
@@ -98,7 +118,7 @@ yes.
 </aside>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 The authenticity of host 'stage.cpantesters.org (2607:f740:f::914)' can't
 be established.
 ECDSA key fingerprint is SHA256:AcGEg+DDHplQT8Cc02CYy8Y4p/C4I5ARoEhrA5ZvrOQ.
@@ -118,7 +138,7 @@ instead:
 </aside>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -148,7 +168,7 @@ if we want to connect, and we can say "yes" again.
 </aside>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 The authenticity of host 'stage.cpantesters.org (2607:f740:f::914)' can't
 be established.
 ECDSA key fingerprint is SHA256:AcGEg+DDHplQT8Cc02CYy8Y4p/C4I5ARoEhrA5ZvrOQ.
@@ -162,7 +182,7 @@ doug@stage.cpantesters.org's password:
 on the server 'stage.cpantesters.org'. If we type in our password...</aside>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 The authenticity of host 'stage.cpantesters.org (2607:f740:f::914)' can't
 be established.
 ECDSA key fingerprint is SHA256:AcGEg+DDHplQT8Cc02CYy8Y4p/C4I5ARoEhrA5ZvrOQ.
@@ -188,7 +208,7 @@ remote host with the <code>-l</code> flag
 stage.cpantesters.org</aside>
 </section>
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh dbell@stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh dbell@stage.cpantesters.org</kbd>
 <span class="fragment">dbell@stage.cpantesters.org's password: </span>
 <span class="fragment">Linux stage.cpantesters.org 4.9.0-3-amd64 #1 SMP
 Debian 4.9.30-2+deb9u2 (2017-06-26) x86_64
@@ -243,7 +263,7 @@ when connecting to "stage.cpantesters.org", we want the user "dbell".
 </section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 <span class="fragment">dbell@stage.cpantesters.org's password: </span>
 </pre>
 <aside class="notes">Now if we save this and try connecting, we can see
@@ -265,7 +285,7 @@ configure the host's "Hostname" as "stage.cpantesters.org".</aside>
 </section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh ct-stage</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh ct-stage</kbd>
 <span class="fragment">dbell@stage.cpantesters.org's password: </span>
 </pre>
 <aside class="notes">Now if we save this and try connecting to
@@ -393,7 +413,7 @@ To generate a key, we can run the <code>ssh-keygen</code> command.</aside>
 </section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-keygen -t ed25519</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-keygen -t ed25519</kbd>
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/Users/doug/.ssh/id_ed25519):
 
@@ -423,7 +443,7 @@ as our config file).</aside>
 </section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-keygen -t ed25519</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-keygen -t ed25519</kbd>
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/Users/doug/.ssh/id_ed25519):
 Enter passphrase (empty for no passphrase):
@@ -454,7 +474,7 @@ having to know the passphrase.
 </section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-keygen -t ed25519</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-keygen -t ed25519</kbd>
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/Users/doug/.ssh/id_ed25519):
 Enter passphrase (empty for no passphrase):
@@ -483,7 +503,7 @@ will completely lose access to the key.
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-keygen -t ed25519</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-keygen -t ed25519</kbd>
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/Users/doug/.ssh/id_ed25519):
 Enter passphrase (empty for no passphrase):
@@ -563,7 +583,7 @@ the public key to the remote server. Nowadays, this is done with the
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-copy-id stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-copy-id stage.cpantesters.org</kbd>
 <span class="fragment">/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/Users/doug/.ssh/id_ed25519.pub"
 /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
 /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
@@ -582,7 +602,7 @@ Then it asks for our password to the remote server.
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-copy-id stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-copy-id stage.cpantesters.org</kbd>
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/Users/doug/.ssh/id_ed25519.pub"
 /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
 /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
@@ -600,7 +620,7 @@ can try logging in, so let's do it!
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 <span class="fragment">Enter passphrase for key '/Users/doug/.ssh/id_ed25519':</span>
 <span class="fragment">Linux stage.cpantesters.org 4.9.0-3-amd64 #1 SMP Debian 4.9.30-2+deb9u2 (2017-06-26) x86_64
 
@@ -635,7 +655,7 @@ needs a key, it asks the agent instead.
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>eval $(ssh-agent)</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>eval $(ssh-agent)</kbd>
 Agent pid 9653
 </pre>
 <aside class="notes">
@@ -644,7 +664,7 @@ of weird, so what's that doing?
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-agent</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-agent</kbd>
 <span class="fragment">SSH_AUTH_SOCK=/var/folders/m8/pzbmtwsn4qjg898w08gkxlcm0000gn/T//ssh-4B1BPw5Itnoy/agent.9652;
 export SSH_AUTH_SOCK;
 SSH_AGENT_PID=9653; export SSH_AGENT_PID;
@@ -665,7 +685,7 @@ With the agent running, we need to add our identities. We do that using
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh-add</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-add</kbd>
 <span class="fragment">Enter passphrase for /Users/doug/.ssh/id_ed25519:</span>
 <span class="fragment">Identity added: /Users/doug/.ssh/id_ed25519 (doug@gwen.local)</span>
 </pre>
@@ -675,7 +695,7 @@ our identity. Now let's try logging in again:
 </aside></section>
 
 <section>
-<pre class="terminal"><span class="prompt">$ </span><kbd>ssh stage.cpantesters.org</kbd>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh stage.cpantesters.org</kbd>
 <span class="fragment">Linux stage.cpantesters.org 4.9.0-3-amd64 #1 SMP Debian 4.9.30-2+deb9u2 (2017-06-26) x86_64
 
 The programs included with the Debian GNU/Linux system are free software;
@@ -735,7 +755,7 @@ Github.</aside>
 </section>
 
 <section>
-<pre class="terminal">$ git clone git@github.com:cpan-testers/cpantesters-web.git
+<pre class="terminal">doug@stage:~$ git clone git@github.com:cpan-testers/cpantesters-web.git
 <span class="fragment">Cloning into 'cpantesters-web'...
 The authenticity of host 'github.com (192.30.253.112)' can't be established.
 RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
@@ -772,7 +792,7 @@ SSH connection to Github to use the SSH agent on our local laptop here.</aside>
 </section>
 
 <section>
-<pre class="terminal">$ git clone git@github.com:cpan-testers/cpantesters-web.git
+<pre class="terminal">doug@stage:~$ git clone git@github.com:cpan-testers/cpantesters-web.git
 <span class="fragment">Cloning into 'cpantesters-web'...
 remote: Counting objects: 436, done.
 Receiving objects: 100% (436/436), 128.08 KiB | 0 bytes/s, done.
@@ -813,7 +833,7 @@ our Git repository.
 </aside></section>
 
 <section>
-<pre class="terminal">$ scp stage.cpantesters.org:www/README.mkdn ./
+<pre class="terminal">doug@local:~$ scp stage.cpantesters.org:www/README.mkdn ./
 <span class="fragment">README.mkdn        100% 1743    49.1KB/s   00:00</span></pre>
 <aside class="notes">
 To download a file, we specify the host we want to download from,
@@ -824,7 +844,7 @@ it, and provides us a running status while it does.
 </aside></section>
 
 <section>
-<pre class="terminal">$ scp ./README.mkdn stage.cpantesters.org:www/
+<pre class="terminal">doug@local:~$ scp ./README.mkdn stage.cpantesters.org:www/
 <span class="fragment">README.mkdn        100% 1712    13.5KB/s   00:00</span></pre>
 <aside class="notes">
 To upload a file, we reverse the arguments. Unfortunately, I haven't

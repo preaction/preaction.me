@@ -16,9 +16,12 @@
 </div>
 
 <div style="width: 40%;">
+    % if ( my $url = $page->data->{topic_url} ) {
+    <a href="http://<%= $url %>"><%= $url %></a><br/>
+    % }
     <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA 4.0</a><br/>
-    <br/>
     <small>
+        <br/>
         For navigation help, press <kbd>?</kbd><br/>
         For speaker view and notes, press <kbd>S</kbd><br/>
         For full-screen, press <kbd>F</kbd><br/>
