@@ -76,8 +76,8 @@ PuTTY, but it's different enough that we won't be covering it.
 <section>
 <h3><kbd>ssh stage.cpantesters.org</kbd></h3>
 <aside class="notes">
-Once we've installed OpenSSH, we can run <code>ssh
-stage.cpantesters.org</code>
+Once we've installed OpenSSH, we can connect to our remote server,
+stage.cpantesters.org by running <code>ssh stage.cpantesters.org</code>
 </aside>
 </section>
 <section>
@@ -160,11 +160,21 @@ stage.cpantesters.org moves to a new server with a new identity
 (which is the most likely scenario), or if someone is trying to
 hijack your connection (not likely, but not impossible).
 This is part of the "Secure" in Secure Shell.
-To get rid of this message, once we've verified that nobody is
-trying to mislead us, we need to edit our "known hosts" file,
-which for me is "/Users/doug/.ssh/known_hosts", and remove the
-old entry for "stage.cpantesters.org". Then we'll be asked again
-if we want to connect, and we can say "yes" again.
+</aside>
+</section>
+
+<section>
+<pre class="terminal"><span class="prompt">doug@local:~$ </span><kbd>ssh-keygen -R stage.cpantesters.org</kbd>
+<span class="fragment"># Host stage.cpantesters.org found: line 40
+/Users/doug/.ssh/known_hosts updated.
+Original contents retained as /Users/doug/.ssh/known_hosts.old</span></pre>
+<aside class="notes">
+If this happens, we can get rid of this message, once we've verified
+that nobody is trying to mislead us, by running "ssh-keygen -R" with the
+host we want to remove. This edits our "known hosts" file, which for me
+is "/Users/doug/.ssh/known_hosts", and removes the old entry for
+"stage.cpantesters.org". Then we'll be asked again if we want to
+connect, and we can say "yes" again.
 </aside>
 </section>
 <section>
