@@ -2,6 +2,8 @@
 title: SSH - Secure Shell
 ---
 
+# SSH - Secure Shell
+
 The `ssh` command allows for connecting to remote machines to run
 programs and transfer files.
 
