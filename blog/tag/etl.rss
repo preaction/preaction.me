@@ -7,6 +7,33 @@
         <description>Blog feed of preaction</description>
         <generator>Statocles 0.094</generator>
         <item>
+            <title>Everyday ETL With Yertl</title>
+            <link>http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/</link>
+            <guid>http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/</guid>
+            <description><![CDATA[
+                <p>I use <a href="https://metacpan.org/pod/ETL::Yertl">ETL::Yertl</a> a lot. Despite its
+present unpolished state, it contains some important, easy-to-use tools that I
+need to get my work done. For example, this week I got an e-mail from Slaven (a
+CPAN tester and a tireless reporter of CPAN issues found by testing) saying
+that some records were missing from one the APIs on <a href="http://cpantesters.org">CPAN
+Testers</a>: The
+<a href="http://fast-matrix.cpantesters.org">fast-matrix</a> had 3300 records for the
+&quot;forks&quot; distribution version 0.36, but the
+<a href="http://matrix.cpantesters.org">matrix</a> had only 300 records. The utilities in
+<a href="https://metacpan.org/pod/ETL::Yertl">ETL::Yertl</a> made it easy to find and
+manipulate the data I needed to diagnose this problem.</p>
+
+                    <p><a href="http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/#section-2">Continue reading...</a></p>
+                <p>Tags:
+                    <a href="http://preaction.me/blog/tag/etl/">etl</a>
+                    <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
+                </p>
+            ]]></description>
+            <pubDate>
+                Sun, 09 Sep 2018 00:00:00 +0000
+            </pubDate>
+        </item>
+        <item>
             <title>Managing SQL Data with Yertl</title>
             <link>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</link>
             <guid>http://preaction.me/blog/2015/01/21/managing-sql-data-with-yertl.html</guid>
