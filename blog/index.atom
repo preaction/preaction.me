@@ -2,10 +2,33 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://preaction.me/blog/</id>
     <title>preaction</title>
-    <updated>2017-12-03T00:00:00Z</updated>
+    <updated>2018-09-09T00:00:00Z</updated>
     <link href="http://preaction.me/blog/index.atom" rel="self" />
     <link href="http://preaction.me/blog/" rel="alternate" />
     <generator version="0.094">Statocles</generator>
+    <entry>
+        <id>http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/</id>
+        <title>Everyday ETL With Yertl</title>
+        <link href="http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/" rel="alternate" />
+        <content type="html"><![CDATA[
+            <p>I use <a href="https://metacpan.org/pod/ETL::Yertl">ETL::Yertl</a> a lot. Despite its
+present unpolished state, it contains some important, easy-to-use tools that I
+need to get my work done. For example, this week I got an e-mail from Slaven (a
+CPAN tester and a tireless reporter of CPAN issues found by testing) saying
+that some records were missing from one the APIs on <a href="http://cpantesters.org">CPAN
+Testers</a>: The
+<a href="http://fast-matrix.cpantesters.org">fast-matrix</a> had 3300 records for the
+&quot;forks&quot; distribution version 0.36, but the
+<a href="http://matrix.cpantesters.org">matrix</a> had only 300 records. The utilities in
+<a href="https://metacpan.org/pod/ETL::Yertl">ETL::Yertl</a> made it easy to find and
+manipulate the data I needed to diagnose this problem.</p>
+
+                <p><a href="http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/#section-2">Continue reading...</a></p>
+            <p>Tags:
+            </p>
+        ]]></content>
+        <updated>2018-09-09T00:00:00Z</updated>
+    </entry>
     <entry>
         <id>http://preaction.me/blog/2017/12/03/technology-never-dies/</id>
         <title>Technology Never Dies</title>
@@ -245,38 +268,6 @@ told them that men had to be better.</p>
         ]]></content>
         <updated>2017-11-02T00:00:00Z</updated>
         <category term="feminism" />
-    </entry>
-    <entry>
-        <id>http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/</id>
-        <title>Application Metrics with Yertl</title>
-        <link href="http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/" rel="alternate" />
-        <content type="html"><![CDATA[
-            <p>A time series database is a massively useful tool for system reporting
-and monitoring. By storing series of simple values attached to
-timestamps, an ops team can see how fast their application is
-processing data, how much traffic they&#39;re serving, and how many
-resources they&#39;re consuming. From this data they can determine how well
-their application is working, track down issues in the system, and plan
-for future resource needs.</p>
-
-<p>There have been a lot of new databases and tools developed to create,
-store, and consume time series data, and existing databases are being
-enhanced to better support time series data.</p>
-
-<p>With the new release of <a href="http://preaction.me/yertl">ETL::Yertl</a>, we can
-easily translate SQL database queries into metrics for monitoring and
-reporting. I&#39;ve been using these new features to monitor the <a href="http://cpantesters.org">CPAN
-Testers</a> application.</p>
-
-                <p><a href="http://preaction.me/blog/2017/10/18/application-metrics-with-yertl/#section-2">Continue reading...</a></p>
-            <p>Tags:
-                <a href="http://preaction.me/blog/tag/yertl/">yertl</a>
-                <a href="http://preaction.me/blog/tag/devops/">devops</a>
-            </p>
-        ]]></content>
-        <updated>2017-10-18T00:00:00Z</updated>
-        <category term="yertl" />
-        <category term="devops" />
     </entry>
 </feed>
 

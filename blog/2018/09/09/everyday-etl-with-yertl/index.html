@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="/theme/css/normalize.css" rel="stylesheet">
+        <link href="/theme/css/skeleton.css" rel="stylesheet">
+        <link href="/theme/css/statocles-default.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <title>Everyday ETL With Yertl - preaction</title>
+        <meta content="Statocles 0.094" name="generator">
+        
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <div class="container">
+                    <a class="brand" href="/">preaction</a>
+                    <ul>
+                        <li>
+                            <a href="/index.html">Blog</a>
+                        </li>
+                        <li>
+                            <a href="/resume">Resume</a>
+                        </li>
+                        <li>
+                            <a href="/talks">Talks</a>
+                        </li>
+                        <li>
+                            <a href="/statocles">Statocles</a>
+                        </li>
+                        <li>
+                            <a href="/yertl">Yertl</a>
+                        </li>
+                        <li>
+                            <a href="http://indiepalate.com">Food</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+            
+        </header>
+        <div class="main container">
+            <div class="row">
+
+    <div class="nine columns">
+        <main>
+            <header>
+                <h1>Everyday ETL With Yertl</h1>
+                <p class="tags">Tags:
+                </p>
+
+                <aside>
+                    <p><time datetime="2018-09-09">
+                        Posted on 2018-09-09
+                    </time>
+                    </p>
+                </aside>
+
+
+            </header>
+            <section id="section-1">
+                <p>I use <a href="https://metacpan.org/pod/ETL::Yertl">ETL::Yertl</a> a lot. Despite its
+present unpolished state, it contains some important, easy-to-use tools that I
+need to get my work done. For example, this week I got an e-mail from Slaven (a
+CPAN tester and a tireless reporter of CPAN issues found by testing) saying
+that some records were missing from one the APIs on <a href="http://cpantesters.org">CPAN
+Testers</a>: The
+<a href="http://fast-matrix.cpantesters.org">fast-matrix</a> had 3300 records for the
+&quot;forks&quot; distribution version 0.36, but the
+<a href="http://matrix.cpantesters.org">matrix</a> had only 300 records. The utilities in
+<a href="https://metacpan.org/pod/ETL::Yertl">ETL::Yertl</a> made it easy to find and
+manipulate the data I needed to diagnose this problem.</p>
+
+            </section>
+            <section id="section-2">
+                <p>My first step in diagnosing this was to try to find the data in the database.
+So, I used <a href="https://metacpan.org/pod/distribution/ETL-Yertl/bin/ysql"><code>ysql</code></a>
+to query the database for a count of the records in the <code>cpanstats</code> table for
+the &quot;forks&quot; distribution matching version &quot;0.36&quot;.</p>
+
+<pre><code>doug@cpantesters3:~$ export DSN=&quot;dbi:mysql:dbname=cpanstats;mysql_read_default_file=$HOME/.cpanstats.cnf&quot;
+doug@cpantesters3:~$ ysql --dsn &quot;$DSN&quot; --count cpanstats --where &#39;dist=&quot;forks&quot; and version=&quot;0.36&quot;&#39;
+---
+value: 3293
+</code></pre>
+
+<p>Then I needed to compare that to the API that the Matrix is using. I fetched
+the JSON array from the API using <code>curl</code>, parsed it into YAML using <a href="https://metacpan.org/pod/distribution/ETL-Yertl/bin/yfrom"><code>yfrom
+json</code></a>, and then
+counted the number of records in the array using
+<a href="https://metacpan.org/pod/distribution/ETL-Yertl/bin/yq"><code>yq</code></a>&#39;s <code>length</code>
+function:</p>
+
+<pre><code>doug@laptop:~$ curl http://www.cpantesters.org/distro/f/forks.json | yfrom json | yq &#39;{ value: length }&#39;
+---
+value: 321
+</code></pre>
+
+<p>So there&#39;s a discrepancy: The database has 3293 records, but the API only has
+321 records. Let&#39;s also check the new API from <a href="http://api.cpantesters.org">http://api.cpantesters.org</a> to
+try to narrow the scope of the problem:</p>
+
+<pre><code>doug@laptop:~$ curl http://api.cpantesters.org/v3/summary/forks/0.36 | yfrom json | yq &#39;{ value: length }&#39;
+---
+value: 3293
+</code></pre>
+
+<p>Since the new API has the same number of records as the database, now I know
+it&#39;s a problem specifically with the API that the Matrix is using. This API is
+a bunch of statically-generated files from back when disk space was cheap, CPU
+and memory were extremely expensive, and loading CGI applications was costly.
+So some part of this data is not being written to the static files.</p>
+
+<p>Slaven&#39;s e-mail says that there were no records from before 2018-02-10. Maybe
+it was a specific report that had a problem and caused only the reports after
+it to be generated. I found what report it was using by downloading the file,
+parsing the JSON into YAML, flattening the array (<code>.[]</code>), slicing the hashes
+inside to get only the <code>fulldate</code>, <code>id</code>, and <code>guid</code> fields, turning that into a
+CSV with <a href="https://metacpan.org/pod/distribution/ETL-Yertl/bin/yto"><code>yto csv</code></a>
+which I then sort by the first field (<code>fulldate</code>).</p>
+
+<pre><code>doug@laptop:~$ curl http://www.cpantesters.org/distro/f/forks.json | yfrom json | yq &#39;.[] | { fulldate: .fulldate, id: .id, guid: .guid }&#39; | yto csv | sort -t, -k1 | head -3
+201802101425,3ae9e620-0e6e-11e8-a10e-9d908e183046,91949984
+201802101443,ce1d059c-0e70-11e8-a10e-9d908e183046,91950270
+201802121326,e7611678-6c71-1014-a17f-d9730956514b,92013272
+</code></pre>
+
+<p>A quick glance at that summary row doesn&#39;t reveal anything clearly wrong with
+the data, nor does looking at the row before it.</p>
+
+<p>In the end, the most likely scenario here is that the file got deleted at some
+point and then when it was regenerated, only some of the data made it. Now I
+just need to find out how to regenerate these files, and the problem is fixed!</p>
+
+<p>The Yertl toolkit isn&#39;t finished, but it has some useful tools for simple,
+dirty, data plumbing operations. The more I use Yertl, the more I see it could
+help me, and the more I think to add to it to make it even more useful (clearly
+I need a better hash slice syntax for <code>yq</code>, for example, and probably a sort
+function).</p>
+
+<p>Try Yertl out yourself and let me know what I can do to make it more useful to
+you!</p>
+
+            </section>
+        </main>
+
+        <h1>Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'preaction';
+            var disqus_identifier = '2018/09/09/everyday-etl-with-yertl/index.markdown';
+            var disqus_url = 'http://preaction.me/blog/2018/09/09/everyday-etl-with-yertl/';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+    </div>
+
+    <div class="three columns sidebar">
+        
+<img alt="avatar" src="/images/avatar-small.jpg" title="Do You Believe In Magic? by Fusspot">
+
+<h1>Doug Bell</h1>
+
+<ul class="bare">
+    <li><a href="https://github.com/preaction">
+        <i class="fa fa-github-alt"></i> Github: preaction
+    </a></li>
+    <li><a href="https://twitter.com/preaction">
+        <i class="fa fa-twitter"></i>Twitter: preaction
+    </a></li>
+    <li><a href="https://metacpan.org/author/PREACTION">CPAN: preaction</a></li>
+</ul>
+
+        <nav id="tags">
+            <h1>Tags</h1>
+            <ul class="list-inline">
+                <li><a href="/blog/tag/beam/">beam</a></li>
+                <li><a href="/blog/tag/blacklivesmatter/">blacklivesmatter</a></li>
+                <li><a href="/blog/tag/chicago-pm/">chicago.pm</a></li>
+                <li><a href="/blog/tag/code/">code</a></li>
+                <li><a href="/blog/tag/community/">community</a></li>
+                <li><a href="/blog/tag/cpan/">cpan</a></li>
+                <li><a href="/blog/tag/cpantesters/">cpantesters</a></li>
+                <li><a href="/blog/tag/devops/">devops</a></li>
+                <li><a href="/blog/tag/error/">error</a></li>
+                <li><a href="/blog/tag/etl/">etl</a></li>
+                <li><a href="/blog/tag/feminism/">feminism</a></li>
+                <li><a href="/blog/tag/funny/">funny</a></li>
+                <li><a href="/blog/tag/git/">git</a></li>
+                <li><a href="/blog/tag/hackathon/">hackathon</a></li>
+                <li><a href="/blog/tag/history/">history</a></li>
+                <li><a href="/blog/tag/javascript/">javascript</a></li>
+                <li><a href="/blog/tag/logging/">logging</a></li>
+                <li><a href="/blog/tag/mojolicious/">mojolicious</a></li>
+                <li><a href="/blog/tag/moose/">moose</a></li>
+                <li><a href="/blog/tag/mysql/">mysql</a></li>
+                <li><a href="/blog/tag/openbsd/">openbsd</a></li>
+                <li><a href="/blog/tag/perl/">perl</a></li>
+                <li><a href="/blog/tag/personal/">personal</a></li>
+                <li><a href="/blog/tag/progress/">progress</a></li>
+                <li><a href="/blog/tag/racism/">racism</a></li>
+                <li><a href="/blog/tag/rants/">rants</a></li>
+                <li><a href="/blog/tag/scripts/">scripts</a></li>
+                <li><a href="/blog/tag/software/">software</a></li>
+                <li><a href="/blog/tag/sql/">sql</a></li>
+                <li><a href="/blog/tag/statocles/">statocles</a></li>
+                <li><a href="/blog/tag/travel/">travel</a></li>
+                <li><a href="/blog/tag/web/">web</a></li>
+                <li><a href="/blog/tag/webgui/">webgui</a></li>
+                <li><a href="/blog/tag/webundesign/">webundesign</a></li>
+                <li><a href="/blog/tag/xs/">xs</a></li>
+                <li><a href="/blog/tag/yertl/">yertl</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+        </div>
+        <footer>
+            
+            <div class="container tagline">
+                <a href="http://preaction.me/statocles">Made with Statocles</a><br>
+                <a href="http://www.perl.org">Powered by Perl</a>
+            </div>
+        </footer>
+    </body>
+</html>
