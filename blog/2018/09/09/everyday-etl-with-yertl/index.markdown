@@ -1,8 +1,7 @@
 ---
-_links:
-  canonical:
-    - !!perl/hash:Statocles::Link
-      href: http://blogs.perl.org/users/preaction/2018/09/everyday-etl-with-yertl.html
+links:
+    canonical: http://blogs.perl.org/users/preaction/2018/09/everyday-etl-with-yertl.html
+tags: etl, yertl
 status: published
 title: Everyday ETL With Yertl
 ---
