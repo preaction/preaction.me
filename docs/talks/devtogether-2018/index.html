@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>What I Wish I Learned: Docs</title>
+
+        <meta content="" name="description">
+        <meta content="" name="author">
+
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport">
+
+        <link href="/reveal.js/css/reveal.css" rel="stylesheet">
+        <link href="/reveal.js/css/theme/white.css" id="theme" rel="stylesheet">
+        <link href="/font-awesome-4.6.1/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- Code syntax highlighting -->
+        <link href="/reveal.js/lib/css/zenburn.css" rel="stylesheet">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? '/reveal.js/css/print/pdf.css' : '/reveal.js/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Custom style rules -->
+        <style>
+            .flex-row {
+                display: flex;
+                flex: 1 1;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .flex-row pre {
+                width: auto;
+            }
+            .reveal pre.larger {
+                font-size: 0.75em;
+            }
+            .reveal pre.largest {
+                font-size: 0.95em;
+            }
+            .reveal [data-background-image].has-dark-background > * {
+                background: rgba( 0, 0, 0, 0.5 );
+                -webkit-text-stroke: 2px black;
+                color: white;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #000,
+                            -1px -1px 0 #000,
+                            1px -1px 0 #000,
+                            -1px 1px 0 #000,
+                            1px 1px 0 #000;
+            }
+            .reveal [data-background-image].has-light-background > * {
+                background: rgba( 255, 255, 255, 0.5 );
+                -webkit-text-stroke: 2px white;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #FFF,
+                            -1px -1px 0 #FFF,
+                            1px -1px 0 #FFF,
+                            -1px 1px 0 #FFF,
+                            1px 1px 0 #FFF;
+            }
+            .reveal section img {
+                border: none;
+                box-shadow: none;
+            }
+
+            .absolute-center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                min-width: 50vw;
+                text-align: center;
+                transform: translateX(-50%) translateY(-50%);
+            }
+
+            .bg-solarized {
+                background: rgb( 253, 246, 228 );
+            }
+
+            .reveal section .solarized-text,
+            .reveal section .solarized-bar-text,
+            .reveal section .solarized-search-text {
+                font-family: DejaVu Sans Mono, Monaco, monospace;
+                text-transform: none;
+                border-style: solid;
+                border-width: 10px 0 5px;
+                border-color: rgb( 253, 246, 228 ); /* simulated screen background */
+            }
+
+            .reveal section .solarized-text {
+                padding: 0 0.5em;
+                background: rgb( 253, 246, 228 ); /* background color */
+                color: rgb( 131, 148, 150 );
+            }
+
+            .reveal section .solarized-bar-text {
+                padding: 0 0.5em;
+                background: rgb( 133, 152, 28 ); /* bar background color */
+                color: rgb( 3, 53, 64 );
+            }
+
+            .reveal section .solarized-search-text {
+                border-width: 10px 5px 5px;
+                padding: 0 8px;
+                background: rgb( 180, 136, 29 ); /* search bar background color */
+                color: rgb( 3, 53, 64 );
+            }
+
+            .reveal .slides section .fragment.highlight-current-white,
+            .reveal .slides section .fragment.highlight-current-purple {
+                opacity: 1;
+                visibility: inherit;
+            }
+            .reveal .slides section .highlight-white,
+            .reveal .slides section .fragment.highlight-current-white.current-fragment {
+                color: white;
+            }
+            .reveal .slides section .highlight-purple,
+            .reveal .slides section .fragment.highlight-current-purple.current-fragment {
+                color: #c223a8;
+            }
+
+            .reveal .slides section .highlight-red {
+                color: #ff2c2d;
+            }
+
+            .reveal section kbd {
+                text-transform: none;
+                font-family: Monaco, monospace;
+                white-space: nowrap;
+            }
+
+            .nowrap {
+                white-space: nowrap;
+            }
+
+            .reveal table.character-map tbody tr td {
+                border: none;
+                font-size: 2.5em;
+                text-align: center;
+            }
+
+            span.prompt {
+                font-family: monospace;
+            }
+
+            .reveal .footer {
+                position: absolute;
+                bottom: 0.2em;
+                z-index: 1000;
+                max-width: 40%;
+                white-space: nowrap;
+            }
+            .reveal .footer a {
+                font-size: 26px;
+                color: #999;
+            }
+            .reveal .footer.left {
+                left: 0.2em;
+            }
+            .reveal .footer.right {
+                right: 0.2em;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+            <div class="slides">
+
+<section>
+
+<h1>What I Wish I Learned: Docs</h1>
+
+<div style="display: flex; justify-items: space-between">
+<div style="width: 40%;">
+    by <a href="http://preaction.me">Doug Bell</a><br>
+    <small>(he, him, his)</small><br>
+    <a href="http://twitter.com/preaction"><i class="fa fa-twitter"></i> @preaction</a><br>
+    <a href="http://github.com/preaction"><i class="fa fa-github"></i> preaction</a><br>
+</div>
+
+<div style="width: 20%; text-align: center">
+    <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%">
+</div>
+
+<div style="width: 40%;">
+    <a href="http://preaction.me/docs">preaction.me/docs</a><br>
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA 4.0</a><br>
+    <small>
+        <br>
+        For navigation help, press <kbd>?</kbd><br>
+        For speaker view and notes, press <kbd>S</kbd><br>
+        For full-screen, press <kbd>F</kbd><br>
+    </small>
+</div>
+</div>
+
+<aside class="notes">This is the notes panel, where you can read the
+talk. Press <kbd>Space</kbd> to advance, press <kbd>Shift+Space</kbd> to
+go back. For more navigation help, press <kbd>?</kbd></aside>
+
+</section>
+
+<section>
+<section>
+<h1>Documentation</h1>
+<aside class="notes">Since this talk is about documentation...</aside>
+</section>
+<section>
+<h1>Code</h1>
+<aside class="notes">Let&#39;s start by looking at some code</aside>
+</section>
+<section>
+<pre>
+
+    <span class="fragment highlight-current-blue" data-fragment-index="1">float y = number;</span>
+    <span class="fragment highlight-current-blue" data-fragment-index="2">long i = *(long*) &amp;y;</span>
+    <span class="fragment highlight-current-blue" data-fragment-index="4">i = 0x5f3759df -</span> <span class="fragment highlight-current-blue" data-fragment-index="3">( i &gt;&gt; 1 )</span>;
+    <span class="fragment highlight-current-blue" data-fragment-index="5">y = *(float*) &amp;i;</span>
+    <span class="fragment highlight-current-blue" data-fragment-index="6">y = y * ( 1.5F - ( ( number * 0.5F ) * y * y ) );</span>
+
+ </pre>
+<aside class="notes">Alright, what does this code do? Looks like we have
+a floating-point number. Then we cast the bits to a long integer, do
+some bit-shifting, subtract some magic number, cast it back to
+a float, and do some more math on it. Well, I still don&#39;t know what this
+code does, so let&#39;s back up a bit.</aside>
+</section>
+<section>
+<pre>
+float reciprocal_sqrt( float number ) {
+    float y = number;
+    long i = *(long*) &amp;y;
+    i = 0x5f3759df - ( i &gt;&gt; 1 );
+    y = *(float*) &amp;i;
+    y = y * ( 1.5F - ( ( number * 0.5F ) * y * y ) );
+    return y;
+}</pre>
+<aside class="notes">Okay, now that our function has a name, I know that
+this function is calculating the reciprocal of the square root of
+a number. This is hugely important in video games. However, if I were
+to see this code, one of two things would happen:</aside>
+</section>
+<section>
+<h3>1. It&#39;s too complex to understand, it must be</h3>
+<h1>important</h1>
+</section>
+<section>
+<h3>2. It&#39;s too complex to understand, it must be</h3>
+<h1>replaced</h1>
+</section>
+<section>
+<pre>#include &lt;cmath&gt;
+float reciprocal_sqrt( float number ) {
+    return 1 / sqrt( number );
+}
+
+
+
+
+
+</pre>
+<aside class="notes">With this. If every language has a standard way to
+create a square root, why would I have that big complicated mess?</aside>
+</section>
+<section>
+<pre> 
+float reciprocal_sqrt( float number ) {
+    float y = number;
+    long i = *(long*) &amp;y;
+    i = 0x5f3759df - ( i &gt;&gt; 1 );
+    y = *(float*) &amp;i;
+    y = y * ( 1.5F - ( ( number * 0.5F ) * y * y ) );
+    return y;
+}</pre>
+<aside class="notes">So, the answer to that is pretty fascinating: This
+function uses a bit-shifting hack to very quickly calculate an approximate
+reciprocal square root: Division is slow, and precisely calculating a square root is
+slow, and 3d games need to do this a lot. This code was made famous by Quake 3
+Arena, though it existed long before that.</aside>
+</section>
+<section>
+<pre>#include &lt;cmath&gt;
+float reciprocal_sqrt( float number ) {
+    return 1 / sqrt( number );
+}
+
+
+
+
+
+</pre>
+<aside class="notes">But now I&#39;ve replaced it with cleaner code and as
+a result broken my game.</aside>
+</section>
+</section>
+<section>
+<h2>There must be</h2>
+<img alt="GIF of someone trying
+to cut bread with a wedge of wood normally used to hold doors open" src="betterway.gif" style="height: 50vh">
+<h2>a better way</h2>
+<aside class="notes">There must be a way to stop this from happening.</aside>
+</section>
+<section>
+<section>
+<h1>Documentation</h1>
+<aside class="notes">And that way is documentation</aside>
+</section>
+<section>
+<pre>
+/**
+ * <span class="fragment highlight-current-blue">Calculate the reciprocal square root.</span>
+ * <span class="fragment highlight-current-blue">@param number The input number</span>
+ * <span class="fragment highlight-current-blue">@return The reciprocal square root of the input</span>
+ */
+float reciprocal_square_root( float number ) { ... }
+</pre>
+<aside class="notes">Here&#39;s an example of documentation I would&#39;ve
+written when I first accepted that documentation was needed. First we
+have a sentence describing the function, then an explanation of the
+input, and finally an explanation of the output.
+</aside>
+</section>
+<section>
+<pre>
+/**
+ * <span class="fragment highlight-current-blue" data-fragment-index="1">Calculate the reciprocal square root.</span>
+ * <span class="fragment highlight-current-blue" data-fragment-index="2">@param number The input number</span>
+ * <span class="fragment highlight-current-blue" data-fragment-index="3">@return The reciprocal square root of the input</span>
+ */
+float <span class="fragment highlight-current-blue" data-fragment-index="1">reciprocal_square_root</span>( <span class="fragment highlight-current-blue" data-fragment-index="2">float number</span> ) { ... }
+</pre>
+<h1> </h1>
+<aside class="notes">what does the documentation provide here? The function
+name tells me that it calculates a reciprocal square root, so I don&#39;t need to
+say that do I? It also seems redundant to say that the input is a number (it&#39;s
+declared as a double), or that the result of the reciprocal square root
+function is the reciprocal square root of the input.</aside>
+</section>
+<section>
+<pre>
+/**
+ * Calculate the reciprocal square root.
+ * @param number The input number
+ * @return The reciprocal square root of the input
+ */
+float reciprocal_square_root( float number ) { ... }
+</pre>
+<h1>Self-documenting Code</h1>
+<aside class="notes">Descriptive function names and descriptive
+parameter names go a long way to making functions easier to understand
+and use. So much so that some have advocated _against_ documentation.
+And, if all your documentation is like this, I don&#39;t really blame
+them.</aside>
+</section>
+</section>
+<section>
+<section>
+<h1>Good Documentation</h1>
+<ol>
+<li><h3>What does the function do?</h3></li>
+<li class="fragment"><h3>What are the inputs?</h3></li>
+<li class="fragment"><h3>Why does this function exist?</h3></li>
+<li class="fragment"><h3>How do I use the function?</h3></li>
+</ol>
+<aside class="notes">Good documentation has a few parts. Questions 1 and
+2 can be answered by code alone, though it&#39;s better documentation if you
+answer them too. Questions 3 and 4 can only be answered by
+documentation.</aside>
+</section>
+<section>
+<pre>/**
+ * <span class="fragment highlight-current-blue">Quickly calculate the reciprocal of the square root of
+ * the given number.</span> <span class="fragment highlight-current-blue">This is used instead of the
+ * standard sqrt function for performance.</span> <span class="fragment highlight-current-blue">Used by
+ * [the vector2 class] to calculate magnitudes and unit
+ * vectors.</span>
+ *
+<span class="fragment highlight-current-blue"> *   // Calculate the normalized vector of an input vector
+ *   vector2 input( 5, 6 );
+ *   double len = pow(input.x, 2.0) + pow(input.y, 2.0);
+ *   double mag = rsqrt( len );
+ *   vector2 normalized( input.x * mag, input.y * mag );</span>
+ *
+ * <span class="fragment highlight-current-blue">See https://en.wikipedia.org/wiki/Fast_inverse_square_root</span>
+ */
+float reciprocal_square_root( float number ) { ... }
+</pre>
+<aside class="notes">Here&#39;s an example of good documentation. I describe
+what the function does. Explain why I&#39;m doing this as opposed to
+anything else. Then I link this function to the larger project, giving
+the reader a place to go next. Then I have some example code, and I even
+include a link to the Wikipedia article explaining this code. Links are
+good, use them a lot in your documentation.</aside>
+</section>
+</section>
+<section>
+<section>
+<h1>Great Documentation</h1>
+<aside class="notes">Really great documentation</aside>
+</section>
+<section>
+<h1>More Than What</h1>
+<aside class="notes">is more than what the code does</aside>
+</section>
+<section>
+<h1>More Than How</h1>
+<aside class="notes">is more than how the code is used</aside>
+</section>
+<section>
+<h1>Why</h1>
+<aside class="notes">it explains why the code is useful</aside>
+</section>
+<section>
+<h1>Teaches</h1>
+<h1 class="fragment">Concepts</h1>
+<aside class="notes">Good documentation teaches the concepts around the
+code</aside>
+</section>
+<section>
+<h1>Teaches</h1>
+<h1>Business Rules</h1>
+<aside class="notes">The business rules implemented by the code</aside>
+</section>
+<section>
+<h1>Teaches</h1>
+<h1>Domain Model</h1>
+<aside class="notes">And as much of the domain knowledge, the real
+problems this software is solving, as is needed to understand the code</aside>
+</section>
+<section>
+<h1>When to Use</h1>
+<h1>Something Else</h1>
+<aside class="notes">The best documentation even explains when to use
+something else. When your code is not the right code for the job.</aside>
+</section>
+<section>
+<h1>Remembers</h1>
+<aside class="notes">I write down documentation so I don&#39;t have to
+remember. For future me to read and understand the code.</aside>
+</section>
+</section>
+<section>
+<section>
+<h1>Write Good</h1>
+<h1>Documentation</h1>
+<aside class="notes">So, to write good documentation.</aside>
+</section>
+<section>
+<h1>Modules</h1>
+<h3 class="fragment">Description</h3>
+<h3 class="fragment">Examples</h3>
+<h3 class="fragment">Cross-References</h3>
+<aside class="notes">Make sure all your modules, classes, libraries,
+collections, or otherwise have clear descriptions, numerous examples,
+and plenty of internal and external links for cross-references.</aside>
+</section>
+<section>
+<h1>Functions</h1>
+<h3 class="fragment">Description</h3>
+<h3 class="fragment">Examples</h3>
+<h3 class="fragment">Cross-References</h3>
+<aside class="notes">And repeat the same thing for every function,
+method, subroutine, or other piece of runnable code.</aside>
+</section>
+</section>
+<section>
+<h1>Documentation Answers Why</h1>
+<aside class="notes">Remember that documentation answers why</aside>
+</section>
+<section>
+<h1>Software</h1>
+<h2>Is More Than</h2>
+<h1>Code</h1>
+<aside class="notes">And that software is more than just the code we
+write.</aside>
+</section>
+<section>
+<h1>Thank You</h1>
+</section>
+</div>
+
+
+            <div class="footer left">
+                <a href="http://twitter.com/preaction">
+                    <i class="fa fa-twitter"></i>@preaction
+                </a>
+            </div>
+            <div class="footer right">
+                <a href="http://preaction.me/docs">preaction.me/docs</a>
+            </div>
+        </div>
+
+        <script src="/reveal.js/lib/js/head.min.js"></script>
+        <script src="/reveal.js/js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: false,
+                history: true,
+                center: true,
+
+                transition: 'none', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: '/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '/reveal.js/plugin/zoom-js/zoom.js', async: true },
+                    { src: '/reveal.js/plugin/notes/notes.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

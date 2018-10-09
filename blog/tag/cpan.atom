@@ -5,7 +5,7 @@
     <updated>2016-11-06T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/cpan.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/cpan/" rel="alternate" />
-    <generator version="0.094">Statocles</generator>
+    <generator version="0.093">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2016/11/06/log-any-1-044-trial-released/</id>
         <title>Log::Any 1.044 TRIAL released</title>

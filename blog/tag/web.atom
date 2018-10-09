@@ -5,7 +5,7 @@
     <updated>2017-07-04T00:00:00Z</updated>
     <link href="http://preaction.me/blog/tag/web.atom" rel="self" />
     <link href="http://preaction.me/blog/tag/web/" rel="alternate" />
-    <generator version="0.094">Statocles</generator>
+    <generator version="0.093">Statocles</generator>
     <entry>
         <id>http://preaction.me/blog/2017/07/04/cpan-testers-has-an-api/</id>
         <title>CPAN Testers Has an API</title>
