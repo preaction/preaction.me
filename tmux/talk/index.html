@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>TALK NAME</title>
+
+        <meta name="description" content="TALK DESCRIPTION">
+        <meta name="author" content="Doug Bell">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+        <link rel="stylesheet" href="font-awesome-4.6.1/css/font-awesome.min.css">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Custom style rules -->
+        <style>
+            .flex-row {
+                display: flex;
+                flex: 1 1;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .flex-row pre {
+                width: auto;
+            }
+            .reveal pre.larger {
+                font-size: 0.75em;
+            }
+            .reveal pre.largest {
+                font-size: 0.95em;
+            }
+            .reveal [data-background-image].has-dark-background > * {
+                background: rgba( 0, 0, 0, 0.5 );
+                -webkit-text-stroke: 2px black;
+                color: white;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #000,
+                            -1px -1px 0 #000,
+                            1px -1px 0 #000,
+                            -1px 1px 0 #000,
+                            1px 1px 0 #000;
+            }
+            .reveal [data-background-image].has-light-background > * {
+                background: rgba( 255, 255, 255, 0.5 );
+                -webkit-text-stroke: 2px white;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #FFF,
+                            -1px -1px 0 #FFF,
+                            1px -1px 0 #FFF,
+                            -1px 1px 0 #FFF,
+                            1px 1px 0 #FFF;
+            }
+            .reveal section img {
+                border: none;
+                box-shadow: none;
+            }
+
+            .absolute-center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                min-width: 50vw;
+                text-align: center;
+                transform: translateX(-50%) translateY(-50%);
+            }
+
+            .bg-solarized {
+                background: rgb( 253, 246, 228 );
+            }
+
+            .reveal section .solarized-text,
+            .reveal section .solarized-bar-text,
+            .reveal section .solarized-search-text {
+                font-family: DejaVu Sans Mono, Monaco, monospace;
+                text-transform: none;
+                border-style: solid;
+                border-width: 10px 0 5px;
+                border-color: rgb( 253, 246, 228 ); /* simulated screen background */
+            }
+
+            .reveal section .solarized-text {
+                padding: 0 0.5em;
+                background: rgb( 253, 246, 228 ); /* background color */
+                color: rgb( 131, 148, 150 );
+            }
+
+            .reveal section .solarized-bar-text {
+                padding: 0 0.5em;
+                background: rgb( 133, 152, 28 ); /* bar background color */
+                color: rgb( 3, 53, 64 );
+            }
+
+            .reveal section .solarized-search-text {
+                border-width: 10px 5px 5px;
+                padding: 0 8px;
+                background: rgb( 180, 136, 29 ); /* search bar background color */
+                color: rgb( 3, 53, 64 );
+            }
+
+            .reveal .slides section .fragment.highlight-current-white,
+            .reveal .slides section .fragment.highlight-current-purple {
+                opacity: 1;
+                visibility: inherit;
+            }
+            .reveal .slides section .highlight-white,
+            .reveal .slides section .fragment.highlight-current-white.current-fragment {
+                color: white;
+            }
+            .reveal .slides section .highlight-purple,
+            .reveal .slides section .fragment.highlight-current-purple.current-fragment {
+                color: #c223a8;
+            }
+
+            .reveal .slides section .highlight-red {
+                color: #ff2c2d;
+            }
+
+            .reveal section kbd {
+                text-transform: none;
+                font-family: Monaco, monospace;
+                white-space: nowrap;
+            }
+
+            .nowrap {
+                white-space: nowrap;
+            }
+
+            .reveal table.character-map tbody tr td {
+                border: none;
+                font-size: 2.5em;
+                text-align: center;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section data-markdown="slides.md"
+                    data-separator="^---\s*\n*\s*\{\s*[Tt][Oo][Pp][Ii][Cc]\s*\}\n"
+                    data-separator-vertical="^---\n"
+                    data-separator-notes="^\^"
+                ></section>
+
+            </div>
+
+        </div>
+
+        <script src="reveal.js/lib/js/head.min.js"></script>
+        <script src="reveal.js/js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: false,
+                history: true,
+                center: true,
+
+                transition: 'none', // none/fade/slide/convex/concave/zoom
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+                    { src: 'reveal.js/plugin/notes/notes.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
