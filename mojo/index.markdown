@@ -73,7 +73,6 @@ I wrote 8 total articles for the calendar, a feat I doubt I will repeat.
 ### 2017 Mojolicious Advent Calendar
 
 * [Mocking a REST API](https://mojolicious.io/blog/2017/12/08/day-8-mocking-a-rest-api/)
-* [Start a new Yancy App](https://mojolicious.io/blog/2017/12/15/day-15-start-a-new-yancy-app/)
-  - This was a very early article about [Yancy](http://preaction.me/yancy)
+* [Start a new Yancy App](https://mojolicious.io/blog/2017/12/15/day-15-start-a-new-yancy-app/) This was a very early article about [Yancy](http://preaction.me/yancy)
 
 <!-- ## Related Topics -->
