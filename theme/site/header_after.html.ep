@@ -1,0 +1,30 @@
+% if ( $page->path eq '/index.html' ) {
+    <div class="container nav-columns">
+        <div>
+            <h2>Web Development</h2>
+            <ul>
+                <li><a href="/mojo">Mojolicious - Web Framework</a></li>
+            </ul>
+        </div>
+        <!--<div>
+            <h2>Data Processing</h2>
+            <ul>
+                <li><a href="/beam">Beam - Object Platform</a></li>
+            </ul>
+        </div>-->
+        <div>
+            <h2>Developer Resources</h2>
+            <ul>
+                <li><a href="/ssh">SSH</a></li>
+                <!--<li><a href="/tmux">Tmux</a></li>-->
+                <li><a href="/docs">Writing documentation</a></li>
+            </ul>
+        </div>
+        <div>
+            <h2>Fun and Games</h2>
+            <ul>
+                <li><a href="/rpi">RaspberryPi</a></li>
+            </ul>
+        </div>
+    </div>
+% }
