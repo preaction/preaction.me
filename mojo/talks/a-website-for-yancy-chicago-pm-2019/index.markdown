@@ -529,7 +529,7 @@ FTP, SCP, Rsync. I wrote a very small shell script which uses this
 <li><a href="http://mojolicious.org">Mojolicious website</a></li>
 <li><a href="http://preaction.me/yancy">Yancy website</a></li>
 </ul>
-<div style="width: 20%; text-align: center">
+<div style="text-align: center">
     <a href="http://preaction.me">
         <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%"/>
     </a>
