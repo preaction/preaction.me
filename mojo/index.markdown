@@ -49,7 +49,20 @@ Some plugins I've written for Mojolicious:
 
 ## Talks
 
-Coming soon!
+### [A Website For Yancy - A Practical Introduction to Mojolicious](talks/a-website-for-yancy-chicago-pm-2019)
+
+This is a 45-minute talk based on my series of three posts for the [2018
+Mojolicious Advent Calendar](http://mojolicious.io): [A Website For
+Yancy](https://mojolicious.io/blog/2018/12/17/a-website-for-yancy/), [A
+View To A POD](https://mojolicious.io/blog/2018/12/18/a-view-to-a-pod/),
+and [You Only Export
+Twice](https://mojolicious.io/blog/2018/12/19/you-only-export-twice/).
+This talk gets into a bit more detail about how to get started using
+Mojolicious.
+
+I gave this talk to [Chicago.PM](http://chicago.pm.org) in January 2019.
+For a future version of the talk, I intend to explain route destinations
+a little better and explain more about the template syntax.
 
 ## Articles
 

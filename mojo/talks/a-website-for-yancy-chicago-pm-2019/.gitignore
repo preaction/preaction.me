@@ -1,0 +1,3 @@
+deploy
+*.db-shm
+*.db-wal
