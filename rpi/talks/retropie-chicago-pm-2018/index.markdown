@@ -6,8 +6,34 @@ data:
 ---
 
 <style>
-img { max-width: 70% }
-.flexed img { max-width: 25% }
+.reveal img {
+    max-height: 70vh;
+}
+.flexed {
+    display: flex;
+    height: 70vh;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.flexed img {
+    flex: 0 1 auto;
+}
+.flexed.systems img {
+    height: 30vh;
+}
+.flexed.games img {
+    flex: 0 1 24%;
+    height: 45vh;
+    margin: 2px;
+}
+.img-and-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img-and-list img {
+    width: 40vw;
+}
 </style>
 
 <div class="slides">
@@ -21,23 +47,26 @@ img { max-width: 70% }
 rising popularity of the Nintendo Entertainment System (NES).</aside>
 </section>
 <section>
-<div class="flexed" style="display: flex">
-<img style="flex: 1" src="nes.jpg">
-<img style="flex: 1" src="snes.jpg">
-<img style="flex: 1" src="genesis.jpg">
-<img style="flex: 1" src="psx.jpg">
-<img style="flex: 1" src="gameboy.jpg">
+<div class="flexed systems">
+<img src="nes.jpg">
+<img src="gameboy.jpg">
+<img src="snes.jpg">
+<img src="genesis.jpg">
+<img src="psx.jpg">
 </div>
 <aside class="notes">The next decade would see the most famous video
 game consoles released.</aside>
 </section>
 <section>
-<div style="display: flex">
-<img style="flex: 1" src="mario.jpg">
-<img style="flex: 1" src="sonic.jpg">
-<img style="flex: 1" src="metroid.jpg">
-<img style="flex: 1" src="zelda.jpg">
-<img style="flex: 1" src="castlevania.jpg">
+<div class="flexed games">
+<img src="mario.jpg">
+<img src="sonic.jpg">
+<img src="metroid.jpg">
+<img src="zelda.jpg">
+<img src="castlevania.jpg">
+<img src="megaman.jpg">
+<img style="width: 24%" src="final-fantasy.jpg">
+<img src="metalgear.jpg">
 </div>
 <aside class="notes">... and many of the most famous video game
 franchises would get their starts.</aside>
@@ -243,13 +272,15 @@ system, we should talk about copyright law.</aside>
 
 <section>
 <h1>Emulators are Legal</h1>
+<h3>(In the U.S.)</h3>
 <aside class="notes">According to current legal precedent, emulator software is
 legal to develop and possess.</aside>
 </section>
 
 <section>
-<h3>Sega v. Accolade (1992)</h3>
-<h4>Reverse Engineering is Legal</h4>
+<h1>Reverse Engineering</h1>
+<h1>is Legal</h1>
+<h4>Sega v. Accolade (1992)</h4>
 <aside class="notes">Sega v. Accolade established that reverse
 engineering the Sega Genesis software is protected under the fair use
 doctrine (and trademark law can't be used to make reverse engineering
@@ -257,8 +288,9 @@ illegal).</aside>
 </section>
 
 <section>
-<h3>Sony Computer Entertainment, Inc. v. Connectix Corporation (2000)</h3>
-<h4>Copying Firmware is Legal</h4>
+<h1>Copying Firmware</h1>
+<h1>is Legal</h1>
+<h4>Sony Computer Entertainment, Inc. v. Connectix Corporation (2000)</h4>
 <aside class="notes">Years later, the PlayStation was released, and
 almost immediately people started trying to emulate it. Connectix let
 you play PlayStation games on MacOS (the original). Sony sued them
@@ -267,8 +299,9 @@ eventually prevailed.</aside>
 </section>
 
 <section>
-<h3>Sony Computer Entertainment America v. Bleem (2000)</h3>
-<h4>Emulators are legal</h4>
+<h1>Emulators</h1>
+<h1>are Legal</h1>
+<h4>Sony Computer Entertainment America v. Bleem (2000)</h4>
 <aside class="notes">Which led to Bleem!, a PlayStation emulator that
 allowed playing PlayStation game disks on PCs and Sega Dreamcast. Bleem!
 ultimately won in court, but court costs forced them out of
@@ -321,15 +354,8 @@ popular outside its target market.</aside>
 </section>
 
 <section>
-<h1>Raspberry Pi Model 1 A</h1>
-<img src="raspberry-pi-model-a.jpg">
-<aside class="notes">Here's one of the first models. All Pis rely on
-Broadcom System-on-a-Chip (SoC) processors, and as many peripheral ports
-as they can pack on to the form factor.</aside>
-</section>
-
-<section>
-<div style="display: flex">
+<h1>Model 1 A</h1>
+<div class="img-and-list">
 <img src="raspberry-pi-model-a.jpg">
 <ul>
     <li class="fragment">MicroUSB power
@@ -339,14 +365,18 @@ as they can pack on to the form factor.</aside>
     <li class="fragment">USB-A ports
     <li class="fragment">GPIO Pins
 </ul>
-<aside class="notes">All RaspberryPis have MicroUSB for power, HDMI for
-video/audio output, 3.5mm audio output, a MicroSD card for internal
-storage, USB-A ports for keyboard/mouse/etc..., and general-purpose I/O
-pins of varying number and usage.</aside>
+</div>
+<aside class="notes">Here's one of the first models. All Pis rely on
+Broadcom System-on-a-Chip (SoC) processors, and as many peripheral ports
+as they can pack on to the form factor. All RaspberryPis have MicroUSB
+for power, HDMI for video/audio output, 3.5mm audio output, a MicroSD
+card for internal storage, USB-A ports for keyboard/mouse/etc..., and
+general-purpose I/O pins of varying number and usage.</aside>
 </section>
 
 <section>
-<div style="display: flex">
+<h1>Model 3 B+</h1>
+<div class="img-and-list">
 <img src="raspberry-pi-model-3b-plus.jpg">
 <ul>
     <li class="fragment">4-core 1.4 GHz ARM
@@ -355,6 +385,7 @@ pins of varying number and usage.</aside>
     <li class="fragment">802.11ac WiFi
     <li class="fragment">GigE Ethernet
 </ul>
+</div>
 <aside class="notes">The most powerful Raspberry Pi model, and the one
 I picked for this project, comes with a 4-core 1.4 GHz ARM Cortex-A53
 processor with 1GB SDRAM, Bluetooth, 802.11ac dual-band wireless, and
@@ -362,7 +393,7 @@ Gigabit Ethernet.</aside>
 </section>
 
 <section>
-<h1>Raspberry Pi Zero</h1>
+<h1>Model Zero</h1>
 <img src="raspberry-pi-zero.jpg">
 <aside class="notes">There's even a Raspberry Pi Zero with only
 a mini-HDMI port and a micro-USB port that costs $5 (or $10 for the
@@ -375,7 +406,7 @@ version with wireless networking).</aside>
 <section>
 
 <section>
-<h1>Buying A Pi</h1>
+<h1>Building A Pi</h1>
 <aside class="notes">Building a Raspberry Pi system is similar to
 building your own computer from scratch</aside>
 </section>
@@ -386,21 +417,25 @@ building your own computer from scratch</aside>
 </section>
 
 <section>
-<h1>Raspberry Pi Model 3B+</h1>
-<img src="raspberry-pi-model-3b-plus.jpg">
+<h3>Raspberry Pi</h3>
+<img style="height: 50vh" src="raspberry-pi-model-3b-plus.jpg">
+<h1>Model 3B+</h1>
 <aside class="notes">The Raspberry Pi Model 3B+. Available for $35
 online or at MicroCenter on Elston.</aside>
 </section>
 
 <section>
-<h1>5.1V, 3A MicroUSB Power</h1>
-<img src="microusb-power.jpg">
+<h3>Power Supply</h3>
+<img style="height: 50vh" src="microusb-power.jpg">
+<h2>5.1V, 3A MicroUSB</h2>
 <aside class="notes">A 5.1-volt, 3-amp power adapter with a MicroUSB
 connector. Microcenter had one for $11.</aside>
 </section>
 
 <section>
-<h1>64 GB MicroSD card</h1>
+<h1>MicroSD card</h1>
+<img style="height: 40vh" src="microsd.jpg">
+<h2>16-64 GB</h2>
 <aside class="notes">A MicroSD card. These are so inexpensive now
 I splurged and spent a whole $20 on a 64-GB one. I originally bought
 a 16-GB one for $10. For playing older games, 16-GB is well more than
@@ -416,12 +451,13 @@ card you'll need.</aside>
 
 <section>
 <h1>HDMI Cable (6ft)</h1>
+<img style="height: 60vh" src="hdmi.jpg">
 <aside class="notes">To connect to the display, you'll need an HDMI
 cable. Microcenter had a 6-ft one for $15.</aside>
 </section>
 
 <section>
-<h1>Official Raspberry Pi Case</h1>
+<h1>Raspberry Pi Case</h1>
 <img src="official-case.jpg">
 <aside class="notes">And you'll need a case. The official case is good
 for getting started and is only $9. Later, I'll talk about custom cases
@@ -430,11 +466,14 @@ with extra features (that cost more).</aside>
 
 <section>
 <h1>You Will Also Need</h1>
+<div class="img-and-list">
+<img src="cardreader.jpg">
 <ul>
     <li class="fragment">An HDMI display (TV)
     <li class="fragment">MicroSD card reader ($15)
     <li class="fragment">USB keyboard ($8)
 </ul>
+</div>
 <aside class="notes">I did not buy a new TV for this, any TV will do. To
 create the bootable MicroSD card, I needed a card reader which can be
 used for any SD card reading needs. Parts of the initial setup require
@@ -449,8 +488,8 @@ some controllers.</aside>
 </section>
 
 <section>
-<h1>iNNext Super NES Controller</h1>
-<img src="innext-snes-controllers.jpg">
+<h1>iNNext Super NES</h1>
+<img style="height: 60vh" src="innext-snes-controllers.jpg">
 <aside class="notes">My goal was mainly to emulate 3rd- and 4th-gen
 consoles, so Super NES controllers are perfect. Lots of companies
 produce retro controllers with USB connectors, and I found these for $13
@@ -462,7 +501,7 @@ extension cords for $10 each.</aside>
 
 <section>
 <h1>DualShock 4</h1>
-<img src="ps4-controller.jpg">
+<img style="height: 60vh" src="ps4-controller.jpg">
 <aside class="notes">If you want to play PS1 games or N64 games, you're
 going to need a more expensive controller. I've found the PS4 controller
 to be the most useful for general gaming: It's laid out like a Super NES
@@ -473,8 +512,8 @@ $50, which inflates the prices of this system dramatically.</aside>
 </section>
 
 <section>
-<h1>Nintendo Pro Controller</h1>
-<img src="wii-u-pro-controller.jpg">
+<h1>Nintendo<br/>Pro Controller</h1>
+<img style="height: 60vh" src="wii-u-pro-controller.jpg">
 <aside class="notes">For a similar experience more modestly proced, the
 Wii-U or Switch Pro Controller is good as well.</aside>
 </section>
@@ -489,7 +528,7 @@ Bluetooth, but some do. I prefer the PS4 controller though...</aside>
 <section>
 <h1>Total Price</h1>
 <div style="display: flex">
-<ul>
+<ul style="list-style: none">
 <li class="fragment" data-fragment-index="1">Raspberry Pi Model 3B+
 <li class="fragment" data-fragment-index="2">5.1V, 3A MicroUSB power adapter
 <li class="fragment" data-fragment-index="3">64GB MicroSD card
@@ -498,7 +537,7 @@ Bluetooth, but some do. I prefer the PS4 controller though...</aside>
 <li class="fragment" data-fragment-index="6">iNNext Super NES Controllers
 <li class="fragment" style="border-top: 1px solid black" data-fragment-index="7">Total
 </ul>
-<ul>
+<ul style="list-style: none">
 <li class="fragment" data-fragment-index="1">$35
 <li class="fragment" data-fragment-index="2">$11
 <li class="fragment" data-fragment-index="3">$20
@@ -521,25 +560,21 @@ Bluetooth, but some do. I prefer the PS4 controller though...</aside>
 </section>
 
 <section>
-<h1>Insert the Pi</h1>
 <img src="assemble-1.jpg">
 <aside class="notes">The Raspberry Pi sits in the bottom, held by pins</aside>
 </section>
 
 <section>
-<h1>Close the Core</h1>
 <img src="assemble-2.jpg">
 <aside class="notes">Then the core is closed</aside>
 </section>
 
 <section>
-<h1>Close the top</h1>
 <img src="assemble-3.jpg">
 <aside class="notes">The top gets added</aside>
 </section>
 
 <section>
-<h1>Close the sides</h1>
 <img src="assemble-4.jpg">
 <aside class="notes">And finally the sides added, and the Pi is ready</aside>
 </section>
@@ -560,8 +595,7 @@ Bluetooth, but some do. I prefer the PS4 controller though...</aside>
 </section>
 
 <section>
-<h1>RetroPie</h1>
-<img src="retropie-logo.jpg">
+<img src="retropie-logo.png">
 <aside class="notes">We can get all of these through the RetroPie
 project. RetroPie is a project for retro gaming on Raspberry Pi.</aside>
 </section>
@@ -580,8 +614,9 @@ a unified experience, and an emulator front-end called EmulationStation.</aside>
 </section>
 
 <section>
-<h1>Download RetroPie</h1>
+<h1>Download</h1>
 <img src="download-retropie.png">
+<a href="http://retropie.co.uk">http://retropie.co.uk</a>
 <aside class="notes">Download the Raspberry Pi disk image from
 RetroPie's website. Be sure to download the correct one for your
 Raspberry Pi model. It should come as a ".img" file.</aside>
@@ -673,24 +708,18 @@ filesystem on a disk images instead of building a filesystem on a target
 disk and copying the OS on to that.</aside>
 </section>
 
-<section>
-<h1>EmulationStation</h1>
-<img src="emulation-station-load.png">
+<section data-background-image="emulation-station-load.png">
 <aside class="notes">The next thing you'll see is the EmulationStation
 loading picture. Once this is loaded...</aside>
 </section>
 
-<section>
-<h1>Controller Setup</h1>
-<img src="controller-setup-1.png">
+<section data-background-image="controller-setup-1.png">
 <aside class="notes">It will ask you to configure a controller. The
 controller will be used by EmulationStation to move through the menus
 and launch games.</aside>
 </section>
 
-<section>
-<h1>Controller Setup</h1>
-<img src="controller-setup-2.png">
+<section data-background-image="controller-setup-2.png">
 <aside class="notes">Holding down a button will select a controller, and
 EmulationStation will ask you to hit certain buttons to map buttons to
 values. You'll see things like "Button 9" or "Axis 1+" show
@@ -698,9 +727,7 @@ up. These are the internal IDs of the buttons and analog sticks of the
 controller.</aside>
 </section>
 
-<section>
-<h1>Not Enough Buttons</h1>
-<img src="controller-setup-4.png">
+<section data-background-image="controller-setup-4.png">
 <aside class="notes">Because I'm using a Super NES controller, some of
 the buttons EmulationStation asks for I don't have. SNES has left/right
 shoulder buttons, but not left/right trigger buttons or left/right thumb
@@ -709,9 +736,7 @@ EmulationStation supports all the buttons that have become standard for
 PS4/XBox/Pro controllers.</aside>
 </section>
 
-<section>
-<h1>The Hotkey</h1>
-<img src="controller-setup-5.png">
+<section data-background-image="controller-setup-5.png">
 <aside class="notes">And one additional button: The hotkey. This key is
 a modifier key like the Shift/Ctrl/Alt key. Pressing it and another
 button will control the emulator. More on that later. The hotkey can be
@@ -720,9 +745,7 @@ button. For controllers with a "Home" or "System" button, I recommend
 using that.</aside>
 </section>
 
-<section>
-<h1>EmulationStation</h1>
-<img src="emulation-station-menu.png">
+<section data-background-image="emulation-station-menu.png">
 <aside class="notes">Now we can see the EmulationStation menu. We only
 have one option right now: RetroPie. This option contains configuration
 and settings for our machine. Later, after we've added some games,
