@@ -10,7 +10,10 @@ practical applications in the modern home.
 
 ## Talks
 
-### [Retro Gaming With RetroPie (Chicago.PM 2018)](talks/retropie-chicago-pm-2018)
+### Retro Gaming With RetroPie
+
+* [Version 1 - Chicago.PM - 2018-09-27](talks/retropie-chicago-pm-2018)
+* [Version 2 - Toronto.PM - 2019-01-31](talks/retropie-toronto-pm-2019)
 
 This talk is about playing retro games with video game console emulators
 on the Raspberry Pi. It explains what emulators are, how to buy
