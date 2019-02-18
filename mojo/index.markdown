@@ -68,7 +68,9 @@ a little better and explain more about the template syntax.
 
 ### Mojolicious Blogs
 
-* [Writing Reusable Controllers](https://mojolicious.io/blog/2019/01/21/writing-reusable-controllers/) How to write reusable controllers to minimize the code you have to write.
+* [Mojolicious &lt;3 DBIx::Class](https://mojolicious.io/blog/2019/02/18/mojolicious-and-dbix-class/) - Introducing [Mojolicious::Plugin::DBIC](http://metacpan.org/pod/Mojolicious::Plugin::DBIC).
+* [Writing Reusable Controllers](https://mojolicious.io/blog/2019/01/21/writing-reusable-controllers/) - How to write reusable controllers to minimize the code you have to write.
+* [Writing Extensible Controllers](https://mojolicious.io/blog/2019/01/28/writing-extensible-controllers/) - Following after Writing Reusable Controllers, how to subclass controllers.
 
 ### 2018 Mojolicious Advent Calendar
 
