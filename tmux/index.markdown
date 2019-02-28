@@ -10,7 +10,7 @@ Screen](https://www.gnu.org/software/screen/).
 
 ## Talks
 
-### [Organized Development with Tmux](talk)
+### [Organized Development with Tmux](talks/chicago-pm-2018)
 
 Tmux is a terminal multiplexer which allows you to open multiple shells
 in a single terminal, split your terminal window into panes, and detach
