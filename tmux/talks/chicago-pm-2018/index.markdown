@@ -1285,8 +1285,6 @@ even plugins that add charts and other distractions down in the status
 bar. Customize to your needs!</aside>
 
     </section>
-</section>
-<section>
     <section>
 
 <h1>Mouse 🐭 Tmux</h1>
@@ -1299,6 +1297,7 @@ mouse, because I prefer how the mouse works in iTerm (my terminal), but
 it can make selecting text easier than using the keyboard to move
 around.</aside>
 
+    </section>
 </section>
 <section>
     <section>

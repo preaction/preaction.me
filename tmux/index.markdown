@@ -12,10 +12,7 @@ Screen](https://www.gnu.org/software/screen/).
 
 ### [Organized Development with Tmux](talks/chicago-pm-2018)
 
-Tmux is a terminal multiplexer which allows you to open multiple shells
-in a single terminal, split your terminal window into panes, and detach
-from your terminal to resume your work later! Using Tmux can help keep
-track of all the tasks currently being worked on and quickly switch
-between tasks to pick up right where you left off!
-
+This talk explains the basics of Tmux, some useful initial configuration
+options, and how to use Tmux sessions to organize and automate your
+development environment.
 
