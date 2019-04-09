@@ -17,6 +17,7 @@
             <ul>
                 <li><a href="/ssh">SSH</a></li>
                 <li><a href="/tmux">Tmux</a></li>
+                <li><a href="/docker">Docker</a></li>
                 <li><a href="/docs">Writing documentation</a></li>
             </ul>
         </div>

@@ -10,24 +10,41 @@ data:
 
 <section>
 
-<section><h1>What Is Docker?</h1></section>
 <section>
-<h1>Not A VM</h1>
+<h1>What Is Docker?</h1>
+<aside class="notes">First off, let's talk about what Docker is.</aside>
 </section>
 <section>
-<h1>Container</h1>
-<p class="fragment">Isolate a single process</p>
+<h1>Not A VM</h1>
+<aside class="notes">I didn't know this when I started, but Docker
+is not a VM.</aside>
 </section>
 <section>
 <h1>Not Hardware Simulation</h1>
+<aside class="notes">There's no hardware simulation going on between
+a host OS and a docker container.</aside>
 </section>
 <section>
 <h1>Not Running an OS</h1>
+<aside class="notes">There's no OS running inside the Docker container,
+which confused me because there are Docker containers for Debian,
+Fedora, and other Linuxes...</aside>
 </section>
 
 <section>
+<h1>Container</h1>
+<p class="fragment">Isolate a single process</p>
+<aside class="notes">Docker is a container. A container isolates
+a single process from the host computer. This is not a new concept,
+FreeBSD has had "jails" since 2000, and Unix has had "chroot" since
+1982.</aside>
+</section>
+<section>
 <h1>Load a Linux Distribution</h1>
 <p class="fragment">But not a new kernel</p>
+<aside class="notes">Since nothing from outside the container can be
+seen inside the container, Docker images provide a Linux distribution to
+satisfy basic system requirements.</aside>
 </section>
 
 <section>
@@ -37,50 +54,79 @@ data:
     <li class="fragment">Libraries</li>
     <li class="fragment">Files</li>
 </ul>
-</section>
-
-<section>
-<h1>Setup is Hard</h1>
+<aside class="notes">Everything your program needs to run must be copied
+in to the container. This includes executables, libraries, and any other
+files you need.</aside>
 </section>
 
 <section>
 <h1>Container:</h1>
 <h2>A complete environment to run a program</h2>
+<aside class="notes">So, a container is a complete environment ready to
+run a program.</aside>
+</section>
+
+<section>
+<h1>Setup is Hard</h1>
+<aside class="notes">Because everything must be copied inside, setting
+up containers can be hard.  This is where Docker comes in.</aside>
 </section>
 
 <section>
 <h1>What is Docker?</h1>
+<aside class="notes">So what is Docker?</aside>
 </section>
 
 <section>
 <h1>Container Management</h1>
+<aside class="notes">Docker helps manage the containers on your system</aside>
 </section>
 <section>
 <h1>Container Configuration</h1>
+<aside class="notes">Docker provides a simple configuration language to
+create containers called Dockerfile</aside>
 </section>
 <section>
 <h1>Layered File Systems</h1>
+<aside class="notes">Docker uses a layered file system to minimize the
+disk space used by your containers (more on this later).</aside>
 </section>
 <section>
 <h1>Multi-Container Applications</h1>
+<aside class="notes">And Docker provides tools for setting up multiple
+containers that can talk to each other and share resources, even across
+multiple servers.</aside>
 </section>
 
 <section>
 <h1>Dev Envs</h1>
 <h1 class="fragment">Prod Envs</h1>
 <h1 class="fragment">Scaling</h1>
+<aside class="notes">Because of this, Docker is well-suited for easy
+development environments, reproducible production environments, and
+horizontal scaling.</aside>
 </section>
 
 </section><section>
 
-<section><h1>Our First Container</h1></section>
+<section>
+<h1>Our First Container</h1>
+<aside class="notes">So, let's make a Docker container</aside>
+</section>
 
 <section>
 <img src="docker-pull-perl.png">
+<aside class="notes">To make a Docker container, first we start from
+an image on Dockerhub. Since I've got a Perl app, I'm going to start
+from the Perl image. This is an official image by The Perl Foundation.
+Dockerhub has lots of images available, so getting started is easy.</aside>
 </section>
 
 <section>
 <img src="docker-pull-perl-download.png">
+<aside class="notes">And here it's downloading, but look how it's
+downloading multiple things at once. Each of these are different images
+that are layered together to create the final Perl image.</aside>
 </section>
 
 <section>
@@ -90,6 +136,13 @@ data:
 /usr/local/lib/site_perl</pre>
 <pre class="fragment">/usr/local/bin/mojo
 /usr/local/lib/site_perl/Mojolicious</pre>
+<aside class="notes">Docker does this using a layered filesystem. One
+image on the bottom provides a root filesystem at <code>/</code>. Then
+another image can provide Perl in <code>/usr/local/bin/perl</code> and
+Perl modules in <code>/usr/local/lib/site_perl</code>. Finally, I can
+add my own modules like Mojolicious that end up in
+<code>/usr/local/lib/site_perl/Mojolicious</code>. In case of
+a conflict, the lower layers override the upper layers.</aside>
 </section>
 
 <section>
