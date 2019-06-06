@@ -1808,65 +1808,56 @@ attach to it!</aside>
     </h2>
 </div>
 
+<aside class="notes">So I create a new session, name it "Yancy", and
+then pass <code>-d</code> to immediately "detach".</aside>
+
     </section>
     <section data-transition="slide-out-left">
 
 <img alt="Shell window with &quot;tmux new&quot; command executed&quot;" src="automation-5-new-session.png">
+
+<aside class="notes">And... nothing happened. I'm back at my shell
+prompt.</aside>
 
     </section>
     <section data-transition="slide-in-left slide-out-right">
 
 <img alt="Shell window with &quot;tmux ls&quot; command executed&quot;" src="automation-6-tmux-ls.png">
 
-    </section>
-    <section>
+<aside class="notes">But my session was created. Now, I can run other
+commands to build my session.</aside>
 
-<h1>XXX</h1>
-
-    </section>
-    <section>
+</section><section>
 
 <h1>Shell Script</h1>
 
-    </section>
-    <section>
+<aside class="notes">And since I'll be doing this a lot, I can write
+a shell script to do it for me.</aside>
 
-<pre><code><span class="fragment" data-fragment-index="1">if ! tmux has-session -t yancy; then</span>
-    tmux new -s yancy -d
-    tmux new-window -t yancy:2
-    tmux split-window -t yancy:2 -v
-    tmux send-keys -t yancy:1 vim Enter
-    tmux send-keys -t yancy:2.0         'cd perl/Yancy &amp;&amp; morbo bin/yancy' Enter
-    tmux send-keys -t yancy:2.1         'export TEST_YANCY_EXAMPLES=1' Enter
-    tmux new-window -t yancy:3         postgres -D perl/Yancy/db/pg
-    tmux split-window -t yancy:3 mysqld         --skip-grant-tables --datadir=$HOME/perl/Yancy/db
-<span class="fragment" data-fragment-index="1">fi</span>
-<span class="fragment">tmux attach -t yancy</span>
+</section><section>
+
+<pre><code data-noescape><span class="fragment" data-fragment-index="8">if ! tmux has-session -t yancy; then</span>
+tmux new -s yancy -d
+<span class="fragment" data-fragment-index="1">tmux new-window -t yancy:2</span>
+<span class="fragment" data-fragment-index="2">tmux split-window -t yancy:2 -v</span>
+<span class="fragment" data-fragment-index="3">tmux send-keys -t yancy:1 vim Enter</span>
+<span class="fragment" data-fragment-index="4">tmux send-keys -t yancy:2.0 morbo bin/yancy Enter</span>
+<span class="fragment" data-fragment-index="5">tmux send-keys -t yancy:2.1 export TEST_YANCY_EXAMPLES=1 Enter</span>
+<span class="fragment" data-fragment-index="6">tmux new-window -t yancy:3 postgres -D perl/Yancy/db/pg</span>
+<span class="fragment" data-fragment-index="7">tmux split-window -t yancy:3 mysqld --datadir=$HOME/perl/Yancy/db/mysql</span>
+<span class="fragment" data-fragment-index="8">fi</span>
+<span class="fragment" data-fragment-index="9">tmux attach -t yancy</span>
 </code></pre>
 
     </section>
     <section>
 
-<h1>Existing Solutions</h1>
+<h1>Other Solutions</h1>
+<h2 class="fragment">Tmuxifier</h2>
+<h2 class="fragment">Teamocil</h2>
 
 <aside class="notes">There are some existing solutions for building Tmux sessions, if you
 don't want to manage it yourself.</aside>
-
-    </section>
-    <section>
-
-<h1>Tmuxifier</h1>
-
-<aside class="notes">Tmuxifier is basically shell scripts like this with a nice command
-tool for managing sessions and windows.</aside>
-
-    </section>
-    <section>
-
-<h1>Teamocil</h1>
-
-<aside class="notes">Teamocil is a bit different: It uses YAML files to configure sessions.
-Same concept though: It's building Tmux sessions.</aside>
 
     </section>
 </section>
