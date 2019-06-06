@@ -107,7 +107,7 @@ automatically to change things. I just need to write the SQL to do it.</aside>
 ><span class="fragment">plugin 'Yancy', {</span>
     <span class="fragment">backend => { Sqlite => app->db },</span>
     <span class="fragment">read_schema => 1,</span>
-    <span class="fragment">collections => {
+    <span class="fragment">schema => {
         pages => {
             properties => {</span>
                 <span class="fragment">markdown => {</span>
@@ -130,7 +130,7 @@ connection by calling my `db` helper. Then I tell it to read my schema
 from the database.</p>
 <p>I need to do one more thing to configure Yancy: I need to tell Yancy how
 to take my Markdown and where to put the HTML. Yancy calls tables
-"collections", and uses JSON schema to configure them. Since most of the
+"schemas", and uses JSON schema to configure them. Since most of the
 schema was configured with `read_schema`, I only need to configure the
 "markdown" column to say it should be formatted as "markdown" and that
 the HTML should be stored in the "html" column.</p>
@@ -171,7 +171,7 @@ from the database, that code has already been written for me in the
 <pre><code data-noescape class="lang-perl">get '/*id' =&gt; {
     <span class="fragment">controller => 'yancy', # Yancy::Controller::Yancy</span>
     <span class="fragment">action => 'get',</span>
-    <span class="fragment">collection => 'pages',</span>
+    <span class="fragment">schema => 'pages',</span>
     <span class="fragment">template => 'pages',</span>
     <span class="fragment">id => 'index', # Default to index page
 };</span>
@@ -180,7 +180,7 @@ from the database, that code has already been written for me in the
 and the `get` action (which is the name of a subroutine in the
 Yancy::Controller::Yancy module). The `get` action will display a single
 item from the database based on the "id" stash variable, which we have
-in our route path. The controller needs to know what `collection` to
+in our route path. The controller needs to know what `schema` to
 use, and I need to give it the name of a template (which I'll create
 next). Last, I want to specify a default ID of "index" so that if no
 path is given, the user sees my index page. So, with this route, a user

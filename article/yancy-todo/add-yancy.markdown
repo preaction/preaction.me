@@ -46,7 +46,7 @@ migrations have been applied. We don't need to use Yancy to manage this,
 so we'll go over how to remove this later.
 
 The left-side menu lists all of the tables we have in our database,
-which Yancy calls "Collections". Click on the "todo_item" collection to
+which Yancy calls "schemas". Click on the "todo_item" schema to
 see the todo item table, and then click on the "Add Item" button to add
 new rows.
 
@@ -63,8 +63,8 @@ Right now, Yancy only knows what it read from our database. We can give
 Yancy more information to make the forms better, adding titles,
 descriptions, and additional validations.
 
-Yancy configures collections using [JSON
-schema](http://json-schema.org). Each collection corresponds to
+Yancy configures schemas using [JSON
+schema](http://json-schema.org). Each schema corresponds to
 a database table and describes a single row in that table. Additional,
 Yancy-specific fields help to control Yancy itself. These custom fields
 begin with a `x-` to prevent overlap with future JSON schema
@@ -72,12 +72,12 @@ development.
 
 First, we'll remove the `mojo_migrations` table. We don't need Yancy to
 manage that. For that, we'll use the `x-ignore` Yancy option to tell
-Yancy to ignore the `mojo_migrations` collection.
+Yancy to ignore the `mojo_migrations` schema.
 
     plugin Yancy => {
         backend => { Pg => app->pg },
         read_schema => 1,
-        collections => {
+        schema => {
             mojo_migrations => {
                 'x-ignore' => 1,
             },
@@ -89,16 +89,16 @@ Now if we reload the editor, we'll see only the two tables we want:
 
 Next, we should add some friendly descriptive text to our tables to make
 it easier to edit them. JSON Schema allows use to annotate our
-collections with `title` and `description` fields. Yancy allows these
+schema with `title` and `description` fields. Yancy allows these
 fields to have Markdown, so we're using
 [Mojo::Util](http://mojolicious.org/perldoc/Mojo/Util)'s `unindent` and
 `trim` functions to keep our multi-line descriptions indented.
 
-Not only can we add a title and description to our collections, we can
-also add them to each column by declaring the column in the collection's
+Not only can we add a title and description to our schema, we can
+also add them to each column by declaring the column in the schema's
 `properties` field.
 
-    collections => {
+    schema => {
         mojo_migrations => {
             'x-ignore' => 1,
         },
@@ -184,7 +184,7 @@ Here's our completely-configured Yancy plugin in our application:
     plugin Yancy => {
         backend => { Pg => app->pg },
         read_schema => 1,
-        collections => {
+        schema => {
             mojo_migrations => {
                 'x-ignore' => 1,
             },

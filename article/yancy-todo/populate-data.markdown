@@ -253,7 +253,7 @@ Our full code now looks like this:
     plugin Yancy => {
         backend => { Pg => app->pg },
         read_schema => 1,
-        collections => {
+        schema => {
             mojo_migrations => {
                 'x-ignore' => 1,
             },
