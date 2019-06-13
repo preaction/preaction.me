@@ -1,0 +1,12 @@
+[Unit]
+Description=Live talk app
+After=nginx.service
+
+[Service]
+Environment=MOJO_HOME=/home/doug/app/live-app
+Environment=MOJO_REVERSE_PROXY=/live
+WorkingDirectory=/home/doug/app/live-app
+ExecStart=/usr/bin/carton exec perl myapp.pl daemon -l http://*:6038
+
+[Install]
+WantedBy=multi-user.target

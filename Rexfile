@@ -74,9 +74,13 @@ task web =>
         Rex::Logger::info( 'Deploying service config' );
         file '/home/doug/.config/systemd/user/todo-app.service',
             source => 'etc/todo-app.service';
+        file '/home/doug/.config/systemd/user/live-app.service',
+            source => 'live-app/live-app.service';
 
         Rex::Logger::info( 'Starting' );
         run 'systemctl --user enable todo-app.service';
         run 'systemctl --user start todo-app.service';
+        run 'systemctl --user enable live-app.service';
+        run 'systemctl --user start live-app.service';
     };
 
