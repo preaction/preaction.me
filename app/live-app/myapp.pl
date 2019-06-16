@@ -2,8 +2,21 @@
 use v5.24;
 use Mojolicious::Lite;
 use experimental qw( signatures postderef );
+use Mojo::SQLite;
+use Mojo::JSON qw( encode_json decode_json );
+
+helper sqlite => sub {
+    state $sqlite = Mojo::SQLite->new( 'sqlite::temp:' );
+    return $sqlite;
+};
+app->sqlite->auto_migrate(1)->migrations->from_data;
+plugin AutoReload =>;
+
+# Login sessions expire after one week
+app->sessions->default_expiration( 60 * 60 * 24 * 7 );
 
 if ( my $path = $ENV{MOJO_REVERSE_PROXY} ) {
+    app->sessions->cookie_path( $ENV{MOJO_REVERSE_PROXY} );
     my @parts = grep { $_ } split m{/}, $path;
     app->hook( before_dispatch => sub {
         my ( $c ) = @_;
@@ -19,10 +32,28 @@ if ( my $path = $ENV{MOJO_REVERSE_PROXY} ) {
     });
 }
 
+plugin Yancy => {
+    backend => { Sqlite => app->sqlite },
+    read_schema => 1,
+};
+if ( $ENV{GITHUB_AUTH_SECRET} ) {
+    app->yancy->plugin( 'Auth::Github', {
+        schema => 'users',
+        client_id => $ENV{GITHUB_AUTH_CLIENT},
+        client_secret => $ENV{GITHUB_AUTH_SECRET},
+        username_field => 'username',
+    } );
+}
+
 my @subscribers;
 my @publishers;
 my $room = {};
 helper room => sub { $room };
+
+helper send_status => sub( $c ) {
+    $_->send( encode_json [ status => { users => @subscribers + @publishers } ] )
+        for @publishers;
+};
 
 websocket '/' => sub( $c ) {
     $c->inactivity_timeout( 60000 );
@@ -30,12 +61,24 @@ websocket '/' => sub( $c ) {
     $c->on(
         finish => sub( $c, @ ) {
             @subscribers = grep { $_ ne $c } @subscribers;
+            $c->send_status;
         },
     );
     if ( $room->{url} ) {
-        $c->send( $room->{url} );
+        $c->send( encode_json [ location => $room->{url} ] );
     }
+    $c->send_status;
 }, 'subscribe';
+
+post '/ask' => sub( $c ) {
+    my $question = $c->req->json;
+    for my $pub ( @publishers ) {
+        $pub->send( encode_json [ 'question.add', $question ] );
+    }
+    $c->render(
+        json => [ 'OK' ],
+    );
+};
 
 get '/' => 'index';
 
@@ -50,125 +93,485 @@ websocket '/new' => sub( $c ) {
     push @publishers, $c;
     $c->on( finish => sub( $c, @ ) {
         @publishers = grep { $_ ne $c } @publishers;
+        $c->send_status;
     } );
     $c->on( message => sub( $c, $msg ) {
-        $room->{url} = $msg;
+        my ( $event, $data ) = @{ decode_json $msg };
+        if ( $event eq 'location' ) {
+            $room->{url} = $data;
+        }
         $_->send( $msg ) for @subscribers;
     } );
+    $c->send_status;
+    $_->send( encode_json [ location => $room->{url} ] ) for @subscribers;
 }, 'publish';
-
-get '/new' => 'new';
 
 get '/test/1' => 'test/1';
 get '/test/2' => 'test/2';
 get '/test/3' => 'test/3';
 
+if ( app->yancy->can( 'auth' ) ) {
+    under app->yancy->auth->require_user;
+}
+get '/new' => 'new';
+
 app->start;
 __DATA__
 
 @@ layouts/default.html.ep
+<!DOCTYPE html>
+%= stylesheet '/yancy/font-awesome/css/font-awesome.css'
+%= stylesheet '/yancy/bootstrap.css'
 %= stylesheet begin
-    html, body {
+    html, body, #app {
         margin: 0;
         padding: 0;
-        min-height: 100%;
+        height: 100%;
+        position: relative;
     }
-    body {
+    #app {
         display: flex;
         flex-flow: column;
     }
+    .user header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition: 1s;
+        height: 36px;
+        background: white;
+        border-bottom: 3px solid black;
+        display: flex;
+        align-items: center;
+    }
+    .user header .toggle {
+        position: absolute;
+        top: 33px;
+        right: 32px;
+        border: 3px solid black;
+        border-radius: 0 0 5px 5px;
+        height: 25px;
+        width: 34px;
+        border-top: none;
+        background: white;
+        text-align: center;
+    }
     iframe {
-        display: none;
-        flex: 1 1;
+        flex: 1 1 100%;
         border: 0;
         margin: 0;
         padding: 0;
     }
-    form {
-        padding: 0.1em 0.4em;
+    iframe.disabled {
+        pointer-events: none;
+    }
+    header, header > form {
+        flex: 1 1 auto;
+        padding: 0.1rem;
         margin: 0;
         border-bottom: 3px solid black;
+        display: flex;
+        align-items: center;
+    }
+    header > *, header > form > * {
+        margin-right: .25rem;
+    }
+    header > :last-child, header > form > :last-child {
+        margin-right: 0;
+    }
+    header > form {
+        border-bottom: none;
+        padding: 0;
+    }
+    [name=url], .user header .status {
+        flex: 1 1 60vw;
+    }
+    .sidebar {
+        position: absolute;
+        top: 32px;
+        right: 0;
+        width: 20vw;
+        min-width: 300px;
+        height: 50vh;
+        min-height: 300px;
+        background: white;
+        z-index: 10;
+        border: 3px solid black;
+        border-top-color: white;
+        overflow: scroll;
+    }
+    .sidebar form {
+        margin: 0.1em;
+    }
+    .overlay {
+        position: absolute;
+        top: 36px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: white;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .user .overlay {
+        top: 0;
     }
 % end
+%= javascript '/yancy/jquery.js'
+%= javascript '/yancy/popper.js'
+%= javascript '/yancy/bootstrap.js'
+%= javascript '/yancy/vue.js'
+%= javascript 'https://cdnjs.cloudflare.com/ajax/libs/dexie/2.0.4/dexie.min.js'
+%= javascript 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js'
+
 %= content
 
 @@ new.html.ep
 % layout 'default';
-%= tag form => begin
-    %= label_for topic => 'Topic'
-    %= text_field topic => ( id => 'topic' )
-    %= label_for url => 'URL'
-    %= text_field url => ( id => 'url' )
-    %= submit_button
-% end
-<iframe></iframe>
+<main id="app">
+    <header>
+        <form @submit.prevent="start">
+            <i class="fa fa-compass fa-lg" aria-label="URL"></i>
+            <input v-model="currentPath" placeholder="URL" name="url" />
+            <button class="btn btn-success btn-sm">
+                <i class="fa fa-arrow-right fa-lg" aria-label="Go"></i>
+            </button>
+            <button :class="buttonClass('questions')" @click="showPanel('questions')"
+                class="btn btn-sm" type="button"
+            >
+                <i class="fa fa-question-circle fa-lg" aria-label="Questions"></i>
+            </button>
+            <button :class="panel == 'settings' ? 'btn-secondary' : 'btn-outline-secondary'"
+                @click="showPanel('settings')" class="btn btn-sm" type="button"
+            >
+                <i class="fa fa-gear fa-lg" aria-label="Session Settings"></i>
+            </button>
+        </form>
+    </header>
+
+    <div v-show="panel" class="sidebar" style="display: none">
+        <div v-show="panel == 'questions'">
+            <div class="btn-group btn-group-toggle">
+                <label class="btn btn-outline-secondary" :class="!listAllQuestions ? 'active' : ''">
+                    <input type="radio" name="listAllQuestions" autocomplete="off" v-model="listAllQuestions" checked @click="listAllQuestions = false" :value="false"> Unread
+                </label>
+                <label class="btn btn-outline-secondary" :class="listAllQuestions ? 'active' : ''">
+                    <input type="radio" name="listAllQuestions" v-model="listAllQuestions" @click="listAllQuestions = true" :value="true" autocomplete="off"> All
+                </label>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li v-for="question in listQuestions" @click="showQuestion( question )"
+                    class="list-group-item list-group-item-action"
+                    :class="showingQuestion === question ? 'active' : question.read ? 'list-group-item-light' : 'list-group-item-info'"
+                >
+                    <i>{{ question.name || 'Anonymous' }}</i>: {{ question.text }}
+                </li>
+            </ul>
+        </div>
+        <div v-show="panel == 'settings'">
+            <div>{{ status ? status.users : 0 }} connected</div>
+            <button class="btn btn-outline-danger">Close Room</button>
+        </div>
+    </div>
+
+    <div v-show="showingQuestion" class="overlay" style="display: none">
+        <h1>{{ showingQuestion && showingQuestion.text }}</h1>
+    </div>
+
+    <iframe ref="iframe"></iframe>
+</main>
+
 %= javascript begin
-window.addEventListener( 'DOMContentLoaded', function ( event ) {
-    var iframe = document.querySelector( 'iframe' );
-    var form = document.querySelector( 'form' );
-    var topicField = form.querySelector( '[name=topic]' );
-    var urlField = form.querySelector( '[name=url]' );
-    var ws;
+window.live = new Vue({
+    el: '#app',
+    data: function () {
+        var queryString = location.href.substring( location.href.indexOf('?') + 1 );
+        var query = {};
+        queryString.split( '&' ).forEach( function (pair) {
+            var parts = pair.split( '=' );
+            query[ parts[0] ] = decodeURIComponent( parts[1] );
+        } );
 
-    function sendLocation( newLocation ) {
-        urlField.value = newLocation.replace( location.origin, '' );
-        var state = {
-            "topic": topicField.value,
-            "location": newLocation
+        return {
+            status: {
+                users: 0
+            },
+            currentPath: query.url,
+            ws: null,
+            panel: null,
+            showingQuestion: null,
+            questions: [ ],
+            status: {
+                users: 0
+            },
+            listAllQuestions: false
         };
-        history.replaceState( state, "Ignore", '?' + queryString() );
-        ws.send( newLocation );
-    }
+    },
 
-    function queryString() {
-        var topic = topicField.value;
-        var url = urlField.value;
-        return 'topic=' + encodeURIComponent( topic ) + '&url=' + encodeURIComponent( url );
-    }
+    methods: {
+        updateHistory: _.throttle( function ( newPath ) {
+            history.replaceState( {}, newPath, '?url=' + encodeURIComponent( newPath ) );
+        }, 500, { leading: true, trailing: true } ),
 
-    form.addEventListener( 'submit', function ( event ) {
-        event.preventDefault();
-        var query = queryString();
-        ws = new WebSocket( '<%= url_for( 'publish' )->to_abs->scheme( 'ws' ) %>?' + query );
-        ws.onopen = function () {
-            iframe.addEventListener( 'load', function ( event ) {
-                sendLocation( iframe.contentWindow.location.toString() );
-                // Add all window/document listeners here. These are removed
-                // after every unload, so we have to add them again each time.
-                iframe.contentWindow.addEventListener( 'hashchange', function ( event ) {
-                    sendLocation( event.newURL );
+        sendLocation: function ( newLocation ) {
+            var newPath = newLocation.replace( location.origin, '' );
+            if ( newPath == this.currentPath ) {
+                return;
+            }
+            this.currentPath = newPath;
+            this.updateHistory( newPath );
+            this.sendEvent( 'location', newLocation );
+        },
+
+        sendEvent: function ( name, data ) {
+            this.ws.send( JSON.stringify( [ name, data ] ) );
+        },
+
+        handleEvent: function ( name, data ) {
+            switch ( name ) {
+                case 'question.add':
+                    data.read = false;
+                    this.questions.push( data );
+                    break;
+                case 'status':
+                    this.status = data;
+                    break;
+            }
+        },
+
+        showPanel: function ( name ) {
+            this.showingQuestion = null;
+            this.sendEvent( 'question.hide' );
+            if ( this.panel == name ) {
+                this.panel = null;
+            }
+            else {
+                this.panel = name;
+            }
+        },
+
+        showQuestion: function ( question ) {
+            if ( this.showingQuestion === question ) {
+                this.showingQuestion = null;
+                this.sendEvent( 'question.hide' );
+            }
+            else {
+                question.read = true;
+                this.showingQuestion = question;
+                this.sendEvent( 'question.show', question );
+            }
+        },
+
+        buttonClass: function ( name ) {
+            switch ( name ) {
+                case 'questions':
+                    return this.panel == 'questions' && this.unreadQuestions.length > 0 ? 'btn-danger'
+                        : this.panel == 'questions' ? 'btn-secondary'
+                        : this.unreadQuestions.length > 0 ? 'btn-outline-danger'
+                        : 'btn-outline-secondary';
+            }
+        },
+
+        start: function () {
+            var self = this;
+            var query = 'url=' + encodeURIComponent( this.currentPath );
+            var ws = this.ws = new WebSocket( '<%= url_for( 'publish' )->to_abs->scheme( 'ws' ) %>?' + query );
+            ws.onmessage = function ( msg ) {
+                var event = JSON.parse( msg.data );
+                self.handleEvent( event[0], event[1] );
+            };
+            ws.onopen = function () {
+                self.$refs.iframe.addEventListener( 'load', function ( event ) {
+                    self.sendLocation( self.$refs.iframe.contentWindow.location.toString() );
+                    // Add all window/document listeners here. These are removed
+                    // after every unload, so we have to add them again each time.
+                    self.$refs.iframe.contentWindow.addEventListener( 'hashchange', function ( event ) {
+                        self.sendLocation( event.newURL );
+                    } );
                 } );
-            } );
-            iframe.style.display = 'block';
-            iframe.contentWindow.location.href = urlField.value;
-        };
-    } );
-} );
+                self.$refs.iframe.style.display = 'block';
+                self.$refs.iframe.contentWindow.location.href = self.currentPath;
+            };
+        }
+
+    },
+
+    computed: {
+        unreadQuestions: function () {
+            return this.questions.filter( function (q) { return !q.read } );
+        },
+        listQuestions: function () {
+            return this.listAllQuestions ? this.questions : this.unreadQuestions;
+        }
+    },
+
+    created: function () {
+        if ( this.currentPath ) {
+            this.start();
+        }
+    }
+});
 
 % end
 
 @@ index.html.ep
 % layout 'default';
-<div id="welcome">
-    % if ( my $topic = $c->room->{topic} ) {
-        Connecting to <%= $topic %>
-    % }
-    % else {
-        Waiting for presenter...
-    % }
-</div>
-<iframe></iframe>
+<main class="user" id="app">
+    <header ref="header" :style="showHeader ? '' : 'top: -35px'"
+    >
+        <span class="status">{{ status }}
+            <a v-if="currentLocation" @click.prevent="window.open(currentLocation)"
+                :href="currentLocation">{{ currentLocation }}</a>
+        </span>
+        <button :class="buttonClass('question')" @click="showPanel('question')"
+            class="btn btn-sm"
+        >Ask a Question</button>
+        <div @click="showHeader ? showHeader = false : showHeader = true" class="toggle">
+            <i class="fa fa-caret-up"
+                style="transition: 1s; transform: rotate(0deg)"
+                :style="showHeader ? 'transform: rotate(180deg)' : ''"
+            ></i>
+        </div>
+    </header>
+    <iframe :class="mouseDisabled ? 'disabled' : ''" ref='iframe'
+    ></iframe>
+    <div v-show="panel" class="sidebar" style="display: none">
+        <div v-show="panel == 'question'">
+            <form class="form" @submit.prevent="postQuestion">
+                <div class="form-group">
+                    <label for="questionName">Name</label>
+                    <input type="text" class="form-control" id="questionName"
+                        placeholder="Enter name" v-model="question.name"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="questionText">Question</label>
+                    <textarea id="questionText" v-model="question.text"
+                        @keydown.ctrl.enter.prevent="postQuestion"
+                        @keydown.meta.enter.prevent="postQuestion"
+                        class="form-control" placeholder="Question"
+                    ></textarea>
+                </div>
+                <button class="btn btn-primary">Submit</button>
+                <button @click.prevent="panel = null; showHeader = false;"
+                    class="btn btn-secondary">Close</button>
+            </form>
+        </div>
+    </div>
+
+    <div v-show="showingQuestion" class="overlay" style="display: none">
+        <h1>{{ showingQuestion && showingQuestion.text }}</h1>
+    </div>
+
+</main>
+
 %= javascript begin
-window.addEventListener( 'DOMContentLoaded', function ( event ) {
-    var welcome = document.querySelector( '#welcome' );
-    var iframe = document.querySelector( 'iframe' );
-    var ws = new WebSocket( '<%= url_for( 'subscribe' )->to_abs->scheme( 'ws' ) %>/' );
-    ws.onmessage = function ( msg ) {
-        welcome.style.display = 'none';
-        iframe.style.display = 'block';
-        iframe.contentWindow.location.href = msg.data;
-    };
-} );
+window.live = new Vue({
+    el: '#app',
+    data: function () {
+        return {
+            ws: null,
+            mouseDisabled: true,
+            currentLocation: null,
+            showHeader: true,
+            status: 'Connecting...',
+            panel: null,
+            question: {
+                name: '',
+                text: ''
+            },
+            showingQuestion: null
+        };
+    },
+    methods: {
+        buttonClass: function ( name ) {
+            switch ( name ) {
+                case 'question':
+                    return this.panel == 'question' ? 'btn-secondary'
+                        : 'btn-outline-secondary';
+            }
+        },
+
+        showPanel: function ( name ) {
+            this.showHeader = true;
+            if ( this.panel == name ) {
+                this.panel = null;
+            }
+            else {
+                this.panel = name;
+                if ( this.panel == 'question' ) {
+                    this.$nextTick( function () {
+                        $( '#questionName' ).focus();
+                    } );
+                }
+            }
+        },
+
+        sendEvent: function ( name, data ) {
+            this.ws.send( JSON.stringify( [ name, data ] ) );
+        },
+
+        updateLocation: function ( newLocation ) {
+            var iframe = this.$refs.iframe;
+            this.status = '';
+            this.showHeader = !!this.panel;
+            iframe.style.display = 'block';
+            if ( newLocation.match( /^\// ) ) {
+                newLocation = location.protocol + '//' + location.host + newLocation;
+            }
+            iframe.contentWindow.location.href = this.currentLocation = newLocation;
+        },
+
+        connect: function () {
+            var self = this;
+            var ws = this.ws = new WebSocket( '<%= url_for( 'subscribe' )->to_abs->scheme( 'ws' ) %>/' );
+            ws.onmessage = function ( msg ) {
+                var event = JSON.parse( msg.data );
+                self.handleEvent( event[0], event[1] );
+            };
+            this.status = 'Waiting for presenter...';
+        },
+
+        handleEvent: function ( name, data ) {
+            switch ( name ) {
+                case 'location':
+                    this.updateLocation( data );
+                    break;
+                case 'question.show':
+                    this.showingQuestion = data;
+                    break;
+                case 'question.hide':
+                    this.showingQuestion = null;
+                    break;
+            }
+        },
+
+        postQuestion: function () {
+            if ( !this.question.text ) {
+                return;
+            }
+            var self = this;
+            $.post({
+                url: '/ask',
+                dataType: 'json',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify( this.question )
+            })
+            .done( function () {
+                self.question = {};
+            } );
+        }
+
+    },
+    created: function () {
+        setTimeout( _.bind( this.connect, this ), 3000 );
+    }
+});
 % end
 
 @@ test/1.html.ep
@@ -187,3 +590,13 @@ window.addEventListener( 'DOMContentLoaded', function ( event ) {
 <h1>Test 3</h1>
 <a href="/test/2">Prev</a>
 
+@@ migrations
+-- 1 up
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(100)
+);
+INSERT INTO users ( username ) VALUES ( 'preaction' );
+-- 1 down
+DROP TABLE users;
