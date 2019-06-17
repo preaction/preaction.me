@@ -201,13 +201,28 @@
             // Full list of configuration options available at:
             // https://github.com/hakimel/reveal.js#configuration
             Reveal.initialize({
-                controls: false,
-                progress: false,
-                history: true,
-                center: true,
-                fragmentInURL: true,
-
-                transition: 'none', // none/fade/slide/convex/concave/zoom
+                <%
+                    use Mojo::JSON qw( false true );
+                    use Scalar::Util qw( blessed );
+                    my %conf = (
+                        controls => false,
+                        progress => false,
+                        history => true,
+                        center => true,
+                        fragmentInURL => true,
+                        navigationMode => 'linear',
+                        viewDistance => 10,
+                        transition => 'none', # none/fade/slide/convex/concave/zoom
+                        %{ $page->data->{reveal} || {} },
+                    );
+                %>
+                % for my $key ( keys %conf ) {
+                    "<%= $key %>": <%=
+                        blessed $conf{ $key }
+                            ? $conf{ $key }
+                            : qq{"$conf{ $key }"}
+                    %>,
+                % }
 
                 // Optional reveal.js plugins
                 dependencies: [

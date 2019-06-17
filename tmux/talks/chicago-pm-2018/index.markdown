@@ -3,6 +3,9 @@ title: Organized Development With Tmux
 layout: reveal.html
 data:
     topic_url: preaction.me/tmux
+    reveal:
+        minScale: 1
+        maxScale: 1
 ---
 
 <div class="slides">
@@ -44,14 +47,14 @@ data:
         have a bar at the bottom of the window. This is the Tmux status
         bar.</aside>
     </section>
-    <section>
-        <img alt="Tmux window with session name highlighted" src="starting-tmux-3-session-name.png">
+    <section data-background-color="#111">
+        <img alt="Tmux window with session name highlighted" src="starting-tmux-2.1-session-name.png">
         <aside class="notes">Over in the bottom left in square brackets
         we have the session name, which defaults to <code>0</code>.
         We'll talk about using session names later.</aside>
     </section>
-    <section>
-        <img alt="Tmux window with window information highlighted" src="starting-tmux-4-window.png">
+    <section data-background-color="#111">
+        <img alt="Tmux window with window information highlighted" src="starting-tmux-2.2-window.png">
         <h1 class="fragment solarized-bar-text absolute-center">
             <span class="fragment highlight-current-purple">0</span>:<span class="fragment highlight-current-purple">zsh</span><span class="fragment highlight-current-purple">*</span>
         </h1>
@@ -66,29 +69,29 @@ data:
         the most useful part of Tmux, and we'll spend a lot of time
         talking about them. </aside>
     </section>
-    <section>
-        <img alt="Tmux window with bottom right corner highlighted" src="starting-tmux-5-info-box.png">
+    <section data-background-color="#111">
+        <img alt="Tmux window with bottom right corner highlighted" src="starting-tmux-2.3-info-box.png">
         <aside class="notes">Finally, on the right, we have some
         information about our machine: My laptop's hostname is
         &quot;gwen.local&quot;, and this screenshot was taken at 8:32 PM
         on May 22, 2018.</aside>
     </section>
     <section>
-        <img alt="Tmux window with 'ps u' typed in a shell prompt" src="starting-tmux-6-type-command.png">
+        <img alt="Tmux window with 'ps u' typed in a shell prompt" src="starting-tmux-3-type-command.png">
         <aside class="notes">Otherwise, this is just what we had without
         Tmux. We can type a command into our shell and execute
         it...</aside>
     </section>
     <section>
-        <img alt="Tmux window with output from 'ps u'" src="starting-tmux-7-run-command.png">
+        <img alt="Tmux window with output from 'ps u'" src="starting-tmux-4-run-command.png">
         <aside class="notes">and the output is displayed on our screen. Amazing!</aside>
     </section>
     <section>
-        <img alt="Tmux window with 'exit' typed in a shell prompt" src="starting-tmux-8-type-exit.png">
+        <img alt="Tmux window with 'exit' typed in a shell prompt" src="starting-tmux-5-type-exit.png">
         <aside class="notes">And then when we're done, we can exit our shell</aside>
     </section>
     <section>
-        <img alt="Terminal window after exiting Tmux" src="starting-tmux-9-exited.png">
+        <img alt="Terminal window after exiting Tmux" src="starting-tmux-6-exited.png">
         <aside class="notes">And we exit Tmux.</aside>
     </section>
 </section>
@@ -104,11 +107,11 @@ data:
         return.</aside>
     </section>
     <section>
-        <img alt="Terminal window with the command 'tmux' typed-in" src="detach-1-run-tmux.png">
+        <img alt="Terminal window with the command 'tmux' typed-in" src="starting-tmux-1-run-tmux.png">
         <aside class="notes">So let's start Tmux again</aside>
     </section>
     <section>
-        <img alt="Terminal window running 'tmux'" src="detach-2-inside-tmux.png">
+        <img alt="Terminal window running 'tmux'" src="starting-tmux-2-inside-tmux.png">
         <h1 class="fragment absolute-center bg-solarized">
             <kbd>
                 <span class="fragment highlight-current-red">Ctrl+b</span>
@@ -125,19 +128,19 @@ data:
         prefer &quot;Ctrl+a&quot;.</aside>
     </section>
     <section>
-        <img alt="Terminal showing as detached from tmux session 0" src="detach-3-detached.png">
+        <img alt="Terminal showing as detached from tmux session 0" src="detach-1-detached.png">
         <aside class="notes">When we detach, we're back in our terminal
         window where we left off. But our Tmux session is still running.</aside>
     </section>
     <section>
-        <img alt="Terminal showing &quot;tmux attach-session&quot; typed in a prompt" src="detach-4-run-attach.png">
+        <img alt="Terminal showing &quot;tmux attach-session&quot; typed in a prompt" src="detach-2-run-attach.png">
         <aside class="notes">To get back to our session, we can run
         &quot;tmux attach-session&quot;, or for brevity &quot;tmux
         attach&quot;, or for even more brevity &quot;tmux
         a&quot;.</aside>
     </section>
     <section>
-        <img alt="Terminal window running 'tmux'" src="detach-5-back-inside-tmux.png">
+        <img alt="Terminal window running 'tmux'" src="detach-3-back-inside-tmux.png">
         <aside class="notes">When we do that, we're right back where we left off.</aside>
     </section>
     <section>
@@ -166,16 +169,16 @@ data:
         multiple terminals. The first way we can do that is with windows.</aside>
     </section>
     <section>
-        <img alt="Terminal window running 'tmux'" src="windows-1-back-in-tmux.png">
+        <img alt="Terminal window running 'tmux'" src="starting-tmux-2-inside-tmux.png">
         <aside class="notes">Here we are back in Tmux.</aside>
     </section>
     <section>
-        <img alt="Terminal window running 'tmux'" src="windows-2-the-first-window.png">
+        <img alt="Terminal window running 'tmux'" src="windows-1-running-vim.png">
         <aside class="notes">Remember that we already have one window, window 0. Let's open a
         program in this window. I'll open my editor, Vim.</aside>
     </section>
     <section>
-        <img alt="Terminal window showing the vim startup screen" src="windows-3-running-vim.png">
+        <img alt="Terminal window showing the vim startup screen" src="windows-2-inside-vim.png">
         <h1 class="fragment absolute-center bg-solarized">
             <kbd>
                 <span class="fragment highlight-current-red">Ctrl+b</span>
@@ -188,12 +191,12 @@ data:
         window&quot;.</aside>
     </section>
     <section>
-        <img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-4-now-there-are-two-of-them.png">
+        <img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-3-new-window.png">
         <aside class="notes">Now we have a new window, with a new shell.</aside>
     </section>
-    <section>
+    <section data-background-color="#111">
 
-<img alt="Tmux window with the new window in the status bar highlighted" src="windows-5-new-window-highlighted.png">
+<img alt="Tmux window with the new window in the status bar highlighted" src="windows-3.1-new-window.png">
 
 <h1 class="fragment solarized-bar-text absolute-center">
     <span class="fragment highlight-current-purple">1</span>:<span class="fragment highlight-current-purple">zsh</span><span class="fragment highlight-current-purple">*</span>
@@ -203,9 +206,9 @@ data:
 current window.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
-<img alt="Tmux window with the previous window in the status bar highlighted" src="windows-6-old-window-highlighted.png">
+<img alt="Tmux window with the previous window in the status bar highlighted" src="windows-3.2-old-window.png">
 
 <h1 class="fragment solarized-bar-text absolute-center">
     0:vim<span class="fragment highlight-current-purple">-</span>
@@ -219,7 +222,7 @@ here.</aside>
     </section>
     <section>
 
-<img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-4-now-there-are-two-of-them.png">
+<img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-3-new-window.png">
 
 <h1 class="fragment absolute-center bg-solarized">
     <kbd>Ctrl+b l</kbd>
@@ -239,7 +242,7 @@ windows start at 1.</aside>
     </section>
     <section>
 
-<img alt="Terminal window showing the vim startup screen" src="windows-7-back-to-vim.png">
+<img alt="Terminal window showing the vim startup screen" src="windows-4-back-to-vim.png">
 
 <h1 class="fragment absolute-center bg-solarized">
     <kbd>Ctrl+b l</kbd>
@@ -255,21 +258,21 @@ or &quot;Ctrl+b 1&quot; to go directly to window 1.</aside>
     </section>
     <section>
 
-<img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-4-now-there-are-two-of-them.png">
+<img alt="Tmux window showing a command prompt and two windows in the status bar" src="windows-3-new-window.png">
 
 <aside class="notes">Then we can run commands in this new window</aside>
 
     </section>
     <section>
 
-<img alt="Tmux window showing the manual page for Tmux" src="windows-8-run-command.png">
+<img alt="Tmux window showing the manual page for Tmux" src="windows-5-run-command.png">
 
 <aside class="notes">Like look up some documentation for Tmux</aside>
 
     </section>
     <section>
 
-<img alt="Tmux window showing the word &quot;exit&quot; typed into the command prompt" src="windows-9-type-exit.png">
+<img alt="Tmux window showing the word &quot;exit&quot; typed into the command prompt" src="windows-6-type-exit.png">
 
 <aside class="notes">And then when we're done, we exit the
 shell</aside>
@@ -277,14 +280,14 @@ shell</aside>
     </section>
     <section>
 
-<img alt="Tmux window showing our first window with Vim after the second window is destroyed" src="windows-10-back-to-vim-again.png">
+<img alt="Tmux window showing our first window with Vim after the second window is destroyed" src="windows-7-back-to-vim-again.png">
 
 <aside class="notes">We're back to our last window.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
-<img alt="Tmux window highlighting the area of the status bar where the destroyed window was" src="windows-11-window-destroyed.png">
+<img alt="Tmux window highlighting the area of the status bar where the destroyed window was" src="windows-7.1-window-destroyed.png">
 
 <aside class="notes">And our new window is destroyed.</aside>
 
@@ -348,7 +351,7 @@ square bracket (&quot;[&quot;).</aside>
 <aside class="notes">In &quot;copy mode&quot; we have two changes to our window.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the window name in the status bar enclosed in
 square brackets" src="scroll-4.1-window-name-brackets.png">
@@ -361,13 +364,13 @@ square brackets" src="scroll-4.1-window-name-brackets.png">
 square brackets to show we're in copy mode</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the scroll position indicator in the upper
 right" src="scroll-4.2-scroll-position.png">
 
 <h1 class="fragment solarized-search-text absolute-center nowrap">
-    [<span class="fragment highlight-current-white">0</span>/<span class="fragment highlight-current-white">4</span>]
+    [<span class="fragment highlight-current-white">0</span>/<span class="fragment highlight-current-white">198</span>]
 </h1>
 
 <aside class="notes">And there are two numbers in the upper right of the screen. &gt;&gt; The
@@ -434,14 +437,14 @@ bar" src="scroll-6-search-up.png">
 key.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window showing (search up) in the status bar,
 highlighted" src="scroll-6.1-search-up-highlights.png">
 
 <h1 class="fragment absolute-center solarized-search-text nowrap">
     (search up)
-    <kbd class="fragment">login</kbd>
+    <kbd class="fragment">tmux</kbd>
 </h1>
 
 <aside class="notes">Tmux shows us that we're searching up. &gt;&gt; Then we type what we want to
@@ -455,7 +458,7 @@ look for, and press Enter.</aside>
 <aside class="notes">Now Tmux shows us our results</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the highlighted search
 results" src="scroll-7.1-highlight-search-words.png">
@@ -463,7 +466,7 @@ results" src="scroll-7.1-highlight-search-words.png">
 <aside class="notes">... highlights the matched text...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the highlighted search
 results" src="scroll-7.2-highlight-cursor.png">
@@ -471,7 +474,7 @@ results" src="scroll-7.2-highlight-cursor.png">
 <aside class="notes">... putting our cursor on the bottom one, since we're searching up ...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the search status bar at the
 top" src="scroll-7.3-highlight-result-status.png">
@@ -500,7 +503,7 @@ result" src="scroll-8-next-result.png">
 <aside class="notes">Pressing &quot;n&quot; to go to the next result...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window showing cursor on the next
 result, highlighted" src="scroll-8.1-next-result-highlighted.png">
@@ -638,16 +641,6 @@ and then the right-bottom pane split vertically" src="panes-4-split-more.png">
 the right-bottom pane split vertically, and then the right-bottom-right
 pane split horizontally" src="panes-5-split-alive.png">
 
-<aside class="notes">and going...</aside>
-
-    </section>
-    <section>
-
-<img alt="Tmux window split vertically, with the right pane split horizontally,
-the right-bottom pane split vertically, the right-bottom-right
-pane split horizontally, and the right-bottom-right-bottom pane split
-vertically" src="panes-6-split-up-sticks.png">
-
 <aside class="notes">and going on in to uselessness. Each pane has its own shell and scroll
 buffer. When we're done with a pane, we can exit our shell...</aside>
 
@@ -655,17 +648,8 @@ buffer. When we're done with a pane, we can exit our shell...</aside>
     <section>
 
 <img alt="Tmux window split vertically, with the right pane split horizontally,
-the right-bottom pane split vertically, and then the right-bottom-right
-pane split horizontally" src="panes-5-split-alive.png">
-
-<aside class="notes">... and the space gets reclaimed</aside>
-
-    </section>
-    <section>
-
-<img alt="Tmux window split vertically, with the right pane split horizontally,
 and then the right-bottom pane split vertically" src="panes-4-split-more.png">
-
+<aside class="notes">... and the space gets reclaimed</aside>
     </section>
     <section>
 
@@ -691,7 +675,7 @@ switch panes to get back to our editor, we can use &gt;&gt; &quot;Ctrl+b&quot; a
     <section>
 
 <img alt="Tmux window split vertically showing vim on the left, a shell on the
-right, with the cursor in the vim window" src="panes-7-editor-selected.png">
+right, with the cursor in the vim window" src="panes-6-editor-selected.png">
 
 <h1 class="fragment absolute-center bg-solarized">
     <kbd>Ctrl+b z</kbd>
@@ -704,15 +688,15 @@ to look at a pane using all available space temporarily, we can use &gt;&gt;
     </section>
     <section>
 
-<img alt="Tmux window with editor pane zoomed" src="panes-8-zoom.png">
+<img alt="Tmux window with editor pane zoomed" src="panes-7-zoom.png">
 
 <aside class="notes">Now our editor takes up the full window...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window with editor pane zoomed showing window in status bar
-highlighted" src="panes-8.1-zoom-highlighted.png">
+highlighted" src="panes-7.1-zoom-highlighted.png">
 
 <h1 class="fragment solarized-bar-text absolute-center nowrap">
     0:vim*<span class="highlight-purple">Z</span>
@@ -783,14 +767,6 @@ you've never configured Tmux, you'll have to create this file.</aside>
     </section>
     <section>
 
-<img alt="vim window editing ~/.tmux.conf, a new
-file" src="config-2-editing-new-file.png">
-
-<aside class="notes">And it's currently blank, so let's add some configuration</aside>
-
-    </section>
-    <section>
-
 <h1>Setting the Prefix</h1>
 
 <aside class="notes">The first thing I do in my Tmux is change the prefix.</aside>
@@ -831,7 +807,7 @@ to stop a process.</aside>
     <section>
 
 <img alt="vim window editing ~/.tmux.conf, a new
-file" src="config-2-editing-new-file.png">
+file" src="config-1-edit-tmux-conf.png">
 
 <h2 class="fragment solarized-text absolute-center nowrap">
     <code>
@@ -851,7 +827,7 @@ option to make it a global setting &gt;&gt; and we set the &quot;prefix&quot; &g
     </section>
     <section>
 
-<img alt="vim window showing set prefix in config file" src="config-3-set-prefix.png">
+<img alt="vim window showing set prefix in config file" src="config-2-set-prefix.png">
 
 <h1 class="fragment solarized-text absolute-center nowrap">
     <code>
@@ -869,7 +845,7 @@ currently-running program. We can stop that behavior by &gt;&gt; using the
     <section>
 
 <img alt="vim window showing unbind command added to config
-file" src="config-4-unbind-old-prefix.png">
+file" src="config-3-unbind-old-prefix.png">
 
 <h2 class="fragment solarized-text absolute-center nowrap">
     <code>
@@ -890,7 +866,7 @@ program)</aside>
     <section>
 
 <img alt="vim window showing bind for send-prefix added to
-config" src="config-5-bind-send-prefix.png">
+config" src="config-4-bind-send-prefix.png">
 
 <aside class="notes">Now our prefix is Ctrl+s, Ctrl+b is just Ctrl+b, and pressing Ctrl+s
 twice sends one Ctrl+s to our current program. Note: I will keep calling
@@ -928,7 +904,7 @@ side of the keyboard to get to the first window on the left.</aside>
     <section>
 
 <img alt="vim window showing bind for send-prefix added to
-config" src="config-5-bind-send-prefix.png">
+config" src="config-4-bind-send-prefix.png">
 
 <h2 class="fragment solarized-text absolute-center nowrap">
     <code>
@@ -943,7 +919,7 @@ config" src="config-5-bind-send-prefix.png">
     </section>
     <section>
 
-<img alt="vim window showing set base-index" src="config-6-set-base-index.png">
+<img alt="vim window showing set base-index" src="config-5-set-base-index.png">
 
 <aside class="notes">Now our windows will start numbering from 1, not 0</aside>
 
@@ -1000,7 +976,7 @@ ruining whatever I'm trying to do.</aside>
     </section>
     <section>
 
-<img alt="vim window showing set base-index" src="config-6-set-base-index.png">
+<img alt="vim window showing set base-index" src="config-5-set-base-index.png">
 
 <h2 class="fragment solarized-text absolute-center nowrap">
     <code>
@@ -1017,7 +993,7 @@ right to me.</aside>
     </section>
     <section>
 
-<img alt="vim window showing set escape-time" src="config-7-escape-time.png">
+<img alt="vim window showing set escape-time" src="config-6-escape-time.png">
 
 <table class="fragment absolute-center bg-solarized character-map">
     <tr><td>⬅️</td><td>⬇️</td><td>⬆️</td><td>➡️</td></tr>
@@ -1031,7 +1007,7 @@ to &gt;&gt; H, J, K, L.</aside>
     </section>
     <section>
 
-<img alt="vim window showing set escape-time" src="config-7-escape-time.png">
+<img alt="vim window showing set escape-time" src="config-6-escape-time.png">
 
 <h3 class="fragment solarized-text absolute-center">
     <code class="nowrap">
@@ -1054,10 +1030,10 @@ bind l &gt;&gt; to right</aside>
     <section>
 
 <img alt="vim window showing binds for
-select-pane" src="config-8-bind-select-pane.png">
+select-pane" src="config-7-bind-select-pane.png">
 
 <aside class="notes">But we're not limited to only using the prefix: We can bind keys so
-they work all the time, not just after the prefix. Let's make it so
+they work all the time, not just after the prefix. I can make it so
 holding the Alt key and pressing h, j, k, or l will also switch between
 panes.</aside>
 
@@ -1065,17 +1041,21 @@ panes.</aside>
     <section>
 
 <img alt="vim window showing binds for
-select-pane" src="config-8-bind-select-pane.png">
+select-pane" src="config-7-bind-select-pane.png">
 
-<h3 class="solarized-text absolute-center">
+<h3 class="solarized-text absolute-center fragment" data-fragment-index="0">
     <code class="nowrap">
-        bind -n
-        <span class="fragment">M-h</span>
-        <span class="fragment">select-pane -L</span>
+        bind <span class="fragment" data-fragment-index="2">-n</span> <span class="fragment" data-fragment-index="1">M-</span>h select-pane -L
     </code>
-    <code class="fragment nowrap">bind -n M-j select-pane -D</code>
-    <code class="fragment nowrap">bind -n M-k select-pane -U</code>
-    <code class="fragment nowrap">bind -n M-l select-pane -R</code>
+    <code class="nowrap">
+        bind <span class="fragment" data-fragment-index="2">-n</span> <span class="fragment" data-fragment-index="1">M-</span>j select-pane -D
+    </code>
+    <code class="nowrap">
+        bind <span class="fragment" data-fragment-index="2">-n</span> <span class="fragment" data-fragment-index="1">M-</span>k select-pane -U
+    </code>
+    <code class="nowrap">
+        bind <span class="fragment" data-fragment-index="2">-n</span> <span class="fragment" data-fragment-index="1">M-</span>l select-pane -R
+    </code>
 </h3>
 
 <aside class="notes">So this time we use &gt;&gt; bind with the -n flag for &quot;no prefix&quot;. We bind &quot;Alt&quot; &quot;h&quot;.
@@ -1083,13 +1063,6 @@ The &quot;M&quot; stands for Meta, but since keyboards rarely have Meta keys, th
 Alt key is usually used. &gt;&gt; And Alt-h selects the pane to the left.
 Again, we do this for &gt;&gt; down, &gt;&gt; up, and &gt;&gt;
 right.</aside>
-
-    </section>
-    <section>
-
-<img alt="vim window showing meta binds" src="config-9-bind-alt-select-pane.png">
-
-<aside class="notes">Now we can move through panes using Alt and h, j, k, and l.</aside>
 
     </section>
     <section>
@@ -1103,7 +1076,7 @@ inside our current session.</aside>
     </section>
     <section>
 
-<img alt="vim window showing saved config file" src="config-10-config-saved.png">
+<img alt="vim window showing saved config file" src="config-8-config-saved.png">
 
 <h1 class="fragment absolute-center bg-solarized">
     <kbd>Ctrl+b :</kbd>
@@ -1116,15 +1089,15 @@ To show the command prompt, &gt;&gt; press Ctrl+b and then the colon key (<code>
     </section>
     <section>
 
-<img alt="tmux window showing the command prompt" src="config-11-command-prompt.png">
+<img alt="tmux window showing the command prompt" src="config-9-command-prompt.png">
 
 <aside class="notes">The status bar changes to the command bar</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="tmux window highlighting the command
-bar" src="config-11.1-command-prompt-highlighted.png">
+bar" src="config-9.1-command-prompt-highlighted.png">
 
 <aside class="notes">The command bar lets us execute Tmux commands. Everything we've
 written in our configuration file so far has been a Tmux command, and
@@ -1134,7 +1107,7 @@ can do with them a bit later)</aside>
     </section>
     <section>
 
-<img alt="tmux window showing the command prompt" src="config-11-command-prompt.png">
+<img alt="tmux window showing the command prompt" src="config-9-command-prompt.png">
 
 <h2 class="fragment absolute-center solarized-search-text nowrap">
     :<kbd class="fragment">source</kbd>
@@ -1149,7 +1122,7 @@ inside to change your current settings.</aside>
     </section>
     <section>
 
-<img alt="vim window showing saved config file" src="config-10-config-saved.png">
+<img alt="vim window showing saved config file" src="config-10-configured.png">
 
 <aside class="notes">With that done, our prefix is now Ctrl+s, and we can use our HJKL keys
 to move between our panes. Notice that our windows are not numbered from
@@ -1220,7 +1193,7 @@ to white</aside>
 <img alt="vim window showing config file with status-bg and
 status-fg" src="theme-2-status-colors.png">
 
-<h2 class="fragment solarized-text absolute-center">
+<h3 class="fragment solarized-text absolute-center">
     <code class="nowrap" style="display: block">
         set -g
         <span class="fragment">status-left-length</span>
@@ -1231,7 +1204,7 @@ status-fg" src="theme-2-status-colors.png">
         <span class="fragment">status-right-length</span>
         <span class="fragment">20</span>
     </code>
-</h2>
+</h3>
 
 <aside class="notes">Next let's configure the amount of space the left side (our session
 name) and the right side (the date/time) are allowed to take up. We'll
@@ -1322,20 +1295,12 @@ features. But what if we don't want to reattach to our running session?</aside>
 <aside class="notes">we get a new session.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window with session 1 highlighted" src="sessions-2.1-session-name.png">
 
 <aside class="notes">Notice in the lower left of the Tmux status bar, our session is now
 <code>1</code></aside>
-
-    </section>
-    <section>
-
-<img alt="Tmux window with window 1 highlighted" src="sessions-2.2-window-1.png">
-
-<aside class="notes">Notice also that our first window is window 1, because of our
-configuration</aside>
 
     </section>
     <section>
@@ -1479,7 +1444,7 @@ typed-in" src="sessions-13-rename-command.png">
 <aside class="notes">our session is renamed.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting session
 name" src="sessions-14.1-name-highlight.png">
@@ -1497,7 +1462,7 @@ name" src="sessions-15-tmux-ls-new-name.png">
 ls</code>...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Terminal window showing &lt;code&gt;tmux ls&lt;/code&gt; output with new session name
 highlighted" src="sessions-15.1-tmux-ls-name-highlight.png">
@@ -1505,7 +1470,7 @@ highlighted" src="sessions-15.1-tmux-ls-name-highlight.png">
 <aside class="notes">... with our new name.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Terminal window showing &lt;code&gt;tmux ls&lt;/code&gt; output with attached
 highlighted" src="sessions-15.2-tmux-ls-attached-highlight.png">
@@ -1590,14 +1555,14 @@ reduce the inertia of context-switching for me.</aside>
 program that's currently running</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the vim window" src="naming-1.1-vim.png">
 
 <aside class="notes">This window is running vim, my editor.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the zsh window" src="naming-1.2-zsh.png">
 
@@ -1619,7 +1584,7 @@ program that's currently running</aside>
 &quot;zsh&quot;.</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window showing vim and 2 zsh windows" src="naming-2.1-zshs.png">
 
@@ -1629,7 +1594,7 @@ I using to look up documentation?</aside>
     </section>
     <section>
 
-<img alt="Tmux window showing vim and 2 zsh windows" src="naming-2.1-zshs.png">
+<img alt="Tmux window showing vim and 2 zsh windows" src="naming-2-too-many-shells.png">
 
 <div class="fragment absolute-center bg-solarized">
     <h1>
@@ -1670,21 +1635,21 @@ program in it.</aside>
 <aside class="notes">Now I can easily remember...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the &quot;edit&quot; window" src="naming-4.1-edit.png">
 
 <aside class="notes">... which window has my editor...</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the &quot;test&quot; window" src="naming-4.2-test.png">
 
 <aside class="notes">... which window is for tests</aside>
 
     </section>
-    <section>
+    <section data-background-color="#111">
 
 <img alt="Tmux window highlighting the &quot;docs&quot; window" src="naming-4.3-docs.png">
 
@@ -1713,7 +1678,7 @@ windows running the same programs over and again</aside>
     </section>
     <section>
 
-<h3>Blog Session</h3>
+<h3 class="absolute-center">Blog Session</h3>
 
 <img alt="tmux session named &quot;blog&quot; with one window, editor on the left, shell
 on the right" src="automation-1-blog-session.png">
@@ -1724,7 +1689,7 @@ side and a shell to run my website locally for testing.</aside>
     </section>
     <section>
 
-<h3>Backend Session</h3>
+<h3 class="absolute-center">Backend Session</h3>
 
 <img alt="tmux session named &quot;backend&quot; with one window named &quot;edit&quot;, and another
 named &quot;test&quot;" src="automation-2-backend-session.png">
@@ -1736,7 +1701,7 @@ for tests so I can quickly switch between testing and editing.</aside>
     </section>
     <section>
 
-<h3>CMS Session</h3>
+<h3 class="absolute-center">CMS Session</h3>
 
 <img alt="tmux session named &quot;yancy&quot; with three windows, &quot;edit&quot;, &quot;test&quot;, and
 &quot;db&quot;" src="automation-3-yancy-session.png">
@@ -1812,7 +1777,7 @@ attach to it!</aside>
 then pass <code>-d</code> to immediately "detach".</aside>
 
     </section>
-    <section data-transition="slide-out-left">
+    <section data-transition="slide-out">
 
 <img alt="Shell window with &quot;tmux new&quot; command executed&quot;" src="automation-5-new-session.png">
 
@@ -1820,7 +1785,7 @@ then pass <code>-d</code> to immediately "detach".</aside>
 prompt.</aside>
 
     </section>
-    <section data-transition="slide-in-left slide-out-right">
+    <section data-transition="slide-in slide-out">
 
 <img alt="Shell window with &quot;tmux ls&quot; command executed&quot;" src="automation-6-tmux-ls.png">
 
@@ -1836,18 +1801,19 @@ a shell script to do it for me.</aside>
 
 </section><section>
 
-<pre><code data-noescape><span class="fragment" data-fragment-index="8">if ! tmux has-session -t yancy; then</span>
-tmux new -s yancy -d
-<span class="fragment" data-fragment-index="1">tmux new-window -t yancy:2</span>
-<span class="fragment" data-fragment-index="2">tmux split-window -t yancy:2 -v</span>
-<span class="fragment" data-fragment-index="3">tmux send-keys -t yancy:1 vim Enter</span>
-<span class="fragment" data-fragment-index="4">tmux send-keys -t yancy:2.0 morbo bin/yancy Enter</span>
-<span class="fragment" data-fragment-index="5">tmux send-keys -t yancy:2.1 export TEST_YANCY_EXAMPLES=1 Enter</span>
-<span class="fragment" data-fragment-index="6">tmux new-window -t yancy:3 postgres -D perl/Yancy/db/pg</span>
-<span class="fragment" data-fragment-index="7">tmux split-window -t yancy:3 mysqld --datadir=$HOME/perl/Yancy/db/mysql</span>
-<span class="fragment" data-fragment-index="8">fi</span>
+<div style="text-align: left; font-size: 80%" class="bg-solarized"><code>
+<span class="fragment" data-fragment-index="8">if ! tmux has-session -t yancy; then</span><br>
+tmux new -s yancy -d<br>
+<span class="fragment" data-fragment-index="1">&nbsp;&nbsp;tmux new-window -t yancy:2</span><br>
+<span class="fragment" data-fragment-index="2">&nbsp;&nbsp;tmux split-window -t yancy:2 -v</span><br>
+<span class="fragment" data-fragment-index="3">&nbsp;&nbsp;tmux send-keys -t yancy:1 vim Enter</span><br>
+<span class="fragment" data-fragment-index="4">&nbsp;&nbsp;tmux send-keys -t yancy:2.0 \<br>&nbsp;&nbsp;&nbsp;&nbsp;morbo bin/yancy Enter</span><br>
+<span class="fragment" data-fragment-index="5">&nbsp;&nbsp;tmux send-keys -t yancy:2.1 \<br>&nbsp;&nbsp;&nbsp;&nbsp;export TEST_YANCY_EXAMPLES=1 Enter</span><br>
+<span class="fragment" data-fragment-index="6">&nbsp;&nbsp;tmux new-window -t yancy:3 \<br>&nbsp;&nbsp;&nbsp;&nbsp;postgres -D perl/Yancy/db/pg</span><br>
+<span class="fragment" data-fragment-index="7">&nbsp;&nbsp;tmux split-window -t yancy:3 \<br>&nbsp;&nbsp;&nbsp;&nbsp;mysqld --datadir=$HOME/db/mysql</span><br>
+<span class="fragment" data-fragment-index="8">fi</span><br>
 <span class="fragment" data-fragment-index="9">tmux attach -t yancy</span>
-</code></pre>
+</code></div>
 
     </section>
     <section>

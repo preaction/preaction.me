@@ -78,7 +78,7 @@ post '/ask' => sub( $c ) {
     $c->render(
         json => [ 'OK' ],
     );
-};
+}, 'question.add';
 
 get '/' => 'index';
 
@@ -87,7 +87,6 @@ websocket '/new' => sub( $c ) {
     if ( !@publishers ) {
         $room = {
             topic => $c->param( 'topic' ),
-            url => $c->param( 'url' ),
         };
     }
     push @publishers, $c;
@@ -144,6 +143,7 @@ __DATA__
         border-bottom: 3px solid black;
         display: flex;
         align-items: center;
+        z-index: 20;
     }
     .user header .toggle {
         position: absolute;
@@ -188,15 +188,15 @@ __DATA__
         flex: 1 1 60vw;
     }
     .sidebar {
-        position: absolute;
+        position: fixed;
         top: 32px;
         right: 0;
         width: 20vw;
         min-width: 300px;
-        height: 50vh;
+        height: 80vh;
         min-height: 300px;
         background: white;
-        z-index: 10;
+        z-index: 25;
         border: 3px solid black;
         border-top-color: white;
         overflow: scroll;
@@ -233,7 +233,7 @@ __DATA__
 % layout 'default';
 <main id="app">
     <header>
-        <form @submit.prevent="start">
+        <form @submit.prevent="handleSubmit">
             <i class="fa fa-compass fa-lg" aria-label="URL"></i>
             <input v-model="currentPath" placeholder="URL" name="url" />
             <button class="btn btn-success btn-sm">
@@ -268,6 +268,7 @@ __DATA__
                     :class="showingQuestion === question ? 'active' : question.read ? 'list-group-item-light' : 'list-group-item-info'"
                 >
                     <i>{{ question.name || 'Anonymous' }}</i>: {{ question.text }}
+                    <div v-if="question.email">{{ question.email }}</div>
                 </li>
             </ul>
         </div>
@@ -316,17 +317,30 @@ window.live = new Vue({
             history.replaceState( {}, newPath, '?url=' + encodeURIComponent( newPath ) );
         }, 500, { leading: true, trailing: true } ),
 
-        sendLocation: function ( newLocation ) {
+        updateLocation: function ( newLocation ) {
             var newPath = newLocation.replace( location.origin, '' );
             if ( newPath == this.currentPath ) {
                 return;
             }
             this.currentPath = newPath;
-            this.updateHistory( newPath );
-            this.sendEvent( 'location', newLocation );
+            this.sendLocation();
+        },
+
+        handleSubmit: function () {
+            this.sendLocation();
+            this.$refs.iframe.contentWindow.location.href = this.currentPath;
+        },
+
+        sendLocation: function () {
+            this.updateHistory( this.currentPath );
+            this.sendEvent( 'location', this.currentPath );
         },
 
         sendEvent: function ( name, data ) {
+            if ( !this.ws || !this.ws.send ) {
+                // XXX: We might need to queue these up to send them later...
+                return;
+            }
             this.ws.send( JSON.stringify( [ name, data ] ) );
         },
 
@@ -375,27 +389,28 @@ window.live = new Vue({
             }
         },
 
-        start: function () {
+        connect: function () {
             var self = this;
-            var query = 'url=' + encodeURIComponent( this.currentPath );
-            var ws = this.ws = new WebSocket( '<%= url_for( 'publish' )->to_abs->scheme( 'ws' ) %>?' + query );
+            var ws = this.ws = new WebSocket( '<%= url_for( 'publish' )->to_abs->scheme( 'ws' ) %>' );
             ws.onmessage = function ( msg ) {
                 var event = JSON.parse( msg.data );
                 self.handleEvent( event[0], event[1] );
             };
             ws.onopen = function () {
                 self.$refs.iframe.addEventListener( 'load', function ( event ) {
-                    self.sendLocation( self.$refs.iframe.contentWindow.location.toString() );
+                    self.updateLocation( self.$refs.iframe.contentWindow.location.toString() );
                     // Add all window/document listeners here. These are removed
                     // after every unload, so we have to add them again each time.
                     self.$refs.iframe.contentWindow.addEventListener( 'hashchange', function ( event ) {
-                        self.sendLocation( event.newURL );
+                        self.updateLocation( event.newURL );
                     } );
                 } );
-                self.$refs.iframe.style.display = 'block';
-                self.$refs.iframe.contentWindow.location.href = self.currentPath;
+                if ( self.currentPath ) {
+                    self.$refs.iframe.contentWindow.location.href = self.currentPath;
+                    self.sendLocation();
+                }
             };
-        }
+        },
 
     },
 
@@ -409,9 +424,7 @@ window.live = new Vue({
     },
 
     created: function () {
-        if ( this.currentPath ) {
-            this.start();
-        }
+        this.connect();
     }
 });
 
@@ -448,6 +461,13 @@ window.live = new Vue({
                     >
                 </div>
                 <div class="form-group">
+                    <label for="questionEmail">Email</label>
+                    <input type="text" class="form-control" id="questionEmail"
+                        placeholder="Enter email" v-model="question.email"
+                    >
+                    <small>Will not be shared. If I can't answer your question right away, I can e-mail you an answer.</small>
+                </div>
+                <div class="form-group">
                     <label for="questionText">Question</label>
                     <textarea id="questionText" v-model="question.text"
                         @keydown.ctrl.enter.prevent="postQuestion"
@@ -458,6 +478,8 @@ window.live = new Vue({
                 <button class="btn btn-primary">Submit</button>
                 <button @click.prevent="panel = null; showHeader = false;"
                     class="btn btn-secondary">Close</button>
+                <span v-if="questionSubmitting"><i class="fa fa-pulse fa-spinner"></i></span>
+                <span v-if="questionSuccess">Submitted!</span>
             </form>
         </div>
     </div>
@@ -483,7 +505,9 @@ window.live = new Vue({
                 name: '',
                 text: ''
             },
-            showingQuestion: null
+            showingQuestion: null,
+            questionSubmitting: false,
+            questionSuccess: false
         };
     },
     methods: {
@@ -511,6 +535,10 @@ window.live = new Vue({
         },
 
         sendEvent: function ( name, data ) {
+            if ( !this.ws || !this.ws.send ) {
+                // XXX: We might need to queue these up to send them later...
+                return;
+            }
             this.ws.send( JSON.stringify( [ name, data ] ) );
         },
 
@@ -553,9 +581,11 @@ window.live = new Vue({
             if ( !this.question.text ) {
                 return;
             }
+            this.questionSuccess = false;
+            this.questionSubmitting = true;
             var self = this;
             $.post({
-                url: '/ask',
+                url: '<%= url_for "question.add" %>',
                 dataType: 'json',
                 headers: {
                     'Content-Type': 'application/json'
@@ -563,7 +593,10 @@ window.live = new Vue({
                 data: JSON.stringify( this.question )
             })
             .done( function () {
-                self.question = {};
+                self.questionSuccess = true;
+                self.questionSubmitting = false;
+                setTimeout( function () { self.questionSuccess = false }, 3000 );
+                self.question.text = '';
             } );
         }
 
