@@ -67,6 +67,9 @@ websocket '/' => sub( $c ) {
     if ( $room->{url} ) {
         $c->send( encode_json [ location => $room->{url} ] );
     }
+    if ( $room->{text} ) {
+        $c->send( encode_json [ 'text.show' => $room->{text} ] );
+    }
     $c->send_status;
 }, 'subscribe';
 
@@ -98,6 +101,12 @@ websocket '/new' => sub( $c ) {
         my ( $event, $data ) = @{ decode_json $msg };
         if ( $event eq 'location' ) {
             $room->{url} = $data;
+        }
+        elsif ( $event eq 'text.show' ) {
+            $room->{text} = $data;
+        }
+        elsif ( $event eq 'text.hide' ) {
+            delete $room->{text};
         }
         $_->send( $msg ) for @subscribers;
     } );
@@ -219,6 +228,12 @@ __DATA__
     .user .overlay {
         top: 0;
     }
+    .showingText {
+        font-size: 6rem;
+        white-space: pre-wrap;
+        text-align: center;
+        padding: 1em;
+    }
 % end
 %= javascript '/yancy/jquery.js'
 %= javascript '/yancy/popper.js'
@@ -243,6 +258,11 @@ __DATA__
                 class="btn btn-sm" type="button"
             >
                 <i class="fa fa-question-circle fa-lg" aria-label="Questions"></i>
+            </button>
+            <button :class="buttonClass('text')" @click="showPanel('text')"
+                class="btn btn-sm" type="button"
+            >
+                <i class="fa fa-pencil-square-o fa-lg" aria-label="Show Text"></i>
             </button>
             <button :class="panel == 'settings' ? 'btn-secondary' : 'btn-outline-secondary'"
                 @click="showPanel('settings')" class="btn btn-sm" type="button"
@@ -272,14 +292,30 @@ __DATA__
                 </li>
             </ul>
         </div>
+        <div v-show="panel == 'text'">
+            <form class="form" @submit.prevent="showText">
+                <div class="form-group">
+                    <textarea id="textToShow" v-model="textToShow"
+                        @keydown.ctrl.enter.prevent="showText"
+                        @keydown.meta.enter.prevent="showText"
+                        class="form-control" placeholder="Text to Display"
+                    ></textarea>
+                </div>
+                <button v-if="!showingText" class="btn btn-primary">Show</button>
+                <button v-if="showingText" class="btn btn-primary">Update</button>
+                <button @click.prevent="hideText(); panel = null; showHeader = false;"
+                    class="btn btn-secondary">Remove</button>
+            </form>
+        </div>
         <div v-show="panel == 'settings'">
             <div>{{ status ? status.users : 0 }} connected</div>
             <button class="btn btn-outline-danger">Close Room</button>
         </div>
     </div>
 
-    <div v-show="showingQuestion" class="overlay" style="display: none">
-        <h1>{{ showingQuestion && showingQuestion.text }}</h1>
+    <div v-show="showingQuestion || showingText" class="overlay" style="display: none">
+        <h1 v-if="showingQuestion">{{ showingQuestion.text }}</h1>
+        <h1 v-if="showingText" class="showingText">{{ showingText }}</h1>
     </div>
 
     <iframe ref="iframe"></iframe>
@@ -308,7 +344,9 @@ window.live = new Vue({
             status: {
                 users: 0
             },
-            listAllQuestions: false
+            listAllQuestions: false,
+            showingText: '',
+            textToShow: ''
         };
     },
 
@@ -364,6 +402,11 @@ window.live = new Vue({
             }
             else {
                 this.panel = name;
+                if ( name == 'text' ) {
+                    this.$nextTick( function () {
+                        $( '#textToShow' ).focus();
+                    } );
+                }
             }
         },
 
@@ -379,12 +422,27 @@ window.live = new Vue({
             }
         },
 
+        showText: function ( ) {
+            this.showingText = this.textToShow;
+            this.textToShow = '';
+            this.sendEvent( 'text.show', this.showingText );
+        },
+
+        hideText: function ( ) {
+            this.showingText = '';
+            this.sendEvent( 'text.hide' );
+        },
+
         buttonClass: function ( name ) {
             switch ( name ) {
                 case 'questions':
                     return this.panel == 'questions' && this.unreadQuestions.length > 0 ? 'btn-danger'
                         : this.panel == 'questions' ? 'btn-secondary'
                         : this.unreadQuestions.length > 0 ? 'btn-outline-danger'
+                        : 'btn-outline-secondary';
+                case 'text':
+                    return this.showingText ? 'btn-primary'
+                        : this.panel == 'text' ? 'btn-secondary'
                         : 'btn-outline-secondary';
             }
         },
@@ -484,8 +542,9 @@ window.live = new Vue({
         </div>
     </div>
 
-    <div v-show="showingQuestion" class="overlay" style="display: none">
-        <h1>{{ showingQuestion && showingQuestion.text }}</h1>
+    <div v-show="showingQuestion || showingText" class="overlay" style="display: none">
+        <h1 v-if="showingQuestion">{{ showingQuestion.text }}</h1>
+        <h1 v-if="showingText" class="showingText">{{ showingText }}</h1>
     </div>
 
 </main>
@@ -507,7 +566,8 @@ window.live = new Vue({
             },
             showingQuestion: null,
             questionSubmitting: false,
-            questionSuccess: false
+            questionSuccess: false,
+            showingText: null
         };
     },
     methods: {
@@ -573,6 +633,12 @@ window.live = new Vue({
                     break;
                 case 'question.hide':
                     this.showingQuestion = null;
+                    break;
+                case 'text.show':
+                    this.showingText = data;
+                    break;
+                case 'text.hide':
+                    this.showingText = null;
                     break;
             }
         },
