@@ -520,6 +520,33 @@ FTP, SCP, Rsync. I wrote a very small shell script which uses this
 <aside class="notes"></aside>
 </section>
 
+<section>
+<section>
+<h1>Postscript</h1>
+</section>
+
+<section>
+<h1>Static Site Generator</h1>
+<h2 class="fragment">Yancy::Backend::Static</h2>
+</section>
+
+<section>
+<pre><code>---
+title: Yancy
+---
+# Yancy
+
+Yancy is a simple Content Management System written for
+[the Mojolicious web framework](http://mojolicious.org).</code></pre>
+</section>
+
+<section>
+<pre><code data-language="perl">plugin Yancy => {
+    backend => 'static:' . app->home,
+    read_schema => 1,
+};</code></pre>
+</section>
+
 <!-- Wrap-up -->
 <section>
 <h1>Questions?</h1>
