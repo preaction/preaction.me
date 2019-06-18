@@ -3,7 +3,20 @@ title: A Website For Yancy
 layout: reveal.html
 data:
     topic_url: preaction.me/mojo
+    reveal:
+        minScale: 1
+        maxScale: 1
 ---
+
+<style>
+.reveal pre.fragment-absolute, .reveal img.fragment-absolute {
+    margin-top: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+</style>
 
 <div class="slides">
 %= include 'deck/title.html.ep', title => $self->title
@@ -64,8 +77,8 @@ script into a full Mojolicious application module).</aside>
 <section>
 <h1>Database Schema</h1>
 <aside class="notes">The next thing I should do is create my database
-schema. Before I do that, I need to connect to my database using
-Mojo::SQLite.</aside>
+schema. Before I can deploy my schema, I need to connect to my database
+using Mojo::SQLite.</aside>
 </section>
 
 <section>
@@ -167,6 +180,33 @@ from the database, that code has already been written for me in the
 </section>
 
 <section>
+<h1>Controller</h1>
+<pre class="fragment"><code data-noescape class="lang-perl">get '/*id' =&gt; sub {
+    my ( $c ) = @_;
+    $c->render( text => 'Hello' );
+};</code></pre>
+<div style="position: relative; height: 8em">
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">package MyApp::Controller::MyController;
+use Mojo::Base 'Mojolicious::Controller';
+sub hello {
+    my ( $c ) = @_;
+    $c->render( text => 'Hello' );
+}</code></pre>
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">get '/*id' =&gt; {
+    controller =&gt; 'MyController',
+    action =&gt; 'hello',
+};</code></pre>
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">get '/*id' =&gt; 'MyController#hello';</code></pre>
+</div>
+<aside class="notes">A controller class is a class to hold code that
+renders a response. It's the C in the MVC pattern. The controller class
+lets me move the rendering code into another file and also re-use that
+code for multiple routes.</aside>
+</section>
+
+<!-- XXX The Stash -->
+
+<section>
 <h1>Yancy Controller</h1>
 <pre><code data-noescape class="lang-perl">get '/*id' =&gt; {
     <span class="fragment">controller => 'yancy', # Yancy::Controller::Yancy</span>
@@ -204,6 +244,18 @@ to be `app->start`. That starts the application.</aside>
 <span class="fragment">@@ pages.html.ep</span>
 <span class="fragment">%== $item->{html}</span>
 </code></pre>
+<div style="position: relative; height: 4em">
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">&lt;%== $item->{html} %&gt;</code></pre>
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">&lt;% my $html = $item->{html} %&gt;
+&lt;%== $html %&gt;</code></pre>
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">% if ( $item->{html} ) {
+    %%== $item->{html}
+%% }</code></pre>
+<pre class="fragment current-visible fragment-absolute"><code data-noescape class="lang-perl">% if ( $item->{html} ) {
+    &lt;h1&gt;&lt;%= $item->{path} %&gt;&lt;/h1&gt;
+    %%== $item->{html}
+%% }</code></pre>
+</div>
 <aside class="notes"><p>Now I can add the template to the file. Mojolicious
 allows templates to be in the `DATA` section of our application. Each
 file in the data section starts with `@@` and the file name,
@@ -230,27 +282,27 @@ and try it out:</aside>
 an index page yet. Let's do that using the Yancy editor.</aside>
 </section>
 
-<section>
+<section data-background-size="contain" data-background-image="editor-main.png">
 <h3>Yancy Editor</h3>
-<img src="editor-main.png">
+<!--<img src="editor-main.png">-->
 <aside class="notes"></aside>
 </section>
 
-<section>
-<h3>Add Item</h3>
-<img src="editor-add-item.png">
+<section data-background-size="contain" data-background-image="editor-add-item.png">
+<!--<h3>Add Item</h3>-->
+<!--<img src="editor-add-item.png">-->
 <aside class="notes"></aside>
 </section>
 
-<section>
-<h3>Item Added</h3>
-<img src="editor-item-added.png">
+<section data-background-size="contain" data-background-image="editor-item-added.png">
+<!--<h3>Item Added</h3>-->
+<!--<img src="editor-item-added.png">-->
 <aside class="notes"></aside>
 </section>
 
-<section>
-<h3>Index Page</h3>
-<img src="index-unstyled.png">
+<section data-background-size="contain" data-background-image="index-unstyled.png">
+<!--<h3>Index Page</h3>-->
+<!--<img src="index-unstyled.png">-->
 <aside class="notes"></aside>
 </section>
 
@@ -291,9 +343,9 @@ the Yancy modules. Any other module linked in the documentation will be
 redirected to MetaCPAN, the main documentation site for CPAN modules.</aside>
 </section>
 
-<section>
-<h3>Take a Look!</h3>
-<img src="perldoc-unstyled.png">
+<section data-background-size="contain" data-background-image="perldoc-unstyled.png">
+<!--<h3>Take a Look!</h3>-->
+<!--<img src="perldoc-unstyled.png">-->
 <aside class="notes">By default, the PODViewer plugin takes the path
 `/perldoc`, so let's take a look. Holy ugly. Alright. Well, that brings
 us to our next issue: Making the site look nice.</aside>
@@ -429,28 +481,25 @@ for all pages everywhere using `app->defaults({ layout => 'default' })`.
 </section>
 
 <section>
-<h3>Before/After</h3>
-<div style="display: flex">
-<img style="height: 50vh" src="index-unstyled.png">
-<img style="height: 50vh" src="index-styled.png">
+<div style="display: flex; align-items: center; justify-content: center">
+<img style="height: 40vh" src="index-unstyled.png">
+<img style="height: 75vh" src="index-styled.png">
 </div>
 <aside class="notes"></aside>
 </section>
 
 <section>
-<h3>Before/After</h3>
-<div style="display: flex">
-<img style="height: 50vh" src="perldoc-unstyled.png">
-<img style="height: 50vh" src="perldoc-styled.png">
+<div style="display: flex; align-items: center; justify-content: center">
+<img style="height: 40vh" src="perldoc-unstyled.png">
+<img style="height: 75vh" src="perldoc-styled.png">
 </div>
 <aside class="notes"></aside>
 </section>
 
 <section>
-<h3>Before/After</h3>
-<div style="display: flex">
-<img style="height: 50vh" src="perldoc-code-unstyled.png">
-<img style="height: 50vh" src="perldoc-code-styled.png">
+<div style="display: flex; align-items: center; justify-content: center">
+<img style="height: 40vh" src="perldoc-code-unstyled.png">
+<img style="height: 75vh" src="perldoc-code-styled.png">
 </div>
 <aside class="notes"></aside>
 </section>
@@ -504,7 +553,7 @@ tool is perfect for making a deployable version of it!</aside>
 <pre class="fragment"><code data-noescape class="lang-shell"
 ># [r]ecursive, [v]erbose, [z]ipped, [m]odified dates
 # --delete files from destination not in source
-rsync -rvzm --delete ./deploy/. \
+rsync -rvzm --delete ./deploy/. \\
     preaction.me:/var/www/yancy/.
 </code></pre>
 <aside class="notes">And now to deploy it, I can use whatever I want:
@@ -514,10 +563,26 @@ FTP, SCP, Rsync. I wrote a very small shell script which uses this
 
 </section>
 
-<section>
-<h3>Final Product</h3>
-<img src="index-final.png">
+<section data-background-size="contain" data-background-image="index-final.png">
+<!--<h3>Final Product</h3>-->
+<!--<img src="index-final.png">-->
 <aside class="notes"></aside>
+</section>
+
+<!-- Wrap-up -->
+<section>
+<h1>Questions?</h1>
+<ul>
+<li>Full slides: <a href="http://preaction.me/mojo">http://preaction.me/mojo</a></li>
+<li><a href="myapp.pl">View the app</a></li>
+<li><a href="http://mojolicious.org">Mojolicious website</a></li>
+<li><a href="http://preaction.me/yancy">Yancy website</a></li>
+</ul>
+<div style="text-align: center">
+    <a href="http://preaction.me">
+        <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%"/>
+    </a>
+</div>
 </section>
 
 <section>
@@ -547,9 +612,8 @@ Yancy is a simple Content Management System written for
 };</code></pre>
 </section>
 
-<!-- Wrap-up -->
 <section>
-<h1>Questions?</h1>
+<h1>Thank You</h1>
 <ul>
 <li>Full slides: <a href="http://preaction.me/mojo">http://preaction.me/mojo</a></li>
 <li><a href="myapp.pl">View the app</a></li>
@@ -562,5 +626,6 @@ Yancy is a simple Content Management System written for
     </a>
 </div>
 </section>
+
 </div>
 
