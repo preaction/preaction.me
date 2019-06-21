@@ -51,6 +51,8 @@ Some plugins I've written for Mojolicious:
 
 ### [A Website For Yancy - A Practical Introduction to Mojolicious](talks/a-website-for-yancy-chicago-pm-2019)
 
+[Video of this talk given at The Perl Conference 2019](https://www.youtube.com/watch?v=rAFn8AxCL1w)
+
 This is a 45-minute talk based on my series of three posts for the [2018
 Mojolicious Advent Calendar](http://mojolicious.io): [A Website For
 Yancy](https://mojolicious.io/blog/2018/12/17/a-website-for-yancy/), [A
