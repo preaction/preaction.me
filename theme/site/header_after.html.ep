@@ -15,8 +15,7 @@
         <div>
             <h2>Developer Resources</h2>
             <ul>
-                <li><a href="/ssh">SSH</a> <a href="/git">Git</a></li>
-                <li><a href="/tmux">Tmux</a> <a href="/docker">Docker</a></li>
+                <li><a href="/ssh">SSH</a> <a href="/git">Git</a> <a href="/tmux">Tmux</a> <a href="/docker">Docker</a></li>
                 <li><a href="/docs">Writing documentation</a></li>
             </ul>
         </div>
