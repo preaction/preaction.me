@@ -1,0 +1,1401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Introduction to Git</title>
+
+        <meta content="" name="description">
+        <meta content="Doug Bell" name="author">
+
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport">
+
+        <link href="http://preaction.me/reveal.js/css/reveal.css" rel="stylesheet">
+        <link href="http://preaction.me/reveal.js/css/theme/white.css" id="theme" rel="stylesheet">
+        <link href="http://preaction.me/font-awesome-4.6.1/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- Code syntax highlighting -->
+        <link href="http://preaction.me/reveal.js/lib/css/zenburn.css" rel="stylesheet">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'http://preaction.me/reveal.js/css/print/pdf.css' : 'http://preaction.me/reveal.js/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="http://preaction.me/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Custom style rules -->
+        <style>
+            .flex-row {
+                display: flex;
+                flex: 1 1;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .reveal .slides pre code {
+                white-space: pre-wrap
+            }
+            .flex-row pre {
+                width: auto;
+            }
+            .reveal pre.larger {
+                font-size: 0.75em;
+            }
+            .reveal pre.largest {
+                font-size: 0.95em;
+            }
+            .reveal [data-background-image].has-dark-background > * {
+                background: rgba( 0, 0, 0, 0.5 );
+                -webkit-text-stroke: 2px black;
+                color: white;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #000,
+                            -1px -1px 0 #000,
+                            1px -1px 0 #000,
+                            -1px 1px 0 #000,
+                            1px 1px 0 #000;
+            }
+            .reveal [data-background-image].has-light-background > * {
+                background: rgba( 255, 255, 255, 0.5 );
+                -webkit-text-stroke: 2px white;
+                font-weight: bold;
+                text-shadow: 2px 2px 0 #FFF,
+                            -1px -1px 0 #FFF,
+                            1px -1px 0 #FFF,
+                            -1px 1px 0 #FFF,
+                            1px 1px 0 #FFF;
+            }
+            .reveal section img {
+                border: none;
+                box-shadow: none;
+            }
+
+            .absolute-center {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                min-width: 50vw;
+                text-align: center;
+                transform: translateX(-50%) translateY(-50%);
+            }
+
+            .bg-solarized {
+                background: rgb( 253, 246, 228 );
+            }
+
+            .reveal section .solarized-text,
+            .reveal section .solarized-bar-text,
+            .reveal section .solarized-search-text {
+                font-family: DejaVu Sans Mono, Monaco, monospace;
+                text-transform: none;
+                border-style: solid;
+                border-width: 10px 0 5px;
+                border-color: rgb( 253, 246, 228 ); /* simulated screen background */
+            }
+
+            .reveal section .solarized-text {
+                padding: 0 0.5em;
+                background: rgb( 253, 246, 228 ); /* background color */
+                color: rgb( 131, 148, 150 );
+            }
+
+            .reveal section .solarized-bar-text {
+                padding: 0 0.5em;
+                background: rgb( 133, 152, 28 ); /* bar background color */
+                color: rgb( 3, 53, 64 );
+            }
+
+            .reveal section .solarized-search-text {
+                border-width: 10px 5px 5px;
+                padding: 0 8px;
+                background: rgb( 180, 136, 29 ); /* search bar background color */
+                color: rgb( 3, 53, 64 );
+            }
+
+            .reveal .slides section .fragment.highlight-current-white,
+            .reveal .slides section .fragment.highlight-current-purple {
+                opacity: 1;
+                visibility: inherit;
+            }
+            .reveal .slides section .highlight-white,
+            .reveal .slides section .fragment.highlight-current-white.current-fragment {
+                color: white;
+            }
+            .reveal .slides section .highlight-purple,
+            .reveal .slides section .fragment.highlight-current-purple.current-fragment {
+                color: #c223a8;
+            }
+            .green,
+            .reveal .slides section .highlight-green.fragment.visible,
+            .reveal .slides section .fragment.highlight-current-green.current-fragment {
+                color: #009f10;
+            }
+
+            .fragment.hidden { visibility: hidden !important }
+            .fragment.hidden.visible { visibility: visible !important }
+
+            .red,
+            .reveal .slides section .fragment.current-fragment.highlight-red,
+            .reveal .slides section .fragment.current-fragment.highlight-current-red,
+            .reveal .slides section .fragment.visible.highlight-red {
+                color: #db0001;
+            }
+
+            .reveal .slides section .fragment.current-fragment.highlight-blue,
+            .reveal .slides section .fragment.current-fragment.highlight-current-blue,
+            .reveal .slides section .fragment.visible.highlight-blue {
+                color: #0622ca;
+            }
+
+            .reveal section kbd {
+                text-transform: none;
+                font-family: Monaco, monospace;
+                white-space: nowrap;
+            }
+
+            .nowrap {
+                white-space: nowrap;
+            }
+
+            .reveal table.character-map tbody tr td {
+                border: none;
+                font-size: 2.5em;
+                text-align: center;
+            }
+
+            span.prompt {
+                font-family: monospace;
+            }
+
+            .reveal .footer {
+                position: absolute;
+                bottom: 0.2em;
+                z-index: 1000;
+                max-width: 40%;
+                white-space: nowrap;
+            }
+            .reveal .footer a {
+                font-size: 26px;
+                color: #999;
+            }
+            .reveal .footer.left {
+                left: 0.2em;
+            }
+            .reveal .footer.right {
+                right: 0.2em;
+            }
+
+            /* from https://konstantingassmann.de/building-a-macos-window-with-css/ */
+            .reveal .slides .term-window {
+                font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                border: 1px solid #adadad;
+                box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.20);
+                margin: 0 auto;
+                background: #e5e5e5;
+                width: 80vw;
+                height: 80vh;
+                overflow: auto;
+            }
+            .reveal .slides .term-window:before {
+                content: 'Terminal';
+                display: block;
+                text-align: center;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+                height: 20px;
+                text-align: center;
+                color: #505151;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 20px;
+                vertical-align: middle;
+                border: 1px solid white;
+                border-left-color: #f3f3f3;
+                border-right-color: #f3f3f3;
+                border-bottom-color: #bdbdbd;
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                background: radial-gradient(7px at 14px 50%, #ff5e57 0px, #ff635a 5px, #fd5249 6px, rgba(255, 255, 255, 0) 7px), radial-gradient(7px at 34px 50%, #ffbd2e 0px, #ffc42f 5px, #fcb91b 6px, rgba(255, 255, 255, 0) 7px), radial-gradient(7px at 54px 50%, #cfcfcf 0px, #d3d3d3 5px, #c6c6c6 6px, rgba(255, 255, 255, 0) 7px), linear-gradient(to top, #cccccc 0%, #d6d6d6 1px, #ebebeb 100%);
+            }
+
+            .reveal .term-window pre {
+                box-shadow: none;
+                width: auto;
+                margin: 0;
+                white-space: pre-line;
+                height: auto;
+            }
+
+            .reveal .term-window pre code {
+                padding: 0;
+                height: 100%;
+                max-height: none;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+                <section>
+
+                <h1>Introduction to Git</h1>
+
+                <div style="display: flex; justify-items: space-between">
+                <div style="width: 40%;">
+                    by <a href="http://preaction.me">Doug Bell</a><br>
+                    <small>(he, him, his)</small><br>
+                    <a href="http://twitter.com/preaction"><i class="fa fa-twitter"></i> @preaction</a><br>
+                    <a href="http://github.com/preaction"><i class="fa fa-github"></i> preaction</a><br>
+                </div>
+
+                <div style="width: 20%; text-align: center">
+                    <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%">
+                </div>
+
+                <div style="width: 40%;">
+                    <a href="http://preaction.me/git">preaction.me/git</a><br>
+                    <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA 4.0</a><br>
+                    <small>
+                        <br>
+                        For navigation help, press <kbd>?</kbd><br>
+                        For speaker view and notes, press <kbd>S</kbd><br>
+                        For full-screen, press <kbd>F</kbd><br>
+                    </small>
+                </div>
+                </div>
+
+                <aside class="notes">This is the notes panel, where you can read the
+                talk. Press <kbd>Space</kbd> to advance, press <kbd>Shift+Space</kbd> to
+                go back. For more navigation help, press <kbd>?</kbd></aside>
+
+                </section>
+
+<section><section>
+<h1>Version Control</h1>
+<h1 class="fragment">Source Control</h1>
+<h1 class="fragment">Repository</h1>
+</section><section>
+<h1>Historical Record</h1>
+<h1 class="fragment current-visible">Captain&#39;s Log</h1>
+<h1 class="fragment">Developers&#39; Log</h1>
+</section><section>
+<h1>Present</h1>
+<h1 class="fragment">Past</h1>
+<h1 class="fragment">Future</h1>
+</section><section>
+<h1>❤️Heart❤️</h1>
+<h2 class="fragment">❤️Collaboration❤️</h2>
+<h2 class="fragment">❤️Build / Test❤️</h2>
+</section><section>
+<h1>Git</h1>
+<h2 class="fragment">Distributed</h2><h2>Version Control</h2>
+
+</section><section>
+<h1>Fast</h1>
+<h1 class="fragment">Distributed</h1>
+<h1 class="fragment">Simple<span class="fragment">-Implementation</span></h1>
+
+</section><section>
+<h1>Simple</h1>
+<h1>≠</h1>
+<h1>Easy-to-Use</h1>
+</section><section>
+<h1>IDE</h1>
+<h1 class="fragment">Command-line</h1>
+</section><section>
+<h1>Jargon</h1>
+<h4 class="fragment">(#sorry)</h4>
+<h1 class="fragment">Please Ask</h1>
+</section></section>
+<section><section>
+<h1>Initial Setup</h1>
+</section><section>
+
+
+<div class="term-window" style="height: 30vh; margin-bottom: 2em"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git</span> <span class="fragment">config</span> <span class="fragment">--global user.name </span><span class="fragment"> &quot;Doug Bell&quot;
+$</span> <span class="fragment">git config --global user.email </span><span class="fragment">&quot;doug@preaction.me&quot;</span>
+</code></pre></div><h2 class="fragment">Author of Commits</h2>
+</section></section>
+<section><section>
+<h1>Start a project</h1>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git init</span> <span class="fragment">decktric</span>
+<span class="fragment">Initialized empty Git repository in <span class="fragment highlight-current-red"><span class="fragment highlight-current-red">/Users/doug/decktric/</span>.git/</span></span>
+</code></pre></div></section><section>
+<div style="display: flex; justify-items: space-between; align-items: center; margin: 3em auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1"></div>
+    <div style="width: 20%"></div>
+    <div style="width: 20%; flex-grow: 1"></div>
+    <div style="width: 20%"></div>
+</div>
+<h2 class="fragment">Files to edit</h2>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git init decktric
+Initialized empty Git repository in /Users/doug/decktric/.git/
+$ <span class="fragment">cd decktric/
+$ </span><span class="fragment">mojo generate lite_app</span>
+<span class="fragment">  [write] <span class="fragment highlight-current-red">myapp.pl</span>
+  [chmod] myapp.pl 744 </span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git status</span>
+<span class="fragment"><span class="fragment highlight-current-red">On branch master</span>
+
+<span class="fragment highlight-current-red">No commits yet</span>
+
+<span class="fragment highlight-current-red">Untracked files:
+  <span class="fragment highlight-current-red">(use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span>
+
+    myapp.pl</span>
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span></code></pre></div>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git add</span> <span class="fragment">myapp.pl</span> </code></pre></div></section><section>
+<div style="display: flex; justify-items: space-between; align-items: center; margin: 3em auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div class="fragment" style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div class="fragment" style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1"></div>
+    <div style="width: 20%"></div>
+</div>
+<h2 class="fragment">Preparing to Commit</h2>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git status
+<span class="fragment">On branch master
+
+No commits yet
+
+<span class="fragment highlight-current-red">Changes to be committed:
+  <span class="fragment highlight-current-red">(use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span>
+
+    new file:   myapp.pl</span>
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git commit</span></code></pre></div></section><section>
+<img alt="Terminal showing vim editor to edit git commit message" src="first-commit-1.png">
+</section><section>
+<img alt="Terminal showing vim editor with a commit message written" src="first-commit-2.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git commit
+[master (root-commit) a5366cd] initial application skeleton
+ 1 file changed, 22 insertions(+)
+ create mode 100755 myapp.pl </code></pre></div></section><section>
+
+<div style="display: flex; align-items: center; margin: 3em auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div class="fragment" style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div class="fragment" style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<h2 class="fragment">Committed</h2>
+
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git status</span>
+<span class="fragment">On branch master
+nothing to commit, working tree clean</span>
+</code></pre></div></section><section>
+<h1>Commit</h1>
+<h1 class="fragment">Save Point</h1>
+</section></section>
+<section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">vim myapp.pl
+$</span> <span class="fragment">mkdir templates
+$</span> <span class="fragment">vim templates/index.html.ep
+$</span> <span class="fragment">git status</span>
+<span class="fragment">On branch master
+<span class="fragment highlight-current-red">Changes not staged for commit:
+  <span class="fragment highlight-current-red">(use &quot;git add <file>...&quot; to update what will be committed)
+  <span class="fragment highlight-current-red">(use &quot;git checkout -- <file>...&quot; to discard changes in working directory)
+
+    modified:   myapp.pl
+
+<span class="fragment highlight-current-red">Untracked files:
+  <span class="fragment highlight-current-red">(use &quot;git add <file>...&quot; to include in what will be committed)
+
+    templates/
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</file></span></span></file></span></file></span></span></span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git diff
+<span class="fragment">diff --git a/myapp.pl b/myapp.pl
+index 4a11067..e2c1246 100755
+--- a/myapp.pl
++++ b/myapp.pl
+@@ -9,11 +9,6 @@ get &#39;/&#39; =&gt; sub {
+ app-&gt;start;
+ __DATA__
+
+-@@ index.html.ep
+-% layout &#39;default&#39;;
+-% title &#39;Welcome&#39;;
+-&lt;h1&gt;Welcome to the Mojolicious real-time web framework!&lt;/h1&gt;
+-
+ @@ layouts/default.html.ep
+ &lt;!DOCTYPE html&gt;
+ &lt;html&gt;
+</span></code></pre></div></section><section>
+<h1>Diff</h1>
+<h1 class="fragment">Patch</h1>
+</section><section>
+<h2 class="fragment"><code style="color: #009f10">+</code> Added</h2>
+<h2 class="fragment"><code style="color: #db0001">-</code> Deleted</h2>
+<h2 class="fragment"><code style="outline: 1px solid black"> </code> Unchanged</h2>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git diff
+diff --git a/myapp.pl b/myapp.pl
+index 4a11067..e2c1246 100755
+<span class="fragment highlight-current-red" data-fragment-index="1">--- a/myapp.pl</span>
++++ b/myapp.pl
+@@ -9,11 +9,6 @@ get &#39;/&#39; =&gt; sub {
+ app-&gt;start;
+ __DATA__
+
+<span class="fragment highlight-current-red" data-fragment-index="1">-@@ index.html.ep
+-% layout &#39;default&#39;;
+-% title &#39;Welcome&#39;;
+-&lt;h1&gt;Welcome to the Mojolicious real-time web framework!&lt;/h1&gt;
+-</span>
+ @@ layouts/default.html.ep
+ &lt;!DOCTYPE html&gt;
+ &lt;html&gt;
+</code></pre></div></section><section>
+<div style="display: flex; align-items: center; margin-bottom: 1em">
+    <div style="width: 20%; font-size: 75%;"><code class="fragment">diff</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+</div>
+<div style="display: flex; align-items: center; margin: 0 auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<div style="display: flex; align-items: center; margin-top: 1em">
+    <div style="width: 20%; font-size: 75%;"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+</div>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git commit</span> <span class="fragment">-a</span></code></pre></div></section><section>
+<img alt="Commit message editor showing git
+status output" src="second-commit-1.png">
+</section><section>
+<div style="display: flex; align-items: center; margin: 3em auto 0;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<div style="display: flex; align-items: center; margin: 0 auto;">
+    <div class="fragment" data-fragment-index="2" style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle;"><code>templates/</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div class="fragment" data-fragment-index="1" style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle;"><code>myapp.pl</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle;"></div>
+</div>
+</section><section>
+<img alt="Commit message editor showing git status output" src="second-commit-1.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git commit -a
+Aborting commit due to empty commit message.
+$ <span class="fragment">git add templates
+$ </span><span class="fragment">git status</span>
+<span class="fragment">On branch master
+<span class="fragment highlight-current-red">Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+    new file:   templates/index.html.ep
+</span>
+<span class="fragment highlight-current-red">Changes not staged for commit:
+  (use &quot;git add <file>...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+    modified:   myapp.pl
+</file></span></span></code></pre></div></section><section>
+<div style="display: flex; align-items: center; margin: 3em auto 0;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<div style="display: flex; align-items: center; margin: 0 auto;">
+    <div style="width: 20%;"><code></code><br><code class="fragment current-visible" data-fragment-index="1">templates/</code></div>
+    <div style="width: 20%; flex-grow: 1;"></div>
+    <div style="width: 20%;"><code class="fragment" data-fragment-index="1">myapp.pl</code><code class="fragment" data-fragment-index="2"><br>templates/</code></div>
+    <div style="width: 20%; flex-grow: 1;"></div>
+    <div style="width: 20%;"></div>
+</div>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git commit -a</span></code></pre></div></section><section>
+<img src="second-commit-2.png">
+</section><section>
+<img src="second-commit-3.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git commit -a
+[master 83557a5] move index template into file
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+ create mode 100644 templates/index.html.ep
+</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git log
+<span class="fragment"><span class="fragment highlight-current-red">commit 83557a50e31f510efd67056e2dcd02c95d2d8ed0 <span class="fragment highlight-current-red">(HEAD -&gt; master)</span>
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:28:56 2019 -0500
+
+    move index template into file
+</span>
+commit e7af51a911ea98efd60b833a67fd4555f9c47a38
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:19:00 2019 -0500
+
+    initial application skeleton
+</span></code></pre></div></section><section>
+<div style="display: flex; align-items: center; margin-bottom: 1em">
+    <div style="width: 20%; font-size: 75%;"><code>diff</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"><code class="fragment">log</code></div>
+</div>
+<div style="display: flex; align-items: center; margin: 0 auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<div style="display: flex; align-items: center; margin-top: 1em">
+    <div style="width: 20%; font-size: 75%;"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+</div>
+</section><section>
+<div style="display: flex; align-items: center; margin-bottom: 1em">
+    <div style="width: 20%; font-size: 75%;"><code>diff</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"><code>log</code></div>
+</div>
+<div style="display: flex; align-items: center; margin: 0 auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<div style="display: flex; align-items: center; margin-top: 1em">
+    <div style="width: 20%; font-size: 75%;"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+</div>
+<h2>The Basics</h2>
+</section></section>
+<section><section>
+<h1>Branching</h1>
+<h1>Merging</h1>
+</section><section>
+<h1>Branching</h1>
+<h2 class="fragment">New features</h2>
+<h2 class="fragment">Bug fixes</h2>
+<h2 class="fragment">Temporary Storage</h2>
+</section><section>
+<h1>Branching</h1>
+<img src="tree-branch.jpg" style="max-height: 80vh">
+</section><section>
+<h1>Merging</h1>
+<img src="tree-merge.jpg" style="max-height: 80vh">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git branch</span>
+<span class="fragment"><span class="fragment highlight-current-red">*</span> master
+$ </span><span class="fragment">git branch</span> <span class="fragment">bootstrap
+$ </span><span class="fragment">git branch</span>
+<span class="fragment">  bootstrap
+* master
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git checkout</span> <span class="fragment">bootstrap</span>
+<span class="fragment">Switched to branch &#39;bootstrap&#39;</span>
+</code></pre></div></section><section>
+<div style="display: flex; align-items: center; margin-bottom: 1em">
+    <div style="width: 20%; font-size: 75%;"><code>diff</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%; font-size: 75%"><code>log</code></div>
+</div>
+<div style="display: flex; align-items: center; margin: 0 auto;">
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Work Tree</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">add</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Staging</div>
+    <div style="width: 20%; flex-grow: 1; position: relative">➡️<br><code style="position: absolute; left: 50%; top: 80%; transform: translate(-50%,0); font-size: 65%; white-space: nowrap">commit</code></div>
+    <div style="width: 20%; height: 3em; line-height: 3em; vertical-align: middle; border: 1px solid black;">Commit</div>
+</div>
+<div style="display: flex; align-items: center; margin-top: 1em">
+    <div style="width: 20%; font-size: 75%;"><code class="fragment">checkout</code></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%;"></div>
+    <div style="width: 20%; flex-grow: 1; position: relative"></div>
+    <div style="width: 20%;"></div>
+</div>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git checkout bootstrap
+Switched to branch &#39;bootstrap&#39;
+$ <span class="fragment">mkdir templates/layouts
+$</span> <span class="fragment">vim templates/layouts/default.html.ep
+$</span> <span class="fragment">git add</span> <span class="fragment">.</span>
+<span class="fragment">$ git status</span>
+<span class="fragment"><span class="fragment highlight-current-red">On branch bootstrap</span>
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+    new file:   templates/layouts/default.html.ep
+
+$ </span><span class="fragment">git commit</span>
+<span class="fragment">[bootstrap 44bb9ea] add bootstrap to default layout
+ 1 file changed, 10 insertions(+)
+ create mode 100644 templates/layouts/default.html.ep
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git log</span>
+<span class="fragment"><span class="fragment highlight-current-red">commit 44bb9ea3ac98765b5a702346e1ca6167ec2140fd (HEAD -&gt; bootstrap)
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sun Aug 4 14:14:05 2019 -0500
+
+    add bootstrap to default layout
+
+</span>commit 83557a50e31f510efd67056e2dcd02c95d2d8ed0 (master)
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:28:56 2019 -0500
+
+    move index template into file
+
+commit e7af51a911ea98efd60b833a67fd4555f9c47a38
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:19:00 2019 -0500
+
+    initial application skeleton
+
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git checkout master</span>
+<span class="fragment">Switched to branch &#39;master&#39;
+$</span> <span class="fragment">git log</span>
+<span class="fragment">commit 83557a50e31f510efd67056e2dcd02c95d2d8ed0 (HEAD -&gt; master)
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:28:56 2019 -0500
+
+    move index template into file
+
+commit e7af51a911ea98efd60b833a67fd4555f9c47a38
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:19:00 2019 -0500
+
+    initial application skeleton
+
+</span></code></pre></div></section><section>
+<img src="diagram - commit.png">
+</section><section>
+<img src="diagram - branch commit - bootstrap.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git log <span class="fragment">master..bootstrap</span>
+<span class="fragment">commit 44bb9ea3ac98765b5a702346e1ca6167ec2140fd (bootstrap)
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sun Aug 4 14:14:05 2019 -0500
+
+    add bootstrap to default layout
+
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git diff master..bootstrap</span>
+<span class="fragment" style="white-space: pre">diff --git a/templates/layouts/default.html.ep b/templates/layouts/default.html.ep
+new file mode 100644
+index 0000000..c56dee9
+--- /dev/null
++++ b/templates/layouts/default.html.ep
+@@ -0,0 +1,10 @@
++&lt;!DOCTYPE html&gt;
++&lt;link rel=&quot;stylesheet&quot;
++    href=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot; /&gt;
++&lt;script
++    src=&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js&quot;&gt;
++&lt;/script&gt;
++&lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;
++&lt;body&gt;
++%= content
++&lt;/body&gt;
+</span></code></pre></div></section><section>
+<h1>Merge</h1>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git checkout master
+<span class="fragment">Already on &#39;master&#39;
+$ </span><span class="fragment">git merge bootstrap</span>
+<span class="fragment">Updating 83557a5..44bb9ea
+Fast-forward
+ templates/layouts/default.html.ep | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+ create mode 100644 templates/layouts/default.html.ep
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git log
+<span class="fragment">commit 44bb9ea3ac98765b5a702346e1ca6167ec2140fd <span class="fragment highlight-current-red">(HEAD -&gt; master, bootstrap)</span>
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sun Aug 4 14:14:05 2019 -0500
+
+    add bootstrap to default layout
+
+commit 83557a50e31f510efd67056e2dcd02c95d2d8ed0
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:28:56 2019 -0500
+
+    move index template into file
+
+commit e7af51a911ea98efd60b833a67fd4555f9c47a38
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sat Jul 27 10:19:00 2019 -0500
+
+    initial application skeleton
+
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git log --oneline --graph
+<span class="fragment">* 44bb9ea (HEAD -&gt; master, bootstrap) add bootstrap to default layout
+* 83557a5 move index template into file
+* e7af51a initial application skeleton
+</span></code></pre></div></section><section>
+<img src="diagram - branch commit - bootstrap.png">
+</section><section>
+<img src="diagram - merge fast-forward - bootstrap.png">
+</section></section>
+<section><section>
+<h1>Merge Conflicts</h1>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git checkout <span class="fragment">-b</span> api
+<span class="fragment">Switched to a new branch &#39;api&#39;
+$ </span><span class="fragment">vim myapp.pl
+$ </span><span class="fragment">git commit -a</span>
+<span class="fragment">[api d165051] add api url to index template
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+</span></code></pre></div></section><section>
+<img src="diagram - commit.png">
+</section><section>
+<img src="diagram - branch commit - api.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git checkout master
+<span class="fragment">Switched to branch &#39;master&#39;
+$</span><span class="fragment"> vim myapp.pl
+$</span><span class="fragment"> git mv templates/index.html.ep templates/home.html.ep
+$</span><span class="fragment"> git status</span>
+<span class="fragment">On branch master
+Changes to be committed:
+  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+
+    renamed:    templates/index.html.ep -&gt; templates/home.html.ep
+
+Changes not staged for commit:
+  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+
+    modified:   myapp.pl
+
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git commit -a
+<span class="fragment">[master ddb0b18] rename index to home
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rename templates/{index.html.ep =&gt; home.html.ep} (100%)
+</span></code></pre></div></section><section>
+<img src="diagram - branch commit - api.png">
+</section><section>
+<img src="diagram - branch commit - master.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment" data-fragment-index="1">git diff ..api</span>
+<span class="fragment" data-fragment-index="2">diff --git a/myapp.pl b/myapp.pl
+index 547b39b..2481f3f 100755
+--- a/myapp.pl
++++ b/myapp.pl
+@@ -3,7 +3,10 @@ use Mojolicious::Lite;
+
+ get &#39;/&#39; =&gt; sub {
+   my $c = shift;
+<span class="fragment highlight-current-red" data-fragment-index="3">-  $c-&gt;render(template =&gt; &#39;home&#39;);</span>
+<span class="fragment highlight-current-green" data-fragment-index="3">+  $c-&gt;render(
++    template =&gt; &#39;index&#39;,
++    api_url  =&gt; &#39;http://api.example.com/v1&#39;,
++  );</span>
+ };
+
+ app-&gt;start;
+diff --git a/templates/home.html.ep b/templates/index.html.ep
+similarity index 100%
+rename from templates/home.html.ep
+rename to templates/index.html.ep
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git merge api
+<span class="fragment">Auto-merging myapp.pl
+<span class="fragment highlight-current-red">CONFLICT (content): Merge conflict in myapp.pl
+Automatic merge failed; fix conflicts and then commit the result.</span></span></code></pre></div></section><section>
+<h1>DON&#39;T PANIC</h1>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git status
+<span class="fragment">On branch master
+You have unmerged paths.
+  (fix conflicts and run &quot;git commit&quot;)
+  (use &quot;git merge --abort&quot; to abort the merge)
+
+<span class="fragment highlight-current-red">Unmerged paths:
+  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)
+
+    both modified:   myapp.pl</span>
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+$ </span><span class="fragment">vim myapp.pl</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>use Mojolicious::Lite;
+
+get &#39;/&#39; =&gt; sub {
+  my $c = shift;
+<span class="fragment highlight-red">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  $c-&gt;render(template =&gt; &#39;home&#39;);</span>
+========
+<span class="fragment highlight-green">  $c-&gt;render(
+    template =&gt; &#39;index&#39;,
+    api_url  =&gt; &#39;http://api.example.com/v1&#39;,
+  );
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; d1650513e8e5a5d9a148d68d865348a113f96908</span>
+};
+
+app-&gt;start;</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>use Mojolicious::Lite;
+
+get &#39;/&#39; =&gt; sub {
+  my $c = shift;
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  $c-&gt;render(template =&gt; <span class="red">&#39;home&#39;</span>);
+========
+  $c-&gt;render(
+    template =&gt; <span class="green">&#39;index&#39;</span>,
+    api_url  =&gt; &#39;http://api.example.com/v1&#39;,
+  );
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; d1650513e8e5a5d9a148d68d865348a113f96908
+};
+
+app-&gt;start;</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>use Mojolicious::Lite;
+
+get &#39;/&#39; =&gt; sub {
+  my $c = shift;
+&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  $c-&gt;render(template =&gt; <span class="red">&#39;home&#39;</span>);
+========
+  $c-&gt;render(
+    template =&gt; <span class="green">&#39;home&#39;</span>,
+    api_url  =&gt; &#39;http://api.example.com/v1&#39;,
+  );
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; d1650513e8e5a5d9a148d68d865348a113f96908
+};
+
+app-&gt;start;</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>use Mojolicious::Lite;
+
+get &#39;/&#39; =&gt; sub {
+  my $c = shift;
+
+
+
+  $c-&gt;render(
+    template =&gt; <span class="highlight-green">&#39;home&#39;</span>,
+    api_url  =&gt; &#39;http://api.example.com/v1&#39;,
+  );
+
+};
+
+app-&gt;start;</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git add myapp.pl
+$ <span class="fragment">git status
+On branch master
+<span class="fragment highlight-current-red">All conflicts fixed but you are still merging.</span>
+  (use &quot;git commit&quot; to conclude merge)
+
+Changes to be committed:
+
+    modified:   myapp.pl
+
+$ </span><span class="fragment">git commit</span>
+<span class="fragment">[master 4e2bcc1] Merge branch &#39;api&#39;</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git log
+<span class="fragment">commit 4e2bcc1f89940fceaf98af20c97894d90fae81b5 (HEAD -&gt; master)
+Merge: ddb0b18 d165051
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sun Aug 4 14:30:47 2019 -0500
+
+    Merge branch &#39;api&#39;
+
+commit ddb0b18145e861d5f9701343743b03350d03a03c
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sun Aug 4 14:27:11 2019 -0500
+
+    rename index to home
+
+commit d1650513e8e5a5d9a148d68d865348a113f96908 (api)
+Author: Doug Bell &lt;doug@preaction.me&gt;
+Date:   Sun Aug 4 14:23:20 2019 -0500
+
+    add api url to index template
+
+    We&#39;re going to need this URL later to add a link to the API documentation.
+
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git log --oneline --graph
+<span class="fragment" data-fragment-index="1"><span class="fragment highlight-red" data-fragment-index="2">*   4e2bcc1 (HEAD -&gt; master) Merge branch &#39;api&#39;
+|</span><span class="fragment highlight-green" data-fragment-index="3">\</span>
+<span class="fragment highlight-red" data-fragment-index="2">|</span> <span class="fragment highlight-green" data-fragment-index="3">* d165051 (api) add api url to index template</span>
+<span class="fragment highlight-red" data-fragment-index="2">* </span><span class="fragment highlight-green" data-fragment-index="3">|</span> <span class="fragment highlight-red" data-fragment-index="2">ddb0b18 rename index to home</span>
+<span class="fragment highlight-red" data-fragment-index="2">|</span><span class="fragment highlight-green" data-fragment-index="3">/</span>
+<span class="fragment highlight-red" data-fragment-index="2">* 44bb9ea add bootstrap to default layout</span>
+* 83557a5 move index template into file
+* e7af51a initial application skeleton
+</span></code></pre></div></section><section>
+<img src="diagram - branch commit - master.png">
+</section><section>
+<img src="diagram - merge commit - api.png">
+</section></section>
+
+<section><section>
+<h1>Backup / Recovery</h1>
+</section><section>
+<h1>Worried?</h1>
+<h1 class="fragment">Destructive?</h1>
+</section><section>
+<h1>TAR</h1>
+<h2><b style="color: #db0001">TA</b>pe A<b style="color: #db0001">R</b>chive</h2>
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ cd ..
+$ <span class="fragment">ls</span>
+<span class="fragment">decktric
+$</span> <span class="fragment">tar</span> <span class="fragment">--create</span> <span class="fragment">--gzip</span> <span class="fragment">--file backup.tar.gz</span> <span class="fragment">decktric</span>
+<span class="fragment"># tar czf backup.tar.gz decktric</span>
+<span class="fragment">$ ls
+backup.tar.gz decktric
+</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ rm -rf decktric
+<span class="fragment">$ ls
+backup.tar.gz
+$</span> <span class="fragment">tar</span> <span class="fragment">--extract</span> <span class="fragment">--gzip</span> <span class="fragment">--file backup.tar.gz</span>
+<span class="fragment"># tar xzf backup.tar.gz</span>
+<span class="fragment">$ ls
+backup.tar.gz decktric
+$ </span><span class="fragment">cd decktric
+$ </span><span class="fragment">git status</span>
+<span class="fragment">On branch master
+nothing to commit, working tree clean</span> </code></pre></div></section><section>
+
+
+
+<div class="term-window" style="margin-bottom: 2em; height: 30vh"><pre><code class="lang-shell" data-noescape>$ tar --create  --gzip --file backup.tar.gz decktric
+$ tar --extract --gzip --file backup.tar.gz</code></pre></div>
+<div class="fragment">
+
+
+<div class="term-window" style="height: 30vh"><pre><code class="lang-shell" data-noescape>$ tar czf backup.tar.gz decktric
+$ tar xzf backup.tar.gz</code></pre></div></div>
+</section></section>
+<section><section>
+
+<h1>Remotes</h1>
+
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git clone https://github.com/preaction/decktric.git</span>
+<span class="fragment">Cloning into &#39;decktric&#39;...
+remote: Enumerating objects: 23, done.
+remote: Counting objects: 100% (23/23), done.
+remote: Compressing objects: 100% (15/15), done.
+remote: Total 23 (delta 5), reused 23 (delta 5), pack-reused 0
+Receiving objects: 100% (23/23), done.
+Resolving deltas: 100% (5/5), done.
+$</span> <span class="fragment hidden highlight-current-red">git remote</span>
+<span class="fragment">origin
+$</span> <span class="fragment">git status</span>
+<span class="fragment">On branch master
+<span class="fragment highlight-current-red">Your branch is up to date with &#39;origin/master&#39;.</span>
+
+nothing to commit, working tree clean</span></code></pre></div></section><section>
+<img src="remote-1.png">
+</section><section>
+<img src="remote-2.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ vim myapp.pl
+$ <span class="fragment">git commit -a -m&#39;add github url&#39;</span>
+<span class="fragment">[master 0ddfead] add github url
+ 1 file changed, 1 insertion(+)
+$</span><span class="fragment"> git status</span>
+<span class="fragment">On branch master
+<span class="fragment highlight-current-red">Your branch is ahead of &#39;origin/master&#39; by 1 commit.</span>
+  <span class="fragment highlight-current-red">(use &quot;git push&quot; to publish your local commits)</span>
+
+nothing to commit, working tree clean</span> </code></pre></div></section><section>
+<img src="remote-2.png">
+</section><section>
+<img src="remote-3.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git push origin master</span>
+<span class="fragment">Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 353 bytes | 353.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To ssh://github.com/preaction/decktric.git
+   4e2bcc1..0ddfead  master -&gt; master
+$</span><span class="fragment"> git push</span>
+<span class="fragment">Everything up-to-date</span>
+</code></pre></div></section><section>
+<img src="remote-3.png">
+</section><section>
+<img src="remote-4.png">
+</section><section>
+<img src="two-trunk-merge.jpg" style="max-height: 80vh">
+</section></section>
+<section><section>
+
+<h1>Pull Changes</h1>
+
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git push
+<span class="fragment" data-fragment-index="1">To ssh://github.com/preaction/decktric.git
+ ! [rejected]        master -&gt; master (fetch first)
+error: failed to push some refs to &#39;ssh://git@github.com/preaction/decktric.git&#39;
+hint: <span class="fragment highlight-current-red" data-fragment-index="2">Updates were rejected because the remote contains work that you do</span>
+hint: <span class="fragment highlight-current-red" data-fragment-index="2">not have locally. </span>This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., &#39;git pull ...&#39;) before pushing again.
+hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details. </span></code></pre></div></section><section>
+<img src="remote-5.png">
+</section><section>
+<img src="remote-6.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ <span class="fragment">git pull origin master</span>
+<span class="fragment">remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From ssh://github.com/preaction/decktric
+   0ddfead..f7cfaed  master     -&gt; origin/master
+Auto-merging myapp.pl
+Merge made by the &#39;recursive&#39; strategy.
+ myapp.pl | 1 +
+ 1 file changed, 1 insertion(+)
+$</span><span class="fragment"> git pull</span>
+<span class="fragment">Already up to date.</span>
+</code></pre></div></section><section>
+<img src="remote-6.png">
+</section><section>
+<img src="remote-7.png">
+</section><section>
+<img src="remote-8.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git status
+<span class="fragment">On branch master
+Your branch is ahead of &#39;origin/master&#39; by 2 commits.
+  <span class="fragment highlight-current-red">(use &quot;git push&quot; to publish your local commits)</span>
+
+nothing to commit, working tree clean
+$</span><span class="fragment"> git push</span>
+<span class="fragment">Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 669 bytes | 669.00 KiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To ssh://github.com/preaction/decktric.git
+   713bf1c..ea86ce6  master -&gt; master </span></code></pre></div></section><section>
+<img src="remote-8.png">
+</section><section>
+<img src="remote-9.png">
+</section></section>
+<section><section>
+
+<h1>More Merge Conflicts</h1>
+
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git push
+<span class="fragment">To ssh://github.com/preaction/decktric.git
+ ! [rejected]        master -&gt; master (fetch first)
+error: failed to push some refs to &#39;ssh://git@github.com/preaction/decktric.git&#39;
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., &#39;git pull ...&#39;) before pushing again.
+hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.</span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git pull
+<span class="fragment">remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 3 (delta 1), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From ssh://github.com/preaction/decktric
+   0ddfead..f7cfaed  master     -&gt; origin/master
+Auto-merging myapp.pl
+<span class="fragment highlight-current-red">CONFLICT (content): Merge conflict in myapp.pl
+Automatic merge failed; fix conflicts and then commit the result. </span></span></code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git status
+<span class="fragment">On branch master
+<span class="fragment highlight-current-red">Your branch and &#39;origin/master&#39; have diverged,
+and have 1 and 1 different commits each, respectively.</span>
+  (use &quot;git pull&quot; to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run &quot;git commit&quot;)
+  (use &quot;git merge --abort&quot; to abort the merge)
+
+Unmerged paths:
+  (use &quot;git add &lt;file&gt;...&quot; to mark resolution)
+
+    <span class="fragment highlight-current-red">both modified:   myapp.pl</span>
+
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span>
+</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ vim myapp.pl
+</code></pre></div></section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git commit -a
+</code></pre></div></section><section>
+<img src="remote-merge-conflict.png">
+</section><section>
+
+
+<div class="term-window"><pre><code class="lang-shell" data-noescape>$ git commit -a
+[master 1be67ae] Merge branch &#39;master&#39; of ssh://github.com/preaction/decktric
+$ <span class="fragment">git push</span>
+<span class="fragment">Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 647 bytes | 647.00 KiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To ssh://github.com/preaction/decktric.git
+   f7cfaed..1be67ae  master -&gt; master</span>
+</code></pre></div>
+</section></section>
+<section><section>
+
+<h1> That’s all, folks! </h1>
+
+</section><section>
+<h1>Don&#39;t Panic</h1>
+<h3 class="fragment">Read the error message</h3>
+<h3 class="fragment">Use <code>git status</code></h3>
+</section><section>
+
+<h1>Next steps</h1>
+
+</section><section>
+
+<h1><code>git help</code></h1>
+</section><section>
+<h1><code>git help log</code></h1>
+<h3 class="fragment">Search commit messages</h3>
+<h3 class="fragment">(ticket numbers)</h3>
+<h3 class="fragment">Search changed lines of code</h3>
+<h3 class="fragment">Show the patch in the log</h3>
+</section><section>
+<h1><code>git stash</code></h1>
+<h3 class="fragment">Put current changes aside</h3>
+<h3 class="fragment">Retrieve them later</h3>
+</section><section>
+<h1><code>git blame</code></h1>
+<h3 class="fragment">Unfortunate name, useful feature</h3>
+<h3 class="fragment">What commit touched which line</h3>
+<h3 class="fragment"><code>git show &lt;commit&gt;</code></h3>
+</section><section>
+<h1>git hooks</h1>
+<h3 class="fragment">React to events</h3>
+<h3 class="fragment">Run tests on `commit`</h3>
+<h3 class="fragment">Enforce coding standards</h3>
+<h3 class="fragment">Automate ancillary tasks</h3>
+
+</section></section>
+
+<section><h1>Wrap Up</h1></section>
+
+                <section>
+                <h1>Questions?</h1>
+                <ul>
+                <li>Full slides: <a href="http://preaction.me/git">http://preaction.me/git</a></li>
+                </ul>
+                <div style="text-align: center">
+                    <a href="http://preaction.me">
+                        <img src="http://preaction.me/images/avatar-small.jpg" style="display: inline-block; max-width: 100%">
+                    </a>
+                </div>
+                </section>
+
+            </div>
+            <div class="footer left">
+                <a href="http://twitter.com/preaction">
+                    <i class="fa fa-twitter"></i>@preaction
+                </a>
+            </div>
+            <div class="footer right">
+                <a href="http://preaction.me/git">preaction.me/git</a>
+            </div>
+        </div>
+
+        <script src="http://preaction.me/reveal.js/lib/js/head.min.js"></script>
+        <script src="http://preaction.me/reveal.js/js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: false,
+                progress: false,
+                history: true,
+                center: true,
+                fragmentInURL: true,
+                navigationMode: 'linear',
+                viewDistance: 10,
+                minScale: 1,
+                maxScale: 1,
+                transition: 'none', // none/fade/slide/convex/concave/zoom
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'http://preaction.me/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'http://preaction.me/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'http://preaction.me/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'http://preaction.me/reveal.js/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'http://preaction.me/reveal.js/plugin/zoom-js/zoom.js', async: true },
+                    { src: 'http://preaction.me/reveal.js/plugin/notes/notes.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
